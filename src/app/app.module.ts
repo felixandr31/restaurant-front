@@ -7,6 +7,7 @@ import { PopupService } from './services/popup.service';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { SideNavigationMenuComponent } from './components/side-navigation-menu/side-navigation-menu.component';
 import { ClientViewComponent } from './views/client-view/client-view.component';
 import { RestaurantListComponent } from './components/restaurant-list/restaurant-list.component';
 import { RestaurantMapComponent } from './components/restaurant-map/restaurant-map.component';
@@ -16,9 +17,11 @@ import { MenuItemComponent } from './components/menu-item/menu-item.component';
 import { ToTableReservationComponent } from './components/to-table-reservation/to-table-reservation.component';
 import { ReservationFormComponent } from './components/reservation-form/reservation-form.component';
 
+
 @NgModule({
   declarations: [
     AppComponent,
+    SideNavigationMenuComponent,
     ClientViewComponent,
     RestaurantListComponent,
     RestaurantMapComponent,
