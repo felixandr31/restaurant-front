@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { ClientViewComponent } from './view/client-view/client-view.component';
+import { ClientViewComponent } from './views/client-view/client-view.component';
 import { RestaurantListComponent } from './components/restaurant-list/restaurant-list.component';
 import { RestaurantMapComponent } from './components/restaurant-map/restaurant-map.component';
 import { RestaurantMenuComponent } from './components/restaurant-menu/restaurant-menu.component';
