@@ -24,7 +24,11 @@ export class MarkerService {
       coordinates: {
         latitude: 43.58516,
         longitude: 1.40005
-      }
+      },
+      recipes:  [
+        {name: "Ultimate Kebab"},
+        {name: "Ultimate Tacos"}
+      ]
     },
     {
       name: "BFC",
@@ -32,7 +36,11 @@ export class MarkerService {
       coordinates: {
         latitude: 43.58395,
         longitude: 1.40126
-      }
+      },
+      recipes:  [
+        {name: "BFC Tenders"},
+        {name: "BFC Wings"}
+      ]
     }
   ];
 
@@ -49,7 +57,6 @@ export class MarkerService {
   }
 
   emitRestaurant(arg) {
-    console.log('tu as souscrit, me voila', arg)
     this.restaurantEmission.next(arg)
   }
 

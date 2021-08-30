@@ -34,7 +34,7 @@ export class RestaurantMapComponent implements AfterViewInit {
   private initMap(): void {
     this.map = L.map('map', {
       center: [43.58495, 1.40350],
-      zoom: 14
+      zoom: 16
     });
     const tiles = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
       maxZoom: 18,
@@ -55,7 +55,6 @@ export class RestaurantMapComponent implements AfterViewInit {
     this.initMap();
     this.markerService.makeRestaurantMarker(this.map);
     this.restaurantEmissionRef = this.markerService.restaurantEmitted$.subscribe(event => {
-      console.log('émission en direct de la vue',event)
       this.onRestaurantSelection.emit(event);
     });
   }

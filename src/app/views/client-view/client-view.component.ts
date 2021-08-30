@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, SimpleChanges } from '@angular/core';
 
 @Component({
   selector: 'app-client-view',
@@ -15,7 +15,11 @@ export class ClientViewComponent implements OnInit {
       coordinates: {
         latitude: 43.58516,
         longitude: 1.40005
-      }
+      },
+      recipes:  [
+        {name: "Ultimate Kebab"},
+        {name: "Ultimate Tacos"}
+      ]
     },
     {
       name: "BFC",
@@ -23,10 +27,19 @@ export class ClientViewComponent implements OnInit {
       coordinates: {
         latitude: 43.58395,
         longitude: 1.40126
-      }
+      },
+      recipes:  [
+        {name: "BFC Tenders"},
+        {name: "BFC Wings"}
+      ]
     }
   ];
-  public restaurant: any;
+  public restaurant: any =
+  {
+    name: "", stars: 0,
+    coordinates: {},
+    recipes:  []
+  };
 
   constructor() { }
 
@@ -35,8 +48,11 @@ export class ClientViewComponent implements OnInit {
   }
 
   restaurantSelected(event) {
-    console.log('restaurant selected', event)
-    this.restaurant = event;
-    console.log('resto choisi de la carte', this.restaurant)
+    if (event.name) {
+      this.restaurant = event;
+    } else {
+      this.restaurant = this.restaurants.find(restaurant => restaurant.name === event)
+    }
+    console.log('resto choisi', this.restaurant)
   }
 }
