@@ -1,0 +1,5 @@
+<h3 *ngIf='!restaurant.name; else seeTable'>Choose a restaurant</h3>
+<ng-template #seeTable class="reservation">
+  <h3>{{restaurant.name}}</h3>
+  <button (click)="toggleReservationForm($event)">Reservation</button>
+</ng-template>
