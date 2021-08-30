@@ -7,4 +7,14 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'restaurant-front';
+
+
+  constructor(){
+
+  }
+
+
+  public roles = ['Admin', 'Manager', 'Cook', 'Waiter', 'Client', 'Guest']
+
+
 }
