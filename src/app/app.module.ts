@@ -3,10 +3,12 @@ import { NgModule } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { SideNavigationMenuComponent } from './components/side-navigation-menu/side-navigation-menu.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    SideNavigationMenuComponent
   ],
   imports: [
     BrowserModule,

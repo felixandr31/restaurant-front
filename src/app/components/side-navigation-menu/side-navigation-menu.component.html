@@ -1,0 +1,7 @@
+<nav id="nav-menu">
+
+  <div *ngFor="let tabName of tabNames ; let i = index" (click)="clickedTab.emit(i)" id="view-selection-nav" class="nav-button">
+    {{tabName}}
+  </div>
+
+</nav>
