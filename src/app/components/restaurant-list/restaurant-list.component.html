@@ -1,0 +1,3 @@
+<div *ngFor="let resto of restaurants">
+  <app-restaurant-card [restaurant]="resto" (onRestaurantSelection)="restaurantSelected($event)"></app-restaurant-card>
+</div>

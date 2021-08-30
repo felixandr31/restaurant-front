@@ -1,0 +1,11 @@
+.map {
+  grid-area: map
+}
+
+.list {
+  grid-area: list
+}
+
+.menu {
+  grid-area: menu
+}
