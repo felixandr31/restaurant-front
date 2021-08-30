@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'app-restaurant-card',
@@ -7,9 +7,17 @@ import { Component, OnInit } from '@angular/core';
 })
 export class RestaurantCardComponent implements OnInit {
 
+  @Input() restaurant: any;
+  @Output() onRestaurantSelection = new EventEmitter();
+
   constructor() { }
 
   ngOnInit() {
+  }
+
+  restaurantSelected(event) {
+    this.onRestaurantSelection.emit(event.target.value);
+    console.log('Coucou de la carte : ', event.target.value);
   }
 
 }
