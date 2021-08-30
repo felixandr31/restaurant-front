@@ -34,4 +34,9 @@ export class ClientViewComponent implements OnInit {
     console.log(this.restaurants);
   }
 
+  restaurantSelected(event) {
+    console.log('restaurant selected', event)
+    this.restaurant = event;
+    console.log('resto choisi de la carte', this.restaurant)
+  }
 }

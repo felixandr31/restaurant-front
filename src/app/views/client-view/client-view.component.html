@@ -1,3 +1,3 @@
-<app-restaurant-map [restaurants]="restaurants"></app-restaurant-map>
+<app-restaurant-map [restaurants]="restaurants" (onRestaurantSelection)="restaurantSelected($event)"></app-restaurant-map>
 <app-restaurant-list [restaurants]="restaurants"></app-restaurant-list>
 <app-restaurant-menu [restaurant]= "restaurant"></app-restaurant-menu>

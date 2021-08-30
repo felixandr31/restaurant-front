@@ -1,7 +1,9 @@
-import { Component, OnInit, Input, AfterViewInit } from '@angular/core';
+import { Component, OnInit, Input, AfterViewInit, Output, EventEmitter } from '@angular/core';
 import * as L from 'leaflet';
 import { MarkerService } from '../../services/marker.service';
+import { Subscription } from 'rxjs';
 
+// icones des marker
 const iconRetinaUrl = 'assets/marker-icon-2x.png';
 const iconUrl = 'assets/marker-icon.png';
 const shadowUrl = 'assets/marker-shadow.png';
@@ -24,6 +26,9 @@ L.Marker.prototype.options.icon = iconDefault;
 })
 export class RestaurantMapComponent implements AfterViewInit {
 
+  // souscription au click des popup
+  private restaurantEmissionRef: Subscription = null;
+
   private map;
 
   private initMap(): void {
@@ -41,12 +46,22 @@ export class RestaurantMapComponent implements AfterViewInit {
 
 
   @Input() restaurants: any;
+  @Input() restaurant: any;
+  @Output() onRestaurantSelection = new EventEmitter();
 
   constructor(private markerService: MarkerService) { }
 
   ngAfterViewInit() {
     this.initMap();
     this.markerService.makeRestaurantMarker(this.map);
+    this.restaurantEmissionRef = this.markerService.restaurantEmitted$.subscribe(event => {
+      console.log('émission en direct de la vue',event)
+      this.onRestaurantSelection.emit(event);
+    });
+  }
+
+  ngOnDestroy() {
+    this.restaurantEmissionRef.unsubscribe();
   }
 
 }

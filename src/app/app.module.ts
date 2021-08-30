@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 
 import { HttpClientModule } from '@angular/common/http';
 import { MarkerService } from './services/marker.service';
+import { PopupService } from './services/popup.service';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -27,7 +28,8 @@ import { RestaurantCardComponent } from './components/restaurant-card/restaurant
     HttpClientModule
   ],
   providers: [
-    MarkerService
+    MarkerService,
+    PopupService
   ],
   bootstrap: [AppComponent]
 })
