@@ -1,0 +1,23 @@
+:host {
+  display: grid;
+  grid-template: 1fr / 100px 1fr;
+  grid-template-areas: "menu view";
+  gap: .5em 2em;
+  height: 100vh;
+}
+
+.menu {
+  grid-area: menu
+}
+
+.client-view {
+  grid-area: view;
+  width: 100%;
+  height: 100vh;
+  display: grid;
+  grid-template: 70% 15% 15% / 1fr 1fr 1fr;
+  grid-template-areas: "map map list"
+  "menu menu list"
+  "menu menu reservation";
+  gap: .5em .5em;
+}
