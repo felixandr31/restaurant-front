@@ -7,6 +7,8 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ClientViewComponent implements OnInit {
 
+  public restaurants: any = [];
+
   constructor() { }
 
   ngOnInit() {
