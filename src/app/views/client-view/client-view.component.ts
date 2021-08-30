@@ -41,6 +41,17 @@ export class ClientViewComponent implements OnInit {
     recipes:  []
   };
 
+  public client: any = {
+    name: "Georges",
+    roles: [
+      {
+        name: "client"
+      }
+    ]
+  }
+
+  public displayReservationForm = false;
+
   constructor() { }
 
   ngOnInit() {
@@ -54,5 +65,9 @@ export class ClientViewComponent implements OnInit {
       this.restaurant = this.restaurants.find(restaurant => restaurant.name === event)
     }
     console.log('resto choisi', this.restaurant)
+  }
+
+  toggleReservationForm() {
+    return this.displayReservationForm = !this.displayReservationForm;
   }
 }

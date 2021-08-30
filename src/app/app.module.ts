@@ -13,6 +13,8 @@ import { RestaurantMapComponent } from './components/restaurant-map/restaurant-m
 import { RestaurantMenuComponent } from './components/restaurant-menu/restaurant-menu.component';
 import { RestaurantCardComponent } from './components/restaurant-card/restaurant-card.component';
 import { MenuItemComponent } from './components/menu-item/menu-item.component';
+import { ToTableReservationComponent } from './components/to-table-reservation/to-table-reservation.component';
+import { ReservationFormComponent } from './components/reservation-form/reservation-form.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +24,9 @@ import { MenuItemComponent } from './components/menu-item/menu-item.component';
     RestaurantMapComponent,
     RestaurantMenuComponent,
     RestaurantCardComponent,
-    MenuItemComponent
+    MenuItemComponent,
+    ToTableReservationComponent,
+    ReservationFormComponent
   ],
   imports: [
     BrowserModule,
