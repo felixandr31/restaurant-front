@@ -8,9 +8,7 @@ import { Component } from '@angular/core';
 export class AppComponent {
   title = 'restaurant-front';
 
-
   constructor() {
-
   }
 
   public client = {
@@ -23,11 +21,12 @@ export class AppComponent {
       {name: 'Client'},
     ]
   }
+
   public clientRoles = this.client.roles
-  public selectedView: any
+  public showView = "Client";
 
-  // testButton(){
-  //   console.log(this.selectedView)
-  // }
-
+  selectedView(event){
+    console.log('selected view :', event)
+    this.showView = event;
+  }
 }

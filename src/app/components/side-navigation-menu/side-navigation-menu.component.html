@@ -1,13 +1,7 @@
-<nav id="nav-menu">
-
-  <div *ngFor="let clientRole of clientRoles" (click)="clickedTab.emit(clientRole.name)" id="view-selection-nav" class="nav-button">
-    <p>{{clientRole.name}}</p>
+<div class="role-button">
+  <div *ngFor="let clientRole of clientRoles">
+    <button (click)="changeView(clientRole.name)">{{clientRole.name}}</button>
   </div>
-  <!-- below :same as above but when clicked write selected role in console -->
-  <!-- <div *ngFor="let clientRole of clientRoles" (click)="writeInConsole(clientRole.name)" id="view-selection-nav" class="nav-button">
-    <p>{{clientRole.name}}</p>
-  </div> -->
+</div>
 
-  <button (click)="logout()" class="logout-button">Logout</button>
-
-</nav>
+<button (click)="logout()" class="logout">Logout</button>

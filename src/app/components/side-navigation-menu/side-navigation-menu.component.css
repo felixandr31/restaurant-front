@@ -1,14 +1,10 @@
-#nav-menu{
+.role-button{
   display: flex;
   flex-direction: column;
   flex-wrap: nowrap;
-  align-content: center;
   justify-content: space-around;
   align-items: center;
-  height: 100vh;
-}
-
-.nav-button{
+  grid-area: menu;
   color: black;
   padding: 5px;
   border-radius: 5px;

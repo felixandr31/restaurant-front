@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
+import { Component, OnInit, Input, EventEmitter, Output, OnChanges } from '@angular/core';
 
 @Component({
   selector: 'app-side-navigation-menu',
@@ -15,12 +15,13 @@ export class SideNavigationMenuComponent implements OnInit {
   ngOnInit() {
   }
 
-  // writeInConsole(output){
-  //   console.log("Clicked :" + output)
-  // }
-
   logout(){
     console.log("Nothing yet, logout")
+  }
+
+  changeView(event){
+    console.log('coucou :', event)
+    return this.clickedTab.emit(event)
   }
 
 }

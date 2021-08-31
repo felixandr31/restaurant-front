@@ -7,13 +7,21 @@
 }
 
 .menu {
-  grid-area: menu
-}
-
-.client-view {
-  grid-area: view;
+  grid-area: menu;
   width: 100%;
   height: 100vh;
+  display: grid;
+  grid-template: 75% 25% / 1fr;
+  grid-template-areas: "menu"
+  "logout";
+}
+
+.view {
+  grid-area: view;
+  width: 100%;
+  height: calc(100vh - .5em);
+}
+.client {
   display: grid;
   grid-template: 70% 15% 15% / 1fr 1fr 1fr;
   grid-template-areas: "map map list"

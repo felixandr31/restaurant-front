@@ -39,7 +39,7 @@ import { ClientSelectorComponent } from './components/client-selector/client-sel
     AdminViewComponent,
     ManagerViewComponent,
     CookViewComponent,
-    WaiterViewComponent
+    WaiterViewComponent,
     ClientSelectorComponent
   ],
   imports: [
