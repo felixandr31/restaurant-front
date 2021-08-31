@@ -8,12 +8,25 @@ import { Component } from '@angular/core';
 export class AppComponent {
   title = 'restaurant-front';
 
-
   constructor() {
-
   }
 
-  public roles = ['Admin', 'Manager', 'Cook', 'Waiter', 'Client', 'Guest']
+  public client = {
+    name: 'Georges',
+    roles: [
+      {name: 'Admin'},
+      {name: 'Manager'},
+      {name: 'Cook'},
+      {name: 'Waiter'},
+      {name: 'Client'},
+    ]
+  }
 
+  public clientRoles = this.client.roles
+  public showView = "Client";
 
+  selectedView(event){
+    console.log('selected view :', event)
+    this.showView = event;
+  }
 }
