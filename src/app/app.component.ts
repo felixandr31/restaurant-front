@@ -9,10 +9,9 @@ export class AppComponent {
   title = 'restaurant-front';
 
 
-  constructor(){
+  constructor() {
 
   }
-
 
   public roles = ['Admin', 'Manager', 'Cook', 'Waiter', 'Client', 'Guest']
 

@@ -1,5 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { HttpClientModule } from '@angular/common/http';
 import { MarkerService } from './services/marker.service';
@@ -16,6 +17,7 @@ import { RestaurantCardComponent } from './components/restaurant-card/restaurant
 import { MenuItemComponent } from './components/menu-item/menu-item.component';
 import { ToTableReservationComponent } from './components/to-table-reservation/to-table-reservation.component';
 import { ReservationFormComponent } from './components/reservation-form/reservation-form.component';
+import { ClientSelectorComponent } from './components/client-selector/client-selector.component';
 
 
 @NgModule({
@@ -29,12 +31,15 @@ import { ReservationFormComponent } from './components/reservation-form/reservat
     RestaurantCardComponent,
     MenuItemComponent,
     ToTableReservationComponent,
-    ReservationFormComponent
+    ReservationFormComponent,
+    ClientSelectorComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    FormsModule,
+    ReactiveFormsModule
   ],
   providers: [
     MarkerService,

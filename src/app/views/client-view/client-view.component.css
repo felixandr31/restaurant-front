@@ -1,11 +1,15 @@
 .map {
-  grid-area: map
+  grid-area: map;
 }
 
 .list {
-  grid-area: list
+  grid-area: list;
 }
 
 .menu {
-  grid-area: menu
+  grid-area: menu;
+}
+
+.reservation {
+  grid-area: reservation;
 }
