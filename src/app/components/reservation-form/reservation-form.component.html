@@ -1,3 +1,20 @@
-<p>
-  reservation-form works!
-</p>
+<h2>Reservation</h2>
+<form [formGroup]="form" (ngSubmit)="placeReservation()">
+  <div>
+    <label>Number of Persons</label>
+    <select formControlName="numberOfClients" (change)="onChangeClients($event)">
+      <option selected value="0">0</option>
+      <option *ngFor="let item of [].constructor(maxPlaces); let i = index">{{i + 1}}</option>
+    </select>
+  </div>
+  <div *ngFor="let client of c.controls; let i = index">
+    <div>
+      <h5>Client {{i + 1}}</h5>
+      <div [formGroup]="client">
+        <label>Name</label>
+        <app-client-selector [clients]="clients" formControlName="name" (clientSelected)="clientSelected($event, i)"></app-client-selector>
+      </div>
+    </div>
+  </div>
+  <button>Place reservation</button>
+</form>

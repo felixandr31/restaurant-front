@@ -1,5 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { HttpClientModule } from '@angular/common/http';
 import { MarkerService } from './services/marker.service';
@@ -20,6 +21,7 @@ import { AdminViewComponent } from './views/admin-view/admin-view.component';
 import { ManagerViewComponent } from './views/manager-view/manager-view.component';
 import { CookViewComponent } from './views/cook-view/cook-view.component';
 import { WaiterViewComponent } from './views/waiter-view/waiter-view.component';
+import { ClientSelectorComponent } from './components/client-selector/client-selector.component';
 
 
 @NgModule({
@@ -38,11 +40,14 @@ import { WaiterViewComponent } from './views/waiter-view/waiter-view.component';
     ManagerViewComponent,
     CookViewComponent,
     WaiterViewComponent
+    ClientSelectorComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    FormsModule,
+    ReactiveFormsModule
   ],
   providers: [
     MarkerService,
