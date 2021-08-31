@@ -1,7 +1,13 @@
 <nav id="nav-menu">
 
-  <div *ngFor="let tabName of tabNames ; let i = index" (click)="clickedTab.emit(i)" id="view-selection-nav" class="nav-button">
-    {{tabName}}
+  <div *ngFor="let clientRole of clientRoles" (click)="clickedTab.emit(clientRole.name)" id="view-selection-nav" class="nav-button">
+    <p>{{clientRole.name}}</p>
   </div>
+  <!-- below :same as above but when clicked write selected role in console -->
+  <!-- <div *ngFor="let clientRole of clientRoles" (click)="writeInConsole(clientRole.name)" id="view-selection-nav" class="nav-button">
+    <p>{{clientRole.name}}</p>
+  </div> -->
+
+  <button (click)="logout()" class="logout-button">Logout</button>
 
 </nav>

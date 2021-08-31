@@ -13,8 +13,21 @@ export class AppComponent {
 
   }
 
+  public client = {
+    name: 'Georges',
+    roles: [
+      {name: 'Admin'},
+      {name: 'Manager'},
+      {name: 'Cook'},
+      {name: 'Waiter'},
+      {name: 'Client'},
+    ]
+  }
+  public clientRoles = this.client.roles
+  public selectedView: any
 
-  public roles = ['Admin', 'Manager', 'Cook', 'Waiter', 'Client', 'Guest']
-
+  // testButton(){
+  //   console.log(this.selectedView)
+  // }
 
 }

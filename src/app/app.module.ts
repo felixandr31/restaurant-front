@@ -16,6 +16,10 @@ import { RestaurantCardComponent } from './components/restaurant-card/restaurant
 import { MenuItemComponent } from './components/menu-item/menu-item.component';
 import { ToTableReservationComponent } from './components/to-table-reservation/to-table-reservation.component';
 import { ReservationFormComponent } from './components/reservation-form/reservation-form.component';
+import { AdminViewComponent } from './views/admin-view/admin-view.component';
+import { ManagerViewComponent } from './views/manager-view/manager-view.component';
+import { CookViewComponent } from './views/cook-view/cook-view.component';
+import { WaiterViewComponent } from './views/waiter-view/waiter-view.component';
 
 
 @NgModule({
@@ -29,7 +33,11 @@ import { ReservationFormComponent } from './components/reservation-form/reservat
     RestaurantCardComponent,
     MenuItemComponent,
     ToTableReservationComponent,
-    ReservationFormComponent
+    ReservationFormComponent,
+    AdminViewComponent,
+    ManagerViewComponent,
+    CookViewComponent,
+    WaiterViewComponent
   ],
   imports: [
     BrowserModule,

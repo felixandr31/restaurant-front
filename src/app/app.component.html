@@ -1,5 +1,19 @@
 
-<app-side-navigation-menu [tabNames]="roles" (clickedTab)="selectedView = $event"></app-side-navigation-menu>
+
+<app-side-navigation-menu [clientRoles]="clientRoles" (clickedTab)="selectedView = $event" class="menu"></app-side-navigation-menu>
+<!-- <button (click)="testButton()">value of selectedView</button> -->
+
+
+
+<!-- <div id="views">
+  <app-admin-view *ngIf="selectedView === 0" class="roleView"></app-admin-view>
+  <app-manager-view *ngIf="selectedView === 1" class="roleView"></app-manager-view>
+  <app-cook-view *ngIf="selectedView === 2" class="roleView"></app-cook-view>
+  <app-waiter-view *ngIf="selectedView === 3" class="roleView"></app-waiter-view>
+  <app-client-view *ngIf="selectedView === 4" class="roleView"></app-client-view>
+  <app-guest-view *ngIf="selectedView === 5" class="roleView"></app-guest-view>
+
+</div> -->
 
 <app-client-view class="client-view"></app-client-view>
 

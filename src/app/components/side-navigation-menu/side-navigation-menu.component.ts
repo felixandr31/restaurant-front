@@ -9,10 +9,18 @@ export class SideNavigationMenuComponent implements OnInit {
 
   constructor() { }
 
-  @Input() tabNames:String[]
-  @Output() clickedTab :EventEmitter<number> = new EventEmitter()
+  @Input() clientRoles: any;
+  @Output() clickedTab :EventEmitter<String> = new EventEmitter()
 
   ngOnInit() {
+  }
+
+  // writeInConsole(output){
+  //   console.log("Clicked :" + output)
+  // }
+
+  logout(){
+    console.log("Nothing yet, logout")
   }
 
 }
