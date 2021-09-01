@@ -1,0 +1,195 @@
+#recipes-page {
+    position: relative;
+    background-color: #ddd;
+    margin: 0.7rem;
+    height: 100vh;
+    width: 100%;
+}
+
+#recipe-creation-form {
+    margin-left: 20px;
+    left: 0;
+
+}
+
+#existing-recipes {
+    background-color: white;
+    position: absolute;
+    width: 280px;
+    min-height: 535px;
+    height: auto;
+    right: 0px;
+    top: 0;
+    margin-right: 40px;
+
+}
+
+.tv {
+    position: absolute;
+    background: transparent;
+    border-radius: 0% 0% 0% 0% / 0% 0% 0% 0% ;
+    color: black;
+    box-shadow: 20px 20px rgba(0,0,0,.15);
+    transition: all .4s ease;
+    text-align: center;
+    margin-top: 20px;
+}
+
+.tv:hover {
+    border-radius: 0% 0% 50% 50% / 0% 0% 5% 5% ;
+    box-shadow: 10px 10px rgba(0,0,0,.25);
+}
+
+#existing-recipes > * {
+    margin: 8px;
+}
+
+#existing-recipes h3 {
+    background: #5B9600;
+    border-radius: 6px 6px 6px 6px;
+    box-shadow: 0 0 0 1px #5F5A4B, 1px 1px 6px 1px rgba(10, 10, 0, 0.5);
+    color: #FFFFFF;
+    font-family: "Microsoft YaHei", "Tahoma", "boldface", Arial;
+    font-size: 1.1rem;
+    line-height: 24px;
+    font-weight: bold;
+    height: 24px;
+    line-height: 20px;
+    margin: 15px 15px !important;
+    padding: 5px 0 5px 10px;
+    text-shadow: 2px 2px 3px #222222;
+}
+
+
+#existing-recipes button {
+    cursor: pointer;
+}
+.wrapper {
+    max-width: 65rem;
+    width: 100%;
+    margin: 2rem auto;
+    padding: 5rem;
+    text-align: center;
+    background: #fff;
+    border: 0.5rem solid #34495e;
+  }
+  hr {
+    border: 0;
+    border-bottom: 0.0625rem solid #bbb;
+    margin: 3rem 0;
+  }
+
+  button {
+    font-size: 1.2em;
+    background: #5B9600;
+    color: #fff;
+    border: 0.25rem solid #5B9600;
+    padding: 0.45em 0.35em;
+    margin: 1rem;
+    position: relative;
+    z-index: 1;
+    overflow: hidden;
+  }
+  button:hover {
+    color: #5B9600;
+  }
+  button::after {
+    content: "";
+    background: #ecf0f1;
+    position: absolute;
+    z-index: -1;
+    padding: 0.85em 0.75em;
+    display: block;
+  }
+  button[class^="slide"]::after {
+    transition: all 0.45s;
+  }
+  button[class^="slide"]:hover::after {
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    transition: all 0.45s;
+  }
+  button.slide_from_left::after {
+    top: 0;
+    bottom: 0;
+    left: -100%;
+    right: 100%;
+  }
+  button.slide_from_right::after {
+    top: 0;
+    bottom: 0;
+    left: 100%;
+    right: -100%;
+  }
+  button.slide_from_top::after {
+    left: 0;
+    right: 0;
+    top: -100%;
+    bottom: 100%;
+  }
+  button.slide_from_bottom::after {
+    left: 0;
+    right: 0;
+    top: 100%;
+    bottom: -100%;
+  }
+  button[class^="grow"]::after {
+    transition: all 0.4s ease;
+  }
+  button[class^="grow"]:hover::after {
+    transition: all 0.4s ease-out;
+  }
+  button.grow_box::after {
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    transform: scale(0, 0);
+  }
+  button.grow_box:hover::after {
+    transform: scale(1, 1);
+  }
+  button.grow_ellipse::after {
+    border-radius: 50%;
+    left: -50%;
+    right: -50%;
+    top: -150%;
+    bottom: -150%;
+    line-height: 2em;
+    transform: scale(0, 0);
+  }
+  button.grow_ellipse:hover::after {
+    transform: scale(1, 1);
+  }
+  button.grow_skew_forward::after {
+    left: -20%;
+    right: -20%;
+    top: 0;
+    bottom: 0;
+    transform: skewX(-45deg) scale(0, 1);
+  }
+  button.grow_skew_forward:hover::after {
+    transform: skewX(-45deg) scale(1, 1);
+  }
+  button.grow_skew_backward::after {
+    left: -20%;
+    right: -20%;
+    top: 0;
+    bottom: 0;
+    transform: skewX(45deg) scale(0, 1);
+  }
+  button.grow_skew_backward:hover::after {
+    transform: skewX(45deg) scale(1, 1);
+  }
+  button.grow_spin::after {
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    transform: scale(0, 0) rotate(-180deg);
+  }
+  button.grow_spin:hover::after {
+    transform: scale(1, 1) rotate(0deg);
+  }
