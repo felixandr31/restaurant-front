@@ -23,3 +23,23 @@
 .reservation {
   grid-area: reservation;
 }
+
+.friends-view {
+  height: 100%;
+  display: grid;
+  grid-template: 1fr 1fr / 1fr 1fr;
+  grid-template-areas: "friends users"
+  "friends users";
+  gap: .5em;
+}
+
+.friends-list {
+  grid-area: friends;
+  display: flex;
+  flex-direction: column;
+}
+
+.find-friends {
+  grid-area: users
+}
+

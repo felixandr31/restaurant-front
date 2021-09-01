@@ -2,8 +2,8 @@
   display: grid;
   grid-template: 1fr / 100px 1fr;
   grid-template-areas: "menu view";
-  gap: .5em 2em;
-  height: 100vh;
+  gap: 0 2em;
+  height: calc(100vh - .5em);
 }
 
 .menu {
