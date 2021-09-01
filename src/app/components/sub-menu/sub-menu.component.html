@@ -7,3 +7,13 @@
       </a>
     </div>
 </div>
+
+<div *ngIf="showView === 'Manager'">
+  <div *ngFor="let item of menuManager">
+    <a (click)="subView(item.name)">
+      <div>
+        {{item.content}}
+      </div>
+    </a>
+  </div>
+</div>
