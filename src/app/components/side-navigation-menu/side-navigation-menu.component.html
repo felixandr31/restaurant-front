@@ -2,6 +2,9 @@
 <div>Welcome</div>
   <div *ngFor="let clientRole of clientRoles">
     <button (click)="changeView(clientRole.name)">{{clientRole.name}}</button>
+    <div *ngIf="showView === clientRole.name">
+      <app-sub-menu [showView]="showView" (onSubViewSelection)="showSubView($event)"></app-sub-menu>
+    </div>
   </div>
 </div>
 

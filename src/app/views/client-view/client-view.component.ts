@@ -1,4 +1,4 @@
-import { Component, OnInit, SimpleChanges } from '@angular/core';
+import { Component, OnInit, SimpleChanges, Input } from '@angular/core';
 
 @Component({
   selector: 'app-client-view',
@@ -7,6 +7,7 @@ import { Component, OnInit, SimpleChanges } from '@angular/core';
 })
 export class ClientViewComponent implements OnInit {
 
+  @Input() showSubView: any;
   // la liste de restaurants et le restau potentiellement sélectionné
   public restaurants: any = [
     {

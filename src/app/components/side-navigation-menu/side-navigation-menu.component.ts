@@ -10,7 +10,9 @@ export class SideNavigationMenuComponent implements OnInit {
   constructor() { }
 
   @Input() clientRoles: any;
+  @Input() showView: any;
   @Output() clickedTab :EventEmitter<String> = new EventEmitter()
+  @Output() onSubViewSelection = new EventEmitter();
 
   ngOnInit() {
   }
@@ -19,9 +21,14 @@ export class SideNavigationMenuComponent implements OnInit {
     console.log("Nothing yet, logout")
   }
 
-  changeView(event){
+  changeView(event) {
     console.log('coucou :', event)
     return this.clickedTab.emit(event)
+  }
+
+  showSubView(event) {
+    this.onSubViewSelection.emit(event);
+    console.log('subview depuis side menu', event)
   }
 
 }
