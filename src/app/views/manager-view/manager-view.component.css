@@ -1,0 +1,36 @@
+.transaction-view {
+  height: 100%;
+  display: grid;
+  grid-template: 70% 15% 15% / 1fr 1fr 1fr;
+  grid-template-areas: "map map list"
+  "menu menu list"
+  "menu menu reservation";
+  gap: .5em .5em;
+}
+.recipies-view {
+  height: 100%;
+  display: grid;
+  grid-template: 70% 15% 15% / 1fr 1fr 1fr;
+  grid-template-areas: "map map list"
+  "menu menu list"
+  "menu menu reservation";
+  gap: .5em .5em;
+}
+.stocks-view {
+  height: 100%;
+  display: grid;
+  grid-template: 70% 15% 15% / 1fr 1fr 1fr;
+  grid-template-areas: "map map list"
+  "menu menu list"
+  "menu menu reservation";
+  gap: .5em .5em;
+}
+.employees-view {
+  height: 100%;
+  display: grid;
+  grid-template: 70% 15% 15% / 1fr 1fr 1fr;
+  grid-template-areas: "map map list"
+  "menu menu list"
+  "menu menu reservation";
+  gap: .5em .5em;
+}

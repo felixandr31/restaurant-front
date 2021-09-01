@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 
 @Component({
   selector: 'app-manager-view',
@@ -6,6 +6,8 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./manager-view.component.css']
 })
 export class ManagerViewComponent implements OnInit {
+
+  @Input() showSubView: any;
 
   constructor() { }
 
