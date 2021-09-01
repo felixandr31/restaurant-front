@@ -23,6 +23,10 @@ import { CookViewComponent } from './views/cook-view/cook-view.component';
 import { WaiterViewComponent } from './views/waiter-view/waiter-view.component';
 import { ClientSelectorComponent } from './components/client-selector/client-selector.component';
 import { SubMenuComponent } from './components/sub-menu/sub-menu.component';
+import { FriendsListComponent } from './components/friends-list/friends-list.component';
+import { UserFinderComponent } from './user-finder/user-finder.component';
+import { FriendCardComponent } from './components/friend-card/friend-card.component';
+import { FriendAddCardComponent } from './components/friend-add-card/friend-add-card.component';
 
 
 @NgModule({
@@ -42,7 +46,11 @@ import { SubMenuComponent } from './components/sub-menu/sub-menu.component';
     CookViewComponent,
     WaiterViewComponent,
     ClientSelectorComponent,
-    SubMenuComponent
+    SubMenuComponent,
+    FriendsListComponent,
+    UserFinderComponent,
+    FriendCardComponent,
+    FriendAddCardComponent
   ],
   imports: [
     BrowserModule,

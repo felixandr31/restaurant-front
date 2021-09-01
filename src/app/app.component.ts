@@ -24,7 +24,7 @@ export class AppComponent {
 
   public clientRoles = this.client.roles
   public showView = "Client";
-  public showSubView = 'find';
+  public showSubView = 'friends';
 
   selectedView(event){
     console.log('selected view :', event)
