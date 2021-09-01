@@ -23,6 +23,8 @@ import { CookViewComponent } from './views/cook-view/cook-view.component';
 import { WaiterViewComponent } from './views/waiter-view/waiter-view.component';
 import { ClientSelectorComponent } from './components/client-selector/client-selector.component';
 import { SubMenuComponent } from './components/sub-menu/sub-menu.component';
+import { RecipeformComponent } from './views/cook-view/recipeform/recipeform.component';
+import { SetrecipeformComponent } from './views/cook-view/setrecipeform/setrecipeform.component';
 
 
 @NgModule({
@@ -42,7 +44,9 @@ import { SubMenuComponent } from './components/sub-menu/sub-menu.component';
     CookViewComponent,
     WaiterViewComponent,
     ClientSelectorComponent,
-    SubMenuComponent
+    SubMenuComponent,
+    RecipeformComponent,
+    SetrecipeformComponent
   ],
   imports: [
     BrowserModule,

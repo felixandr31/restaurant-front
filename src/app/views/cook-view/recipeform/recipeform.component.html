@@ -1,0 +1,9 @@
+<form id="recipe-form" [formGroup]="dynamicForm" (ngSubmit)="onSubmit()">
+  <div class="form-group">
+    <label >new recipe name:</label>
+    <input type="text" formControlName='name' class='form-control'> 
+  </div>
+  <div class="footer-form">
+    <button id='submit'>Create a new Recipe</button>
+  </div>
+</form>
