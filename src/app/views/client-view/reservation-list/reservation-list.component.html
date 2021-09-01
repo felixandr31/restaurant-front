@@ -1,0 +1,4 @@
+<select (change)="reservationSelected($event)" class="">
+  <option selected value=''>Choose one of your pending reservation</option>
+  <option *ngFor="let resa of reservations" [value]="resa.restaurant">You eat at {{resa.restaurant}} with {{resa.clients[0].name}}</option>
+</select>

@@ -1,0 +1,7 @@
+<div>
+  <h5>
+    {{item.name}}
+  </h5>
+  <button (click)="addItem($event)" [value]="item.name">Add 1</button>
+  <button (click)="removeItem($event)" [value]=item.name>Remove 1</button>
+</div>

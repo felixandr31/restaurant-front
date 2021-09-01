@@ -104,6 +104,8 @@ export class ClientViewComponent implements OnInit {
 
   public displayReservationForm = false;
 
+  public restaurantReservation = {};
+
   constructor() { }
 
   ngOnInit() {
@@ -115,6 +117,11 @@ export class ClientViewComponent implements OnInit {
     } else {
       this.restaurant = this.restaurants.find(restaurant => restaurant.name === event)
     }
+  }
+
+  reservationSelected(event) {
+    this.restaurantReservation = this.restaurants.find(resto => resto.name == event)
+    console.log('réservation :', this.restaurantReservation)
   }
 
   toggleReservationForm() {

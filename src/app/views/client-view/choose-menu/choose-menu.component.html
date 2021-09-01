@@ -1,0 +1,3 @@
+<div *ngFor="let item of restaurant.recipes">
+  <app-choose-menu-item [item]="item" (onItemAdd)="itemAdded($event)" (onItemRemove)="itemRemoved($event)"></app-choose-menu-item>
+</div>
