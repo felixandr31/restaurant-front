@@ -22,13 +22,11 @@ export class SideNavigationMenuComponent implements OnInit {
   }
 
   changeView(event) {
-    console.log('coucou :', event)
     return this.clickedTab.emit(event)
   }
 
   showSubView(event) {
     this.onSubViewSelection.emit(event);
-    console.log('subview depuis side menu', event)
   }
 
 }

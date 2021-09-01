@@ -11,5 +11,12 @@
     (onReservationDisplay)="toggleReservationForm()"></app-to-table-reservation>
 </div>
 <div *ngIf="showSubView === 'friends'" class="friends-view">
-  <p>Coucou Friends</p>
+  <div class="friends-list">
+    <h3>Friend's List</h3>
+    <app-friends-list [client]="client" ></app-friends-list>
+  </div>
+  <div class="find-friends">
+    <h3>Find Friends</h3>
+    <app-user-finder [users]="users" [client]="client"></app-user-finder>
+  </div>
 </div>

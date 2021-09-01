@@ -8,7 +8,7 @@ import { Component, OnInit, SimpleChanges, Input } from '@angular/core';
 export class ClientViewComponent implements OnInit {
 
   @Input() showSubView: any;
-  // la liste de restaurants et le restau potentiellement sélectionné
+
   public restaurants: any = [
     {
       name: "Zozan",
@@ -17,9 +17,9 @@ export class ClientViewComponent implements OnInit {
         latitude: 43.58516,
         longitude: 1.40005
       },
-      recipes:  [
-        {name: "Ultimate Kebab"},
-        {name: "Ultimate Tacos"}
+      recipes: [
+        { name: "Ultimate Kebab" },
+        { name: "Ultimate Tacos" }
       ]
     },
     {
@@ -29,34 +29,84 @@ export class ClientViewComponent implements OnInit {
         latitude: 43.58395,
         longitude: 1.40126
       },
-      recipes:  [
-        {name: "BFC Tenders"},
-        {name: "BFC Wings"}
+      recipes: [
+        { name: "BFC Tenders" },
+        { name: "BFC Wings" }
       ]
     }
   ];
+
   public restaurant: any =
-  {
-    name: "", stars: 0,
-    coordinates: {},
-    recipes:  []
-  };
+    {
+      name: "", stars: 0,
+      coordinates: {},
+      recipes: []
+    };
 
   public client: any = {
     name: "Georges",
     roles: [
-      {
-        name: "client"
-      }
+      { name: "client" }
+    ],
+    friends: [
+      { name: "Alain" },
+      { name: "Elsa" }
     ]
   }
+
+  public users: any = [
+    {
+      name: "Georges",
+      roles: [
+        { name: "client" }
+      ],
+      friends: [
+        { name: "Alain" },
+        { name: "Elsa" }
+      ]
+    }, {
+
+      name: "Alain",
+      roles: [
+        { name: "client" }
+      ],
+      friends: [
+        { name: "Georges" }
+      ]
+    }, {
+      name: "Sandrine",
+      roles: [
+        { name: "client" }
+      ],
+      friends: [
+        { name: "Yanza"}
+      ]
+    }, {
+      name: "Elsa",
+      roles: [
+        { name: "waiter" },
+        { name: "client" }
+      ],
+      friends: [
+        { name: "Georges" }
+      ]
+    }, {
+      name: "Yanza",
+      roles: [
+        { name: "cook" },
+        { name: "client" }
+      ],
+      friends: [
+        { name: "Sandrine" }
+      ]
+    }
+  ]
 
   public displayReservationForm = false;
 
   constructor() { }
 
   ngOnInit() {
-    console.log(this.restaurants);
   }
 
   restaurantSelected(event) {
@@ -65,7 +115,6 @@ export class ClientViewComponent implements OnInit {
     } else {
       this.restaurant = this.restaurants.find(restaurant => restaurant.name === event)
     }
-    console.log('resto choisi', this.restaurant)
   }
 
   toggleReservationForm() {
