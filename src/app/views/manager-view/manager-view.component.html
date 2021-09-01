@@ -9,5 +9,6 @@
 </div>
 <div *ngIf="showSubView === 'employees'" class="employees-view">
   <p>Employees view</p>
-  <app-employees-list [employees]="employees"></app-employees-list>
+  <app-employees-list [employees]="employees" (onEmployeeSelection)="SelectEmployee($event)"></app-employees-list>
+  <app-employees-form></app-employees-form>
 </div>

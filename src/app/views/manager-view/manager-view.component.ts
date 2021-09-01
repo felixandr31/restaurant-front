@@ -10,45 +10,46 @@ export class ManagerViewComponent implements OnInit {
 
   @Input() showSubView: any;
 
+  public selectedEmployee = null;
   public employees: any = [
     {
       role: {
         label: 'role',
-        name: 'Cook'
+        value: 'Cook'
       },
       name: {
         label: 'name',
-        name: 'Michel'
+        value: 'Michel'
       }
     },
     {
       role: {
         label: 'role',
-        name: 'Cook'
+        value: 'Cook'
       },
       name: {
         label: 'name',
-        name: 'Roger'
+        value: 'Roger'
       }
     },
     {
       role: {
         label: 'role',
-        name: 'Waiter'
+        value: 'Waiter'
       },
       name: {
         label: 'name',
-        name: 'Bob'
+        value: 'Bob'
       }
     },
     {
       role: {
         label: 'role',
-        name: 'Waiter'
+        value: 'Waiter'
       },
       name: {
         label: 'name',
-        name: 'Hermann'
+        value: 'Hermann'
       }
     },
   ]
@@ -57,5 +58,24 @@ export class ManagerViewComponent implements OnInit {
 
   ngOnInit() {
   }
+
+  createEmployee() {
+    this.selectedEmployee = {
+      role: {
+        label: 'role',
+        value: ''
+      },
+      name: {
+        label: 'name',
+        value: ''
+      },
+    }
+    console.log(this.selectedEmployee);
+  }
+
+  SelectEmployee(event){
+    this.SelectEmployee = event
+  }
+
 
 }

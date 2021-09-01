@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'app-employees-list',
@@ -8,38 +8,11 @@ import { Component, OnInit, Input } from '@angular/core';
 export class EmployeesListComponent implements OnInit {
 
   @Input() employees: any;
+  @Output() onEmployeeSelection = new EventEmitter()
 
-  public editingEmployee = null;
-
-  onEmployeeSelection(employee) {
-    this.editingEmployee = employee;
+  employeeSelection(event) {
+    this.onEmployeeSelection.emit(event);
   }
-
-  createEmployee() {
-
-    this.editingEmployee = {
-      role: '',
-      name: '',
-    };
-  }
-
-  // reloadCategory() {
-  //   this.selectCategory(this.selectedCategory)
-  // }
-
-
-  // selectCategory(selectedCategory) {
-
-  //   this.selectedCategory = selectedCategory
-
-  //   this.graphDatabaseService.getAgentsOfCategory(selectedCategory).then(res => {
-  //     // liste des agents présent en base
-  //     this.editableAgents = res
-  //     // CategoriesProperties liées à la catégorie sélectionnée
-  //     this.selectedCategoryProperties = CategoriesProperties[selectedCategory]
-  //   })
-  // }
-
 
   constructor() { }
 
