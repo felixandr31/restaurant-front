@@ -22,6 +22,7 @@ import { ManagerViewComponent } from './views/manager-view/manager-view.componen
 import { CookViewComponent } from './views/cook-view/cook-view.component';
 import { WaiterViewComponent } from './views/waiter-view/waiter-view.component';
 import { ClientSelectorComponent } from './components/client-selector/client-selector.component';
+import { SubMenuComponent } from './components/sub-menu/sub-menu.component';
 
 
 @NgModule({
@@ -40,7 +41,8 @@ import { ClientSelectorComponent } from './components/client-selector/client-sel
     ManagerViewComponent,
     CookViewComponent,
     WaiterViewComponent,
-    ClientSelectorComponent
+    ClientSelectorComponent,
+    SubMenuComponent
   ],
   imports: [
     BrowserModule,

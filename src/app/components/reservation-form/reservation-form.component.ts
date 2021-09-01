@@ -93,6 +93,7 @@ export class ReservationFormComponent implements OnInit {
     let clientList = this.form.value.clients;
     const bestTable = this.selectBestTable(this.form.value.clients.length, this.tables);
     console.log('Registering Reservation for', clientList, bestTable)
+    alert('reservation Ok');
   }
 
   selectBestTable(clients: number, tables: any) {
