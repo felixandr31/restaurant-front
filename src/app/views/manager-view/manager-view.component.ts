@@ -1,4 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-manager-view',
@@ -11,20 +12,44 @@ export class ManagerViewComponent implements OnInit {
 
   public employees: any = [
     {
-      role: 'Cook',
-      name: 'Michel'
+      role: {
+        label: 'role',
+        name: 'Cook'
+      },
+      name: {
+        label: 'name',
+        name: 'Michel'
+      }
     },
     {
-      role: 'Cook',
-      name: 'Roger'
+      role: {
+        label: 'role',
+        name: 'Cook'
+      },
+      name: {
+        label: 'name',
+        name: 'Roger'
+      }
     },
     {
-      role: 'Waiter',
-      name: 'Bob'
+      role: {
+        label: 'role',
+        name: 'Waiter'
+      },
+      name: {
+        label: 'name',
+        name: 'Bob'
+      }
     },
     {
-      role: 'Waiter',
-      name: 'Hermann'
+      role: {
+        label: 'role',
+        name: 'Waiter'
+      },
+      name: {
+        label: 'name',
+        name: 'Hermann'
+      }
     },
   ]
 
