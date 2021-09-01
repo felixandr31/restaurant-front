@@ -1,4 +1,3 @@
-
 <div *ngIf="showSubView === 'transactions'" class="transactions-view">
   <p>Transactions view</p>
 </div>
@@ -10,4 +9,5 @@
 </div>
 <div *ngIf="showSubView === 'employees'" class="employees-view">
   <p>Employees view</p>
+  <app-employees-list [employees]="employees"></app-employees-list>
 </div>

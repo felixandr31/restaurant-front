@@ -29,6 +29,7 @@ import { FriendCardComponent } from './views/client-view/friend-card/friend-card
 import { FriendAddCardComponent } from './views/client-view/friend-add-card/friend-add-card.component';
 import { RecipeformComponent } from './views/cook-view/recipeform/recipeform.component';
 import { SetrecipeformComponent } from './views/cook-view/setrecipeform/setrecipeform.component';
+import { EmployeesListComponent } from './views/manager-view/employees-list/employees-list.component';
 
 
 @NgModule({
@@ -54,7 +55,8 @@ import { SetrecipeformComponent } from './views/cook-view/setrecipeform/setrecip
     FriendCardComponent,
     FriendAddCardComponent,
     RecipeformComponent,
-    SetrecipeformComponent
+    SetrecipeformComponent,
+    EmployeesListComponent
   ],
   imports: [
     BrowserModule,

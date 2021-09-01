@@ -1,0 +1,30 @@
+<table>
+  <thead>
+    <tr >
+      <th >
+
+      </th>
+
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let employee of employees">
+      <td>
+        {{employee.name}}
+      </td>
+      <td>
+        {{employee.role}}
+      </td>
+      <td>
+        <button (click)="onEmployeeSelection(employee)" id="edit-button">
+          EDIT
+        </button>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<button (click)="createEmployee()" id="createButton">Create New Employee</button>
+
+
+
