@@ -1,0 +1,9 @@
+<div *ngIf="showView === 'Client'">
+    <div *ngFor="let item of menuClient">
+      <a (click)="subView(item.name)">
+        <div>
+          {{item.content}}
+        </div>
+      </a>
+    </div>
+</div>

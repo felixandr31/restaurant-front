@@ -1,7 +1,15 @@
-<app-restaurant-map class="map" [restaurants]="restaurants" (onRestaurantSelection)="restaurantSelected($event)"></app-restaurant-map>
-<app-restaurant-list *ngIf="!displayReservationForm; else reservationForm" class="list" [restaurants]="restaurants" (onRestaurantSelection)="restaurantSelected($event)"></app-restaurant-list>
-<ng-template  #reservationForm>
-  <app-reservation-form class="list" [restaurant]="restaurant" [client]="client"></app-reservation-form>
-</ng-template>
-<app-restaurant-menu class="menu" [restaurant]= "restaurant"></app-restaurant-menu>
-<app-to-table-reservation class="reservation" [restaurant]="restaurant" (onReservationDisplay)="toggleReservationForm()"></app-to-table-reservation>
+<div *ngIf="showSubView === 'find'" class="find-view">
+  <app-restaurant-map class="map" [restaurants]="restaurants" (onRestaurantSelection)="restaurantSelected($event)">
+  </app-restaurant-map>
+  <app-restaurant-list *ngIf="!displayReservationForm; else reservationForm" class="list" [restaurants]="restaurants"
+    (onRestaurantSelection)="restaurantSelected($event)"></app-restaurant-list>
+  <ng-template #reservationForm>
+    <app-reservation-form class="list" [restaurant]="restaurant" [client]="client"></app-reservation-form>
+  </ng-template>
+  <app-restaurant-menu class="menu" [restaurant]="restaurant"></app-restaurant-menu>
+  <app-to-table-reservation class="reservation" [restaurant]="restaurant"
+    (onReservationDisplay)="toggleReservationForm()"></app-to-table-reservation>
+</div>
+<div *ngIf="showSubView === 'friends'" class="friends-view">
+  <p>Coucou Friends</p>
+</div>
