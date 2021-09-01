@@ -23,7 +23,6 @@ export class SubMenuComponent implements OnInit {
 
   subView(event) {
     this.onSubViewSelection.emit(event);
-    console.log('Coucou la subView', event);
   }
 
 }

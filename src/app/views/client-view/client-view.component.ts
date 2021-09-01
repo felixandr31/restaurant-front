@@ -107,7 +107,6 @@ export class ClientViewComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
-    console.log(this.restaurants);
   }
 
   restaurantSelected(event) {
