@@ -22,7 +22,7 @@ export class AppComponent {
     ]
   }
 
-  public clientRoles = this.client.roles
+  public clientRoles = this.client.roles;
   public showView = "Client";
 
   selectedView(event){
