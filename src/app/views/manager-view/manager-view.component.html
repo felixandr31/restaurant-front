@@ -1,3 +1,13 @@
-<p>
-  manager-view works!
-</p>
+<div *ngIf="showSubView === 'transactions'" class="transactions-view">
+  <p>Transactions view</p>
+</div>
+<div *ngIf="showSubView === 'recipies'" class="recipies-view">
+  <p>Recipies view</p>
+</div>
+<div *ngIf="showSubView === 'stocks'" class="stocks-view">
+  <p>Stocks view</p>
+</div>
+<div *ngIf="showSubView === 'employees'" class="employees-view">
+  <p>Employees view</p>
+  <app-employees-list [employees]="employees"></app-employees-list>
+</div>

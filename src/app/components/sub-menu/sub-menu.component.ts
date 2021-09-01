@@ -11,9 +11,15 @@ export class SubMenuComponent implements OnInit {
   @Output() onSubViewSelection = new EventEmitter();
 
   private menuClient: any = [
-        {name: 'find', content: 'Find a restaurant'},
-        {name: 'friends', content: 'Friends'},
-        {name: 'eat', content: 'View reservations'}
+    { name: 'find', content: 'Find a restaurant' },
+    { name: 'friends', content: 'Friends' },
+    { name: 'eat', content: 'View reservations' }
+  ]
+  private menuManager: any = [
+    { name: 'transactions', content: 'Transactions' },
+    { name: 'recipies', content: 'Recipies' },
+    { name: 'stocks', content: 'Stocks' },
+    { name: 'employees', content: 'Employees' }
   ]
 
   constructor() { }
