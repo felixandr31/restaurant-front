@@ -7,9 +7,29 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CookViewComponent implements OnInit {
 
-  constructor() { }
+  public recipesList: any = [];
+  public isCreateRecipe: boolean = true;
+  //public recipeToSet: Categories.Recipe;
+  public recipeToSet: any;
 
-  ngOnInit() {
+  // constructor(private commandsService: CommandsService) {
+  // }
+
+  constructor() {
   }
 
+  ngOnInit() {
+    this.refreshRecipes()
+  }
+
+  refreshRecipes() {
+    // this.commandsService.getAllRecipes().then( res => {
+    //   this.recipesList = res
+    // })
+  }
+
+  onRecipeButtonClick(recipe){
+     this.isCreateRecipe = false
+     this.recipeToSet = recipe;
+  }
 }
