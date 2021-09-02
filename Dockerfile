@@ -2,12 +2,23 @@ FROM node:10
 
 WORKDIR /usr/src/app
 
-COPY package.json .
+COPY package*.json ./
 
 RUN npm install
 
-COPY server.js .
+#COPY server.js .
 
-EXPOSE 8087 
+RUN ls
 
-CMD [ "node", "server.js" ]
+COPY . .
+#EXPOSE 8087 
+
+RUN ls 
+
+#RUN npm run build 
+
+RUN npm run build --prod
+#CMD [ "npm", "start" ]
+
+FROM nginx:alpine
+COPY --from=node /app/dist/restaurant-front /usr/share/nginx/html
