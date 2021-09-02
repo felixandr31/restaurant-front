@@ -8,12 +8,12 @@ RUN npm install
 
 #COPY server.js .
 
-EXEC ls
+RUN ls
 
 COPY . .
 #EXPOSE 8087 
 
-EXEC ls
+RUN ls
 
 #RUN npm run build 
 
