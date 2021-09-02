@@ -17,4 +17,4 @@ RUN npm build --prod
 #CMD [ "npm", "start" ]
 
 FROM nginx:alpine
-COPY --from=node /app/dist/angular-app /usr/share/nginx/html
+COPY --from=node /app/dist/restaurant-front /usr/share/nginx/html
