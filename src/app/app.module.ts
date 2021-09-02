@@ -29,6 +29,10 @@ import { FriendCardComponent } from './views/client-view/friend-card/friend-card
 import { FriendAddCardComponent } from './views/client-view/friend-add-card/friend-add-card.component';
 import { RecipeformComponent } from './views/cook-view/recipeform/recipeform.component';
 import { SetrecipeformComponent } from './views/cook-view/setrecipeform/setrecipeform.component';
+import { ReservationListComponent } from './views/client-view/reservation-list/reservation-list.component';
+import { ChooseMenuItemComponent } from './views/client-view/choose-menu-item/choose-menu-item.component';
+import { ChooseMenuComponent } from './views/client-view/choose-menu/choose-menu.component';
+import { OrderDisplayComponent } from './views/client-view/order-display/order-display.component';
 
 
 @NgModule({
@@ -54,7 +58,11 @@ import { SetrecipeformComponent } from './views/cook-view/setrecipeform/setrecip
     FriendCardComponent,
     FriendAddCardComponent,
     RecipeformComponent,
-    SetrecipeformComponent
+    SetrecipeformComponent,
+    ReservationListComponent,
+    ChooseMenuItemComponent,
+    ChooseMenuComponent,
+    OrderDisplayComponent
   ],
   imports: [
     BrowserModule,

@@ -1,11 +1,11 @@
-import { Component, OnInit, SimpleChanges, Input } from '@angular/core';
+import { Component, OnInit, SimpleChanges, Input, AfterViewChecked, DoCheck } from '@angular/core';
 
 @Component({
   selector: 'app-client-view',
   templateUrl: './client-view.component.html',
   styleUrls: ['./client-view.component.css']
 })
-export class ClientViewComponent implements OnInit {
+export class ClientViewComponent implements OnInit, DoCheck {
 
   @Input() showSubView: any;
 
@@ -79,7 +79,7 @@ export class ClientViewComponent implements OnInit {
         { name: "client" }
       ],
       friends: [
-        { name: "Yanza"}
+        { name: "Yanza" }
       ]
     }, {
       name: "Elsa",
@@ -106,9 +106,22 @@ export class ClientViewComponent implements OnInit {
 
   public restaurantReservation = {};
 
+  public itemToAdd = '';
+  public lastAddedItem = false;
+  public itemToRemove = '';
+
+
+
   constructor() { }
 
   ngOnInit() {
+  }
+
+  ngDoCheck() {
+    if (this.lastAddedItem) {
+      this.itemToAdd = '';
+      this.lastAddedItem = !this.lastAddedItem;
+    }
   }
 
   restaurantSelected(event) {
@@ -126,5 +139,19 @@ export class ClientViewComponent implements OnInit {
 
   toggleReservationForm() {
     return this.displayReservationForm = !this.displayReservationForm;
+  }
+
+  itemAdded(event) {
+    this.itemToAdd = event;
+    console.log('item to add', this.itemToAdd)
+  }
+
+  itemAddedClear() {
+    this.lastAddedItem = true;
+  }
+
+  itemRemoved(event) {
+    this.itemToRemove = event
+    console.log('item to remove', this.itemToRemove)
   }
 }

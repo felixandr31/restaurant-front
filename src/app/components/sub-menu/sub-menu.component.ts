@@ -13,7 +13,7 @@ export class SubMenuComponent implements OnInit {
   public menuClient: any = [
         {name: 'find', content: 'Find a restaurant'},
         {name: 'friends', content: 'Friends'},
-        {name: 'eat', content: 'View reservations'}
+        {name: 'eat', content: 'View reservations and eat'}
   ]
 
   constructor() { }

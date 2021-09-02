@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'app-choose-menu',
@@ -8,6 +8,8 @@ import { Component, OnInit, Input } from '@angular/core';
 export class ChooseMenuComponent implements OnInit {
 
   @Input() restaurant: any;
+  @Output() onItemAdded = new EventEmitter();
+  @Output() onItemRemoved = new EventEmitter();
 
   public order = [];
 
@@ -17,11 +19,13 @@ export class ChooseMenuComponent implements OnInit {
   }
 
   itemAdded(event) {
-
+    this.onItemAdded.emit(event);
+    console.log('menu says item added', event)
   }
 
   itemRemoved(event) {
-
+    this.onItemRemoved.emit(event)
+    console.log('menu says item removed', event)
   }
 
 }

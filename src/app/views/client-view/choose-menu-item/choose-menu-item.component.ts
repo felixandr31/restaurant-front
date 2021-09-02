@@ -18,10 +18,12 @@ export class ChooseMenuItemComponent implements OnInit {
 
   addItem(event) {
     this.onItemAdd.emit(event.target.value);
+    console.log('item ajouté', event)
   }
 
   removeItem(event) {
     this.onItemRemove.emit(event.target.value);
+    console.log('item enlevé', event)
   }
 
 }
