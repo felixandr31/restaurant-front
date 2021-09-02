@@ -8,6 +8,8 @@ RUN npm install
 
 #COPY server.js .
 
-EXPOSE 8087 
+COPHY . .
+#EXPOSE 8087 
 
-CMD [ "npm", "start" ]
+RUN npm start
+#CMD [ "npm", "start" ]
