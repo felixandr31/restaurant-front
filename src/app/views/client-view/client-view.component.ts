@@ -1,4 +1,5 @@
 import { Component, OnInit, SimpleChanges, Input } from '@angular/core';
+import { RoleService } from 'src/app/services/data/role.service';
 
 @Component({
   selector: 'app-client-view',
@@ -104,9 +105,21 @@ export class ClientViewComponent implements OnInit {
 
   public displayReservationForm = false;
 
-  constructor() { }
+  private roles = []
+
+  constructor(private roleService: RoleService) { }
 
   ngOnInit() {
+    this.roleService.getRoles().subscribe(
+      data => {
+        console.log('données', data)
+        console.log('headers', data.headers)
+        console.log('url', data.url)
+      },
+      err => {
+        console.log('erreur', err)
+      }
+    )
   }
 
   restaurantSelected(event) {

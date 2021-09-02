@@ -5,12 +5,12 @@ import { HttpClient } from '@angular/common/http'
   providedIn: 'root'
 })
 
-export class RoleServiceService {
+export class RoleService {
 
   rolesUrl = 'http://localhost:8080/backend-filrouge/role/roles'
   constructor(private http: HttpClient) { }
 
   getRoles() {
-    return this.http.get(this.rolesUrl);
+    return this.http.get(this.rolesUrl, {observe:"response"});
   }
 }
