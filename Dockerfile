@@ -1,4 +1,4 @@
-FROM node:latest
+FROM node:10
 
 WORKDIR /usr/src/app
 
@@ -11,7 +11,10 @@ RUN npm install
 COPY . .
 #EXPOSE 8087 
 
-#RUN npm run build
+#RUN npm run build 
 
-RUN npm start
+RUN npm build --prod
 #CMD [ "npm", "start" ]
+
+FROM nginx:alpine
+COPY --from=node /app/dist/angular-app /usr/share/nginx/html
