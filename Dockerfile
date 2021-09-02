@@ -11,5 +11,7 @@ RUN npm install
 COPY . .
 #EXPOSE 8087 
 
-RUN npm start
+RUN npm run build
+
+#RUN npm start
 #CMD [ "npm", "start" ]
