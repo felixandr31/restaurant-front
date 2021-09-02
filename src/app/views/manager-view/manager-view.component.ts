@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output } from '@angular/core';
 import { RouterLink } from '@angular/router';
 
 @Component({
@@ -10,72 +10,60 @@ export class ManagerViewComponent implements OnInit {
 
   @Input() showSubView: any;
 
-  public selectedEmployee = null;
+  public selectedEmployee = [];
   public employees: any = [
     {
-      role: {
-        label: 'role',
-        value: 'Cook'
-      },
-      name: {
-        label: 'name',
-        value: 'Michel'
-      }
+      name: 'Michel',
+      roles: [
+        { value: 'Cook' },
+      ],
     },
     {
-      role: {
-        label: 'role',
-        value: 'Cook'
-      },
-      name: {
-        label: 'name',
-        value: 'Roger'
-      }
+      name: 'Roger',
+      roles: [
+        { value: 'Cook' },
+        { value: 'Waiter' }
+      ],
     },
     {
-      role: {
-        label: 'role',
-        value: 'Waiter'
-      },
-      name: {
-        label: 'name',
-        value: 'Bob'
-      }
+      name: 'Bob',
+      roles: [
+        { value: 'Waiter' }
+      ],
     },
     {
-      role: {
-        label: 'role',
-        value: 'Waiter'
-      },
-      name: {
-        label: 'name',
-        value: 'Hermann'
-      }
+      name: 'Hermann',
+      roles: [
+        { value: 'Waiter' }
+      ],
     },
-  ]
+  ];
 
-  constructor() { }
+  constructor() {
+    console.log(this.selectedEmployee);
+  }
 
   ngOnInit() {
   }
 
-  createEmployee() {
-    this.selectedEmployee = {
-      role: {
-        label: 'role',
-        value: ''
-      },
-      name: {
-        label: 'name',
-        value: ''
-      },
-    }
+  SelectEmployee(event) {
+    this.selectedEmployee = event;
     console.log(this.selectedEmployee);
   }
 
-  SelectEmployee(event){
-    this.SelectEmployee = event
+  createEmployee() {
+    this.selectedEmployee = [
+      {
+        name: '',
+        roles: [
+          { value: '' }
+        ],
+      },
+    ]
+    console.log(this.selectedEmployee);
   }
+
+
 
 
 }

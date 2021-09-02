@@ -1,3 +1,29 @@
 <p>
   employees-form works!
 </p>
+
+<form  id="main-frame" action="" >
+
+  <div [formGroup]="form">
+    <label>name</label>
+    <input formControlName="name">
+  </div>
+
+  <div >
+    <label>roles</label>
+    <input  [formControlName]="roles">
+  </div>
+
+  <button (click)="saveEmployee()">
+    Save
+  </button>
+
+  <button (click)="cancelEdition()">
+    Cancel
+  </button>
+
+  <!-- <button *ngIf="agent.id" type="button" (click)="deleteAgent()">
+    Delete
+  </button> -->
+
+</form>

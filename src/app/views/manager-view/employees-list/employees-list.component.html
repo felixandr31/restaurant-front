@@ -2,7 +2,7 @@
   <thead>
     <tr >
       <th >
-          <!-- {{employee.name.label}} -->
+
       </th>
 
     </tr>
@@ -10,10 +10,10 @@
   <tbody>
     <tr *ngFor="let employee of employees">
       <td>
-        {{employee.name.value}}
+        {{employee.name}}
       </td>
-      <td>
-        {{employee.role.value}}
+      <td *ngFor="let role of employee.roles">
+        {{role.value}}
       </td>
       <td>
         <button (click)="employeeSelection(employee)" id="edit-button">
@@ -24,7 +24,6 @@
   </tbody>
 </table>
 
-<button (click)="createEmployee()" id="createButton">Create New Employee</button>
 
 
 
