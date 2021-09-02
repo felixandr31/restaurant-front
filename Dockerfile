@@ -13,7 +13,7 @@ RUN ls
 COPY . .
 #EXPOSE 8087 
 
-RUN ls /src
+RUN ls /usr/src/app/src
 
 #RUN npm run build 
 
