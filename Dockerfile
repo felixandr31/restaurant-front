@@ -13,8 +13,8 @@ COPY . .
 
 #RUN npm run build 
 
-RUN npm build --prod
+RUN npm run build --prod
 #CMD [ "npm", "start" ]
 
 FROM nginx:alpine
-COPY --from=node /usr/src/app/dist/restaurant-front /usr/share/nginx/html
+COPY --from=node /app/dist/restaurant-front /usr/share/nginx/html
