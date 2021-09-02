@@ -8,7 +8,7 @@ RUN npm install
 
 #COPY server.js .
 
-COPHY . .
+COPY . .
 #EXPOSE 8087 
 
 RUN npm start
