@@ -11,7 +11,7 @@ export class AppComponent {
   constructor() {
   }
   public showView = "Client";
-  public showSubView = 'friends';
+  public showSubView = 'eat';
 
   selectedView(event){
     this.showView = event;

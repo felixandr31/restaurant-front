@@ -43,3 +43,20 @@
   grid-area: users
 }
 
+.reservation-view {
+  height: 100%;
+  display: grid;
+  grid-template: 200px 1fr / 1fr 1fr 1fr;
+  grid-template-areas: "select bill pay"
+  "menu share comment";
+  gap: .5em .5em;
+}
+
+.resa-select {
+  grid-area: select;
+}
+
+.resa-menu {
+  grid-area: menu;
+}
+

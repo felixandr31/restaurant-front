@@ -1,5 +1,6 @@
-import { Component, OnInit, SimpleChanges, Input } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { RoleService } from 'src/app/services/data/role.service';
+
 
 @Component({
   selector: 'app-client-view',
@@ -80,7 +81,7 @@ export class ClientViewComponent implements OnInit {
         { name: "client" }
       ],
       friends: [
-        { name: "Yanza"}
+        { name: "Yanza" }
       ]
     }, {
       name: "Elsa",
@@ -105,9 +106,17 @@ export class ClientViewComponent implements OnInit {
 
   public displayReservationForm = false;
 
-  private roles = []
+
+  public restaurantReservation = {};
+
+  public itemToAdd = '';
+  public itemToRemove = '';
+  public bill = [];
+
+  private roles = [];
 
   constructor(private roleService: RoleService) { }
+
 
   ngOnInit() {
     let response: any;
@@ -143,7 +152,44 @@ export class ClientViewComponent implements OnInit {
     }
   }
 
+  reservationSelected(event) {
+    this.restaurantReservation = this.restaurants.find(resto => resto.name == event)
+    console.log('réservation :', this.restaurantReservation)
+  }
+
   toggleReservationForm() {
     return this.displayReservationForm = !this.displayReservationForm;
+  }
+
+  itemAdded(event) {
+    this.addToBill(event);
+    this.bill = this.bill.slice(0)
+    console.log('la facture après slice', this.bill)
+  }
+
+  itemRemoved(event) {
+    this.removeFromBill(event);
+    this.bill = this.bill.slice(0)
+    console.log('la facture après slice', this.bill)
+  }
+
+  addToBill(item) {
+    if (this.bill.length < 1) {
+      this.bill.push({ name: item, quantity: 1 })
+    } else {
+      this.bill.find(line => line.name === item) ?
+        this.bill.filter(line => line.name === item).map(line => line.quantity += 1) :
+        this.bill.push({ name: item, quantity: 1 });
+    }
+  }
+
+  removeFromBill(item) {
+    if (this.bill.length < 1
+      || !this.bill.find(it => it.name === item)
+      || this.bill.find(it => it.name === item && it.quantity < 1)) {
+      return;
+    } else {
+      this.bill.filter(line => line.name === item).map(line => line.quantity -= 1)
+    }
   }
 }

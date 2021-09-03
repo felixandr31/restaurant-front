@@ -14,14 +14,14 @@ import { RestaurantListComponent } from './views/client-view/restaurant-list/res
 import { RestaurantMapComponent } from './views/client-view/restaurant-map/restaurant-map.component';
 import { RestaurantMenuComponent } from './views/client-view/restaurant-menu/restaurant-menu.component';
 import { RestaurantCardComponent } from './views/client-view/restaurant-card/restaurant-card.component';
-import { MenuItemComponent } from './components/menu-item/menu-item.component';
+import { MenuItemComponent } from './views/client-view/menu-item/menu-item.component';
 import { ToTableReservationComponent } from './views/client-view/to-table-reservation/to-table-reservation.component';
 import { ReservationFormComponent } from './views/client-view/reservation-form/reservation-form.component';
 import { AdminViewComponent } from './views/admin-view/admin-view.component';
 import { ManagerViewComponent } from './views/manager-view/manager-view.component';
 import { CookViewComponent } from './views/cook-view/cook-view.component';
 import { WaiterViewComponent } from './views/waiter-view/waiter-view.component';
-import { ClientSelectorComponent } from './components/client-selector/client-selector.component';
+import { ClientSelectorComponent } from './views/client-view/client-selector/client-selector.component';
 import { SubMenuComponent } from './components/sub-menu/sub-menu.component';
 import { FriendsListComponent } from './views/client-view/friends-list/friends-list.component';
 import { UserFinderComponent } from './user-finder/user-finder.component';
@@ -29,6 +29,10 @@ import { FriendCardComponent } from './views/client-view/friend-card/friend-card
 import { FriendAddCardComponent } from './views/client-view/friend-add-card/friend-add-card.component';
 import { RecipeformComponent } from './views/cook-view/recipeform/recipeform.component';
 import { SetrecipeformComponent } from './views/cook-view/setrecipeform/setrecipeform.component';
+import { ReservationListComponent } from './views/client-view/reservation-list/reservation-list.component';
+import { ChooseMenuItemComponent } from './views/client-view/choose-menu-item/choose-menu-item.component';
+import { ChooseMenuComponent } from './views/client-view/choose-menu/choose-menu.component';
+import { OrderDisplayComponent } from './views/client-view/order-display/order-display.component';
 import { EmployeesListComponent } from './views/manager-view/employees-list/employees-list.component';
 import { EmployeesFormComponent } from './views/manager-view/employees-form/employees-form.component';
 
@@ -57,8 +61,16 @@ import { EmployeesFormComponent } from './views/manager-view/employees-form/empl
     FriendAddCardComponent,
     RecipeformComponent,
     SetrecipeformComponent,
+<<<<<<< HEAD
     EmployeesListComponent,
     EmployeesFormComponent
+=======
+    ReservationListComponent,
+    ChooseMenuItemComponent,
+    ChooseMenuComponent,
+    OrderDisplayComponent,
+    EmployeesListComponent
+>>>>>>> bf21df81a8bb9d71f3084c657679693fbd8521ac
   ],
   imports: [
     BrowserModule,

@@ -10,7 +10,7 @@ export class UserFinderComponent implements OnInit {
   @Input() users: any;
   @Input() client: any;
 
-  private notFriends: any = []
+  public notFriends: any = []
 
   constructor() { }
 
