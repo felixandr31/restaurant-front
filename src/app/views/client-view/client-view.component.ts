@@ -110,6 +110,19 @@ export class ClientViewComponent implements OnInit {
   constructor(private roleService: RoleService) { }
 
   ngOnInit() {
+    let response: any;
+    let errorMessage: any;
+    // this.roleService.postRole({name: ''}).subscribe({
+    //   next: data => {
+    //     response = data.body
+    //     console.log('post data :', data.body)
+    //   },
+    //   error: error => {
+    //     errorMessage = error.errorMessage
+    //     console.error('Une erreur sauvage : ', errorMessage)
+    //   }
+    // })
+
     this.roleService.getRoles().subscribe(
       data => {
         console.log('données', data)
