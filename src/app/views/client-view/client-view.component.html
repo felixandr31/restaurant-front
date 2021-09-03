@@ -23,10 +23,9 @@
 <div *ngIf="showSubView === 'eat'" class="reservation-view">
   <app-reservation-list [client]="client"
   (onReservationSelection)="reservationSelected($event)" class="resa-select"></app-reservation-list>
-  <app-choose-menu [restaurant]="restaurantReservation" class="resa-menu"
+  <app-choose-menu [restaurant]="restaurantReservation" [bill]="bill" class="resa-menu"
   (onItemAdded)="itemAdded($event)"
   (onItemRemoved)="itemRemoved($event)"></app-choose-menu>
   <app-order-display
-  [addToOrder]="itemToAdd" (addToOrderChange)="itemAddedClear($event)"
-  [removeFromOrder]="itemToRemove" (clearItem)="itemRemoved($event)"></app-order-display>
+  [bill]="bill"></app-order-display>
 </div>

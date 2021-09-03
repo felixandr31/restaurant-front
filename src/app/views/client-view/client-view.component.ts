@@ -1,4 +1,4 @@
-import { Component, OnInit, SimpleChanges, Input, AfterViewChecked, DoCheck } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { RoleService } from 'src/app/services/data/role.service';
 
 
@@ -7,7 +7,7 @@ import { RoleService } from 'src/app/services/data/role.service';
   templateUrl: './client-view.component.html',
   styleUrls: ['./client-view.component.css']
 })
-export class ClientViewComponent implements OnInit, DoCheck {
+export class ClientViewComponent implements OnInit {
 
   @Input() showSubView: any;
 
@@ -110,10 +110,10 @@ export class ClientViewComponent implements OnInit, DoCheck {
   public restaurantReservation = {};
 
   public itemToAdd = '';
-  public lastAddedItem = false;
   public itemToRemove = '';
+  public bill = [];
 
-  private roles = []
+  private roles = [];
 
   constructor(private roleService: RoleService) { }
 
@@ -144,13 +144,6 @@ export class ClientViewComponent implements OnInit, DoCheck {
     )
   }
 
-  ngDoCheck() {
-    if (this.lastAddedItem) {
-      this.itemToAdd = '';
-      this.lastAddedItem = !this.lastAddedItem;
-    }
-  }
-
   restaurantSelected(event) {
     if (event.name) {
       this.restaurant = event;
@@ -169,16 +162,34 @@ export class ClientViewComponent implements OnInit, DoCheck {
   }
 
   itemAdded(event) {
-    this.itemToAdd = event;
-    console.log('item to add', this.itemToAdd)
-  }
-
-  itemAddedClear() {
-    this.lastAddedItem = true;
+    this.addToBill(event);
+    this.bill = this.bill.slice(0)
+    console.log('la facture après slice', this.bill)
   }
 
   itemRemoved(event) {
-    this.itemToRemove = event
-    console.log('item to remove', this.itemToRemove)
+    this.removeFromBill(event);
+    this.bill = this.bill.slice(0)
+    console.log('la facture après slice', this.bill)
+  }
+
+  addToBill(item) {
+    if (this.bill.length < 1) {
+      this.bill.push({ name: item, quantity: 1 })
+    } else {
+      this.bill.find(line => line.name === item) ?
+        this.bill.filter(line => line.name === item).map(line => line.quantity += 1) :
+        this.bill.push({ name: item, quantity: 1 });
+    }
+  }
+
+  removeFromBill(item) {
+    if (this.bill.length < 1
+      || !this.bill.find(it => it.name === item)
+      || this.bill.find(it => it.name === item && it.quantity < 1)) {
+      return;
+    } else {
+      this.bill.filter(line => line.name === item).map(line => line.quantity -= 1)
+    }
   }
 }

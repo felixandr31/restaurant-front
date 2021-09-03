@@ -8,6 +8,7 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 export class ChooseMenuComponent implements OnInit {
 
   @Input() restaurant: any;
+  @Input() bill: any;
   @Output() onItemAdded = new EventEmitter();
   @Output() onItemRemoved = new EventEmitter();
 
@@ -20,12 +21,10 @@ export class ChooseMenuComponent implements OnInit {
 
   itemAdded(event) {
     this.onItemAdded.emit(event);
-    console.log('menu says item added', event)
   }
 
   itemRemoved(event) {
     this.onItemRemoved.emit(event)
-    console.log('menu says item removed', event)
   }
 
 }
