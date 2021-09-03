@@ -16,6 +16,13 @@ export class SubMenuComponent implements OnInit {
         {name: 'eat', content: 'View reservations and eat'}
   ]
 
+  public menuManager: any = [
+    { name: 'transactions', content: 'Transactions' },
+    { name: 'recipies', content: 'Recipies' },
+    { name: 'stocks', content: 'Stocks' },
+    { name: 'employees', content: 'Employees' }
+  ]
+
   constructor() { }
 
   ngOnInit() {
@@ -24,5 +31,4 @@ export class SubMenuComponent implements OnInit {
   subView(event) {
     this.onSubViewSelection.emit(event);
   }
-
 }

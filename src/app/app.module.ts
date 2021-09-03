@@ -3,8 +3,8 @@ import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { HttpClientModule } from '@angular/common/http';
-import { MarkerService } from './services/marker.service';
-import { PopupService } from './services/popup.service';
+import { MarkerService } from './services/map/marker.service';
+import { PopupService } from './services/map/popup.service';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -33,6 +33,7 @@ import { ReservationListComponent } from './views/client-view/reservation-list/r
 import { ChooseMenuItemComponent } from './views/client-view/choose-menu-item/choose-menu-item.component';
 import { ChooseMenuComponent } from './views/client-view/choose-menu/choose-menu.component';
 import { OrderDisplayComponent } from './views/client-view/order-display/order-display.component';
+import { EmployeesListComponent } from './views/manager-view/employees-list/employees-list.component';
 
 
 @NgModule({
@@ -62,7 +63,8 @@ import { OrderDisplayComponent } from './views/client-view/order-display/order-d
     ReservationListComponent,
     ChooseMenuItemComponent,
     ChooseMenuComponent,
-    OrderDisplayComponent
+    OrderDisplayComponent,
+    EmployeesListComponent
   ],
   imports: [
     BrowserModule,

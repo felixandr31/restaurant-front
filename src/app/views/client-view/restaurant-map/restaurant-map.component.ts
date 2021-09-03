@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, AfterViewInit, Output, EventEmitter } from '@angular/core';
 import * as L from 'leaflet';
-import { MarkerService } from 'src/app/services/marker.service';
+import { MarkerService } from 'src/app/services/map/marker.service';
 import { Subscription } from 'rxjs';
 
 const iconRetinaUrl = 'assets/marker-icon-2x.png';

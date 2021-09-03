@@ -2,10 +2,10 @@
 
 </app-side-navigation-menu>
 
-  <app-admin-view *ngIf="showView === 'Admin'" class="admin view"></app-admin-view>
-  <app-manager-view *ngIf="showView === 'Manager'" class="manager view"></app-manager-view>
-  <app-cook-view *ngIf="showView === 'Cook'" class="cook view"></app-cook-view>
-  <app-waiter-view *ngIf="showView === 'Waiter'" class="waiter view"></app-waiter-view>
+  <app-admin-view *ngIf="showView === 'Admin'" class="view"></app-admin-view>
+  <app-manager-view *ngIf="showView === 'Manager'" [showSubView]="showSubView" class="view"></app-manager-view>
+  <app-cook-view *ngIf="showView === 'Cook'" class="view"></app-cook-view>
+  <app-waiter-view *ngIf="showView === 'Waiter'" class="view"></app-waiter-view>
   <app-client-view *ngIf="showView === 'Client'" [showSubView]="showSubView" class="view"></app-client-view>
 
 <router-outlet></router-outlet>
