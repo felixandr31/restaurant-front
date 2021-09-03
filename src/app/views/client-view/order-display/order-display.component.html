@@ -1,3 +1,9 @@
-<p>
-  order-display works!
-</p>
+<h3>Ordered items</h3>
+<div *ngFor="let item of bill">
+  <p><b>{{item.name}}</b> : {{item.quantity}}</p>
+</div>
+
+<button *ngIf="!orderSent; else greyButton" (click)="sendOrderToKitchen()">Send order</button>
+<ng-template #greyButton>
+  <button disabled>Order sent</button>
+</ng-template>
