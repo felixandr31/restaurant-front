@@ -8,32 +8,64 @@ import { FormGroup, FormBuilder, FormControl, FormArray, Validators } from '@ang
 })
 export class EmployeesFormComponent implements OnInit {
 
-  @Input() employee: any;
+  // @Input() employee: {};
+  public employees: any = [
+    {
+      name: 'Tim',
+      roles: [
+        { value: 'Client' },
+        { value: 'Cook' }
+      ],
+    },
+    {
+      name: 'Roger',
+      roles: [
+        { value: 'Cook' },
+        { value: 'Waiter' }
+      ],
+    },
+    {
+      name: 'Bob',
+      roles: [
+        { value: 'Waiter' }
+      ],
+    },
+  ];
+  public selectedEmployee = {
+    name: '',
+    roles: [
+      { value: '' }
+    ],
+  };
 
   public form: FormGroup;
 
   constructor(
     private formBuilder: FormBuilder
-    ) {
-      console.log("construtor form : " + this.employee)
-     }
+  ) { }
 
   ngOnInit() {
+
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    this.createForm(this.employee);
-    console.log("ngOnChanges form : " + this.employee)
+    this.createForm(this.employees);
   }
 
-  createForm(employee) {
+  createForm(employees) {
     this.form = this.formBuilder.group({
       name: ['', Validators.required],
-      roles: new FormArray([])
+      waiter: [false, Validators.required],
+      cook: [false, Validators.required]
     })
   }
 
-  saveEmployee(){
+  SelectEmployee(event) {
+    this.selectedEmployee = event;
+    console.log("event list to form" + event)
+  }
+
+  saveEmployee() {
 
   }
 
@@ -41,6 +73,20 @@ export class EmployeesFormComponent implements OnInit {
 
   }
 
+  deleteEmployee() {
+
+  }
+
+  createEmployee() {
+    this.selectedEmployee =
+    {
+      name: '',
+      roles: [
+        { value: '' }
+      ],
+    };
+    console.log(this.selectedEmployee);
+  }
 
 
 }

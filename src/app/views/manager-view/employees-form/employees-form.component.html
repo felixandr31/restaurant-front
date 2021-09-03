@@ -1,16 +1,15 @@
-<p>
-  employees-form works!
-</p>
+<app-employees-list [employees]="employees" (onEmployeeSelection)="SelectEmployee($event)"></app-employees-list>
 
-<form  id="main-frame" action="" [formGroup]="form" >
+
+<!-- <form  id="main-frame" action="" [formGroup]="form" >
 
   <div >
     <label>name</label>
-    <input [formControlName]="name" [value]="employee.name">
+    <input formControlName="name" [value]="selectedEmployee.name">
   </div>
   <div >
     <label>roles</label>
-    <input *ngFor="let role of employee.roles" [formControlName]="role" [value]="employee.role" >
+    <input *ngFor="let role of employees.roles" formControlName="roles" [value]="role" >
   </div>
 
   <button (click)="saveEmployee()">
@@ -21,8 +20,8 @@
     Cancel
   </button>
 
-  <!-- <button *ngIf="agent.id" type="button" (click)="deleteAgent()">
+  <button type="button" (click)="deleteEmployee()">
     Delete
-  </button> -->
+  </button>
 
-</form>
+</form> -->

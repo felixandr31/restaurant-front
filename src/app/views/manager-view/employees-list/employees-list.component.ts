@@ -10,11 +10,15 @@ export class EmployeesListComponent implements OnInit {
   @Input() employees: any;
   @Output() onEmployeeSelection = new EventEmitter()
 
+
+
   employeeSelection(event) {
     this.onEmployeeSelection.emit(event);
   }
 
-  constructor() { }
+  constructor() {
+
+  }
 
   ngOnInit() {
   }

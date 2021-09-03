@@ -1,10 +1,12 @@
 <table>
   <thead>
     <tr >
-      <th >
-
+      <th>
+        name
       </th>
-
+      <th>
+        role
+      </th>
     </tr>
   </thead>
   <tbody>
@@ -13,7 +15,9 @@
         {{employee.name}}
       </td>
       <td *ngFor="let role of employee.roles">
-        {{role.value}}
+        <div *ngIf="role.value === 'Cook' || role.value === 'Waiter'">
+          {{role.value}}
+        </div>
       </td>
       <td>
         <button (click)="employeeSelection(employee)" id="edit-button">
