@@ -20,3 +20,12 @@
     <app-user-finder [users]="users" [client]="client"></app-user-finder>
   </div>
 </div>
+<div *ngIf="showSubView === 'eat'" class="reservation-view">
+  <app-reservation-list [client]="client"
+  (onReservationSelection)="reservationSelected($event)" class="resa-select"></app-reservation-list>
+  <app-choose-menu [restaurant]="restaurantReservation" [bill]="bill" class="resa-menu"
+  (onItemAdded)="itemAdded($event)"
+  (onItemRemoved)="itemRemoved($event)"></app-choose-menu>
+  <app-order-display
+  [bill]="bill"></app-order-display>
+</div>

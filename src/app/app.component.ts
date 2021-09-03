@@ -24,7 +24,7 @@ export class AppComponent {
 
   public clientRoles = this.client.roles;
   public showView = "Client";
-  public showSubView = 'friends';
+  public showSubView = 'eat';
 
   selectedView(event){
     this.showView = event;
