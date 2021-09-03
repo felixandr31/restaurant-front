@@ -3,8 +3,8 @@ import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { HttpClientModule } from '@angular/common/http';
-import { MarkerService } from './services/marker.service';
-import { PopupService } from './services/popup.service';
+import { MarkerService } from './services/map/marker.service';
+import { PopupService } from './services/map/popup.service';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
