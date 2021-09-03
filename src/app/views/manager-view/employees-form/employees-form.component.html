@@ -2,16 +2,15 @@
   employees-form works!
 </p>
 
-<form  id="main-frame" action="" >
-
-  <div [formGroup]="form">
-    <label>name</label>
-    <input formControlName="name">
-  </div>
+<form  id="main-frame" action="" [formGroup]="form" >
 
   <div >
+    <label>name</label>
+    <input [formControlName]="name" [value]="employee.name">
+  </div>
+  <div >
     <label>roles</label>
-    <input  [formControlName]="roles">
+    <input *ngFor="let role of employee.roles" [formControlName]="role" [value]="employee.role" >
   </div>
 
   <button (click)="saveEmployee()">
