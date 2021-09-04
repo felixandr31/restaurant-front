@@ -27,19 +27,22 @@ export class EmployeesFormComponent implements OnInit {
     },
     {
       firstName: 'Bob',
-      lastName: 'Marley',
+      lastName: 'Cook',
       roles: [
         { name: 'Waiter' }
       ],
     },
   ];
+
   public selectedEmployee = {
-    // firstName: '',
-    // lastName: '',
-    // roles: [
-    //   { name: '' }
-    // ],
+    firstName: '',
+    lastName: '',
+    roles: [
+      { name: '' }
+    ],
   };
+
+  public savedEmployee: any;
 
   public form: FormGroup;
 
@@ -48,31 +51,31 @@ export class EmployeesFormComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-
+    this.createForm();
   }
 
-  ngOnChanges(changes: SimpleChanges): void {
-    this.createForm(this.employees);
-  }
+  get f() { return this.form.controls; }
+  get r() { return this.f.roles as FormArray; }
 
-  createForm(employees) {
+
+  createForm() {
     this.form = this.formBuilder.group({
-      firstName: ['', Validators.required],
-      lastName: ['', Validators.required],
-      // email: ['', EmailValidator],
-      waiter: [false, Validators.required],
-      cook: [false, Validators.required]
+      firstName: [this.selectedEmployee.firstName, Validators.required],
+      lastName: [this.selectedEmployee.lastName, Validators.required],
+      roles: new FormArray([])
     })
   }
 
-  // list recoie une liste d'objet [{}] et renvoie l'object employee{} sélectionné
   employeeSelection(event) {
     this.selectedEmployee = event;
-    console.log('selected employee: ' + this.selectedEmployee)
+    console.log('selected employee: ' + this.selectedEmployee.firstName)
+    this.createForm();
   }
 
-  saveEmployee() {
-
+  saveEmployee(event) {
+    console.log('event: ' + event)
+    this.savedEmployee = event;
+    console.log('savedEmployee: ' + this.savedEmployee)
   }
 
   cancelEdition() {
@@ -93,7 +96,9 @@ export class EmployeesFormComponent implements OnInit {
       ],
     };
     console.log(this.selectedEmployee);
+    this.createForm();
   }
+
 
 
 }

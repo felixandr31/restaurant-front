@@ -4,30 +4,30 @@
 
 
 <!-- *ngIf="selectedEmployee === undefined" -->
-<!-- <form formGroup="form">
+<form [formGroup]="form" (ngSubmit)="saveEmployee($event)">
   <fieldset> Employee Edition
     <div>
-      <label>First name: </label>
-      <input name="firstName" formControlName="firstName" [value]="">
+      <label autofocus>First name: </label>
+      <input name="firstName" formControlName="firstName" value="">
     </div>
     <div>
-      <label>Last name: </label>
-      <input name="lastName" formControlName="lastName" [value]="">
-    </div> -->
+      <label >Last name: </label>
+      <input name="lastName" formControlName="lastName"  >
+    </div>
     <!-- TODO : cocher cases si true -->
-    <!-- <div>
+    <div >
       <div>
-        <label>Cook </label>
-        <input type="checkbox" name="cook" formControlName="Cook" [value]="false">
+        <label for="cook">Cook </label>
+        <input type="checkbox" name="cook"  id="cook">
       </div>
       <div>
-        <label>Waiter </label>
-        <input type="checkbox" name="waiter" formControlName="Waiter" [value]="true">
+        <label for="waiter">Waiter </label>
+        <input type="checkbox" name="waiter"  id="waiter">
       </div>
     </div>
   </fieldset>
-  <button>Save</button>
-</form> -->
+  <button type="submit" >Save</button>
+</form>
 
 
 <!-- <form  id="main-frame" action="" [formGroup]="form" >

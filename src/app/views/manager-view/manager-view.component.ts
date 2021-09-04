@@ -14,7 +14,7 @@ export class ManagerViewComponent implements OnInit {
   }
 
   ngOnInit() {
-
+    this.showSubView = 'homePage';
   }
 
 

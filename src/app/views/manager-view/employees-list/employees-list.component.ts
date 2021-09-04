@@ -10,47 +10,41 @@ export class EmployeesListComponent implements OnInit {
   @Input() employees: any;
   @Output() onEmployeeSelection = new EventEmitter()
 
-
-
-
   constructor() {
   }
 
   employeeSelection(event) {
     // console.log('event :' + event);
-    // Event contient bcp d'infos, je traite ici l'event pour n'envoyer que l'objet employee correspondant à la selection
+    // Event contient bcp d'infos, je traite ici l'event pour n'envoyer que l'objet Json employee correspondant à la selection
 
     // event.target.value = valeurs de firstName+lastName sélectionné
-    //Sépare firstname et lastname
+    //splited = ['firstName', 'lastName']
     const splited = event.target.value.split(' ');
     console.log('first: ' + splited[0]);
     console.log('last: ' + splited[1]);
 
-    const employee = this.employees.filter(obj => {
-      return obj === splited[1];
+    // employee = {} ; obtenu en deux étapes car pas réussi avec then...
+    const empLastName = this.employees.filter(obj => {
+      return obj.lastName === splited[1];
     })
-    console.log('employee: ' + employee.lastName);
-    // employee.lastName = undefined...
+    // console.log('employee: ' + empLastName);
+    const employee = this.employees.find(obj => {
+      return obj.firstName === splited[0];
+    })
+    // console.log('employee: ' + employee);
+    // console.log('employee.firstName: ' + employee.firstName);
+
+    // essai avec filter / then / find
+    // const employee = this.employees.filter(obj => {
+    //   obj.lastName === splited[1];
+    // }).then.find(obj2 => {
+    //   return obj2.firstName === splited[0];
+    // })
+
+    this.onEmployeeSelection.emit(employee);
 
 
   };
-
-  // filterByLastName(employee) {
-  //   if (employee.lastName === this.splited[1]) {
-  //     return true;
-  //   }
-  //   else {
-  //     return false;
-  //   }
-  // }
-  // filterByfirstName(employee) {
-  //   if (employee.firstName === this.splited[0]) {
-  //     return true;
-  //   }
-  //   else {
-  //     return false;
-  //   }
-  // }
 
   ngOnInit() {
 
