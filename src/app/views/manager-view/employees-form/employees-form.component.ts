@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, SimpleChanges } from '@angular/core';
-import { FormGroup, FormBuilder, FormControl, FormArray, Validators } from '@angular/forms';
+import { FormGroup, FormBuilder, FormControl, FormArray, Validators, EmailValidator } from '@angular/forms';
 
 @Component({
   selector: 'app-employees-form',
@@ -8,34 +8,37 @@ import { FormGroup, FormBuilder, FormControl, FormArray, Validators } from '@ang
 })
 export class EmployeesFormComponent implements OnInit {
 
-  // @Input() employee: {};
-  public employees: any = [
+  public employees = [
     {
-      name: 'Tim',
+      firstName: 'Tim',
+      lastName: 'Cook',
       roles: [
-        { value: 'Client' },
-        { value: 'Cook' }
+        { name: 'Client' },
+        { name: 'Cook' }
       ],
     },
     {
-      name: 'Roger',
+      firstName: 'Roger',
+      lastName: 'Federer',
       roles: [
-        { value: 'Cook' },
-        { value: 'Waiter' }
+        { name: 'Cook' },
+        { name: 'Waiter' }
       ],
     },
     {
-      name: 'Bob',
+      firstName: 'Bob',
+      lastName: 'Marley',
       roles: [
-        { value: 'Waiter' }
+        { name: 'Waiter' }
       ],
     },
   ];
   public selectedEmployee = {
-    name: '',
-    roles: [
-      { value: '' }
-    ],
+    // firstName: '',
+    // lastName: '',
+    // roles: [
+    //   { name: '' }
+    // ],
   };
 
   public form: FormGroup;
@@ -54,15 +57,18 @@ export class EmployeesFormComponent implements OnInit {
 
   createForm(employees) {
     this.form = this.formBuilder.group({
-      name: ['', Validators.required],
+      firstName: ['', Validators.required],
+      lastName: ['', Validators.required],
+      // email: ['', EmailValidator],
       waiter: [false, Validators.required],
       cook: [false, Validators.required]
     })
   }
 
-  SelectEmployee(event) {
+  // list recoie une liste d'objet [{}] et renvoie l'object employee{} sélectionné
+  employeeSelection(event) {
     this.selectedEmployee = event;
-    console.log("event list to form" + event)
+    console.log('selected employee: ' + this.selectedEmployee)
   }
 
   saveEmployee() {
@@ -80,9 +86,10 @@ export class EmployeesFormComponent implements OnInit {
   createEmployee() {
     this.selectedEmployee =
     {
-      name: '',
+      firstName: '',
+      lastName: '',
       roles: [
-        { value: '' }
+        { name: '' }
       ],
     };
     console.log(this.selectedEmployee);

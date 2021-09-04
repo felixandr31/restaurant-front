@@ -1,33 +1,9 @@
-<table>
-  <thead>
-    <tr >
-      <th>
-        name
-      </th>
-      <th>
-        role
-      </th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr *ngFor="let employee of employees">
-      <td>
-        {{employee.name}}
-      </td>
-      <td *ngFor="let role of employee.roles">
-        <div *ngIf="role.value === 'Cook' || role.value === 'Waiter'">
-          {{role.value}}
-        </div>
-      </td>
-      <td>
-        <button (click)="employeeSelection(employee)" id="edit-button">
-          EDIT
-        </button>
-      </td>
-    </tr>
-  </tbody>
-</table>
-
+<div class="employee-list">
+  <select (change)="employeeSelection($event)" class="employee-selector" id="employee" required>
+    <option selected disabled>Select an employee to edit</option>
+    <option *ngFor="let employee of employees">{{employee.firstName}} {{employee.lastName}}</option>
+  </select>
+</div>
 
 
 

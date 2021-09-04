@@ -12,6 +12,7 @@ export class AppComponent {
   }
   public showView = "Client";
   public showSubView = 'eat';
+  // public showSubView = 'eat';
 
   selectedView(event){
     this.showView = event;

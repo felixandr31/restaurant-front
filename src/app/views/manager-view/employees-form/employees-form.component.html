@@ -1,4 +1,33 @@
-<app-employees-list [employees]="employees" (onEmployeeSelection)="SelectEmployee($event)"></app-employees-list>
+<app-employees-list [employees]="employees" (onEmployeeSelection)="employeeSelection($event)"></app-employees-list>
+
+<button (click)="createEmployee()">Create New employee</button>
+
+
+<!-- *ngIf="selectedEmployee === undefined" -->
+<!-- <form formGroup="form">
+  <fieldset> Employee Edition
+    <div>
+      <label>First name: </label>
+      <input name="firstName" formControlName="firstName" [value]="">
+    </div>
+    <div>
+      <label>Last name: </label>
+      <input name="lastName" formControlName="lastName" [value]="">
+    </div> -->
+    <!-- TODO : cocher cases si true -->
+    <!-- <div>
+      <div>
+        <label>Cook </label>
+        <input type="checkbox" name="cook" formControlName="Cook" [value]="false">
+      </div>
+      <div>
+        <label>Waiter </label>
+        <input type="checkbox" name="waiter" formControlName="Waiter" [value]="true">
+      </div>
+    </div>
+  </fieldset>
+  <button>Save</button>
+</form> -->
 
 
 <!-- <form  id="main-frame" action="" [formGroup]="form" >

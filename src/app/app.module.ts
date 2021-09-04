@@ -61,16 +61,12 @@ import { EmployeesFormComponent } from './views/manager-view/employees-form/empl
     FriendAddCardComponent,
     RecipeformComponent,
     SetrecipeformComponent,
-<<<<<<< HEAD
     EmployeesListComponent,
-    EmployeesFormComponent
-=======
+    EmployeesFormComponent,
     ReservationListComponent,
     ChooseMenuItemComponent,
     ChooseMenuComponent,
     OrderDisplayComponent,
-    EmployeesListComponent
->>>>>>> bf21df81a8bb9d71f3084c657679693fbd8521ac
   ],
   imports: [
     BrowserModule,

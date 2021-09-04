@@ -1,4 +1,4 @@
-<div *ngIf="showSubView === 'DefaultManager'">
+<div *ngIf="showSubView === 'homePage'">
   <h3>Manager view</h3>
   <div>graphics of restaurant C.A. data</div>
   <div>Stocks alerts</div>
@@ -13,8 +13,6 @@
   <p>Stocks view</p>
 </div>
 <div *ngIf="showSubView === 'employees'" class="employees-view">
-  <!-- <app-employees-list [employees]="employees" (onEmployeeSelection)="SelectEmployee($event)"></app-employees-list> -->
-  <button (click)="createEmployee()" id="createButton">Create New Employee</button>
   <app-employees-form></app-employees-form>
 
 </div>
