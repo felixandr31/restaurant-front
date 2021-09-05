@@ -34,6 +34,7 @@ import { ChooseMenuItemComponent } from './views/client-view/choose-menu-item/ch
 import { ChooseMenuComponent } from './views/client-view/choose-menu/choose-menu.component';
 import { OrderDisplayComponent } from './views/client-view/order-display/order-display.component';
 import { EmployeesListComponent } from './views/manager-view/employees-list/employees-list.component';
+import { EmployeesFormComponent } from './views/manager-view/employees-form/employees-form.component';
 
 
 @NgModule({
@@ -60,11 +61,12 @@ import { EmployeesListComponent } from './views/manager-view/employees-list/empl
     FriendAddCardComponent,
     RecipeformComponent,
     SetrecipeformComponent,
+    EmployeesListComponent,
+    EmployeesFormComponent,
     ReservationListComponent,
     ChooseMenuItemComponent,
     ChooseMenuComponent,
     OrderDisplayComponent,
-    EmployeesListComponent
   ],
   imports: [
     BrowserModule,

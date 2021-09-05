@@ -9,15 +9,23 @@ export class SideNavigationMenuComponent implements OnInit {
 
   constructor() { }
 
-  @Input() clientRoles: any;
+
   @Input() showView: any;
-  @Output() clickedTab :EventEmitter<String> = new EventEmitter()
+  @Output() clickedTab: EventEmitter<String> = new EventEmitter()
   @Output() onSubViewSelection = new EventEmitter();
+
+  public clientRoles = [
+    { name: 'Admin' },
+    { name: 'Manager' },
+    { name: 'Cook' },
+    { name: 'Waiter' },
+    { name: 'Client' },
+  ];
 
   ngOnInit() {
   }
 
-  logout(){
+  logout() {
     console.log("Nothing yet, logout")
   }
 
