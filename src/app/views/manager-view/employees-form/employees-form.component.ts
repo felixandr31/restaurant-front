@@ -13,23 +13,24 @@ export class EmployeesFormComponent implements OnInit {
       firstName: 'Tim',
       lastName: 'Cook',
       roles: [
-        { name: 'Client' },
-        { name: 'Cook' }
+        { name: 'cook', checked: true },
+        { name: 'waiter', checked: false }
       ],
     },
     {
-      firstName: 'Roger',
-      lastName: 'Federer',
+      firstName: 'Bob',
+      lastName: 'Dilan',
       roles: [
-        { name: 'Cook' },
-        { name: 'Waiter' }
+        { name: 'cook', checked: true },
+        { name: 'waiter', checked: true }
       ],
     },
     {
       firstName: 'Bob',
       lastName: 'Cook',
       roles: [
-        { name: 'Waiter' }
+        { name: 'cook', checked: false },
+        { name: 'waiter', checked: true }
       ],
     },
   ];
@@ -38,66 +39,108 @@ export class EmployeesFormComponent implements OnInit {
     firstName: '',
     lastName: '',
     roles: [
-      { name: '' }
+      { name: 'cook', checked: false },
+      { name: 'waiter', checked: false }
     ],
-  };
+  };;
 
-  public savedEmployee: any;
-
-  public form: FormGroup;
+  empRoles: any[];
+  savedEmployee: any;
+  form: FormGroup;
 
   constructor(
     private formBuilder: FormBuilder
   ) { }
 
   ngOnInit() {
+    // bind props with data from database
+    this.empRoles = this.selectedEmployee.roles;
+    // build reactive form skeleton
     this.createForm();
+    // bind existing value to form control
+    this.patchValues();
   }
 
-  get f() { return this.form.controls; }
-  get r() { return this.f.roles as FormArray; }
+  // get f() { return this.form.controls; }
+  // get r() { return this.f.roles as FormArray; }
 
 
   createForm() {
     this.form = this.formBuilder.group({
-      firstName: [this.selectedEmployee.firstName, Validators.required],
-      lastName: [this.selectedEmployee.lastName, Validators.required],
-      roles: new FormArray([])
+      firstName: ['', Validators.required],
+      lastName: ['', Validators.required],
+      roles: new FormArray([]),
+    });
+  }
+
+  patchValues() {
+    // get array control
+    const r = this.form.get('roles') as FormArray;
+    // loop each existing value
+    this.empRoles.forEach(obj => {
+      r.push(new FormGroup({
+        name: new FormControl(obj.name),
+        checked: new FormControl(obj.checked)
+      }))
     })
   }
 
-  employeeSelection(event) {
-    this.selectedEmployee = event;
-    console.log('selected employee: ' + this.selectedEmployee.firstName)
-    this.createForm();
-  }
+  // updateForm() {
+  //   this.form = this.formBuilder.group({
+  //     firstName: [this.selectedEmployee.firstName, Validators.required],
+  //     lastName: [this.selectedEmployee.lastName, Validators.required],
+  //   });
+  //   this.selectedEmployee.roles.forEach(obj => {
+  //     this.r.push(new FormGroup({
+  //       name: new FormControl(obj.name),
+  //       checked: new FormControl(obj.checked)
+  //     }))
+  //   });
+  //   // this.selectedEmployee.roles.forEach(obj => {
+  //   //   this.r.push(this.formBuilder.group({
+  //   //     name: [obj.name, Validators.required],
+  //   //     checked: [obj.checked, Validators.required],
+  //   //   }))
+  //   // });
 
-  saveEmployee(event) {
-    console.log('event: ' + event)
-    this.savedEmployee = event;
-    console.log('savedEmployee: ' + this.savedEmployee)
-  }
+  //   console.log('this.form.controls (updateForm) : ' + this.form.controls.value)
+  // }
+
+
+  employeeSelection(event) {
+
+      this.selectedEmployee = event;
+      // this.updateForm();
+    }
+
+  createEmployee() {
+      this.selectedEmployee =
+      {
+        firstName: '',
+        lastName: '',
+        roles: [
+          { name: 'cook', checked: false },
+          { name: 'waiter', checked: false }
+        ],
+      };
+      this.patchValues();
+      console.log('Object.keys(this.selectedEmployee): ' + Object.keys(this.selectedEmployee))
+    }
+
+  saveEmployee() {
+      this.savedEmployee = this.form.value;
+      console.log('savedEmployee.firstName: ' + this.savedEmployee.firstName)
+    }
+
 
   cancelEdition() {
 
-  }
+    }
 
   deleteEmployee() {
 
-  }
+    }
 
-  createEmployee() {
-    this.selectedEmployee =
-    {
-      firstName: '',
-      lastName: '',
-      roles: [
-        { name: '' }
-      ],
-    };
-    console.log(this.selectedEmployee);
-    this.createForm();
-  }
 
 
 

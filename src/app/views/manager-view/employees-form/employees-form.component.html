@@ -1,32 +1,46 @@
-<app-employees-list [employees]="employees" (onEmployeeSelection)="employeeSelection($event)"></app-employees-list>
-
-<button (click)="createEmployee()">Create New employee</button>
-
+<fieldset class="employeeList">Select existing employee
+  <app-employees-list [employees]="employees" (onEmployeeSelection)="employeeSelection($event)"></app-employees-list>
+  <div class="employeeCreation">
+    <label> or : </label>
+    <button (click)="createEmployee()">Create New employee</button>
+  </div>
+</fieldset>
 
 <!-- *ngIf="selectedEmployee === undefined" -->
-<form [formGroup]="form" (ngSubmit)="saveEmployee($event)">
+<form [formGroup]="form">
   <fieldset> Employee Edition
     <div>
       <label autofocus>First name: </label>
-      <input name="firstName" formControlName="firstName" value="">
+      <input name="firstName" formControlName="firstName">
     </div>
     <div>
-      <label >Last name: </label>
-      <input name="lastName" formControlName="lastName"  >
+      <label>Last name: </label>
+      <input name="lastName" formControlName="lastName">
     </div>
-    <!-- TODO : cocher cases si true -->
-    <div >
+
+    <ul formArrayName="roles">
+      <li [formGroupName]="i" *ngFor="let role of empRoles; let i = index">
+        <input type="checkbox" formControlName="checked" /> {{roles[i].name}}
+      </li>
+
+    </ul>
+
+
+    <!-- <div>
       <div>
         <label for="cook">Cook </label>
-        <input type="checkbox" name="cook"  id="cook">
+        <input type="checkbox" name="cook" id="cook">
       </div>
       <div>
         <label for="waiter">Waiter </label>
-        <input type="checkbox" name="waiter"  id="waiter">
+        <input type="checkbox" name="waiter" id="waiter">
       </div>
-    </div>
+    </div> -->
+
+
+
   </fieldset>
-  <button type="submit" >Save</button>
+  <button *ngIf="form.controls.value === nothing" (click)="saveEmployee()">Save</button>
 </form>
 
 
