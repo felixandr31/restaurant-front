@@ -7,27 +7,27 @@ import { HttpClient } from '@angular/common/http'
 
 export class RoleService {
 
-  private rolesUrl = 'http://localhost:8080/backend-filrouge/role/'
+  private url = 'http://localhost:8080/backend-filrouge/role/'
 
   constructor(private http: HttpClient) { }
 
   getRoles() {
-    const url = this.rolesUrl + 'roles'
+    const url = this.url + 'roles'
     return this.http.get(url, {observe:'response'});
   }
 
   postRole(role: any) {
-    const url = this.rolesUrl + 'create'
+    const url = this.url + 'create'
     return this.http.post(url, role, {observe: 'response'} )
   }
 
   //TODO putRole & deleteRole
   putRole(role: any) {
-    const url = this.rolesUrl + ''
+    const url = this.url + ''
   }
 
   deleteRole(role: any) {
-    const url = this.rolesUrl + ''
+    const url = this.url + ''
     return this.http.delete(url)
   }
 }
