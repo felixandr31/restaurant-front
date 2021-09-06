@@ -1,5 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { RoleService } from 'src/app/services/data/role.service';
+import { UserService } from 'src/app/services/data/user.service';
+import { RestaurantService } from 'src/app/services/restaurant.service';
 
 
 @Component({
@@ -115,12 +117,16 @@ export class ClientViewComponent implements OnInit {
 
   private roles = [];
 
-  constructor(private roleService: RoleService) { }
+  constructor(
+    private roleService: RoleService,
+    private userService: UserService,
+    private restaurantService: RestaurantService
+    ) { }
 
 
   ngOnInit() {
-    let response: any;
-    let errorMessage: any;
+    // let response: any;
+    // let errorMessage: any;
     // this.roleService.postRole({name: ''}).subscribe({
     //   next: data => {
     //     response = data.body
@@ -133,6 +139,28 @@ export class ClientViewComponent implements OnInit {
     // })
 
     this.roleService.getRoles().subscribe(
+      data => {
+        console.log('données', data)
+        console.log('headers', data.headers)
+        console.log('url', data.url)
+      },
+      err => {
+        console.log('erreur', err)
+      }
+    )
+
+    this.userService.getUsers().subscribe(
+      data => {
+        console.log('données', data)
+        console.log('headers', data.headers)
+        console.log('url', data.url)
+      },
+      err => {
+        console.log('erreur', err)
+      }
+    )
+
+    this.restaurantService.getRestaurants().subscribe(
       data => {
         console.log('données', data)
         console.log('headers', data.headers)
