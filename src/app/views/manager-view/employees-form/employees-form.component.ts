@@ -43,19 +43,26 @@ export class EmployeesFormComponent implements OnInit {
     firstName: '',
     lastName: '',
     roles: [
-      { name: 'cook', checked: false },
+      { name: 'cook', checked: true },
       { name: 'waiter', checked: false }
     ],
   };;
 
-  empRoles: any[];
+  empRoles: any;
   savedEmployee: any;
   form: FormGroup;
 
   constructor(private formBuilder: FormBuilder) { }
 
   ngOnInit() {
-    this.updateForm()
+    // bind props with data from database
+    this.empRoles = this.selectedEmployee.roles;
+    // build reactive form skeleton
+    this.createForm();
+    // bind existing value to form control
+    this._patchValues();
+    console.log('form.controls', this.f)
+
   }
 
   get f() { return this.form.controls; }
@@ -66,11 +73,20 @@ export class EmployeesFormComponent implements OnInit {
     this.form = this.formBuilder.group({
       firstName: [this.selectedEmployee.firstName, Validators.required],
       lastName: [this.selectedEmployee.lastName, Validators.required],
-      roles: new FormArray([]),
+      roles: new FormArray([
+        // this.formBuilder.group({
+        //   name: ['cook', Validators.required],
+        //   checked: [true, Validators.required],
+        // },
+        // {
+        //   name: ['waiter', Validators.required],
+        //   checked: [false, Validators.required],
+        // })
+      ]),
     });
   }
 
-  patchValues() {
+  _patchValues() {
     // loop each existing value
     this.empRoles.forEach(role => {
       this.r.push(
@@ -82,24 +98,22 @@ export class EmployeesFormComponent implements OnInit {
   }
 
   updateForm() {
-    // bind props with data from database
     this.empRoles = this.selectedEmployee.roles;
-    // build reactive form skeleton
-    this.createForm();
-    // bind existing value to form control
-    this.patchValues();
-    console.log(this.form)
-    console.log(this.f)
+    this.form.patchValue({
+      firstName: this.selectedEmployee.firstName,
+      lastName: this.selectedEmployee.lastName,
+    })
+    this.r.controls.splice(0, 2, this.empRoles)
   }
 
   employeeSelection(event) {
-    console.log(event)
+    // console.log(event)
     console.log(this.selectedEmployee)
-    this.selectedEmployee = this.employees.filter(emp => {
-      emp.id == event;
-    }).shift();
-    console.log('coucouc undefuned ?', this.selectedEmployee
-    )
+    this.selectedEmployee = this.employees.find(emp => {
+     return emp.id === event;
+    }
+      );
+    console.log(this.selectedEmployee)
     // this.updateForm();
   }
 
@@ -114,8 +128,8 @@ export class EmployeesFormComponent implements OnInit {
         { name: 'waiter', checked: false }
       ],
     };
-    this.patchValues();
-    console.log('Object.keys(this.selectedEmployee): ' + Object.keys(this.selectedEmployee))
+    this.updateForm();
+    console.log('this.selectedEmployee', this.selectedEmployee)
   }
 
   saveEmployee() {
