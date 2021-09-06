@@ -20,9 +20,8 @@
 
     <ul formArrayName="roles">
       <li [formGroupName]="i" *ngFor="let role of empRoles; let i = index">
-        <input type="checkbox" formControlName="checked" /> {{roles[i].name}}
+        <input type="checkbox" formControlName="checked" /> {{role[i].name}}
       </li>
-
     </ul>
 
 

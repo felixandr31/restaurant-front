@@ -10,6 +10,7 @@ export class EmployeesFormComponent implements OnInit {
 
   public employees = [
     {
+      id: 1,
       firstName: 'Tim',
       lastName: 'Cook',
       roles: [
@@ -18,6 +19,7 @@ export class EmployeesFormComponent implements OnInit {
       ],
     },
     {
+      id: 2,
       firstName: 'Bob',
       lastName: 'Dilan',
       roles: [
@@ -26,6 +28,7 @@ export class EmployeesFormComponent implements OnInit {
       ],
     },
     {
+      id: 3,
       firstName: 'Bob',
       lastName: 'Cook',
       roles: [
@@ -36,6 +39,7 @@ export class EmployeesFormComponent implements OnInit {
   ];
 
   public selectedEmployee = {
+    id: 0,
     firstName: '',
     lastName: '',
     roles: [
@@ -48,9 +52,7 @@ export class EmployeesFormComponent implements OnInit {
   savedEmployee: any;
   form: FormGroup;
 
-  constructor(
-    private formBuilder: FormBuilder
-  ) { }
+  constructor(private formBuilder: FormBuilder) { }
 
   ngOnInit() {
     // bind props with data from database
@@ -59,28 +61,27 @@ export class EmployeesFormComponent implements OnInit {
     this.createForm();
     // bind existing value to form control
     this.patchValues();
+    console.log(this.form)
   }
 
-  // get f() { return this.form.controls; }
-  // get r() { return this.f.roles as FormArray; }
-
+  get f() { return this.form.controls; }
+  // get array control
+  get r() { return this.f.roles as FormArray; }
 
   createForm() {
     this.form = this.formBuilder.group({
-      firstName: ['', Validators.required],
-      lastName: ['', Validators.required],
+      firstName: [this.selectedEmployee.firstName, Validators.required],
+      lastName: [this.selectedEmployee.lastName, Validators.required],
       roles: new FormArray([]),
     });
   }
 
   patchValues() {
-    // get array control
-    const r = this.form.get('roles') as FormArray;
     // loop each existing value
-    this.empRoles.forEach(obj => {
-      r.push(new FormGroup({
-        name: new FormControl(obj.name),
-        checked: new FormControl(obj.checked)
+    this.empRoles.forEach(role => {
+      this.r.push(new FormGroup({
+        name: new FormControl(role.name),
+        checked: new FormControl(role.checked)
       }))
     })
   }
@@ -90,56 +91,45 @@ export class EmployeesFormComponent implements OnInit {
   //     firstName: [this.selectedEmployee.firstName, Validators.required],
   //     lastName: [this.selectedEmployee.lastName, Validators.required],
   //   });
-  //   this.selectedEmployee.roles.forEach(obj => {
-  //     this.r.push(new FormGroup({
-  //       name: new FormControl(obj.name),
-  //       checked: new FormControl(obj.checked)
-  //     }))
-  //   });
-  //   // this.selectedEmployee.roles.forEach(obj => {
-  //   //   this.r.push(this.formBuilder.group({
-  //   //     name: [obj.name, Validators.required],
-  //   //     checked: [obj.checked, Validators.required],
-  //   //   }))
-  //   // });
-
-  //   console.log('this.form.controls (updateForm) : ' + this.form.controls.value)
+  //   this.patchValues();
   // }
 
-
   employeeSelection(event) {
-
-      this.selectedEmployee = event;
-      // this.updateForm();
-    }
+    this.selectedEmployee = this.employees.find(emp => {
+      return emp.id === event;
+    })
+    console.log(this.selectedEmployee)
+    // this.patchValues();
+  }
 
   createEmployee() {
-      this.selectedEmployee =
-      {
-        firstName: '',
-        lastName: '',
-        roles: [
-          { name: 'cook', checked: false },
-          { name: 'waiter', checked: false }
-        ],
-      };
-      this.patchValues();
-      console.log('Object.keys(this.selectedEmployee): ' + Object.keys(this.selectedEmployee))
-    }
+    this.selectedEmployee =
+    {
+      id: 4,
+      firstName: '',
+      lastName: '',
+      roles: [
+        { name: 'cook', checked: false },
+        { name: 'waiter', checked: false }
+      ],
+    };
+    this.patchValues();
+    console.log('Object.keys(this.selectedEmployee): ' + Object.keys(this.selectedEmployee))
+  }
 
   saveEmployee() {
-      this.savedEmployee = this.form.value;
-      console.log('savedEmployee.firstName: ' + this.savedEmployee.firstName)
-    }
+    this.savedEmployee = this.form.value;
+    console.log('savedEmployee.firstName: ' + this.savedEmployee.firstName)
+  }
 
 
   cancelEdition() {
 
-    }
+  }
 
   deleteEmployee() {
 
-    }
+  }
 
 
 
