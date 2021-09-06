@@ -1,5 +1,7 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, OnChanges } from '@angular/core';
 import { RoleService } from 'src/app/services/data/role.service';
+import { UserService } from 'src/app/services/data/user.service';
+import { RestaurantService } from 'src/app/services/restaurant.service';
 
 
 @Component({
@@ -7,9 +9,10 @@ import { RoleService } from 'src/app/services/data/role.service';
   templateUrl: './client-view.component.html',
   styleUrls: ['./client-view.component.css']
 })
-export class ClientViewComponent implements OnInit {
+export class ClientViewComponent implements OnInit, OnChanges {
 
   @Input() showSubView: any;
+  @Input() user: any;
 
   public restaurants: any = [
     {
@@ -115,26 +118,19 @@ export class ClientViewComponent implements OnInit {
 
   private roles = [];
 
-  constructor(private roleService: RoleService) { }
+  constructor(
+    private roleService: RoleService,
+    private userService: UserService,
+    private restaurantService: RestaurantService
+    ) { }
 
 
   ngOnInit() {
-    let response: any;
-    let errorMessage: any;
-    // this.roleService.postRole({name: ''}).subscribe({
-    //   next: data => {
-    //     response = data.body
-    //     console.log('post data :', data.body)
-    //   },
-    //   error: error => {
-    //     errorMessage = error.errorMessage
-    //     console.error('Une erreur sauvage : ', errorMessage)
-    //   }
-    // })
 
-    this.roleService.getRoles().subscribe(
+    this.restaurantService.getRestaurants().subscribe(
       data => {
-        console.log('données', data)
+        console.log('données', data.body)
+        this.restaurants = data.body;
         console.log('headers', data.headers)
         console.log('url', data.url)
       },
@@ -142,6 +138,10 @@ export class ClientViewComponent implements OnInit {
         console.log('erreur', err)
       }
     )
+  }
+
+  ngOnChanges() {
+    console.log('Georges, you here ?', this.user)
   }
 
   restaurantSelected(event) {
