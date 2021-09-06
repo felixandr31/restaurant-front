@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { UserService } from './services/data/user.service';
 
 @Component({
   selector: 'app-root',
@@ -7,8 +8,17 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'restaurant-front';
+  public user: any;
 
-  constructor() {
+  constructor(private userService: UserService) {
+    this.user = this.userService.getUsers().subscribe(
+      data => {
+        let res = Object.values(data.body)
+        this.user = res.filter(user => user.id === '6135e681309dfa211d060bc5').shift();
+        this.user = Object.assign({}, this.user);
+        return this.user;
+      }
+    )
   }
   public showView = "";
   public showSubView = 'eat';

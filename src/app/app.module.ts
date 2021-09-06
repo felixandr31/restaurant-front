@@ -24,7 +24,7 @@ import { WaiterViewComponent } from './views/waiter-view/waiter-view.component';
 import { ClientSelectorComponent } from './views/client-view/client-selector/client-selector.component';
 import { SubMenuComponent } from './components/sub-menu/sub-menu.component';
 import { FriendsListComponent } from './views/client-view/friends-list/friends-list.component';
-import { UserFinderComponent } from './user-finder/user-finder.component';
+import { UserFinderComponent } from './views/client-view/user-finder/user-finder.component';
 import { FriendCardComponent } from './views/client-view/friend-card/friend-card.component';
 import { FriendAddCardComponent } from './views/client-view/friend-add-card/friend-add-card.component';
 import { RecipeformComponent } from './views/cook-view/recipeform/recipeform.component';
