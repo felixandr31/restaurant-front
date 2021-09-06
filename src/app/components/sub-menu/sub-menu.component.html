@@ -1,17 +1,35 @@
-<div *ngIf="showView === 'Client'">
-    <div *ngFor="let item of menuClient">
+
+    <!-- <div *ngFor="let item of menuClient">
       <a (click)="subView(item.name)">
         <div>
           {{item.content}}
         </div>
       </a>
+    </div> -->
+
+
+
+<div *ngIf="showView === 'Client'" class="dropbtn">
+  <div class="dropdown">
+    <div class="dropdown-content">
+      <a *ngFor="let item of menuClient" (click)="subView(item.name)">{{item.content}}</a>
     </div>
+  </div>
 </div>
 
-<div *ngIf="showView === 'Manager'">
-  <div *ngFor="let item of menuManager">
+
+  <!-- <div *ngFor="let item of menuManager">
     <ul>
       <li><a (click)="subView(item.name)">{{item.content}}</a></li>
     </ul>
+  </div> -->
+
+
+
+<div *ngIf="showView === 'Manager'" class="dropbtn">
+  <div class="dropdown">
+    <div class="dropdown-content">
+      <a *ngFor="let item of menuManager">{{item.content}}</a>
+    </div>
   </div>
 </div>
