@@ -163,7 +163,7 @@ export class ClientViewComponent implements OnInit, OnChanges {
 
   itemAdded(event) {
     this.addToBill(event);
-    this.bill = this.bill.slice(0)
+    this.bill = this.bill.slice(0) // {...this.bill} JSON.parse(JSON.stingify(this.bill)) (ou voir avec lodash : cloneDeep())
     console.log('la facture après slice', this.bill)
   }
 

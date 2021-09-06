@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, AfterViewInit, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, AfterViewInit, Output, EventEmitter, OnChanges } from '@angular/core';
 import * as L from 'leaflet';
 import { MarkerService } from 'src/app/services/map/marker.service';
 import { Subscription } from 'rxjs';
@@ -23,7 +23,7 @@ L.Marker.prototype.options.icon = iconDefault;
   templateUrl: './restaurant-map.component.html',
   styleUrls: ['./restaurant-map.component.css']
 })
-export class RestaurantMapComponent implements AfterViewInit {
+export class RestaurantMapComponent implements  OnChanges {
 
   private restaurantEmissionRef: Subscription = null;
 
@@ -31,8 +31,8 @@ export class RestaurantMapComponent implements AfterViewInit {
 
   private initMap(): void {
     this.map = L.map('map', {
-      center: [43.58495, 1.40350],
-      zoom: 16
+      center: [45.3, 65.8],
+      zoom: 3
     });
     const tiles = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
       maxZoom: 18,
@@ -42,19 +42,23 @@ export class RestaurantMapComponent implements AfterViewInit {
     tiles.addTo(this.map)
   }
 
-
   @Input() restaurants: any;
   @Input() restaurant: any;
   @Output() onRestaurantSelection = new EventEmitter();
 
   constructor(private markerService: MarkerService) { }
 
-  ngAfterViewInit() {
-    this.initMap();
-    this.markerService.makeRestaurantMarker(this.map);
-    this.restaurantEmissionRef = this.markerService.restaurantEmitted$.subscribe(event => {
-      this.onRestaurantSelection.emit(event);
-    });
+  ngOnChanges() {
+    console.log('on change')
+    if (!this.map) {
+      this.initMap();
+      this.markerService.makeRestaurantMarker(this.map, this.restaurants);
+      console.log('map init')
+    }
+    if (this.map) {
+      console.log('list of restaurants updated')
+      this.markerService.makeRestaurantMarker(this.map, this.restaurants);
+    }
   }
 
   ngOnDestroy() {

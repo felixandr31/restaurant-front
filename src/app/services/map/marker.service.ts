@@ -17,35 +17,8 @@ export class MarkerService {
     private popupService: PopupService
     ) { }
 
-  private restaurants = [
-    {
-      name: "Zozan",
-      stars: 5,
-      coordinates: {
-        latitude: 43.58516,
-        longitude: 1.40005
-      },
-      recipes:  [
-        {name: "Ultimate Kebab"},
-        {name: "Ultimate Tacos"}
-      ]
-    },
-    {
-      name: "BFC",
-      stars: 4,
-      coordinates: {
-        latitude: 43.58395,
-        longitude: 1.40126
-      },
-      recipes:  [
-        {name: "BFC Tenders"},
-        {name: "BFC Wings"}
-      ]
-    }
-  ];
-
-  makeRestaurantMarker(map: L.map): void {
-    this.restaurants.forEach(restaurant => {
+  makeRestaurantMarker(map: L.map, restaurants): void {
+    restaurants.forEach(restaurant => {
       const lon = restaurant.coordinates.longitude;
       const lat = restaurant.coordinates.latitude;
       const marker = L.marker([lat, lon]);
