@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output } from '@angular/core';
 import { RouterLink } from '@angular/router';
 
 @Component({
@@ -10,52 +10,14 @@ export class ManagerViewComponent implements OnInit {
 
   @Input() showSubView: any;
 
-  public employees: any = [
-    {
-      role: {
-        label: 'role',
-        name: 'Cook'
-      },
-      name: {
-        label: 'name',
-        name: 'Michel'
-      }
-    },
-    {
-      role: {
-        label: 'role',
-        name: 'Cook'
-      },
-      name: {
-        label: 'name',
-        name: 'Roger'
-      }
-    },
-    {
-      role: {
-        label: 'role',
-        name: 'Waiter'
-      },
-      name: {
-        label: 'name',
-        name: 'Bob'
-      }
-    },
-    {
-      role: {
-        label: 'role',
-        name: 'Waiter'
-      },
-      name: {
-        label: 'name',
-        name: 'Hermann'
-      }
-    },
-  ]
-
-  constructor() { }
+  constructor() {
+  }
 
   ngOnInit() {
+    this.showSubView = 'homePage';
   }
+
+
+
 
 }

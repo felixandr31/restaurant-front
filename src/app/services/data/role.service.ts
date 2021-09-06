@@ -7,7 +7,8 @@ import { HttpClient } from '@angular/common/http'
 
 export class RoleService {
 
-  rolesUrl = 'http://localhost:8080/backend-filrouge/role/'
+  private rolesUrl = 'http://localhost:8080/backend-filrouge/role/'
+
   constructor(private http: HttpClient) { }
 
   getRoles() {

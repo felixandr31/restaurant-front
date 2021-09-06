@@ -1,30 +1,11 @@
-<table>
-  <thead>
-    <tr >
-      <th >
+<div class="employee-list">
+  <select (change)="employeeSelection($event)" class="employee-selector" id="employee" required>
+    <option selected disabled></option>
+    <option *ngFor="let employee of employees">{{employee.firstName}} {{employee.lastName}}</option>
+  </select>
+</div>
 
-      </th>
 
-    </tr>
-  </thead>
-  <tbody>
-    <tr *ngFor="let employee of employees">
-      <td>
-        {{employee.name}}
-      </td>
-      <td>
-        {{employee.role}}
-      </td>
-      <td>
-        <button (click)="onEmployeeSelection(employee)" id="edit-button">
-          EDIT
-        </button>
-      </td>
-    </tr>
-  </tbody>
-</table>
-
-<button (click)="createEmployee()" id="createButton">Create New Employee</button>
 
 
 

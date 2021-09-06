@@ -10,21 +10,9 @@ export class AppComponent {
 
   constructor() {
   }
-
-  public client = {
-    name: 'Georges',
-    roles: [
-      {name: 'Admin'},
-      {name: 'Manager'},
-      {name: 'Cook'},
-      {name: 'Waiter'},
-      {name: 'Client'},
-    ]
-  }
-
-  public clientRoles = this.client.roles;
   public showView = "Client";
-  public showSubView = 'friends';
+  public showSubView = 'eat';
+  // public showSubView = 'eat';
 
   selectedView(event){
     this.showView = event;

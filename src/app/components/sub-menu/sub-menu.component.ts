@@ -10,12 +10,14 @@ export class SubMenuComponent implements OnInit {
   @Input() showView: any;
   @Output() onSubViewSelection = new EventEmitter();
 
-  private menuClient: any = [
+  public menuClient: any = [
     { name: 'find', content: 'Find a restaurant' },
     { name: 'friends', content: 'Friends' },
-    { name: 'eat', content: 'View reservations' }
+    { name: 'eat', content: 'View reservations and eat' }
   ]
-  private menuManager: any = [
+
+  public menuManager: any = [
+    { name: 'homePage', content: 'Home page' },
     { name: 'transactions', content: 'Transactions' },
     { name: 'recipies', content: 'Recipies' },
     { name: 'stocks', content: 'Stocks' },
@@ -30,5 +32,4 @@ export class SubMenuComponent implements OnInit {
   subView(event) {
     this.onSubViewSelection.emit(event);
   }
-
 }

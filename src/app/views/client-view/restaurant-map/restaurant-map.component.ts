@@ -3,7 +3,6 @@ import * as L from 'leaflet';
 import { MarkerService } from 'src/app/services/map/marker.service';
 import { Subscription } from 'rxjs';
 
-// icones des marker
 const iconRetinaUrl = 'assets/marker-icon-2x.png';
 const iconUrl = 'assets/marker-icon.png';
 const shadowUrl = 'assets/marker-shadow.png';
@@ -26,7 +25,6 @@ L.Marker.prototype.options.icon = iconDefault;
 })
 export class RestaurantMapComponent implements AfterViewInit {
 
-  // souscription au click des popup
   private restaurantEmissionRef: Subscription = null;
 
   private map;
