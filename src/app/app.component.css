@@ -1,9 +1,10 @@
-:host {
+.logged-view {
   display: grid;
   grid-template: 1fr / 100px 1fr;
   grid-template-areas: "menu view";
   gap: 0 2em;
   height: calc(100vh - .5em);
+  width: 100vw;
 }
 
 .menu {
