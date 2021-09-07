@@ -18,6 +18,11 @@
       <input name="lastName" formControlName="lastName">
     </div>
 
+    <div formArrayName="roles">
+      <div formControlName="name">
+
+      </div>
+    </div>
     <!-- <ul formArrayName="roles">
       <li formGroupName="i" *ngFor="let role of empRoles; let i = index">
         <input type="checkbox" formControlName="checked" />{{role[i].name}}

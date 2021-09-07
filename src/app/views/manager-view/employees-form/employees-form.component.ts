@@ -14,8 +14,8 @@ export class EmployeesFormComponent implements OnInit {
       firstName: 'Tim',
       lastName: 'Cook',
       roles: [
-        { name: 'cook', checked: true },
-        { name: 'waiter', checked: false }
+        { name: 'cook' },
+        { name: 'waiter' }
       ],
     },
     {
@@ -23,8 +23,8 @@ export class EmployeesFormComponent implements OnInit {
       firstName: 'Bob',
       lastName: 'Dilan',
       roles: [
-        { name: 'cook', checked: true },
-        { name: 'waiter', checked: true }
+        { name: 'cook' },
+        { name: 'waiter' }
       ],
     },
     {
@@ -32,8 +32,8 @@ export class EmployeesFormComponent implements OnInit {
       firstName: 'Bob',
       lastName: 'Cook',
       roles: [
-        { name: 'cook', checked: false },
-        { name: 'waiter', checked: true }
+        { name: 'cook' },
+        { name: 'waiter' }
       ],
     },
   ];
@@ -43,8 +43,8 @@ export class EmployeesFormComponent implements OnInit {
     firstName: '',
     lastName: '',
     roles: [
-      { name: 'cook', checked: true },
-      { name: 'waiter', checked: false }
+      { name: 'cook' },
+      { name: 'waiter' }
     ],
   };;
 
@@ -52,16 +52,13 @@ export class EmployeesFormComponent implements OnInit {
   savedEmployee: any;
   form: FormGroup;
 
+
   constructor(private formBuilder: FormBuilder) { }
 
   ngOnInit() {
-    // bind props with data from database
-    this.empRoles = this.selectedEmployee.roles;
-    // build reactive form skeleton
     this.createForm();
-    // bind existing value to form control
-    this._patchValues();
     console.log('form.controls', this.f)
+
 
   }
 
@@ -70,30 +67,23 @@ export class EmployeesFormComponent implements OnInit {
   get r() { return this.f.roles as FormArray; }
 
   createForm() {
+    this.empRoles = this.selectedEmployee.roles;
     this.form = this.formBuilder.group({
       firstName: [this.selectedEmployee.firstName, Validators.required],
       lastName: [this.selectedEmployee.lastName, Validators.required],
-      roles: new FormArray([
-        // this.formBuilder.group({
-        //   name: ['cook', Validators.required],
-        //   checked: [true, Validators.required],
-        // },
-        // {
-        //   name: ['waiter', Validators.required],
-        //   checked: [false, Validators.required],
-        // })
-      ]),
+      roles: new FormArray([]),
     });
+    this._patchValues();
   }
 
   _patchValues() {
     // loop each existing value
     this.empRoles.forEach(role => {
       this.r.push(
-        new FormGroup({
-          name: new FormControl(role.name),
-          checked: new FormControl(role.checked)
-        }))
+        this.formBuilder.group({
+          name: [this.selectedEmployee.firstName, Validators.required],
+        })
+      )
     })
   }
 
@@ -103,17 +93,12 @@ export class EmployeesFormComponent implements OnInit {
       firstName: this.selectedEmployee.firstName,
       lastName: this.selectedEmployee.lastName,
     })
-    this.r.controls.splice(0, 2, this.empRoles)
+    this.r.controls.splice(0, this.empRoles)
   }
 
   employeeSelection(event) {
-    // console.log(event)
-    console.log(this.selectedEmployee)
-    this.selectedEmployee = this.employees.find(emp => {
-     return emp.id === event;
-    }
-      );
-    console.log(this.selectedEmployee)
+    this.selectedEmployee = event;
+    console.log( this.selectedEmployee);
     // this.updateForm();
   }
 
@@ -124,8 +109,8 @@ export class EmployeesFormComponent implements OnInit {
       firstName: '',
       lastName: '',
       roles: [
-        { name: 'cook', checked: false },
-        { name: 'waiter', checked: false }
+        { name: 'cook' },
+        { name: 'waiter' }
       ],
     };
     this.updateForm();
