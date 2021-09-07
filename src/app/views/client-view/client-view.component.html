@@ -4,7 +4,7 @@
   <app-restaurant-list *ngIf="!displayReservationForm; else reservationForm" class="list" [restaurants]="restaurants"
     (onRestaurantSelection)="restaurantSelected($event)"></app-restaurant-list>
   <ng-template #reservationForm>
-    <app-reservation-form class="list" [restaurant]="restaurant" [client]="client"></app-reservation-form>
+    <app-reservation-form class="list" [restaurant]="restaurant" [user]="user"></app-reservation-form>
   </ng-template>
   <app-restaurant-menu class="menu" [restaurant]="restaurant"></app-restaurant-menu>
   <app-to-table-reservation class="reservation" [restaurant]="restaurant"
@@ -13,11 +13,11 @@
 <div *ngIf="showSubView === 'friends'" class="friends-view">
   <div class="friends-list">
     <h3>Friend's List</h3>
-    <app-friends-list [client]="client" ></app-friends-list>
+    <app-friends-list [user]="user" ></app-friends-list>
   </div>
   <div class="find-friends">
     <h3>Find Friends</h3>
-    <app-user-finder [users]="users" [client]="client"></app-user-finder>
+    <app-user-finder [user]="user"></app-user-finder>
   </div>
 </div>
 <div *ngIf="showSubView === 'eat'" class="reservation-view">

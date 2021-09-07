@@ -7,14 +7,14 @@ import { Component, OnInit, Input } from '@angular/core';
 })
 export class FriendsListComponent implements OnInit {
 
-  @Input() client: any;
+  @Input() user: any;
 
   public friends = []
 
   constructor() { }
 
   ngOnInit() {
-    this.friends = this.client.friends
+    this.friends = this.user.friends
   }
 
 }

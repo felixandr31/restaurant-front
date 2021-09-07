@@ -7,23 +7,26 @@ import { Component, OnInit, Input } from '@angular/core';
 })
 export class UserFinderComponent implements OnInit {
 
-  @Input() users: any;
-  @Input() client: any;
+  @Input() user;
+
+  // TO DO initiate users
+
+  private users: any = []
 
   public notFriends: any = []
 
   constructor() { }
 
   ngOnInit() {
-    this.notFriends = this.findNotFriendedUsers(this.users, this.client);
+    this.notFriends = this.findNotFriendedUsers(this.users, this.user);
   }
 
-  findNotFriendedUsers(users, client) {
-    const friends = client.friends;
+  findNotFriendedUsers(users, user) {
+    const friends = user.friends;
     const list = users
-      .filter(user => user.name != client.name)
+      .filter(user => user.name != user.name)
       .filter(user => {
-        return !user.friends.some(friend => friend.name === client.name);
+        return !user.friends.some(friend => friend.name === user.name);
       })
     return list;
   }

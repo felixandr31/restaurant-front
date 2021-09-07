@@ -9,7 +9,7 @@ import { FormGroup, FormBuilder, Validators, FormArray } from '@angular/forms';
 export class ReservationFormComponent implements OnInit {
 
   @Input() restaurant: any;
-  @Input() client: any;
+  @Input() user: any;
 
   public clients: any = [
     {
