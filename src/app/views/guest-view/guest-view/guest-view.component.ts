@@ -37,7 +37,6 @@ export class GuestViewComponent implements OnInit {
     this.user = this.userService.getUsers().subscribe(
       data => {
         const res = Object.values(data.body);
-        res.forEach(user => console.log(user.lastName));
         if (res.find(user => user.lastName === this.logGroup.controls.lastName.value)) {
           // TODO : quand le mdp est géré par le back, remplacer le null par ce qui va bien...
           let user = res.find(user => user.lastName === this.logGroup.controls.lastName.value && user.password === null)

@@ -1,5 +1,5 @@
 <div *ngIf="logged; else notLogged" class="logged-view">
-  <app-side-navigation-menu [showView]="showView" (clickedTab)="selectedView($event)"
+  <app-side-navigation-menu [user]="user" [showView]="showView" (clickedTab)="selectedView($event)"
     (onSubViewSelection)="updateSubView($event)" (onLogOut)="changeLogStatus($event)" class="menu">
   </app-side-navigation-menu>
 

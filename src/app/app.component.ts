@@ -44,8 +44,10 @@ export class AppComponent {
         roles: [],
         friends: []
       }
+      this.user = {...this.user}
     } else {
       this.user = event
+      this.user = {...this.user}
     }
     this.logged = !this.logged;
   }

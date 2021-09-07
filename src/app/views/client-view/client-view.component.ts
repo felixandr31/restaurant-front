@@ -14,32 +14,7 @@ export class ClientViewComponent implements OnInit, OnChanges {
   @Input() showSubView: any;
   @Input() user: any;
 
-  public restaurants: any = [
-    {
-      name: "Zozan",
-      stars: 5,
-      coordinates: {
-        latitude: 43.58516,
-        longitude: 1.40005
-      },
-      recipes: [
-        { name: "Ultimate Kebab" },
-        { name: "Ultimate Tacos" }
-      ]
-    },
-    {
-      name: "BFC",
-      stars: 4,
-      coordinates: {
-        latitude: 43.58395,
-        longitude: 1.40126
-      },
-      recipes: [
-        { name: "BFC Tenders" },
-        { name: "BFC Wings" }
-      ]
-    }
-  ];
+  public restaurants: any = []
 
   public restaurant: any =
     {
@@ -59,54 +34,6 @@ export class ClientViewComponent implements OnInit, OnChanges {
     ]
   }
 
-  public users: any = [
-    {
-      name: "Georges",
-      roles: [
-        { name: "client" }
-      ],
-      friends: [
-        { name: "Alain" },
-        { name: "Elsa" }
-      ]
-    }, {
-
-      name: "Alain",
-      roles: [
-        { name: "client" }
-      ],
-      friends: [
-        { name: "Georges" }
-      ]
-    }, {
-      name: "Sandrine",
-      roles: [
-        { name: "client" }
-      ],
-      friends: [
-        { name: "Yanza" }
-      ]
-    }, {
-      name: "Elsa",
-      roles: [
-        { name: "waiter" },
-        { name: "client" }
-      ],
-      friends: [
-        { name: "Georges" }
-      ]
-    }, {
-      name: "Yanza",
-      roles: [
-        { name: "cook" },
-        { name: "client" }
-      ],
-      friends: [
-        { name: "Sandrine" }
-      ]
-    }
-  ]
-
   public displayReservationForm = false;
 
 
@@ -115,8 +42,6 @@ export class ClientViewComponent implements OnInit, OnChanges {
   public itemToAdd = '';
   public itemToRemove = '';
   public bill = [];
-
-  private roles = [];
 
   constructor(
     private restaurantService: RestaurantService
