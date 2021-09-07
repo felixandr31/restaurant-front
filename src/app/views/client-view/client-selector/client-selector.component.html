@@ -1,4 +1,4 @@
 <select (change)="onSelectClient($event)" class="select-client">
   <option selected value="guest">Guest</option>
-  <option *ngFor="let client of clients" [value]="client.name">{{client.name}}</option>
+  <option *ngFor="let client of clients" [value]="client.id">{{client.firstName}} {{client.lastName}}</option>
 </select>

@@ -1,38 +1,18 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, OnChanges } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormArray } from '@angular/forms';
+import { UserService } from 'src/app/services/data/user.service';
 
 @Component({
   selector: 'app-reservation-form',
   templateUrl: './reservation-form.component.html',
   styleUrls: ['./reservation-form.component.css']
 })
-export class ReservationFormComponent implements OnInit {
+export class ReservationFormComponent implements OnInit, OnChanges {
 
   @Input() restaurant: any;
   @Input() user: any;
 
-  public clients: any = [
-    {
-      name: 'georges',
-      roles: [
-        { name: 'Admin' },
-        { name: 'Client' }
-      ]
-    },
-    {
-      name: 'alain',
-      roles: [
-        { name: 'Waiter' },
-        { name: 'Client' }
-      ]
-    },
-    {
-      name: 'sandrine',
-      roles: [
-        { name: 'Client' }
-      ]
-    }
-  ]
+  public clients: any = []
 
   public tables: any = [{
     name: 'Table 1',
@@ -48,7 +28,8 @@ export class ReservationFormComponent implements OnInit {
   form: FormGroup;
 
   constructor(
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private userService: UserService
   ) { }
 
   ngOnInit() {
@@ -62,6 +43,20 @@ export class ReservationFormComponent implements OnInit {
       numberOfClients: ['', Validators.required],
       clients: new FormArray([])
     })
+
+    // this.clients.push(this.user);
+    // this.clients.push(this.user.friends)
+    console.log('le client et ses amis (init)', this.clients)
+
+  }
+
+  ngOnChanges() {
+    console.log('coucou réservation', this.user)
+    // this.clients = this.clients.push(this.user);
+    // this.clients = this.clients.push(this.user.friends)
+    this.clients.push(this.user)
+    this.user.friends.forEach(friend => this.clients.push(friend))
+    console.log('le client et ses amis (change)', this.clients)
   }
 
   get f() { return this.form.controls; }
