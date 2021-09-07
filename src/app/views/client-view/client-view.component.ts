@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, OnChanges } from '@angular/core';
+import { Component, OnInit, Input, OnChanges, Output, EventEmitter } from '@angular/core';
 import { RoleService } from 'src/app/services/data/role.service';
 import { UserService } from 'src/app/services/data/user.service';
 import { RestaurantService } from 'src/app/services/restaurant.service';
@@ -13,6 +13,7 @@ export class ClientViewComponent implements OnInit, OnChanges {
 
   @Input() showSubView: any;
   @Input() user: any;
+  @Output() onUserRefresh = new EventEmitter();
 
   public restaurants: any = []
 
@@ -52,10 +53,7 @@ export class ClientViewComponent implements OnInit, OnChanges {
 
     this.restaurantService.getRestaurants().subscribe(
       data => {
-        console.log('données', data.body)
         this.restaurants = data.body;
-        console.log('headers', data.headers)
-        console.log('url', data.url)
       },
       err => {
         console.log('erreur', err)
@@ -114,5 +112,9 @@ export class ClientViewComponent implements OnInit, OnChanges {
     } else {
       this.bill.filter(line => line.name === item).map(line => line.quantity -= 1)
     }
+  }
+
+  refreshUser(event) {
+    this.onUserRefresh.emit(event);
   }
 }

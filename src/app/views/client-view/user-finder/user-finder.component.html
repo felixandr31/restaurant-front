@@ -1,3 +1,3 @@
 <div *ngFor="let person of notFriends">
-  <app-friend-add-card [person]="person"></app-friend-add-card>
+  <app-friend-add-card [person]="person" (onFriendAddition)="friendAdded($event)"></app-friend-add-card>
 </div>

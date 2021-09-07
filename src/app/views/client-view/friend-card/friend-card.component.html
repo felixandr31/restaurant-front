@@ -1,4 +1,4 @@
 <div>
-  {{friend.name}}
-  <button>Remove</button>
+  {{friend.firstName}} {{friend.lastName}}
+  <button (click)="removeFriend($event)" [value]="friend.id">Remove</button>
 </div>

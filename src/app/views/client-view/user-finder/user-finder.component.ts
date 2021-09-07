@@ -1,13 +1,15 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, OnChanges } from '@angular/core';
+import { UserService } from 'src/app/services/data/user.service';
 
 @Component({
   selector: 'app-user-finder',
   templateUrl: './user-finder.component.html',
   styleUrls: ['./user-finder.component.css']
 })
-export class UserFinderComponent implements OnInit {
+export class UserFinderComponent implements OnInit, OnChanges {
 
   @Input() user;
+  @Output() onFriendAddition = new EventEmitter();
 
   // TO DO initiate users
 
@@ -15,19 +17,33 @@ export class UserFinderComponent implements OnInit {
 
   public notFriends: any = []
 
-  constructor() { }
+  constructor(private userService: UserService) { }
 
   ngOnInit() {
-    this.notFriends = this.findNotFriendedUsers(this.users, this.user);
   }
 
-  findNotFriendedUsers(users, user) {
+  ngOnChanges() {
+    this.findNotFriendedUsers(this.user);
+  }
+
+  findNotFriendedUsers(user) {
     const friends = user.friends;
-    const list = users
-      .filter(user => user.name != user.name)
-      .filter(user => {
-        return !user.friends.some(friend => friend.name === user.name);
-      })
-    return list;
+    let list = []
+    this.userService.getUsers().subscribe(
+      data => {
+        const res = Object.values(data.body)
+        return this.notFriends = res.filter(person => person.id != user.id && !friends.map(f => f.id).includes(person.id))
+      }
+    )
+  }
+
+  friendAdded(event) {
+    const friendId = [event]
+    this.userService.addFriend(this.user.id, friendId).subscribe(
+      data => {
+        this.onFriendAddition.emit(event)
+        console.log('friend added finder', event)
+      }
+    )
   }
 }

@@ -13,11 +13,11 @@
 <div *ngIf="showSubView === 'friends'" class="friends-view">
   <div class="friends-list">
     <h3>Friend's List</h3>
-    <app-friends-list [user]="user" ></app-friends-list>
+    <app-friends-list [user]="user" (onFriendRemoval)="refreshUser($event)"></app-friends-list>
   </div>
   <div class="find-friends">
     <h3>Find Friends</h3>
-    <app-user-finder [user]="user"></app-user-finder>
+    <app-user-finder [user]="user" (onFriendAddition)="refreshUser($event)"></app-user-finder>
   </div>
 </div>
 <div *ngIf="showSubView === 'eat'" class="reservation-view">
