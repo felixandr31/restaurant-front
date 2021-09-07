@@ -119,8 +119,6 @@ export class ClientViewComponent implements OnInit, OnChanges {
   private roles = [];
 
   constructor(
-    private roleService: RoleService,
-    private userService: UserService,
     private restaurantService: RestaurantService
     ) { }
 

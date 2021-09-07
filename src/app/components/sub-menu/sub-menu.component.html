@@ -29,7 +29,7 @@
 <div *ngIf="showView === 'Manager'" class="dropbtn">
   <div class="dropdown">
     <div class="dropdown-content">
-      <a *ngFor="let item of menuManager">{{item.content}}</a>
+      <a *ngFor="let item of menuManager" (click)="subView(item.name)">{{item.content}}</a>
     </div>
   </div>
 </div>
