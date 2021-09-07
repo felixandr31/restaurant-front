@@ -44,9 +44,22 @@ export class AppComponent {
         roles: [],
         friends: []
       }
+      this.user = {...this.user}
     } else {
       this.user = event
+      this.user = {...this.user}
     }
     this.logged = !this.logged;
+  }
+
+  refreshUser() {
+    this.userService.getUsers().subscribe(
+      data => {
+        const res = Object.values(data.body)
+        const user = res.find(user => user.id === this.user.id)
+        console.log('user refreshed', user)
+        return this.user = Object.assign(user)
+      }
+    )
   }
 }

@@ -1,4 +1,5 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { UserService } from 'src/app/services/data/user.service';
 
 @Component({
   selector: 'app-friends-list',
@@ -7,14 +8,25 @@ import { Component, OnInit, Input } from '@angular/core';
 })
 export class FriendsListComponent implements OnInit {
 
-  @Input() client: any;
+  @Input() user: any;
+  @Output() onFriendRemoval = new EventEmitter();
 
   public friends = []
 
-  constructor() { }
+  constructor(private userService: UserService) { }
 
   ngOnInit() {
-    this.friends = this.client.friends
   }
 
+  ngOnChanges() {
+    this.friends = this.user.friends
+  }
+
+  removeFriend(event) {
+    const friendId = [event]
+    this.userService.removeFriend(this.user.id, friendId)
+    .subscribe(data => {
+      this.onFriendRemoval.emit(event)
+    })
+  }
 }

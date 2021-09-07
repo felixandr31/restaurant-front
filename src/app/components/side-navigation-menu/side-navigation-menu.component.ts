@@ -5,12 +5,13 @@ import { Component, OnInit, Input, EventEmitter, Output, OnChanges } from '@angu
   templateUrl: './side-navigation-menu.component.html',
   styleUrls: ['./side-navigation-menu.component.css']
 })
-export class SideNavigationMenuComponent implements OnInit {
+export class SideNavigationMenuComponent implements OnInit, OnChanges {
 
   constructor() { }
 
 
   @Input() showView: any;
+  @Input() user: any;
   @Output() clickedTab: EventEmitter<String> = new EventEmitter()
   @Output() onSubViewSelection = new EventEmitter();
   @Output() onLogOut = new EventEmitter();
@@ -26,6 +27,10 @@ export class SideNavigationMenuComponent implements OnInit {
   ngOnInit() {
   }
 
+  ngOnChanges() {
+    this.clientRoles = this.user.roles;
+  }
+
   logout() {
     this.onLogOut.emit(event)
   }
@@ -37,5 +42,4 @@ export class SideNavigationMenuComponent implements OnInit {
   showSubView(event) {
     this.onSubViewSelection.emit(event);
   }
-
 }
