@@ -17,7 +17,6 @@ export class FriendAddCardComponent implements OnInit {
 
   friendAdded(event) {
     this.onFriendAddition.emit(event.target.value)
-    console.log('personne à ajouter', event.target.value)
   }
 
 }

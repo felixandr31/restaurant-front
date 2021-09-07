@@ -62,7 +62,6 @@ export class ClientViewComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges() {
-    console.log('Georges, you here ?', this.user)
   }
 
   restaurantSelected(event) {
