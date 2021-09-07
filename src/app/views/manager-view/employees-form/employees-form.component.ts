@@ -35,8 +35,7 @@ export class EmployeesFormComponent implements OnInit {
       ],
     },
   ];
-
-  public selectedEmployee = {
+  public formTemplate = {
     id: 0,
     firstName: '',
     lastName: '',
@@ -44,19 +43,24 @@ export class EmployeesFormComponent implements OnInit {
       { name: 'cook' },
       { name: 'waiter' }
     ],
-  };;
+  } 
+
+  public selectedEmployee: any
 
   empRoles: any[];
   savedEmployee: any;
   form: FormGroup;
 
-  cookChecked= false;
-  waiterChecked= false;
+  cookChecked = false;
+  waiterChecked = false;
+  editionMode = false;
 
   constructor(private formBuilder: FormBuilder) { }
 
   ngOnInit() {
+    this.initialiseForm();
     this.createForm();
+    this._patchValues();
     console.log('form.controls', this.f)
     console.log('roles', this.r.controls)
   }
@@ -72,7 +76,6 @@ export class EmployeesFormComponent implements OnInit {
       lastName: [this.selectedEmployee.lastName, Validators.required],
       roles: new FormArray([]),
     });
-    this._patchValues();
   }
 
   _patchValues() {
@@ -87,23 +90,33 @@ export class EmployeesFormComponent implements OnInit {
   }
 
   updateForm() {
-    this.empRoles = this.selectedEmployee.roles;
-    this.form.patchValue({
-      firstName: this.selectedEmployee.firstName,
-      lastName: this.selectedEmployee.lastName,
-    })
-    console.log('form.controls', this.f)
+    this.createForm();
+    this._patchValues();
     console.log('roles', this.r.controls)
-    // console.log('before splice', this.r.controls)
-    // this.r.splice(0, this.r.length,)
-    // console.log('after splice',this.r.controls)
-    // this._patchValues()
   }
 
   employeeSelection(event) {
     this.selectedEmployee = event;
-    console.log('this.selectedEmployee', this.selectedEmployee);
+    this.empRoles = this.selectedEmployee.roles;
+    console.log('selectedEmployee', this.selectedEmployee);
+    this.updateRoles();
     this.updateForm();
+    this.editionMode = true;
+  }
+  
+  updateRoles() {
+    this.cookChecked = false;
+    this.waiterChecked = false;
+    this.empRoles.forEach(role => {
+      switch (role.name) {
+        case 'waiter':
+          this.waiterChecked = true;
+          break;
+        case 'cook':
+          this.cookChecked = true;
+          break;
+      }
+    })
   }
 
   createEmployee() {
@@ -112,13 +125,10 @@ export class EmployeesFormComponent implements OnInit {
       id: 4,
       firstName: '',
       lastName: '',
-      roles: [
-        { name: 'cook' },
-        { name: 'waiter' }
-      ],
+      roles: [],
     };
     this.updateForm();
-    console.log('this.selectedEmployee', this.selectedEmployee)
+    this.editionMode = true;
   }
 
   saveEmployee() {
@@ -126,9 +136,13 @@ export class EmployeesFormComponent implements OnInit {
     console.log('savedEmployee.firstName: ' + this.savedEmployee.firstName)
   }
 
+  initialiseForm(){
+    this.selectedEmployee = this.formTemplate;
+  }
 
   cancelEdition() {
-
+    this.initialiseForm();
+    this.editionMode = false;
   }
 
   deleteEmployee() {
