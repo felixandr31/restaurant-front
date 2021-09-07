@@ -8,27 +8,45 @@ import { UserService } from './services/data/user.service';
 })
 export class AppComponent {
   title = 'restaurant-front';
-  public user: any;
+
+  public user: any = {
+    firstName: "",
+    lastName: "",
+    password: "",
+    email: "",
+    roles: [],
+    friends: []
+  }
 
   constructor(private userService: UserService) {
-    this.user = this.userService.getUsers().subscribe(
-      data => {
-        let res = Object.values(data.body)
-        this.user = res.filter(user => user.id === '6135e681309dfa211d060bc5').shift();
-        this.user = Object.assign({}, this.user);
-        return this.user;
-      }
-    )
   }
+
   public showView = "";
   public showSubView = 'eat';
+  public logged = false;
   // public showSubView = 'eat';
 
-  selectedView(event){
-      this.showView = event;
+  selectedView(event) {
+    this.showView = event;
   }
 
   updateSubView(event) {
     this.showSubView = event;
+  }
+
+  changeLogStatus(event) {
+    if (this.logged) {
+      this.user = {
+        firstName: "",
+        lastName: "",
+        password: "",
+        email: "",
+        roles: [],
+        friends: []
+      }
+    } else {
+      this.user = event
+    }
+    this.logged = !this.logged;
   }
 }

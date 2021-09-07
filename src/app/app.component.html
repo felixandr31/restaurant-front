@@ -1,11 +1,18 @@
-<app-side-navigation-menu [showView]="showView" (clickedTab)="selectedView($event)" (onSubViewSelection)="updateSubView($event)" class="menu">
-
-</app-side-navigation-menu>
+<div *ngIf="logged; else notLogged" class="logged-view">
+  <app-side-navigation-menu [showView]="showView" (clickedTab)="selectedView($event)"
+    (onSubViewSelection)="updateSubView($event)" (onLogOut)="changeLogStatus($event)" class="menu">
+  </app-side-navigation-menu>
 
   <app-admin-view *ngIf="showView === 'Admin'" class="view"></app-admin-view>
   <app-manager-view *ngIf="showView === 'Manager'" [showSubView]="showSubView" class="view"></app-manager-view>
   <app-cook-view *ngIf="showView === 'Cook'" class="view"></app-cook-view>
   <app-waiter-view *ngIf="showView === 'Waiter'" class="view"></app-waiter-view>
-  <app-client-view *ngIf="showView === 'Client'" [showSubView]="showSubView" [user]="user" class="view"></app-client-view>
+  <app-client-view *ngIf="showView === 'Client'" [showSubView]="showSubView" [user]="user" class="view">
+  </app-client-view>
+</div>
+
+<ng-template #notLogged>
+  <app-guest-view (onLogIn)="changeLogStatus($event)"></app-guest-view>
+</ng-template>
 
 <router-outlet></router-outlet>
