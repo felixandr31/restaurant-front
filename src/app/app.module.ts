@@ -35,6 +35,7 @@ import { ChooseMenuComponent } from './views/client-view/choose-menu/choose-menu
 import { OrderDisplayComponent } from './views/client-view/order-display/order-display.component';
 import { EmployeesListComponent } from './views/manager-view/employees-list/employees-list.component';
 import { EmployeesFormComponent } from './views/manager-view/employees-form/employees-form.component';
+import { GuestViewComponent } from './views/guest-view/guest-view/guest-view.component';
 
 
 @NgModule({
@@ -67,6 +68,7 @@ import { EmployeesFormComponent } from './views/manager-view/employees-form/empl
     ChooseMenuItemComponent,
     ChooseMenuComponent,
     OrderDisplayComponent,
+    GuestViewComponent,
   ],
   imports: [
     BrowserModule,

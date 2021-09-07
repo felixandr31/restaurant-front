@@ -13,6 +13,7 @@ export class SideNavigationMenuComponent implements OnInit {
   @Input() showView: any;
   @Output() clickedTab: EventEmitter<String> = new EventEmitter()
   @Output() onSubViewSelection = new EventEmitter();
+  @Output() onLogOut = new EventEmitter();
 
   public clientRoles = [
     { name: 'Admin' },
@@ -26,7 +27,7 @@ export class SideNavigationMenuComponent implements OnInit {
   }
 
   logout() {
-    console.log("Nothing yet, logout")
+    this.onLogOut.emit(event)
   }
 
   changeView(event) {
