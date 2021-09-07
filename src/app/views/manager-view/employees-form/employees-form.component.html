@@ -6,8 +6,8 @@
   </div>
 </fieldset>
 
-<!-- *ngIf="selectedEmployee === undefined" -->
-<form [formGroup]="form">
+
+<form [formGroup]="form" *ngIf="editionMode === true" (ngSubmit)="saveEmployee">
   <fieldset> Employee Edition
     <div>
       <label autofocus>First name: </label>
@@ -18,53 +18,23 @@
       <input name="lastName" formControlName="lastName">
     </div>
 
-    <ul formArrayName="roles">
-      <li [formGroupName]="i" *ngFor="let role of empRoles; let i = index">
-        <input type="checkbox" formControlName="checked" /> {{roles[i].name}}
-      </li>
-
-    </ul>
-
-
-    <!-- <div>
+    <div>
       <div>
         <label for="cook">Cook </label>
-        <input type="checkbox" name="cook" id="cook">
+        <input type="checkbox" id="cook" value="cook" [checked]="cookChecked">
       </div>
       <div>
         <label for="waiter">Waiter </label>
-        <input type="checkbox" name="waiter" id="waiter">
+        <input type="checkbox" id="waiter" value="waiter" [checked]="waiterChecked">
       </div>
-    </div> -->
-
-
-
+    </div>
   </fieldset>
-  <button *ngIf="form.controls.value === nothing" (click)="saveEmployee()">Save</button>
-</form>
-
-
-<!-- <form  id="main-frame" action="" [formGroup]="form" >
-
-  <div >
-    <label>name</label>
-    <input formControlName="name" [value]="selectedEmployee.name">
-  </div>
-  <div >
-    <label>roles</label>
-    <input *ngFor="let role of employees.roles" formControlName="roles" [value]="role" >
-  </div>
-
-  <button (click)="saveEmployee()">
-    Save
-  </button>
-
+  <button>Save</button>
   <button (click)="cancelEdition()">
     Cancel
   </button>
-
   <button type="button" (click)="deleteEmployee()">
     Delete
   </button>
-
-</form> -->
+  
+</form>
