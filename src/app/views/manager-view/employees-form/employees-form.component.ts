@@ -15,7 +15,6 @@ export class EmployeesFormComponent implements OnInit {
       lastName: 'Cook',
       roles: [
         { name: 'cook' },
-        { name: 'waiter' }
       ],
     },
     {
@@ -23,7 +22,6 @@ export class EmployeesFormComponent implements OnInit {
       firstName: 'Bob',
       lastName: 'Dilan',
       roles: [
-        { name: 'cook' },
         { name: 'waiter' }
       ],
     },
@@ -48,18 +46,19 @@ export class EmployeesFormComponent implements OnInit {
     ],
   };;
 
-  empRoles: any;
+  empRoles: any[];
   savedEmployee: any;
   form: FormGroup;
 
+  cookChecked= false;
+  waiterChecked= false;
 
   constructor(private formBuilder: FormBuilder) { }
 
   ngOnInit() {
     this.createForm();
     console.log('form.controls', this.f)
-
-
+    console.log('roles', this.r.controls)
   }
 
   get f() { return this.form.controls; }
@@ -81,7 +80,7 @@ export class EmployeesFormComponent implements OnInit {
     this.empRoles.forEach(role => {
       this.r.push(
         this.formBuilder.group({
-          name: [this.selectedEmployee.firstName, Validators.required],
+          name: [role.name, Validators.required],
         })
       )
     })
@@ -93,13 +92,18 @@ export class EmployeesFormComponent implements OnInit {
       firstName: this.selectedEmployee.firstName,
       lastName: this.selectedEmployee.lastName,
     })
-    this.r.controls.splice(0, this.empRoles)
+    console.log('form.controls', this.f)
+    console.log('roles', this.r.controls)
+    // console.log('before splice', this.r.controls)
+    // this.r.splice(0, this.r.length,)
+    // console.log('after splice',this.r.controls)
+    // this._patchValues()
   }
 
   employeeSelection(event) {
     this.selectedEmployee = event;
-    console.log( this.selectedEmployee);
-    // this.updateForm();
+    console.log('this.selectedEmployee', this.selectedEmployee);
+    this.updateForm();
   }
 
   createEmployee() {
