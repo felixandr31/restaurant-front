@@ -23,7 +23,7 @@ export class AppComponent {
 
   public showView = "";
   public showSubView = 'eat';
-  public logged = true;
+  public logged = false;
   // public showSubView = 'eat';
 
   selectedView(event) {
