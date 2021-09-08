@@ -31,8 +31,8 @@ export class RestaurantMapComponent implements  OnChanges {
 
   private initMap(): void {
     this.map = L.map('map', {
-      center: [45.3, 65.8],
-      zoom: 3
+      center: [43.58512, 1.39985],
+      zoom: 14
     });
     const tiles = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
       maxZoom: 18,

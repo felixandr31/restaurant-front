@@ -1,5 +1,6 @@
 <h2>Reservation</h2>
-<form [formGroup]="form" (ngSubmit)="placeReservation()">
+<app-date-selector (onDateSelection)="dateSelected($event)"></app-date-selector>
+<form *ngIf="reservationDate.day" [formGroup]="form" (ngSubmit)="placeReservation()">
   <div>
     <label>Number of Persons</label>
     <select formControlName="numberOfClients" (change)="onChangeClients($event)">

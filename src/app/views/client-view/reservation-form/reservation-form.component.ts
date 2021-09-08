@@ -24,6 +24,11 @@ export class ReservationFormComponent implements OnInit, OnChanges {
   }];
 
   public maxPlaces: number;
+  // private availablePlaces: number;
+  public reservationDate = {
+    day: '',
+    hour: ''
+  }
 
   form: FormGroup;
 
@@ -43,17 +48,9 @@ export class ReservationFormComponent implements OnInit, OnChanges {
       numberOfClients: ['', Validators.required],
       clients: new FormArray([])
     })
-
-    // this.clients.push(this.user);
-    // this.clients.push(this.user.friends)
-    console.log('le client et ses amis (init)', this.clients)
-
   }
 
   ngOnChanges() {
-    console.log('coucou réservation', this.user)
-    // this.clients = this.clients.push(this.user);
-    // this.clients = this.clients.push(this.user.friends)
     this.clients.push(this.user)
     this.user.friends.forEach(friend => this.clients.push(friend))
     console.log('le client et ses amis (change)', this.clients)
@@ -96,5 +93,11 @@ export class ReservationFormComponent implements OnInit, OnChanges {
       .sort((a, b) => parseInt(a.capacity) - parseInt(b.capacity)
       );
     return sortedTables.shift()
+  }
+
+  dateSelected(event) {
+    this.reservationDate = event;
+    console.log('resa date', this.reservationDate)
+    console.log('restaurant has table ?', this.restaurant)
   }
 }
