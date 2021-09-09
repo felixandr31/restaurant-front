@@ -10,7 +10,7 @@
 <form [formGroup]="form" *ngIf="editionMode === true" (ngSubmit)="saveEmployee">
   <fieldset> Employee Edition
     <div>
-      <label autofocus>First name: </label>
+      <label >First name: </label>
       <input name="firstName" formControlName="firstName">
     </div>
     <div>
@@ -36,5 +36,5 @@
   <button type="button" (click)="deleteEmployee()">
     Delete
   </button>
-  
+
 </form>

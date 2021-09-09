@@ -35,14 +35,12 @@ export class EmployeesFormComponent implements OnInit {
       ],
     },
   ];
-  public formTemplate = {
+
+  public defaultFormValues = {
     id: 0,
     firstName: '',
     lastName: '',
-    roles: [
-      { name: 'cook' },
-      { name: 'waiter' }
-    ],
+    roles: [],
   }
 
   public selectedEmployee: any
@@ -60,7 +58,7 @@ export class EmployeesFormComponent implements OnInit {
   ngOnInit() {
     this.initializeForm();
     this.createForm();
-    this._patchValues();
+    // this._patchValues();
     console.log('form.controls', this.f)
     console.log('roles', this.r.controls)
   }
@@ -69,42 +67,42 @@ export class EmployeesFormComponent implements OnInit {
   // get array control
   get r() { return this.f.roles as FormArray; }
 
+  // créé tous les champs requis, remplis firstName et lastName avec selectedEmployee mais ne coche pas les checkboxs
   createForm() {
-    this.empRoles = this.selectedEmployee.roles;
     this.form = this.formBuilder.group({
       firstName: [this.selectedEmployee.firstName, Validators.required],
       lastName: [this.selectedEmployee.lastName, Validators.required],
-      roles: new FormArray([]),
+      roles: new FormArray([
+        this.formBuilder.group({
+          id: ['61309cb8009435126fc70797', Validators.required],
+          name: ['Cook', Validators.required],
+        }),
+        this.formBuilder.group({
+          id: ['613721e07f57fb321327b629', Validators.required],
+          name: ['Waiter', Validators.required],
+        })
+      ]),
     });
   }
 
-  _patchValues() {
-    // loop each existing value
-    this.empRoles.forEach(role => {
-      this.r.push(
-        this.formBuilder.group({
-          name: [role.name, Validators.required],
-        })
-      )
-    })
+  initializeForm(){
+    this.selectedEmployee = this.defaultFormValues
   }
 
   updateForm() {
-    this.createForm();
-    this._patchValues();
-    console.log('roles', this.r.controls)
+    this.form.patchValue(Object.keys(this.selectedEmployee))
+    this.updateRolesCheckbox();
   }
 
   employeeSelection(event) {
     this.selectedEmployee = event;
-    this.empRoles = this.selectedEmployee.roles;
     console.log('selectedEmployee', this.selectedEmployee);
-    this.updateRoles();
     this.updateForm();
     this.editionMode = true;
   }
 
-  updateRoles() {
+  updateRolesCheckbox() {
+    this.empRoles = this.selectedEmployee.roles;
     this.cookChecked = false;
     this.waiterChecked = false;
     this.empRoles.forEach(role => {
@@ -115,22 +113,12 @@ export class EmployeesFormComponent implements OnInit {
         case 'cook':
           this.cookChecked = true;
           break;
-        default:
-          this.cookChecked = false;
-          this.waiterChecked = false;
       }
     })
   }
 
   createEmployee() {
-    this.selectedEmployee =
-    {
-      id: 4,
-      firstName: '',
-      lastName: '',
-      roles: [],
-    };
-    this.updateRoles();
+    this.initializeForm();
     this.updateForm();
     this.editionMode = true;
   }
@@ -138,10 +126,8 @@ export class EmployeesFormComponent implements OnInit {
   saveEmployee() {
     this.savedEmployee = this.form.value;
     console.log('savedEmployee.firstName: ' + this.savedEmployee.firstName)
-  }
+    // TODO: update user(ne fait rien dans les roles!) + add/remove role
 
-  initializeForm() {
-    this.selectedEmployee = this.formTemplate;
   }
 
   cancelEdition() {
