@@ -6,35 +6,46 @@
   </div>
 </fieldset>
 
-
-<form [formGroup]="form" *ngIf="editionMode === true" (ngSubmit)="saveEmployee">
-  <fieldset> Employee Edition
-    <div>
-      <label autofocus>First name: </label>
-      <input name="firstName" formControlName="firstName">
-    </div>
-    <div>
-      <label>Last name: </label>
-      <input name="lastName" formControlName="lastName">
-    </div>
-
-    <div>
+<div *ngIf="modes.edition">
+  <form [formGroup]="form" (ngSubmit)="onSubmit()">
+    <fieldset> Employee Edition
       <div>
-        <label for="cook">Cook </label>
-        <input type="checkbox" id="cook" value="cook" [checked]="cookChecked">
+        <label>First name: </label>
+        <input name="firstName" formControlName="firstName">
       </div>
       <div>
-        <label for="waiter">Waiter </label>
-        <input type="checkbox" id="waiter" value="waiter" [checked]="waiterChecked">
+        <label>Last name: </label>
+        <input name="lastName" formControlName="lastName">
       </div>
-    </div>
-  </fieldset>
-  <button>Save</button>
-  <button (click)="cancelEdition()">
-    Cancel
-  </button>
-  <button type="button" (click)="deleteEmployee()">
-    Delete
-  </button>
-  
-</form>
+
+      <div>
+        <div>
+          <label for="cook">Cook </label>
+          <input type="checkbox" id="cook" value="cook" [checked]="cookChecked">
+        </div>
+        <div>
+          <label for="waiter">Waiter </label>
+          <input type="checkbox" id="waiter" value="waiter" [checked]="waiterChecked">
+        </div>
+      </div>
+
+      <div id="buttons">
+        <button  (click)="savedEmployee">Save</button>
+        <button  (click)="cancelEdition()">Cancel</button>
+
+        <div *ngIf="!modes.creation">
+          <button  (click)="employeeDeletionMode()">Delete account</button>
+          <div *ngIf="modes.deletionConfirmation">
+            <label>Confirm ?</label>
+            <button (click)="onDeletionConfirmation()" value='confirmDeletion'>Delete</button>
+            <button (click)="onDeletionConfirmation()" value='cancelDeletion'>Cancel</button>
+          </div>
+        </div>
+
+      </div>
+    </fieldset>
+
+
+  </form>
+
+</div>

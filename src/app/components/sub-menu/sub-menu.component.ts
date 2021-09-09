@@ -19,11 +19,16 @@ export class SubMenuComponent implements OnInit {
   public menuManager: any = [
     { name: 'homePage', content: 'Home page' },
     { name: 'transactions', content: 'Transactions' },
-    { name: 'recipies', content: 'Recipies' },
+    { name: 'recipes', content: 'Recipes' },
     { name: 'stocks', content: 'Stocks' },
     { name: 'employees', content: 'Employees' }
   ]
 
+  public menuAdmin: any = [
+    { name: 'restaurants', content: 'Restaurants' },
+    { name: 'ingredients', content: 'Ingredients' },
+    { name: 'simulations', content: 'Simulations' },
+  ]
   constructor() { }
 
   ngOnInit() {

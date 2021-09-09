@@ -36,5 +36,25 @@ private url = 'http://localhost:8080/backend-filrouge/user/'
     return this.http.post(url, credential, {observe:'response'})
   }
 
-  //TODO putUser & deleteUser
+  updateUser(id, user){
+    const url = this.url + 'update/' + id
+    return this.http.put(url, user, {observe: 'response'});
+  }
+
+  deleteUser(id){
+    const url = this.url + 'delete/' + id
+    return this.http.delete(url, {observe: 'response'});
+  }
+
+  addRoles(userId, roleIds: Set<String>){
+    const url = this.url + 'addroles/' + userId
+    return this.http.post(url, roleIds, {observe: 'response'});
+  }
+
+  removeRoles(userId, roleIds: Set<String>){
+    const url = this.url + 'removeroles/' + userId
+    return this.http.post(url, roleIds, {observe: 'response'});
+  }
+
+  //TODO getRestaurantByClientId
 }

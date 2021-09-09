@@ -11,7 +11,7 @@ export class GuestViewComponent implements OnInit {
 
   @Output() onLogIn = new EventEmitter();
 
-  signInMode = false;
+  registered = true;
 
   public logGroup: FormGroup;
   public signInGroup: FormGroup;
@@ -51,13 +51,21 @@ export class GuestViewComponent implements OnInit {
   }
 
   logIn() {
+    // TODO remplacer getUsers par login quand elle sera fonctionnelle
     this.user = this.userService.getUsers().subscribe(
       data => {
         const res = Object.values(data.body);
-        if (res.find(user => user.lastName === this.logGroup.controls.lastName.value)) {
+        const user = res.find(user => user.lastName === this.logGroup.controls.lastName.value)
+        if (user.password === this.logGroup.controls.password.value) {
+          // if( user.password === null){
+          //   console.log('user password is null', user)
+          // } else {
+          //   console.log('user has password ', user)
+          // }
           // TODO : quand le mdp est géré par le back, remplacer le null par ce qui va bien...
-          let user = res.find(user => user.lastName === this.logGroup.controls.lastName.value && user.password === null)
+
           this.onLogIn.emit(user)
+          console.log(Object.values(user))
           return Object.values(user)
         } else {
           alert('User not found')
@@ -69,12 +77,9 @@ export class GuestViewComponent implements OnInit {
     )
   }
 
-  clearFields() {
 
-  }
-
-  displaySignIn() {
-    this.signInMode = true
+  logInSignInSwitch() {
+    this.registered = !this.registered
   }
 
   signIn() {
@@ -84,15 +89,12 @@ export class GuestViewComponent implements OnInit {
     const newUser = this.signInGroup.value
     console.log('newUser', newUser)
 
-
     this.userService.postUser(newUser).subscribe(
       data => {
         const res = Object.assign({}, data.body);
-        console.log(data.body)
         this.user = {...res}
         console.log(this.user)
-        // login not working yet
-        // this.userService.login(this.user.lastName, this.user.password)
+
       },
       err => {
         console.log('error', err)
