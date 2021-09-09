@@ -57,5 +57,5 @@ private url = 'http://localhost:8080/backend-filrouge/user/'
     return this.http.post(url, roleIds, {observe: 'response'});
   }
 
-  //TODO putUser & deleteUser
+  //TODO getRestaurantByClientId
 }

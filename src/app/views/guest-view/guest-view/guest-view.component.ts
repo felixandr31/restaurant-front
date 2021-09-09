@@ -57,11 +57,11 @@ export class GuestViewComponent implements OnInit {
         const res = Object.values(data.body);
         const user = res.find(user => user.lastName === this.logGroup.controls.lastName.value)
         if (user.password === this.logGroup.controls.password.value) {
-          if( user.password === null){
-            console.log('user password is null', user)
-          } else {
-            console.log('user has password ', user)
-          }
+          // if( user.password === null){
+          //   console.log('user password is null', user)
+          // } else {
+          //   console.log('user has password ', user)
+          // }
           // TODO : quand le mdp est géré par le back, remplacer le null par ce qui va bien...
 
           this.onLogIn.emit(user)

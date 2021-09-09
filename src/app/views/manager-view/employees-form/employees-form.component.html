@@ -7,10 +7,10 @@
 </fieldset>
 
 
-<form [formGroup]="form" *ngIf="editionMode === true" (ngSubmit)="saveEmployee">
+<form [formGroup]="form" *ngIf="modes.edition" (ngSubmit)="saveEmployee()">
   <fieldset> Employee Edition
     <div>
-      <label >First name: </label>
+      <label>First name: </label>
       <input name="firstName" formControlName="firstName">
     </div>
     <div>
@@ -29,12 +29,18 @@
       </div>
     </div>
   </fieldset>
-  <button>Save</button>
-  <button (click)="cancelEdition()">
-    Cancel
-  </button>
-  <button type="button" (click)="deleteEmployee()">
-    Delete
-  </button>
+
+  <button (click)="saveEmployee()">Save</button>
+  <button (click)="cancelEdition()">Cancel</button>
+
+  <div *ngIf="!modes.creation">
+    <button (click)="deleteEmployee()">Delete this account</button>
+    <div *ngIf="modes.deletionConfirmation">
+      <label>Confirm ?</label>
+      <button (click)="confirmDeletion($event)" value="Delete">Delete</button>
+      <button (click)="confirmDeletion($event)" value="Cancel">Cancel</button>
+    </div>
+  </div>
+
 
 </form>

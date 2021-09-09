@@ -1,5 +1,6 @@
 import { Component, OnInit, Input, SimpleChanges } from '@angular/core';
 import { FormGroup, FormBuilder, FormControl, FormArray, Validators, EmailValidator } from '@angular/forms';
+import { UserService } from 'src/app/services/data/user.service';
 
 @Component({
   selector: 'app-employees-form',
@@ -34,6 +35,24 @@ export class EmployeesFormComponent implements OnInit {
         { name: 'waiter' }
       ],
     },
+    {
+      id: "6139b8073f85bb4d08e61323",
+      firstName: "Marius",
+      lastName: "H",
+      password: "password",
+      email: "marius@gmail.com",
+      roles: [
+          {
+              "id": "613721b77f57fb321327b626",
+              "name": "client"
+          },
+          {
+              "id": "61309cbf009435126fc70798",
+              "name": "Manager"
+          }
+      ],
+      friends: []
+  }
   ];
 
   public defaultFormValues = {
@@ -51,21 +70,31 @@ export class EmployeesFormComponent implements OnInit {
 
   cookChecked = false;
   waiterChecked = false;
-  editionMode = false;
 
-  constructor(private formBuilder: FormBuilder) { }
+  modes = {
+    "edition" : false,
+    "deletionConfirmation" : false,
+    "creation" : false
+  }
+  // confirmDeletion = false;
+
+  constructor(private formBuilder: FormBuilder,
+    private userService: UserService) { }
 
   ngOnInit() {
+    // TODO : récupérer restaurant du manager puis sa liste employés
+    // this.employees = this.userService. ().subscribe(
+    //   data => {
+
+    //   }
+    //   err => {
+
+    //   }
+    // )
     this.initializeForm();
     this.createForm();
-    // this._patchValues();
-    console.log('form.controls', this.f)
-    console.log('roles', this.r.controls)
   }
 
-  get f() { return this.form.controls; }
-  // get array control
-  get r() { return this.f.roles as FormArray; }
 
   // créé tous les champs requis, remplis firstName et lastName avec selectedEmployee mais ne coche pas les checkboxs
   createForm() {
@@ -90,7 +119,7 @@ export class EmployeesFormComponent implements OnInit {
   }
 
   updateForm() {
-    this.form.patchValue(Object.keys(this.selectedEmployee))
+    this.form.patchValue(this.selectedEmployee)
     this.updateRolesCheckbox();
   }
 
@@ -98,7 +127,8 @@ export class EmployeesFormComponent implements OnInit {
     this.selectedEmployee = event;
     console.log('selectedEmployee', this.selectedEmployee);
     this.updateForm();
-    this.editionMode = true;
+    this.modes.edition = true;
+    this.modes.creation = false;
   }
 
   updateRolesCheckbox() {
@@ -118,27 +148,63 @@ export class EmployeesFormComponent implements OnInit {
   }
 
   createEmployee() {
+    this.modes.creation = true;
+    this.modes.edition = true;
     this.initializeForm();
     this.updateForm();
-    this.editionMode = true;
+
   }
 
   saveEmployee() {
     this.savedEmployee = this.form.value;
-    console.log('savedEmployee.firstName: ' + this.savedEmployee.firstName)
+    console.log('savedEmployee: ', this.savedEmployee)
+    // this.userService.updateUser().subscribe(
+    //   data => {
+
+    //   },
+    //   err => {
+
+    //   }
+    // )
     // TODO: update user(ne fait rien dans les roles!) + add/remove role
 
+    this.resetModes()
   }
 
   cancelEdition() {
     this.initializeForm();
-    this.editionMode = false;
+    this.updateForm;
+    this.resetModes()
   }
 
   deleteEmployee() {
-
+    const employee = this.selectedEmployee
+    console.log(employee)
+    this.modes.deletionConfirmation = true
+    const ans = this.confirmDeletion(event)
+    console.log('ans: ', ans)
+    // if(ans === "Delete"){
+    //   this.userService.deleteUser(employee.id)
+    //   this.deletionConfirmationMode = false
+    // }else {
+    //   this.deletionConfirmationMode = false
+    // }
+    // this.resetModes()
   }
 
+  confirmDeletion(event){
+    const ans = event.target.value
+    return ans
+  }
+
+  resetModes(){
+    console.log('resetModes')
+    for(const mode in this.modes){
+      console.log('mode', mode)
+      console.log('this.modes[mode]', this.modes[mode])
+      this.modes[mode] = false
+    }
+}
 
 
 
