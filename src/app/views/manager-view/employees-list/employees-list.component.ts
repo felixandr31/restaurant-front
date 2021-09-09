@@ -14,8 +14,7 @@ export class EmployeesListComponent implements OnInit {
   }
 
   employeeSelection(event) {
-    const index = parseInt(event.target.value);
-    this.onEmployeeSelection.emit(this.employees[index]);
+    this.onEmployeeSelection.emit(event.target.value);
   };
 
   ngOnInit() {

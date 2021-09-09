@@ -1,3 +1,11 @@
-<p>
-  admin-view works!
-</p>
+<div *ngIf="showSubView === 'restaurants'" class="restaurant-view">
+  <app-restaurants-list [restaurants]="restaurants" (onRestaurantSelection)="restaurantSelected($event)"></app-restaurants-list>
+  <p>Edition restaurant sélectionné (CRUD + budget...)</p>
+  <p>graph historique C.A. restaurant sélectionné</p>
+  <p>Popularité & détail des votes</p>
+  <p>recettes : gain/perte</p>
+</div>
+
+<div *ngIf="showSubView === 'simulations'" class="simulations-view">
+  <p>Simulations view</p>
+</div>

@@ -12,6 +12,7 @@ export class ManagerViewComponent implements OnInit {
 
   private restaurantId: any;
 
+
   constructor() {
   }
 
