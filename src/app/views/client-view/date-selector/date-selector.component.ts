@@ -38,10 +38,14 @@ export class DateSelectorComponent implements OnInit {
       return
     } else {
       const date : Date = this.form.value.day
-      const day = date.getDate() + '/' + date.getMonth() + '/' + date.getFullYear()
+
+      const year = date.getFullYear()
+      const month = (date.getMonth() + 1).toString().length == 1 ? '0' + (date.getMonth() + 1).toString() : (date.getMonth() + 1).toString()
+      const day = date.getDate() < 10 ? '0' + date.getDate().toString() : date.getDate().toString()
+      const dayOfVenue = `${year}-${month}-${day}`
 
       let dayTime = {
-        day: day,
+        day: dayOfVenue,
         hour: this.form.value.hour
       }
 

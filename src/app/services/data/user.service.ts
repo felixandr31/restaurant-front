@@ -23,7 +23,6 @@ private url = 'http://localhost:8080/backend-filrouge/user/'
   addFriend(id, friend) {
     const url = this.url + 'addfriends/' + id
     return this.http.post(url, friend, {observe: 'response'})
-
   }
 
   removeFriend(id, friend) {
