@@ -1,0 +1,5 @@
+<div *ngFor="let resto of restaurants ; let i = index">
+  <label >{{resto.name}}</label>
+  <button (click)="restaurantSelected($event)" [value]="resto.id">Select</button>
+
+</div>
