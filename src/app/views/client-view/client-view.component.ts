@@ -1,7 +1,7 @@
 import { Component, OnInit, Input, OnChanges, Output, EventEmitter } from '@angular/core';
 import { RoleService } from 'src/app/services/data/role.service';
 import { UserService } from 'src/app/services/data/user.service';
-import { RestaurantService } from 'src/app/services/restaurant.service';
+import { RestaurantService } from 'src/app/services/data/restaurant.service';
 
 
 @Component({
