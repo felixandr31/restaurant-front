@@ -48,6 +48,7 @@ export class AppComponent {
     } else {
       this.user = event
       this.user = {...this.user}
+      console.log('user logged', this.user)
     }
     this.logged = !this.logged;
   }

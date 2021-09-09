@@ -1,67 +1,50 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, OnChanges } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormArray } from '@angular/forms';
+import { BookingService } from 'src/app/services/data/booking.service';
 
 @Component({
   selector: 'app-reservation-form',
   templateUrl: './reservation-form.component.html',
   styleUrls: ['./reservation-form.component.css']
 })
-export class ReservationFormComponent implements OnInit {
+export class ReservationFormComponent implements OnInit, OnChanges {
 
   @Input() restaurant: any;
   @Input() user: any;
 
-  public clients: any = [
-    {
-      name: 'georges',
-      roles: [
-        { name: 'Admin' },
-        { name: 'Client' }
-      ]
-    },
-    {
-      name: 'alain',
-      roles: [
-        { name: 'Waiter' },
-        { name: 'Client' }
-      ]
-    },
-    {
-      name: 'sandrine',
-      roles: [
-        { name: 'Client' }
-      ]
-    }
-  ]
+  public clients: any = []
 
-  public tables: any = [{
-    name: 'Table 1',
-    capacity: 6
-  },
-  {
-    name: 'Table 2',
-    capacity: 4
-  }];
+  public tables: any = [];
 
-  public maxPlaces: number;
+  public maxPlaces: number = 0;
+  private tablesAtTime = []
+  private bookingsAtTime = []
+
+  public reservationDate = {
+    day: '',
+    hour: ''
+  }
 
   form: FormGroup;
 
   constructor(
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private bookingService: BookingService
   ) { }
 
   ngOnInit() {
-
-    this.maxPlaces = this.tables.reduce((acc, table) => {
-      acc < parseInt(table.capacity) ? acc = parseInt(table.capacity) : acc = acc
-      return acc
-    }, 0);
-
     this.form = this.formBuilder.group({
       numberOfClients: ['', Validators.required],
       clients: new FormArray([])
     })
+  }
+
+  ngOnChanges() {
+    this.clients.push(this.user)
+    this.user.friends.forEach(friend => this.clients.push(friend))
+    console.log('le client et ses amis (change)', this.clients)
+    this.tables = this.restaurant.tables
+    console.log('les tables du resto', this.tables)
   }
 
   get f() { return this.form.controls; }
@@ -87,19 +70,70 @@ export class ReservationFormComponent implements OnInit {
     this.c.at(index).patchValue({ name: event }, { onlySelf: true })
   }
 
-  placeReservation() {
-    console.log('nb clients', this.form.value.clients.length)
-    console.log('form values', this.form.value)
-    let clientList = this.form.value.clients;
-    const bestTable = this.selectBestTable(this.form.value.clients.length, this.tables);
-    console.log('Registering Reservation for', clientList, bestTable)
-    alert('reservation Ok');
+  dateSelected(event) {
+    this.maxPlaces = 0;
+    this.bookingsAtTime = []
+    this.tablesAtTime = []
+    this.reservationDate = event;
+
+    this.tables.forEach(table => {
+      this.bookingService.getBookingByTable(table.id).subscribe(
+        data => {
+          let res = Object.values(data.body)
+          this.bookingsAtTime = res.filter(booking => booking.day.substring(0, 10) == this.reservationDate.day && booking.hour == this.reservationDate.hour + ':00')
+          if (this.bookingsAtTime.length) {
+            const occupiedPlaces = this.bookingsAtTime.reduce((acc, booking) => {
+              acc = acc + booking.clients.length
+              console.log('acc :', acc)
+              return acc
+            }, 0)
+            const vacant = table.capacity - occupiedPlaces
+            table = { ...table, vacant: vacant }
+            this.tablesAtTime.push(table)
+            this.maxPlaces < table.vacant ?  this.maxPlaces = table.vacant : this.maxPlaces = this.maxPlaces
+            console.log('booking object', this.bookingsAtTime)
+            console.log('maxPlaces', this.maxPlaces)
+          } else {
+            const vacant = table.capacity
+            this.tablesAtTime.push({...table, vacant : vacant})
+            this.maxPlaces < table.capacity ?  this.maxPlaces = table.capacity : this.maxPlaces = this.maxPlaces
+            console.log('maxPlaces', this.maxPlaces)
+          }
+        })
+    })
   }
 
   selectBestTable(clients: number, tables: any) {
-    const sortedTables = tables.filter(table => clients <= parseInt(table.capacity))
-      .sort((a, b) => parseInt(a.capacity) - parseInt(b.capacity)
+    const sortedTables = tables.filter(table => clients <= parseInt(table.vacant))
+      .sort((a, b) => parseInt(a.vacant) - parseInt(b.vacant)
       );
+      // console.log('bestTable', sortedTables.shift())
     return sortedTables.shift()
+  }
+
+  placeReservation() {
+    const bestTable = this.selectBestTable(this.form.value.clients.length, this.tablesAtTime);
+    console.log('best table after call to select bestTable in placeresa', bestTable)
+    let clients = this.user.friends.filter(friend => {
+      return this.form.value.clients.map(e => e.name).includes(friend.id)
+    })
+    clients.push(this.user)
+    const booking = {
+      day: this.reservationDate.day,
+      hour: this.reservationDate.hour + ':00',
+      table: {id: bestTable.id, name: bestTable.name, capacity: bestTable.capacity},
+      orders: [],
+      clients: clients
+    }
+    console.log('Registering Reservation for', booking)
+    this.bookingService.postBooking(booking).subscribe(
+      data => {
+        console.log('response', data)
+      }
+    )
+    this.reservationDate = {
+      day: '',
+      hour: ''
+    }
   }
 }

@@ -10,12 +10,15 @@ export class ToTableReservationComponent implements OnInit {
   @Input() restaurant: any;
   @Output() onReservationDisplay = new EventEmitter();
 
+  public formToggled = true;
+
   constructor() { }
 
   ngOnInit() {
   }
 
   toggleReservationForm(event) {
+    this.formToggled = !this.formToggled;
     return this.onReservationDisplay.emit(event);
   }
 }
