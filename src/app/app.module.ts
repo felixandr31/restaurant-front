@@ -2,10 +2,10 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
+import {MatDatepickerModule} from '@angular/material/datepicker';
 import { HttpClientModule } from '@angular/common/http';
 import { MarkerService } from './services/map/marker.service';
 import { PopupService } from './services/map/popup.service';
-
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { SideNavigationMenuComponent } from './components/side-navigation-menu/side-navigation-menu.component';
@@ -36,6 +36,10 @@ import { OrderDisplayComponent } from './views/client-view/order-display/order-d
 import { EmployeesListComponent } from './views/manager-view/employees-list/employees-list.component';
 import { EmployeesFormComponent } from './views/manager-view/employees-form/employees-form.component';
 import { GuestViewComponent } from './views/guest-view/guest-view/guest-view.component';
+import { DateSelectorComponent } from './views/client-view/date-selector/date-selector.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MAT_DATE_LOCALE, MatNativeDateModule } from '@angular/material/core';
+import { MatFormFieldModule } from '@angular/material/form-field';
 
 
 @NgModule({
@@ -69,17 +73,23 @@ import { GuestViewComponent } from './views/guest-view/guest-view/guest-view.com
     ChooseMenuComponent,
     OrderDisplayComponent,
     GuestViewComponent,
+    DateSelectorComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    BrowserAnimationsModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatFormFieldModule,
   ],
   providers: [
     MarkerService,
-    PopupService
+    PopupService,
+    [{provide: MAT_DATE_LOCALE, useValue: 'fr-FR'}]
   ],
   bootstrap: [AppComponent]
 })
