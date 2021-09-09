@@ -51,22 +51,47 @@ export class GuestViewComponent implements OnInit {
   }
 
   logIn() {
-    this.user = this.userService.getUsers().subscribe(
+    const credentials = {
+      lastName: this.logGroup.controls.lastName.value,
+      password: this.logGroup.controls.password.value
+    }
+
+    this.userService.realLogin(credentials).subscribe(
       data => {
-        const res = Object.values(data.body);
-        if (res.find(user => user.lastName === this.logGroup.controls.lastName.value)) {
-          // TODO : quand le mdp est géré par le back, remplacer le null par ce qui va bien...
-          let user = res.find(user => user.lastName === this.logGroup.controls.lastName.value && user.password === null)
-          this.onLogIn.emit(user)
-          return Object.values(user)
-        } else {
-          alert('User not found')
+        console.log('log in data', data)
+        if (data.statusText == 'OK') {
+          this.user = data.body
+          console.log('user', this.user)
+          this.onLogIn.emit(this.user)
         }
-      },
-      err => {
-        console.log('error', err)
       }
     )
+
+
+
+    // this.user = this.userService.getUsers().subscribe(
+    //   data => {
+    //     const res = Object.values(data.body);
+    //     const user = res.find(user => user.lastName === this.logGroup.controls.lastName.value)
+    //     if (user.password === this.logGroup.controls.password.value) {
+    //       // if( user.password === null){
+    //       //   console.log('user password is null', user)
+    //       // } else {
+    //       //   console.log('user has password ', user)
+    //       // }
+    //       // TODO : quand le mdp est géré par le back, remplacer le null par ce qui va bien...
+
+    //       this.onLogIn.emit(user)
+    //       console.log(Object.values(user))
+    //       return Object.values(user)
+    //     } else {
+    //       alert('User not found')
+    //     }
+    //   },
+    //   err => {
+    //     console.log('error', err)
+    //   }
+    // )
   }
 
   clearFields() {
