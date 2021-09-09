@@ -43,7 +43,7 @@ export class EmployeesFormComponent implements OnInit {
       { name: 'cook' },
       { name: 'waiter' }
     ],
-  } 
+  }
 
   public selectedEmployee: any
 
@@ -58,7 +58,7 @@ export class EmployeesFormComponent implements OnInit {
   constructor(private formBuilder: FormBuilder) { }
 
   ngOnInit() {
-    this.initialiseForm();
+    this.initializeForm();
     this.createForm();
     this._patchValues();
     console.log('form.controls', this.f)
@@ -103,7 +103,7 @@ export class EmployeesFormComponent implements OnInit {
     this.updateForm();
     this.editionMode = true;
   }
-  
+
   updateRoles() {
     this.cookChecked = false;
     this.waiterChecked = false;
@@ -115,6 +115,9 @@ export class EmployeesFormComponent implements OnInit {
         case 'cook':
           this.cookChecked = true;
           break;
+        default:
+          this.cookChecked = false;
+          this.waiterChecked = false;
       }
     })
   }
@@ -127,6 +130,7 @@ export class EmployeesFormComponent implements OnInit {
       lastName: '',
       roles: [],
     };
+    this.updateRoles();
     this.updateForm();
     this.editionMode = true;
   }
@@ -136,12 +140,12 @@ export class EmployeesFormComponent implements OnInit {
     console.log('savedEmployee.firstName: ' + this.savedEmployee.firstName)
   }
 
-  initialiseForm(){
+  initializeForm() {
     this.selectedEmployee = this.formTemplate;
   }
 
   cancelEdition() {
-    this.initialiseForm();
+    this.initializeForm();
     this.editionMode = false;
   }
 

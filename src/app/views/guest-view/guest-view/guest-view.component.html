@@ -9,13 +9,21 @@
   </form>
 </div>
 
-<!--
-<div>
+<button (click)="displaySignIn()">Sign In</button>
+<div *ngIf="signInMode === true">
   <h2>Sign In</h2>
-  <form>
+  <form [formGroup]="signInGroup" (ngSubmit)="signIn()">
     <label>Last Name</label>
-    <input>
+    <input formControlName="lastName" required>
+    <label>First Name</label>
+    <input formControlName="firstName" required>
+    <label>email</label>
+    <input type="email" formControlName="email" pattern=".+@example\.com" size="30" placeholder="sophie@example.com" required>
     <label>Password</label>
-    <input>
+    <input formControlName="password" required minLength="8">
+    <!-- <label>Confirm Password</label>
+    <input formControlName="password" minLength="8" required> -->
+    <button>Submit</button>
   </form>
-</div> -->
+
+</div>
