@@ -1,4 +1,4 @@
-<div>
+<div *ngIf="registered; else notRegistered">
   <h2>Log In</h2>
   <form [formGroup]="logGroup" (ngSubmit)="logIn()">
     <label>Last Name</label>
@@ -7,10 +7,9 @@
     <input formControlName="password">
     <button>Go !!</button>
   </form>
+  <button (click)="logInSignInSwitch()">Sign In</button>
 </div>
-
-<button (click)="displaySignIn()">Sign In</button>
-<div *ngIf="signInMode === true">
+<ng-template #notRegistered>
   <h2>Sign In</h2>
   <form [formGroup]="signInGroup" (ngSubmit)="signIn()">
     <label>Last Name</label>
@@ -25,5 +24,6 @@
     <input formControlName="password" minLength="8" required> -->
     <button>Submit</button>
   </form>
+  <button (click)="logInSignInSwitch()">Back to logIn</button>
+</ng-template>
 
-</div>

@@ -6,41 +6,46 @@
   </div>
 </fieldset>
 
-
-<form [formGroup]="form" *ngIf="modes.edition" (ngSubmit)="saveEmployee()">
-  <fieldset> Employee Edition
-    <div>
-      <label>First name: </label>
-      <input name="firstName" formControlName="firstName">
-    </div>
-    <div>
-      <label>Last name: </label>
-      <input name="lastName" formControlName="lastName">
-    </div>
-
-    <div>
+<div *ngIf="modes.edition">
+  <form [formGroup]="form" (ngSubmit)="onSubmit()">
+    <fieldset> Employee Edition
       <div>
-        <label for="cook">Cook </label>
-        <input type="checkbox" id="cook" value="cook" [checked]="cookChecked">
+        <label>First name: </label>
+        <input name="firstName" formControlName="firstName">
       </div>
       <div>
-        <label for="waiter">Waiter </label>
-        <input type="checkbox" id="waiter" value="waiter" [checked]="waiterChecked">
+        <label>Last name: </label>
+        <input name="lastName" formControlName="lastName">
       </div>
-    </div>
-  </fieldset>
 
-  <button (click)="saveEmployee()">Save</button>
-  <button (click)="cancelEdition()">Cancel</button>
+      <div>
+        <div>
+          <label for="cook">Cook </label>
+          <input type="checkbox" id="cook" value="cook" [checked]="cookChecked">
+        </div>
+        <div>
+          <label for="waiter">Waiter </label>
+          <input type="checkbox" id="waiter" value="waiter" [checked]="waiterChecked">
+        </div>
+      </div>
 
-  <div *ngIf="!modes.creation">
-    <button (click)="deleteEmployee()">Delete this account</button>
-    <div *ngIf="modes.deletionConfirmation">
-      <label>Confirm ?</label>
-      <button (click)="confirmDeletion($event)" value="Delete">Delete</button>
-      <button (click)="confirmDeletion($event)" value="Cancel">Cancel</button>
-    </div>
-  </div>
+      <div id="buttons">
+        <button  (click)="savedEmployee">Save</button>
+        <button  (click)="cancelEdition()">Cancel</button>
+
+        <div *ngIf="!modes.creation">
+          <button  (click)="employeeDeletionMode()">Delete account</button>
+          <div *ngIf="modes.deletionConfirmation">
+            <label>Confirm ?</label>
+            <button (click)="onDeletionConfirmation()" value='confirmDeletion'>Delete</button>
+            <button (click)="onDeletionConfirmation()" value='cancelDeletion'>Cancel</button>
+          </div>
+        </div>
+
+      </div>
+    </fieldset>
 
 
-</form>
+  </form>
+
+</div>

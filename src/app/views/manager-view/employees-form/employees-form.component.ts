@@ -42,17 +42,17 @@ export class EmployeesFormComponent implements OnInit {
       password: "password",
       email: "marius@gmail.com",
       roles: [
-          {
-              "id": "613721b77f57fb321327b626",
-              "name": "client"
-          },
-          {
-              "id": "61309cbf009435126fc70798",
-              "name": "Manager"
-          }
+        {
+          "id": "613721b77f57fb321327b626",
+          "name": "client"
+        },
+        {
+          "id": "61309cbf009435126fc70798",
+          "name": "Manager"
+        }
       ],
       friends: []
-  }
+    }
   ];
 
   public defaultFormValues = {
@@ -70,13 +70,13 @@ export class EmployeesFormComponent implements OnInit {
 
   cookChecked = false;
   waiterChecked = false;
+  method: any
 
   modes = {
-    "edition" : false,
-    "deletionConfirmation" : false,
-    "creation" : false
+    "edition": false,
+    "deletionConfirmation": false,
+    "creation": false
   }
-  // confirmDeletion = false;
 
   constructor(private formBuilder: FormBuilder,
     private userService: UserService) { }
@@ -114,7 +114,7 @@ export class EmployeesFormComponent implements OnInit {
     });
   }
 
-  initializeForm(){
+  initializeForm() {
     this.selectedEmployee = this.defaultFormValues
   }
 
@@ -122,6 +122,12 @@ export class EmployeesFormComponent implements OnInit {
     this.form.patchValue(this.selectedEmployee)
     this.updateRolesCheckbox();
   }
+
+  onSubmit(){
+
+  }
+
+
 
   employeeSelection(event) {
     this.selectedEmployee = event;
@@ -168,43 +174,42 @@ export class EmployeesFormComponent implements OnInit {
     // )
     // TODO: update user(ne fait rien dans les roles!) + add/remove role
 
-    this.resetModes()
+    // this.resetModes()
   }
 
   cancelEdition() {
     this.initializeForm();
-    this.updateForm;
-    this.resetModes()
-  }
-
-  deleteEmployee() {
-    const employee = this.selectedEmployee
-    console.log(employee)
-    this.modes.deletionConfirmation = true
-    const ans = this.confirmDeletion(event)
-    console.log('ans: ', ans)
-    // if(ans === "Delete"){
-    //   this.userService.deleteUser(employee.id)
-    //   this.deletionConfirmationMode = false
-    // }else {
-    //   this.deletionConfirmationMode = false
-    // }
+    this.updateForm();
     // this.resetModes()
   }
 
-  confirmDeletion(event){
-    const ans = event.target.value
-    return ans
+  employeeDeletionMode() {
+    const employee = this.selectedEmployee
+    this.modes.deletionConfirmation = true
   }
 
-  resetModes(){
+  onDeletionConfirmation(event) {
+    const confirmDeletion = event
+    console.log('confirmDeletion: ', confirmDeletion)
+    if (confirmDeletion === "Delete") {
+      console.log('deletion !')
+      // this.userService.deleteUser(this.selectedEmployee.id)
+      this.resetModes()
+    } else {
+      console.log('deletion cancelled!')
+      this.modes.deletionConfirmation = false
+    }
+    // this.resetModes()
+  }
+
+  resetModes() {
     console.log('resetModes')
-    for(const mode in this.modes){
+    for (const mode in this.modes) {
       console.log('mode', mode)
       console.log('this.modes[mode]', this.modes[mode])
       this.modes[mode] = false
     }
-}
+  }
 
 
 

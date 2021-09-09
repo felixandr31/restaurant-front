@@ -11,7 +11,7 @@ export class GuestViewComponent implements OnInit {
 
   @Output() onLogIn = new EventEmitter();
 
-  signInMode = false;
+  registered = true;
 
   public logGroup: FormGroup;
   public signInGroup: FormGroup;
@@ -81,8 +81,8 @@ export class GuestViewComponent implements OnInit {
 
   }
 
-  displaySignIn() {
-    this.signInMode = true
+  logInSignInSwitch() {
+    this.registered = !this.registered
   }
 
   signIn() {

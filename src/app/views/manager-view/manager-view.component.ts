@@ -10,11 +10,14 @@ export class ManagerViewComponent implements OnInit {
 
   @Input() showSubView: any;
 
+  private restaurantId: any;
+
   constructor() {
   }
 
   ngOnInit() {
     this.showSubView = 'homePage';
+    this.restaurantId = ["613884cf841a951be1274a98"]
   }
 
 
