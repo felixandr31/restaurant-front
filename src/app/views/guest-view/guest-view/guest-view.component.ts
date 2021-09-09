@@ -77,9 +77,6 @@ export class GuestViewComponent implements OnInit {
     )
   }
 
-  clearFields() {
-
-  }
 
   logInSignInSwitch() {
     this.registered = !this.registered
@@ -92,15 +89,12 @@ export class GuestViewComponent implements OnInit {
     const newUser = this.signInGroup.value
     console.log('newUser', newUser)
 
-
     this.userService.postUser(newUser).subscribe(
       data => {
         const res = Object.assign({}, data.body);
-        console.log(data.body)
         this.user = {...res}
         console.log(this.user)
-        // login not working yet
-        // this.userService.login(this.user.lastName, this.user.password)
+
       },
       err => {
         console.log('error', err)
