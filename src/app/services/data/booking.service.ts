@@ -15,4 +15,9 @@ export class BookingService {
     return this.http.get(url, { observe: 'response' })
   }
 
+  public postBooking(booking) {
+    const url = this.url + 'create'
+    return this.http.post(url, booking, {observe: 'response'})
+  }
+
 }

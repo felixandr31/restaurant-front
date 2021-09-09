@@ -1,6 +1,5 @@
 import { Component, OnInit, Input, OnChanges } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormArray } from '@angular/forms';
-import { UserService } from 'src/app/services/data/user.service';
 import { BookingService } from 'src/app/services/data/booking.service';
 
 @Component({
@@ -19,8 +18,8 @@ export class ReservationFormComponent implements OnInit, OnChanges {
 
   public maxPlaces: number = 0;
   private tablesAtTime = []
+  private bookingsAtTime = []
 
-  // private availablePlaces: number;
   public reservationDate = {
     day: '',
     hour: ''
@@ -30,7 +29,6 @@ export class ReservationFormComponent implements OnInit, OnChanges {
 
   constructor(
     private formBuilder: FormBuilder,
-    private userService: UserService,
     private bookingService: BookingService
   ) { }
 
@@ -72,46 +70,70 @@ export class ReservationFormComponent implements OnInit, OnChanges {
     this.c.at(index).patchValue({ name: event }, { onlySelf: true })
   }
 
-  placeReservation() {
-    console.log('nb clients', this.form.value.clients.length)
-    console.log('form values', this.form.value)
-    let clientList = this.form.value.clients;
-    const bestTable = this.selectBestTable(this.form.value.clients.length, this.tablesAtTime);
-    console.log('Registering Reservation for', clientList, bestTable)
-    alert('reservation Ok');
-  }
-
-  selectBestTable(clients: number, tables: any) {
-    const sortedTables = tables.filter(table => clients <= parseInt(table.vacant))
-      .sort((a, b) => parseInt(a.vacant) - parseInt(b.vacant)
-      );
-    return sortedTables.shift()
-  }
-
   dateSelected(event) {
+    this.maxPlaces = 0;
+    this.bookingsAtTime = []
+    this.tablesAtTime = []
     this.reservationDate = event;
 
-    let bookingsAtTime = []
     this.tables.forEach(table => {
       this.bookingService.getBookingByTable(table.id).subscribe(
         data => {
           let res = Object.values(data.body)
-          bookingsAtTime = res.filter(booking => booking.day.substring(0, 10) == this.reservationDate.day && booking.hour == this.reservationDate.hour + ':00')
-          if (bookingsAtTime.length) {
-            const occupiedPlaces = bookingsAtTime.reduce((acc, booking) => {
+          this.bookingsAtTime = res.filter(booking => booking.day.substring(0, 10) == this.reservationDate.day && booking.hour == this.reservationDate.hour + ':00')
+          if (this.bookingsAtTime.length) {
+            const occupiedPlaces = this.bookingsAtTime.reduce((acc, booking) => {
               acc = acc + booking.clients.length
+              console.log('acc :', acc)
               return acc
             }, 0)
             const vacant = table.capacity - occupiedPlaces
             table = { ...table, vacant: vacant }
             this.tablesAtTime.push(table)
             this.maxPlaces < table.vacant ?  this.maxPlaces = table.vacant : this.maxPlaces = this.maxPlaces
+            console.log('booking object', this.bookingsAtTime)
+            console.log('maxPlaces', this.maxPlaces)
           } else {
             const vacant = table.capacity
             this.tablesAtTime.push({...table, vacant : vacant})
             this.maxPlaces < table.capacity ?  this.maxPlaces = table.capacity : this.maxPlaces = this.maxPlaces
+            console.log('maxPlaces', this.maxPlaces)
           }
         })
     })
+  }
+
+  selectBestTable(clients: number, tables: any) {
+    const sortedTables = tables.filter(table => clients <= parseInt(table.vacant))
+      .sort((a, b) => parseInt(a.vacant) - parseInt(b.vacant)
+      );
+      // console.log('bestTable', sortedTables.shift())
+    return sortedTables.shift()
+  }
+
+  placeReservation() {
+    const bestTable = this.selectBestTable(this.form.value.clients.length, this.tablesAtTime);
+    console.log('best table after call to select bestTable in placeresa', bestTable)
+    let clients = this.user.friends.filter(friend => {
+      return this.form.value.clients.map(e => e.name).includes(friend.id)
+    })
+    clients.push(this.user)
+    const booking = {
+      day: this.reservationDate.day,
+      hour: this.reservationDate.hour + ':00',
+      table: {id: bestTable.id, name: bestTable.name, capacity: bestTable.capacity},
+      orders: [],
+      clients: clients
+    }
+    console.log('Registering Reservation for', booking)
+    this.bookingService.postBooking(booking).subscribe(
+      data => {
+        console.log('response', data)
+      }
+    )
+    this.reservationDate = {
+      day: '',
+      hour: ''
+    }
   }
 }
