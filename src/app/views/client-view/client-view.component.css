@@ -30,17 +30,15 @@
   grid-template: 1fr 1fr / 1fr 1fr;
   grid-template-areas: "friends users"
   "friends users";
-  gap: .5em;
+  gap: 0 .5em;
 }
 
 .friends-list {
   grid-area: friends;
-  display: flex;
-  flex-direction: column;
 }
 
 .find-friends {
-  grid-area: users
+  grid-area: users;
 }
 
 .reservation-view {
