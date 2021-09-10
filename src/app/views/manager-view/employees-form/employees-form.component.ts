@@ -9,32 +9,11 @@ import { UserService } from 'src/app/services/data/user.service';
 })
 export class EmployeesFormComponent implements OnInit {
 
+  @Input() user: any;
+  @Input() managerRestaurant: any;
+
+
   public employees = [
-    {
-      id: 1,
-      firstName: 'Tim',
-      lastName: 'Cook',
-      roles: [
-        { name: 'cook' },
-      ],
-    },
-    {
-      id: 2,
-      firstName: 'Bob',
-      lastName: 'Dilan',
-      roles: [
-        { name: 'waiter' }
-      ],
-    },
-    {
-      id: 3,
-      firstName: 'Bob',
-      lastName: 'Cook',
-      roles: [
-        { name: 'cook' },
-        { name: 'waiter' }
-      ],
-    },
     {
       id: "6139b8073f85bb4d08e61323",
       firstName: "Marius",
@@ -78,8 +57,10 @@ export class EmployeesFormComponent implements OnInit {
     "creation": false
   }
 
+
   constructor(private formBuilder: FormBuilder,
     private userService: UserService) { }
+
 
   ngOnInit() {
     // TODO : récupérer restaurant du manager puis sa liste employés
@@ -165,6 +146,7 @@ export class EmployeesFormComponent implements OnInit {
   saveEmployee() {
     this.savedEmployee = this.form.value;
     console.log('savedEmployee: ', this.savedEmployee)
+    //  TODO:
     // this.userService.updateUser().subscribe(
     //   data => {
 
@@ -173,7 +155,9 @@ export class EmployeesFormComponent implements OnInit {
 
     //   }
     // )
-    // TODO: update user(ne fait rien dans les roles!) + add/remove role
+    // this.userService.addRoles
+    // if create : ajouter employee au restaurant
+
 
     // this.resetModes()
   }
@@ -190,6 +174,7 @@ export class EmployeesFormComponent implements OnInit {
   }
 
   onDeletionConfirmation(event) {
+    console.log('event onDeletionConfirmation', event)
     const confirmDeletion = event
     console.log('confirmDeletion: ', confirmDeletion)
     if (confirmDeletion === "Delete") {

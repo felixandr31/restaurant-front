@@ -1,5 +1,6 @@
 import { Component, OnInit, Input, Output } from '@angular/core';
 import { RouterLink } from '@angular/router';
+import { RestaurantService } from 'src/app/services/data/restaurant.service';
 
 @Component({
   selector: 'app-manager-view',
@@ -9,16 +10,32 @@ import { RouterLink } from '@angular/router';
 export class ManagerViewComponent implements OnInit {
 
   @Input() showSubView: any;
+  @Input() user: any;
 
-  private restaurantId: any;
+  public managerRestaurant: any;
 
 
-  constructor() {
+  constructor(private restaurantService: RestaurantService) {
   }
 
   ngOnInit() {
     this.showSubView = 'homePage';
-    this.restaurantId = ["613884cf841a951be1274a98"]
+    console.log('user: ', this.user)
+
+    // TODO: quand back push => récupérer restaurant avec user. remplacer par :
+    const managerRestaurantId = ["613885d5841a951be1274a9a"]
+    // const managerRestaurantId = this.user.restaurants
+
+    this.restaurantService.getRestaurantById(managerRestaurantId.toString()).subscribe(
+      data =>{
+        this.managerRestaurant = data.body
+        console.log('managerRestaurant', this.managerRestaurant)
+      },
+      err => {
+        console.log('Error: ', err)
+      }
+    )
+
   }
 
 
