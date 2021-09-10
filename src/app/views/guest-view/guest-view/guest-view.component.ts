@@ -1,12 +1,14 @@
 import { Component, OnInit, EventEmitter, Output } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormArray } from '@angular/forms';
 import { UserService } from 'src/app/services/data/user.service';
+import { OK } from 'src/app/app.component'
 
 @Component({
   selector: 'app-guest-view',
   templateUrl: './guest-view.component.html',
   styleUrls: ['./guest-view.component.css']
 })
+
 export class GuestViewComponent implements OnInit {
 
   @Output() onLogIn = new EventEmitter();
@@ -59,7 +61,7 @@ export class GuestViewComponent implements OnInit {
     this.userService.realLogin(credentials).subscribe(
       data => {
         console.log('log in data', data)
-        if (data.statusText == 'OK') {
+        if (data.status == OK) {
           this.user = data.body
           console.log('user', this.user)
           this.onLogIn.emit(this.user)
