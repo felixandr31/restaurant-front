@@ -9,6 +9,8 @@ import { UserService } from 'src/app/services/data/user.service';
 })
 export class EmployeesFormComponent implements OnInit {
 
+  @Input() user: any;
+
   public employees = [
     {
       id: 1,
@@ -78,8 +80,10 @@ export class EmployeesFormComponent implements OnInit {
     "creation": false
   }
 
+
   constructor(private formBuilder: FormBuilder,
     private userService: UserService) { }
+
 
   ngOnInit() {
     // TODO : récupérer restaurant du manager puis sa liste employés
@@ -165,6 +169,7 @@ export class EmployeesFormComponent implements OnInit {
   saveEmployee() {
     this.savedEmployee = this.form.value;
     console.log('savedEmployee: ', this.savedEmployee)
+    //  TODO:
     // this.userService.updateUser().subscribe(
     //   data => {
 
@@ -173,7 +178,9 @@ export class EmployeesFormComponent implements OnInit {
 
     //   }
     // )
-    // TODO: update user(ne fait rien dans les roles!) + add/remove role
+    // this.userService.addRoles
+    // if create : ajouter employee au restaurant
+
 
     // this.resetModes()
   }

@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { UserService } from './services/data/user.service';
 
+export const OK = 202;
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',

@@ -9,8 +9,9 @@ import { RouterLink } from '@angular/router';
 export class ManagerViewComponent implements OnInit {
 
   @Input() showSubView: any;
+  @Input() user: any;
 
-  private restaurantId: any;
+  public managerRestaurant: any;
 
 
   constructor() {
@@ -18,7 +19,9 @@ export class ManagerViewComponent implements OnInit {
 
   ngOnInit() {
     this.showSubView = 'homePage';
-    this.restaurantId = ["613884cf841a951be1274a98"]
+    this.managerRestaurant = this.user.restaurants
+    console.log(this.managerRestaurant)
+    // this.managerRestaurant = ["613884cf841a951be1274a98"]
   }
 
 
