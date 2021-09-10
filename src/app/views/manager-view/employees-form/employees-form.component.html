@@ -1,30 +1,30 @@
-<div class="chooseForm">
-  <button *ngIf="!modes.creation" (click)="ToggleEdit()">EDIT</button>
-  <button *ngIf="!modes.edition" (click)="ToggleCreate()">CREATE</button>
+<div *ngIf="!modes.edition && !modes.creation" class="chooseForm">
+  <button (click)="ToggleEdit()">EDIT</button>
+  <button (click)="ToggleCreate()">CREATE</button>
 </div>
 <div *ngIf="modes.edition && !modes.creation" class="edit">
   <app-employees-list [employees]="employees" (onEmployeeSelection)="employeeSelection($event)"></app-employees-list>
   <div>
     EDIT FORM
-    <form (ngSubmit)="updateEmployee()">
+    <form [formGroup]="form" (ngSubmit)="onSubmit()">
       <div>
         <label>First name: </label>
-        <input name="firstName">
+        <input name="firstName" formControlName="firstName">
       </div>
       <div>
         <label>Last name: </label>
-        <input name="lastName">
+        <input name="lastName" formControlName="lastName">
       </div>
       <div>
         <label for="cook">Cook</label>
-        <input type="checkbox" id="cook" name="cook" value="true" [checked]="cookChecked">
+        <input type="checkbox" id="cook" [checked]="cookChecked" formControlName="cook">
       </div>
       <div>
         <label for="waiter">Waiter </label>
-        <input type="checkbox" id="waiter" name="waiter" value="true" [checked]="waiterChecked">
+        <input type="checkbox" id="waiter" [checked]="waiterChecked" formControlName="waiter">
       </div>
 
-      <button>Update</button>
+      <button type="submit">Update</button>
       <button (click)="employeeDeletionMode()">Delete account</button>
       <div *ngIf="modes.deletionConfirmation">
         <label>Confirm ?</label>
@@ -38,24 +38,32 @@
 
 <div *ngIf="!modes.edition && modes.creation" class="create">
   CREATE FORM
-  <form (ngSubmit)="createEmployee($event)">
+  <form [formGroup]="form" (ngSubmit)="onSubmit()">
     <div>
       <label>First name: </label>
-      <input name="firstName">
+      <input name="firstName" formControlName="firstName">
     </div>
     <div>
       <label>Last name: </label>
-      <input name="lastName">
+      <input name="lastName" formControlName="lastName">
+    </div>
+    <div>
+      <label>Password: </label>
+      <input name="lastName" formControlName="password">
+    </div>
+    <div>
+      <label>email: </label>
+      <input name="lastName" formControlName="email">
     </div>
     <div>
       <label for="cook">Cook</label>
-      <input type="checkbox" id="cook" value="true" [checked]="cookChecked">
+      <input type="checkbox" id="cook" [checked]="cookChecked" formControlName="cook">
     </div>
     <div>
-      <label for="waiter">Waiter</label>
-      <input type="checkbox" id="waiter" value="true" [checked]="waiterChecked">
+      <label for="waiter">Waiter </label>
+      <input type="checkbox" id="waiter" [checked]="waiterChecked" formControlName="waiter">
     </div>
-    <button type="submit" >Confirm Creation</button>
+    <button type="submit">Confirm Creation</button>
     <button (click)="cancelEdition()">Cancel</button>
   </form>
 </div>
