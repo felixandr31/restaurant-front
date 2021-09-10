@@ -13,7 +13,7 @@ export class GuestViewComponent implements OnInit {
 
   @Output() onLogIn = new EventEmitter();
 
-  signInMode = false;
+  registered = true;
 
   public logGroup: FormGroup;
   public signInGroup: FormGroup;
@@ -26,6 +26,8 @@ export class GuestViewComponent implements OnInit {
     roles: [],
     friends: []
   }
+
+  public displaySignIn
 
   constructor(private formBuilder: FormBuilder,
     private userService: UserService) { }
@@ -68,40 +70,10 @@ export class GuestViewComponent implements OnInit {
         }
       }
     )
-
-
-
-    // this.user = this.userService.getUsers().subscribe(
-    //   data => {
-    //     const res = Object.values(data.body);
-    //     const user = res.find(user => user.lastName === this.logGroup.controls.lastName.value)
-    //     if (user.password === this.logGroup.controls.password.value) {
-    //       // if( user.password === null){
-    //       //   console.log('user password is null', user)
-    //       // } else {
-    //       //   console.log('user has password ', user)
-    //       // }
-    //       // TODO : quand le mdp est géré par le back, remplacer le null par ce qui va bien...
-
-    //       this.onLogIn.emit(user)
-    //       console.log(Object.values(user))
-    //       return Object.values(user)
-    //     } else {
-    //       alert('User not found')
-    //     }
-    //   },
-    //   err => {
-    //     console.log('error', err)
-    //   }
-    // )
   }
 
-  clearFields() {
-
-  }
-
-  displaySignIn() {
-    this.signInMode = !this.displaySignIn
+  toggleSignIn() {
+    this.displaySignIn = !this.displaySignIn
   }
 
   signIn() {
@@ -111,11 +83,9 @@ export class GuestViewComponent implements OnInit {
     const newUser = this.signInGroup.value
     console.log('newUser', newUser)
 
-
     this.userService.postUser(newUser).subscribe(
       data => {
         const res = Object.assign({}, data.body);
-        console.log(data.body)
         this.user = {...res}
         console.log(this.user)
         alert("user created, please log in with your credentials")
@@ -128,10 +98,5 @@ export class GuestViewComponent implements OnInit {
         console.log('error', err)
       }
     )
-
-
   }
-
-
-
 }

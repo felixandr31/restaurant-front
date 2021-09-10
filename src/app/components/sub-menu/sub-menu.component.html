@@ -18,11 +18,13 @@
 </div>
 
 
-  <!-- <div *ngFor="let item of menuManager">
-    <ul>
-      <li><a (click)="subView(item.name)">{{item.content}}</a></li>
-    </ul>
-  </div> -->
+<div *ngIf="showView === 'Admin'" class="dropbtn">
+  <div class="dropdown">
+    <div class="dropdown-content">
+      <a *ngFor="let item of menuAdmin" (click)="subView(item.name)">{{item.content}}</a>
+    </div>
+  </div>
+</div>
 
 
 
