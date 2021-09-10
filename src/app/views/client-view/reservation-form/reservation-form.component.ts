@@ -1,6 +1,7 @@
 import { Component, OnInit, Input, OnChanges } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormArray } from '@angular/forms';
 import { BookingService } from 'src/app/services/data/booking.service';
+import { forkJoin } from 'rxjs';
 
 @Component({
   selector: 'app-reservation-form',
@@ -75,6 +76,13 @@ export class ReservationFormComponent implements OnInit, OnChanges {
     this.bookingsAtTime = []
     this.tablesAtTime = []
     this.reservationDate = event;
+
+    const queries = this.tables.map(table => this.bookingService.getBookingByTable(table.id))
+
+    // ForkJoin : https://www.learnrxjs.io/learn-rxjs/operators/combination/forkjoin
+    // forkJoin(queries).subscribe(res => {
+    //   console.log(res)
+    // })
 
     this.tables.forEach(table => {
       this.bookingService.getBookingByTable(table.id).subscribe(
