@@ -24,7 +24,7 @@ export class ManagerViewComponent implements OnInit {
 
     // TODO: quand back push => récupérer restaurant avec user. remplacer par :
     const managerRestaurantId = ["613885d5841a951be1274a9a"]
-    // const managerRestaurantId = this.user.restaurants
+    // const managerRestaurantId = this.user.restaurantId
 
     this.restaurantService.getRestaurantById(managerRestaurantId.toString()).subscribe(
       data =>{

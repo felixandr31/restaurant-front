@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, SimpleChanges } from '@angular/core';
+import { Component, OnInit, Input, SimpleChanges, Output } from '@angular/core';
 import { FormGroup, FormBuilder, FormControl, FormArray, Validators, EmailValidator } from '@angular/forms';
 import { UserService } from 'src/app/services/data/user.service';
 
@@ -12,26 +12,7 @@ export class EmployeesFormComponent implements OnInit {
   @Input() user: any;
   @Input() managerRestaurant: any;
 
-
   public employees = [
-    {
-      id: "6139b8073f85bb4d08e61323",
-      firstName: "Marius",
-      lastName: "H",
-      password: "password",
-      email: "marius@gmail.com",
-      roles: [
-        {
-          "id": "613721b77f57fb321327b626",
-          "name": "client"
-        },
-        {
-          "id": "61309cbf009435126fc70798",
-          "name": "Manager"
-        }
-      ],
-      friends: []
-    }
   ];
 
   public defaultFormValues = {
@@ -57,42 +38,44 @@ export class EmployeesFormComponent implements OnInit {
     "creation": false
   }
 
-
   constructor(private formBuilder: FormBuilder,
     private userService: UserService) { }
 
 
   ngOnInit() {
-    // TODO : récupérer restaurant du manager puis sa liste employés
-    // this.employees = this.userService. ().subscribe(
-    //   data => {
-
-    //   }
-    //   err => {
-
-    //   }
-    // )
+    this.employees = this.managerRestaurant.employees
+    console.log('employees on init', this.employees)
     this.initializeForm();
-    this.createForm();
+    this.createForms();
   }
 
-
   // créé tous les champs requis, remplis firstName et lastName avec selectedEmployee mais ne coche pas les checkboxs
-  createForm() {
+  createForms() {
     this.form = this.formBuilder.group({
       firstName: [this.selectedEmployee.firstName, Validators.required],
       lastName: [this.selectedEmployee.lastName, Validators.required],
       roles: new FormArray([
-        this.formBuilder.group({
-          id: ['61309cb8009435126fc70797', Validators.required],
-          name: ['Cook', Validators.required],
-        }),
-        this.formBuilder.group({
-          id: ['613721e07f57fb321327b629', Validators.required],
-          name: ['Waiter', Validators.required],
-        })
+        // this.formBuilder.group({
+        //   id: ['61309cb8009435126fc70797', Validators.required],
+        //   name: ['Cook', Validators.required],
+        // }),
+        // this.formBuilder.group({
+        //   id: ['613721e07f57fb321327b629', Validators.required],
+        //   name: ['Waiter', Validators.required],
+        // })
       ]),
     });
+
+    // this.roles.push(
+    //   this.formBuilder.group({
+    //     id: ['61309cb8009435126fc70797', Validators.required],
+    //     name: ['Cook', Validators.required],
+    //   },
+    //   {
+    //     id: ['613721e07f57fb321327b629', Validators.required],
+    //     name: ['Waiter', Validators.required],
+    //   })
+    // )
   }
 
   initializeForm() {
@@ -107,8 +90,6 @@ export class EmployeesFormComponent implements OnInit {
   onSubmit(){
 
   }
-
-
 
   employeeSelection(event) {
     // this.selectedEmployee = event;
@@ -135,15 +116,21 @@ export class EmployeesFormComponent implements OnInit {
     })
   }
 
-  createEmployee() {
+  createEmployee(event) {
+    console.log('Employee Created:', this.form.value)
+    console.log('roles:', this.form.controls.roles)
+
+
+  }
+
+  toggleEmployeeCreation(){
     this.modes.creation = true;
     this.modes.edition = true;
     this.initializeForm();
     this.updateForm();
-
   }
 
-  saveEmployee() {
+  saveNewEmployee(){
     this.savedEmployee = this.form.value;
     console.log('savedEmployee: ', this.savedEmployee)
     //  TODO:
@@ -162,37 +149,40 @@ export class EmployeesFormComponent implements OnInit {
     // this.resetModes()
   }
 
+  updateEmployee(){
+    console.log('update method')
+  }
+
   cancelEdition() {
+    console.log('Cancel Edition')
     this.initializeForm();
     this.updateForm();
-    // this.resetModes()
+    this.resetModes()
   }
 
   employeeDeletionMode() {
+    console.log('Delete method')
     const employee = this.selectedEmployee
     this.modes.deletionConfirmation = true
   }
 
   onDeletionConfirmation(event) {
     console.log('event onDeletionConfirmation', event)
-    const confirmDeletion = event
-    console.log('confirmDeletion: ', confirmDeletion)
-    if (confirmDeletion === "Delete") {
-      console.log('deletion !')
-      // this.userService.deleteUser(this.selectedEmployee.id)
-      this.resetModes()
-    } else {
-      console.log('deletion cancelled!')
-      this.modes.deletionConfirmation = false
-    }
+    // const confirmDeletion = event
+    // console.log('confirmDeletion: ', confirmDeletion)
+    // if (confirmDeletion === "Delete") {
+    //   console.log('deletion !')
+    //   // this.userService.deleteUser(this.selectedEmployee.id)
+    //   this.resetModes()
+    // } else {
+    //   console.log('deletion cancelled!')
+    //   this.modes.deletionConfirmation = false
+    // }
     // this.resetModes()
   }
 
   resetModes() {
-    console.log('resetModes')
     for (const mode in this.modes) {
-      console.log('mode', mode)
-      console.log('this.modes[mode]', this.modes[mode])
       this.modes[mode] = false
     }
   }

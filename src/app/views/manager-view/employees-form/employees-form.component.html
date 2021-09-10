@@ -2,7 +2,7 @@
   <app-employees-list [employees]="employees" (onEmployeeSelection)="employeeSelection($event)"></app-employees-list>
   <div class="employeeCreation">
     <label> or : </label>
-    <button (click)="createEmployee()">Create New employee</button>
+    <button (click)="toggleEmployeeCreation()">Create New employee</button>
   </div>
 </fieldset>
 
@@ -18,23 +18,25 @@
         <input name="lastName" formControlName="lastName">
       </div>
 
-      <div>
+      <div [formArrayName]="roles">
         <div>
-          <label for="cook">Cook </label>
-          <input type="checkbox" id="cook" value="cook" [checked]="cookChecked">
+          <label for="cook">Cook</label>
+          <input type="checkbox" id="cook" [checked]="cookChecked" formControlName="cook">
         </div>
         <div>
           <label for="waiter">Waiter </label>
-          <input type="checkbox" id="waiter" value="waiter" [checked]="waiterChecked">
+          <input type="checkbox" id="waiter" [checked]="waiterChecked" formControlName="waiter">
         </div>
       </div>
 
       <div id="buttons">
-        <button  (click)="savedEmployee">Save</button>
-        <button  (click)="cancelEdition()">Cancel</button>
+        <div *ngIf="modes.creation">
+          <button type="submit" (click)="createEmployee($event)">Confirm Creation</button>
+        </div>
 
         <div *ngIf="!modes.creation">
-          <button  (click)="employeeDeletionMode()">Delete account</button>
+          <button (click)="updateEmployee()">Update</button>
+          <button (click)="employeeDeletionMode()">Delete account</button>
           <div *ngIf="modes.deletionConfirmation">
             <label>Confirm ?</label>
             <button (click)="onDeletionConfirmation()" value='confirmDeletion'>Delete</button>
@@ -42,10 +44,14 @@
           </div>
         </div>
 
+        <button (click)="cancelEdition()">Cancel</button>
       </div>
     </fieldset>
 
 
   </form>
 
+
+
 </div>
+<app-form-test></app-form-test>
