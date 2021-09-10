@@ -8,6 +8,7 @@ import {OK} from 'src/app/app.component';
   templateUrl: './guest-view.component.html',
   styleUrls: ['./guest-view.component.css']
 })
+
 export class GuestViewComponent implements OnInit {
 
   @Output() onLogIn = new EventEmitter();
@@ -25,6 +26,8 @@ export class GuestViewComponent implements OnInit {
     roles: [],
     friends: []
   }
+
+  public displaySignIn
 
   constructor(private formBuilder: FormBuilder,
     private userService: UserService) { }
@@ -69,9 +72,8 @@ export class GuestViewComponent implements OnInit {
     )
   }
 
-
-  logInSignInSwitch() {
-    this.registered = !this.registered
+  toggleSignIn() {
+    this.displaySignIn = !this.displaySignIn
   }
 
   signIn() {
@@ -86,16 +88,15 @@ export class GuestViewComponent implements OnInit {
         const res = Object.assign({}, data.body);
         this.user = {...res}
         console.log(this.user)
+        alert("user created, please log in with your credentials")
+        this.displaySignIn()
 
+        // login not working yet
+        // this.userService.login(this.user.lastName, this.user.password)
       },
       err => {
         console.log('error', err)
       }
     )
-
-
   }
-
-
-
 }
