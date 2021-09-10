@@ -26,7 +26,8 @@ export class EmployeesFormComponent implements OnInit {
 
   empRoles: any[];
   savedEmployee: any;
-  form: FormGroup;
+  editForm: FormGroup;
+  creationForm: FormGroup;
 
   cookChecked = false;
   waiterChecked = false;
@@ -35,7 +36,7 @@ export class EmployeesFormComponent implements OnInit {
   modes = {
     "edition": false,
     "deletionConfirmation": false,
-    "creation": false
+    "creation": false,
   }
 
   constructor(private formBuilder: FormBuilder,
@@ -45,26 +46,30 @@ export class EmployeesFormComponent implements OnInit {
   ngOnInit() {
     this.employees = this.managerRestaurant.employees
     console.log('employees on init', this.employees)
-    this.initializeForm();
-    this.createForms();
+    this.resetSelectedEmployee();
+    // this.createForms();
   }
 
   // créé tous les champs requis, remplis firstName et lastName avec selectedEmployee mais ne coche pas les checkboxs
-  createForms() {
-    this.form = this.formBuilder.group({
-      firstName: [this.selectedEmployee.firstName, Validators.required],
-      lastName: [this.selectedEmployee.lastName, Validators.required],
-      roles: new FormArray([
-        // this.formBuilder.group({
-        //   id: ['61309cb8009435126fc70797', Validators.required],
-        //   name: ['Cook', Validators.required],
-        // }),
-        // this.formBuilder.group({
-        //   id: ['613721e07f57fb321327b629', Validators.required],
-        //   name: ['Waiter', Validators.required],
-        // })
-      ]),
-    });
+  createForms(form) {
+    // form = new FormGroup({});
+    // form = this.formBuilder.group({
+    //   firstName: ['', Validators.required],
+    //   lastName: ['', Validators.required],
+    //   cook: ['', Validators.required],
+    //   waiter: ['', Validators.required],
+    // });
+
+        // roles: new FormArray([
+        //   this.formBuilder.group({
+        //     id: ['61309cb8009435126fc70797', Validators.required],
+        //     name: ['Cook', Validators.required],
+        //   }),
+        //   this.formBuilder.group({
+        //     id: ['613721e07f57fb321327b629', Validators.required],
+        //     name: ['Waiter', Validators.required],
+        //   })
+        // ]),
 
     // this.roles.push(
     //   this.formBuilder.group({
@@ -78,24 +83,23 @@ export class EmployeesFormComponent implements OnInit {
     // )
   }
 
-  initializeForm() {
+  resetSelectedEmployee() {
     this.selectedEmployee = this.defaultFormValues
   }
 
-  updateForm() {
-    this.form.patchValue(this.selectedEmployee)
-    this.updateRolesCheckbox();
-  }
+  // updateForm(form) {
+  //   form.patchValue(this.selectedEmployee)
+  //   this.updateRolesCheckbox();
+  // }
 
-  onSubmit(){
+  onSubmit() {
 
   }
 
   employeeSelection(event) {
-    // this.selectedEmployee = event;
     this.selectedEmployee = this.employees.find(employee => employee.id === event)
-    console.log('selectedEmployee', this.selectedEmployee);
-    this.updateForm();
+    // this.createForms(this.editForm)
+    // this.updateForm(this.editForm);
     this.modes.edition = true;
     this.modes.creation = false;
   }
@@ -117,21 +121,15 @@ export class EmployeesFormComponent implements OnInit {
   }
 
   createEmployee(event) {
-    console.log('Employee Created:', this.form.value)
-    console.log('roles:', this.form.controls.roles)
+
+    console.log('form values:', this.creationForm.controls)
+    console.log('event:', event)
 
 
   }
 
-  toggleEmployeeCreation(){
-    this.modes.creation = true;
-    this.modes.edition = true;
-    this.initializeForm();
-    this.updateForm();
-  }
-
-  saveNewEmployee(){
-    this.savedEmployee = this.form.value;
+  saveNewEmployee() {
+    this.savedEmployee = this.creationForm.value;
     console.log('savedEmployee: ', this.savedEmployee)
     //  TODO:
     // this.userService.updateUser().subscribe(
@@ -149,15 +147,15 @@ export class EmployeesFormComponent implements OnInit {
     // this.resetModes()
   }
 
-  updateEmployee(){
+  updateEmployee() {
     console.log('update method')
   }
 
   cancelEdition() {
     console.log('Cancel Edition')
-    this.initializeForm();
-    this.updateForm();
-    this.resetModes()
+    this.resetSelectedEmployee();
+    // this.updateForm(this.editForm);
+    this.resetModes();
   }
 
   employeeDeletionMode() {
@@ -187,6 +185,16 @@ export class EmployeesFormComponent implements OnInit {
     }
   }
 
+  ToggleEdit() {
+    this.modes.edition = !this.modes.edition
+    this.modes.creation = false
+  }
+  ToggleCreate() {
+    this.modes.creation = !this.modes.creation
+    this.modes.edition = false
+    this.resetSelectedEmployee();
+    // this.updateForm(this.creationForm);
+  }
 
 
 }

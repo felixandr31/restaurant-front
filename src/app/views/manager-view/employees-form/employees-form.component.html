@@ -1,57 +1,62 @@
-<fieldset class="employeeList">Select existing employee
+<div class="chooseForm">
+  <button *ngIf="!modes.creation" (click)="ToggleEdit()">EDIT</button>
+  <button *ngIf="!modes.edition" (click)="ToggleCreate()">CREATE</button>
+</div>
+<div *ngIf="modes.edition && !modes.creation" class="edit">
   <app-employees-list [employees]="employees" (onEmployeeSelection)="employeeSelection($event)"></app-employees-list>
-  <div class="employeeCreation">
-    <label> or : </label>
-    <button (click)="toggleEmployeeCreation()">Create New employee</button>
-  </div>
-</fieldset>
-
-<div *ngIf="modes.edition">
-  <form [formGroup]="form" (ngSubmit)="onSubmit()">
-    <fieldset> Employee Edition
+  <div>
+    EDIT FORM
+    <form (ngSubmit)="updateEmployee()">
       <div>
         <label>First name: </label>
-        <input name="firstName" formControlName="firstName">
+        <input name="firstName">
       </div>
       <div>
         <label>Last name: </label>
-        <input name="lastName" formControlName="lastName">
+        <input name="lastName">
+      </div>
+      <div>
+        <label for="cook">Cook</label>
+        <input type="checkbox" id="cook" name="cook" value="true" [checked]="cookChecked">
+      </div>
+      <div>
+        <label for="waiter">Waiter </label>
+        <input type="checkbox" id="waiter" name="waiter" value="true" [checked]="waiterChecked">
       </div>
 
-      <div [formArrayName]="roles">
-        <div>
-          <label for="cook">Cook</label>
-          <input type="checkbox" id="cook" [checked]="cookChecked" formControlName="cook">
-        </div>
-        <div>
-          <label for="waiter">Waiter </label>
-          <input type="checkbox" id="waiter" [checked]="waiterChecked" formControlName="waiter">
-        </div>
+      <button>Update</button>
+      <button (click)="employeeDeletionMode()">Delete account</button>
+      <div *ngIf="modes.deletionConfirmation">
+        <label>Confirm ?</label>
+        <button (click)="onDeletionConfirmation()" value="confirmDeletion">Delete</button>
+        <button (click)="onDeletionConfirmation()" value='cancelDeletion'>Cancel</button>
       </div>
-
-      <div id="buttons">
-        <div *ngIf="modes.creation">
-          <button type="submit" (click)="createEmployee($event)">Confirm Creation</button>
-        </div>
-
-        <div *ngIf="!modes.creation">
-          <button (click)="updateEmployee()">Update</button>
-          <button (click)="employeeDeletionMode()">Delete account</button>
-          <div *ngIf="modes.deletionConfirmation">
-            <label>Confirm ?</label>
-            <button (click)="onDeletionConfirmation()" value='confirmDeletion'>Delete</button>
-            <button (click)="onDeletionConfirmation()" value='cancelDeletion'>Cancel</button>
-          </div>
-        </div>
-
-        <button (click)="cancelEdition()">Cancel</button>
-      </div>
-    </fieldset>
-
-
-  </form>
-
-
-
+      <button (click)="cancelEdition()">Cancel</button>
+    </form>
+  </div>
 </div>
-<app-form-test></app-form-test>
+
+<div *ngIf="!modes.edition && modes.creation" class="create">
+  CREATE FORM
+  <form (ngSubmit)="createEmployee($event)">
+    <div>
+      <label>First name: </label>
+      <input name="firstName">
+    </div>
+    <div>
+      <label>Last name: </label>
+      <input name="lastName">
+    </div>
+    <div>
+      <label for="cook">Cook</label>
+      <input type="checkbox" id="cook" value="true" [checked]="cookChecked">
+    </div>
+    <div>
+      <label for="waiter">Waiter</label>
+      <input type="checkbox" id="waiter" value="true" [checked]="waiterChecked">
+    </div>
+    <button type="submit" >Confirm Creation</button>
+    <button (click)="cancelEdition()">Cancel</button>
+  </form>
+</div>
+<!-- <app-form-test></app-form-test> -->
