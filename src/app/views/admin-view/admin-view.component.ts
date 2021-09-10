@@ -11,6 +11,7 @@ export class AdminViewComponent implements OnInit {
   @Input() showSubView: any;
   public restaurants: any;
   public selectedRestaurant: any;
+  public menuItem = 'restaurantEdition';
 
   constructor(private restaurantService: RestaurantService) { }
 
@@ -32,4 +33,7 @@ export class AdminViewComponent implements OnInit {
     console.log(this.selectedRestaurant)
   }
 
+  selectMenuItem(event){
+    this.menuItem = event
+  }
 }
