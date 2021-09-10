@@ -1,12 +1,14 @@
 import { Component, OnInit, EventEmitter, Output } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormArray } from '@angular/forms';
 import { UserService } from 'src/app/services/data/user.service';
+import { OK } from 'src/app/app.component'
 
 @Component({
   selector: 'app-guest-view',
   templateUrl: './guest-view.component.html',
   styleUrls: ['./guest-view.component.css']
 })
+
 export class GuestViewComponent implements OnInit {
 
   @Output() onLogIn = new EventEmitter();
@@ -24,6 +26,8 @@ export class GuestViewComponent implements OnInit {
     roles: [],
     friends: []
   }
+
+  public displaySignIn
 
   constructor(private formBuilder: FormBuilder,
     private userService: UserService) { }
@@ -51,35 +55,25 @@ export class GuestViewComponent implements OnInit {
   }
 
   logIn() {
-    // TODO remplacer getUsers par login quand elle sera fonctionnelle
-    this.user = this.userService.getUsers().subscribe(
-      data => {
-        const res = Object.values(data.body);
-        const user = res.find(user => user.lastName === this.logGroup.controls.lastName.value)
-        if (user.password === this.logGroup.controls.password.value) {
-          // if( user.password === null){
-          //   console.log('user password is null', user)
-          // } else {
-          //   console.log('user has password ', user)
-          // }
-          // TODO : quand le mdp est géré par le back, remplacer le null par ce qui va bien...
+    const credentials = {
+      lastName: this.logGroup.controls.lastName.value,
+      password: this.logGroup.controls.password.value
+    }
 
-          this.onLogIn.emit(user)
-          console.log(Object.values(user))
-          return Object.values(user)
-        } else {
-          alert('User not found')
+    this.userService.realLogin(credentials).subscribe(
+      data => {
+        console.log('log in data', data)
+        if (data.status == OK) {
+          this.user = data.body
+          console.log('user', this.user)
+          this.onLogIn.emit(this.user)
         }
-      },
-      err => {
-        console.log('error', err)
       }
     )
   }
 
-
-  logInSignInSwitch() {
-    this.registered = !this.registered
+  toggleSignIn() {
+    this.displaySignIn = !this.displaySignIn
   }
 
   signIn() {
@@ -94,16 +88,15 @@ export class GuestViewComponent implements OnInit {
         const res = Object.assign({}, data.body);
         this.user = {...res}
         console.log(this.user)
+        alert("user created, please log in with your credentials")
+        this.displaySignIn()
 
+        // login not working yet
+        // this.userService.login(this.user.lastName, this.user.password)
       },
       err => {
         console.log('error', err)
       }
     )
-
-
   }
-
-
-
 }

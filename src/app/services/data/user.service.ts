@@ -36,6 +36,12 @@ private url = 'http://localhost:8080/backend-filrouge/user/'
     return this.http.post(url, credential, {observe:'response'})
   }
 
+  realLogin(credentials) {
+    const url = this.url + 'login/'
+    return this.http.post(url, credentials, {observe: 'response'})
+  }
+
+  //TODO putUser & deleteUser
   updateUser(id, user){
     const url = this.url + 'update/' + id
     return this.http.put(url, user, {observe: 'response'});
