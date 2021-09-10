@@ -1,0 +1,23 @@
+.menu-item-grid {
+  margin: .5em;
+  width: 300px;
+  height: 110px;
+  display: grid;
+  grid-template: 40px 70px / 250px 50px;
+  grid-template-areas: "item price"
+  "description description";
+  align-items: center;
+}
+
+.menu-item-grid > h3 {
+  grid-area: item;
+}
+
+.menu-item-grid > p {
+  grid-area: price;
+  justify-self: center;
+}
+
+.menu-item-grid > span {
+  grid-area: description;
+}

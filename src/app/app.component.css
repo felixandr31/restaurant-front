@@ -12,7 +12,7 @@
   width: 100%;
   height: calc(100vh - .5em);
   display: grid;
-  grid-template: 75% 25% / 1fr;
+  grid-template: 90% 10% / 1fr;
   grid-template-areas: "menu"
   "logout";
 }
