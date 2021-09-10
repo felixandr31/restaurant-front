@@ -1,0 +1,65 @@
+.logForm {
+  height: 100%;
+  width: 100%;
+  display: grid;
+  grid-template: 200px 75px 75px 1fr /1fr 1fr 1fr;
+  grid-template-areas: ". title ."
+  ". log ."
+  ". switch ."
+  ". form .";
+  flex-flow: column nowrap;
+  justify-content: center;
+  align-items: center;
+}
+
+.button-sign-in {
+  grid-area: switch;
+  width: 100%;
+  display: grid;
+  grid-template: 1fr / 75% 1fr;
+}
+
+.button-sign-in > button {
+  height: 50%;
+  justify-self: center;
+  align-self: center;
+}
+
+.button-sign-in > h5 {
+  justify-self: center;
+  align-self: center;
+}
+
+.logForm > h1 {
+  grid-area: title;
+}
+
+.logForm > h2 {
+  grid-area: log;
+}
+
+.logForm > form {
+  grid-area: form;
+  align-self: flex-start;
+  width: 100%;
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: flex-start;
+  align-items: flex-start;
+}
+
+.logForm > form > input {
+  width: calc(100% - 1.4em);
+  padding: .3em .6em;
+  margin: .2em 0 .5em 0;
+}
+
+.logForm > form > label {
+  margin: .2em .5em .5em .5em;
+}
+
+.logForm > form > button {
+  margin: .2em .5em .5em .5em;
+}
+
+
