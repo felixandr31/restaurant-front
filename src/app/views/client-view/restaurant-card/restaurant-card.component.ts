@@ -17,5 +17,6 @@ export class RestaurantCardComponent implements OnInit {
 
   restaurantSelected(event) {
     this.onRestaurantSelection.emit(event.target.value);
+    console.log(this.restaurant)
   }
 }

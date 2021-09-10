@@ -15,7 +15,7 @@
 
 .list-container {
   grid-area: list;
-  overflow-y: scroll;
+  overflow-y: auto;
   display: flex;
   flex-direction: column;
   flex-wrap: wrap;
