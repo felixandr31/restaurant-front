@@ -101,7 +101,7 @@ export class GuestViewComponent implements OnInit {
   }
 
   displaySignIn() {
-    this.signInMode = true
+    this.signInMode = !this.displaySignIn
   }
 
   signIn() {
@@ -118,6 +118,9 @@ export class GuestViewComponent implements OnInit {
         console.log(data.body)
         this.user = {...res}
         console.log(this.user)
+        alert("user created, please log in with your credentials")
+        this.displaySignIn()
+
         // login not working yet
         // this.userService.login(this.user.lastName, this.user.password)
       },
