@@ -1,0 +1,31 @@
+:host > * {
+  margin: 0;
+  padding: 0;
+}
+
+.restaurant-card-grid {
+  width: 90%;
+  display: grid;
+  grid-template: 40px 40px 70px / 65% 35%;
+  align-items: center;
+  grid-template-areas: "title button-menu"
+  "stars stars"
+  "address address";
+}
+
+.restaurant-card-grid > h3 {
+  grid-area: title;
+}
+
+.restaurant-card-grid > p {
+  grid-area: stars
+}
+
+.restaurant-card-grid > span {
+  grid-area: address;
+  align-self: flex-start;
+}
+
+.restaurant-card-grid > button {
+  grid-area: button-menu;
+}

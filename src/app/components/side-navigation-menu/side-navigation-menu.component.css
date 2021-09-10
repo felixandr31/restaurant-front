@@ -1,22 +1,21 @@
 .role-button{
+  grid-area: menu;
   display: flex;
   flex-direction: column;
   flex-wrap: nowrap;
   justify-content: space-around;
   align-items: center;
-  /* grid-area: menu; */
   color: black;
-  /* padding: 5px; */
-  /* border-radius: 5px; */
   -webkit-user-select: none;
   -moz-user-select: none;
   user-select: none;
-  height: 100vh;
+  height: 100%;
   background-color: #f1f1f1;
   width: 132px
 }
 
 button {
+  grid-area: logout;
   position: relative;
   padding: 0.6em 0.9em;
   border: none;
@@ -30,13 +29,13 @@ button {
 
 button::after, button::before {
   content: '';
-      display: block;
-      position: absolute;
-      width: 20%;
-      height: 20%;
-      border: 2px solid;
-      transition: all 0.6s ease;
-      border-radius: 2px;
+  display: block;
+  position: absolute;
+  width: 20%;
+  height: 20%;
+  border: 2px solid;
+  transition: all 0.6s ease;
+  border-radius: 2px;
 }
 
 button::after {
