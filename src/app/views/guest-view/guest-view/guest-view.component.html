@@ -1,4 +1,4 @@
-<div *ngIf="displaySignIn; else notRegistered">
+<div *ngIf="!displaySignIn; else notRegistered">
   <h2>Log In</h2>
   <form [formGroup]="logGroup" (ngSubmit)="logIn()">
     <label>Last Name</label>

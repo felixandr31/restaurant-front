@@ -13,8 +13,6 @@ export class GuestViewComponent implements OnInit {
 
   @Output() onLogIn = new EventEmitter();
 
-  registered = true;
-
   public logGroup: FormGroup;
   public signInGroup: FormGroup;
 
@@ -27,7 +25,7 @@ export class GuestViewComponent implements OnInit {
     friends: []
   }
 
-  public displaySignIn
+  public displaySignIn = false
 
   constructor(private formBuilder: FormBuilder,
     private userService: UserService) { }
@@ -89,7 +87,7 @@ export class GuestViewComponent implements OnInit {
         this.user = {...res}
         console.log(this.user)
         alert("user created, please log in with your credentials")
-        this.displaySignIn()
+        this.toggleSignIn()
 
         // login not working yet
         // this.userService.login(this.user.lastName, this.user.password)
