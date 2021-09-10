@@ -130,7 +130,8 @@ export class EmployeesFormComponent implements OnInit {
 
 
   employeeSelection(event) {
-    this.selectedEmployee = event;
+    // this.selectedEmployee = event;
+    this.selectedEmployee = this.employees.find(employee => employee.id === event)
     console.log('selectedEmployee', this.selectedEmployee);
     this.updateForm();
     this.modes.edition = true;

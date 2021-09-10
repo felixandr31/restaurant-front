@@ -40,6 +40,9 @@ import { DateSelectorComponent } from './views/client-view/date-selector/date-se
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MAT_DATE_LOCALE, MatNativeDateModule } from '@angular/material/core';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import { RestaurantsListComponent } from './views/admin-view/components/restaurants-list/restaurants-list.component';
+import { HorizontalMenuComponent } from './views/admin-view/components/horizontal-menu/horizontal-menu.component';
+
 
 
 @NgModule({
@@ -74,6 +77,9 @@ import { MatFormFieldModule } from '@angular/material/form-field';
     OrderDisplayComponent,
     GuestViewComponent,
     DateSelectorComponent,
+    RestaurantsListComponent,
+    HorizontalMenuComponent,
+
   ],
   imports: [
     BrowserModule,
