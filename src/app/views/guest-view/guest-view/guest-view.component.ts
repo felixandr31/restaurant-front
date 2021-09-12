@@ -1,7 +1,7 @@
 import { Component, OnInit, EventEmitter, Output } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormArray } from '@angular/forms';
 import { UserService } from 'src/app/services/data/user.service';
-import { OK } from 'src/app/app.component'
+import {OK} from 'src/app/app.component';
 
 @Component({
   selector: 'app-guest-view',
