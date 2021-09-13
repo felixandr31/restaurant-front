@@ -79,9 +79,9 @@ export class ReservationFormComponent implements OnInit, OnChanges {
 
     const queries = this.tables.map(table => this.bookingService.getBookingByTable(table.id))
 
-    // ForkJoin : https://www.learnrxjs.io/learn-rxjs/operators/combination/forkjoin
+    //ForkJoin : https://www.learnrxjs.io/learn-rxjs/operators/combination/forkjoin
     // forkJoin(queries).subscribe(res => {
-    //   console.log(res)
+    //   console.log("forkJoin res", res)
     // })
 
     this.tables.forEach(table => {
