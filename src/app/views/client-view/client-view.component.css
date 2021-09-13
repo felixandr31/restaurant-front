@@ -1,11 +1,12 @@
 .find-view {
-  height: 100%;
+  height: calc(100% - 1em);
   display: grid;
   grid-template: 70% 15% 15% / 1fr 1fr 1fr;
   grid-template-areas: "map map list"
   "menu menu list"
   "menu menu reservation";
   gap: .5em .5em;
+  align-self: center;
 }
 
 .map {
@@ -30,17 +31,15 @@
   grid-template: 1fr 1fr / 1fr 1fr;
   grid-template-areas: "friends users"
   "friends users";
-  gap: .5em;
+  gap: 0 .5em;
 }
 
 .friends-list {
   grid-area: friends;
-  display: flex;
-  flex-direction: column;
 }
 
 .find-friends {
-  grid-area: users
+  grid-area: users;
 }
 
 .reservation-view {

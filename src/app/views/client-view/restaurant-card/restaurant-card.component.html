@@ -1,6 +1,6 @@
-<div>
+<div class="restaurant-card-grid">
   <h3>{{restaurant.name}}</h3>
   <p><b>Rating: {{restaurant.stars}}</b></p>
-  <span> Lat: {{restaurant.latitude}} / Long: {{restaurant.longitude}}</span>
+  <span> {{restaurant.address.streetName}} {{restaurant.address.zipCode}} {{restaurant.address.city}}</span>
   <button [value]="restaurant.name" (click)="restaurantSelected($event)">Menu</button>
 </div>

@@ -1,29 +1,39 @@
-<div *ngIf="!displaySignIn; else notRegistered">
+<div *ngIf="!displaySignIn; else notRegistered" class="logForm">
+  <h1>OrestO</h1>
   <h2>Log In</h2>
+  <div class="button-sign-in">
+    <h5>No account ? Go to </h5>
+    <button (click)="toggleSignIn()">Sign In</button>
+  </div>
   <form [formGroup]="logGroup" (ngSubmit)="logIn()">
     <label>Last Name</label>
-    <input formControlName="lastName" >
+    <input formControlName="lastName">
     <label>Password</label>
     <input formControlName="password">
     <button>Go !!</button>
   </form>
-  <button (click)="toggleSignIn()">Sign In</button>
 </div>
-<ng-template #notRegistered>
-  <h2>Sign In</h2>
-  <form [formGroup]="signInGroup" (ngSubmit)="signIn()">
-    <label>Last Name</label>
-    <input formControlName="lastName" required>
-    <label>First Name</label>
-    <input formControlName="firstName" required>
-    <label>email</label>
-    <input type="email" formControlName="email" pattern=".+@example\.com" size="30" placeholder="sophie@example.com" required>
-    <label>Password</label>
-    <input formControlName="password" required minLength="8">
-    <!-- <label>Confirm Password</label>
-    <input formControlName="password" minLength="8" required> -->
-    <button>Submit</button>
-  </form>
-  <button (click)="toggleSignIn()">Back to logIn</button>
+<ng-template #notRegistered >
+  <div class="logForm">
+    <h1>OrestO</h1>
+    <h2>Sign In</h2>
+      <div class="button-sign-in">
+        <h5>Already have an account ?</h5>
+        <button (click)="toggleSignIn()">Back to logIn</button>
+      </div>
+    <form [formGroup]="signInGroup" (ngSubmit)="signIn()">
+      <label>Last Name</label>
+      <input formControlName="lastName" required>
+      <label>First Name</label>
+      <input formControlName="firstName" required>
+      <label>email</label>
+      <input type="email" formControlName="email" pattern=".+@example\.com" size="30" placeholder="sophie@example.com"
+        required>
+      <label>Password</label>
+      <input formControlName="password" required minLength="8">
+      <!-- <label>Confirm Password</label>
+        <input formControlName="password" minLength="8" required> -->
+      <button>Submit</button>
+    </form>
+  </div>
 </ng-template>
-
