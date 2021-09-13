@@ -44,11 +44,12 @@ export class GuestViewComponent implements OnInit {
       password: ['', Validators.required],
       roles: new FormArray([
         this.formBuilder.group({
-          id: ['613721b77f57fb321327b626', Validators.required],
+          id: ['613721c67f57fb321327b627', Validators.required],
           name: ['Client', Validators.required],
         })
       ]),
-      friends: new FormArray([])
+      friends: new FormArray([]),
+      bookings: new FormArray([])
     })
   }
 
