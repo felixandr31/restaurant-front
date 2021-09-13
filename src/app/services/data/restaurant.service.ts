@@ -31,4 +31,9 @@ export class RestaurantService {
     const url = this.url + 'addusers' + restaurantId
     return this.http.post(url, userId, {observe: 'response'});
   }
+
+  addRecipeToRestaurant(restaurantId, recipe: String[]) {
+    const url = this.url + 'addrecipes/' + restaurantId;
+    return this.http.post(url, recipe, {observe: 'response'});
+  }
 }
