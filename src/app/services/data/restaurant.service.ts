@@ -27,7 +27,7 @@ export class RestaurantService {
     return this.http.post(url, restaurant, {observe: 'response'});
   }
 
-  addUserToRestaurant(restaurantId, userId: String[]){
+  addUserToRestaurant(restaurantId: String, userId: String[]){
     const url = this.url + 'addusers' + restaurantId
     return this.http.post(url, userId, {observe: 'response'});
   }
