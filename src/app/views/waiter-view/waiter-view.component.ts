@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { TableService } from 'src/app/services/data/table.service';
 
 @Component({
   selector: 'app-waiter-view',
@@ -7,9 +8,33 @@ import { Component, OnInit } from '@angular/core';
 })
 export class WaiterViewComponent implements OnInit {
 
-  constructor() { }
+public tables : any
+
+  constructor(private tableService: TableService) { }
 
   ngOnInit() {
+    this.showTables()
   }
 
+  showTables(){
+    this.tableService.getTables().subscribe(
+      data => {
+        console.log(data.body)
+        this.tables = data.body
+
+      },
+      err =>{
+        console.log(err)
+      }
+
+     
+    )
+    
+  }
+
+  onsubmit(){
+
+  }
 }
+
+

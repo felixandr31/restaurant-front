@@ -1,3 +1,21 @@
-<p>
-  waiter-view works!
-</p>
+
+
+
+<div class="container">
+  <div class="tile">Tables List</div>
+  <div class="table"*ngFor = "let table of tables">{{table.name}}: {{table.capacity}} places</div>
+</div>
+
+<form id="recipe-form" [formGroup]="dynamicForm" (ngSubmit)="onSubmit()">
+  <div class="form-group">
+    <label >new recipe name:</label>
+    <input type="text" formControlName='name' class='form-control'> 
+  </div>
+  <div class="form-group">
+    <label >new Table name:</label>
+    <input type="text" formControlName='capacity' class='form-control'> 
+  </div>
+  <div class="footer-form">
+    <button id='submit'>Create a new Table</button>
+  </div>
+</form>
