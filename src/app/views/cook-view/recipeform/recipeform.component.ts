@@ -1,6 +1,7 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
 import { FormBuilder, FormGroup, FormArray, Validators } from '@angular/forms';
 import { CookService } from 'src/app/services/data/cook.service';
+import { RestaurantService } from 'src/app/services/data/restaurant.service';
 
 @Component({
   selector: 'app-recipeform',
@@ -10,16 +11,18 @@ import { CookService } from 'src/app/services/data/cook.service';
 export class RecipeformComponent implements OnInit {
 
   @Output() refreshRecipesAfterSubmit = new EventEmitter()
+  @Input() restaurantId;
 
   dynamicForm: FormGroup;
   submitted: boolean = false;
-  newRecipe: any = {
+  emptyRecipe: any = {
     name: "",
-    craftingPrice: "",
-    seelingPrice: "",
+    craftingPrice: 5,
+    sellingPrice: 6,
     ingredientRecipe: {
 
     }
+
 
   }
   groupValidator = {
@@ -28,7 +31,8 @@ export class RecipeformComponent implements OnInit {
 
   constructor(
     private formBuilder: FormBuilder,
-    private cookService: CookService
+    private cookService: CookService,
+    private restaurantService: RestaurantService
      ) {
     
    }
@@ -43,25 +47,30 @@ export class RecipeformComponent implements OnInit {
     if(this.dynamicForm.invalid) {
       return ;
     }
-
-    this.newRecipe = {
+    let newRecipe = { ...this.emptyRecipe, 
       name: this.dynamicForm.controls.name.value
     }
 
-    this.cookService.createRecipe(this.newRecipe).subscribe(
+    this.cookService.createRecipe(newRecipe).subscribe(
       data => {
-        this.newRecipe = data.body;
+        newRecipe = data.body;
+        const tabId: String[]  = [newRecipe.id];
+        this.restaurantService.addRecipeToRestaurant(this.restaurantId, tabId).subscribe(
+          data => {
+            console.log(data);
+            this.refreshRecipesAfterSubmit.emit();
+          },
+          err => {
+            console.log('erreur', err)
+          }
+        )    
       },
       err => {
         console.log('erreur', err)
       }
     )
 
-
     
-
-
-    //this.refreshRecipesAfterSubmit.emit();
     // this.commandsService.createRecipe(this.dynamicForm.value.name);
     //this.onReset()
   }

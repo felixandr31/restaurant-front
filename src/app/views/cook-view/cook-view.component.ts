@@ -12,7 +12,6 @@ export class CookViewComponent implements OnInit {
   @Input() restaurantId: string;
 
   private fakeRestaurantId: string = "613885d5841a951be1274a9a";
-  public recipesList: any = [];
   public restaurant: any;
   public restaurantRecipes: any;
   public isCreatingRecipe: boolean = true;
@@ -26,24 +25,24 @@ export class CookViewComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.refreshRecipes()
+  }
+
+  refreshRecipes() {
+    console.log("test");
     this.cookService.getRecipeByRestaurant(this.fakeRestaurantId).subscribe(
       data => {
+        console.log("data", data)
         this.restaurant = data.body;
-        console.log("restaurant", this.restaurant)
         this.restaurantRecipes = this.restaurant.recipes ;
-        console.log("recipe", this.restaurantRecipes)
+        console.log("les recettes", this.restaurantRecipes)
       },
       err => {
         console.log('erreur', err)
       }
     )
-    this.refreshRecipes()
-  }
 
-  refreshRecipes() {
-    // this.commandsService.getAllRecipes().then( res => {
-    //   this.recipesList = res
-    // })
+
   }
 
   onRecipeButtonClick(recipe){
