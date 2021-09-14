@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { BookingService } from 'src/app/services/data/booking.service';
 import { CookService } from 'src/app/services/data/cook.service';
 import { RestaurantService } from 'src/app/services/data/restaurant.service';
 import { TableService } from 'src/app/services/data/table.service';
@@ -16,17 +17,24 @@ export class WaiterViewComponent implements OnInit {
   public restaurant: any;
   public restaurantTables: any;
   @Input() restaurantId: String;
-  public tables: any
+  @Input() user:any;
+ 
+ 
   public isCreatingRecipe: boolean = true;
+
  
 
-  constructor(private tableService: TableService, private restaurantService: RestaurantService, private cookSevice: CookService) { }
+  constructor(private bookingService: BookingService, private tableService: TableService, private restaurantService: RestaurantService, private cookSevice: CookService) { }
 
   ngOnInit() {
     this.showTables()
+    
   }
 
+  
+
   showTables() {
+    
     this.restaurantService.getRestaurantById(this.fakeRestaurantId).subscribe(
       data => {
         console.log(data.body)
@@ -42,4 +50,6 @@ export class WaiterViewComponent implements OnInit {
 
     )
   }
+
+ 
 }

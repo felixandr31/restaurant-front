@@ -42,8 +42,12 @@ import { MAT_DATE_LOCALE, MatNativeDateModule } from '@angular/material/core';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { RestaurantsListComponent } from './views/admin-view/components/restaurants-list/restaurants-list.component';
 import { HorizontalMenuComponent } from './views/admin-view/components/horizontal-menu/horizontal-menu.component';
+<<<<<<< HEAD
 import { TableformComponent } from './views/waiter-view/tableform/tableform.component';
 import { TablebookingComponent } from './waiter-view/tablebooking/tablebooking.component';
+=======
+import { FormTestComponent } from './views/manager-view/employees-form/form-test/form-test.component';
+>>>>>>> 29ea0e2d684d47fa157fb5702b6688bb8703bebc
 
 
 
@@ -81,8 +85,12 @@ import { TablebookingComponent } from './waiter-view/tablebooking/tablebooking.c
     DateSelectorComponent,
     RestaurantsListComponent,
     HorizontalMenuComponent,
+<<<<<<< HEAD
     TableformComponent,
     TablebookingComponent,
+=======
+    FormTestComponent,
+>>>>>>> 29ea0e2d684d47fa157fb5702b6688bb8703bebc
 
   ],
   imports: [

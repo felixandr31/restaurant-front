@@ -3,11 +3,7 @@
 
 <div class="table-page">
   <div id="container">
-    <app-tableform *ngIf="isCreatingRecipe" (refreshTablesAfterSubmit)="showTables()" [restaurantId]="fakeRestaurantId" >  
-    </app-tableform>
-  
-    
-
+    <app-tableform *ngIf="isCreatingTable" (refreshTablesAfterSubmit)="showTables()" [restaurantId]="fakeRestaurantId" ></app-tableform>
     <div id="table-row">
       <div class="title">Tables List</div>
       <div id="table-bloc">

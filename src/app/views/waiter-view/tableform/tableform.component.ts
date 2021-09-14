@@ -61,7 +61,6 @@ export class TableformComponent implements OnInit {
           }
         )
       }
- 
 
     )
   }

@@ -1,11 +1,11 @@
-import { Component, OnInit, Input, Output, EventEmitter, } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, SimpleChanges, OnChanges, } from '@angular/core';
 
 @Component({
   selector: 'app-employees-list',
   templateUrl: './employees-list.component.html',
   styleUrls: ['./employees-list.component.css']
 })
-export class EmployeesListComponent implements OnInit {
+export class EmployeesListComponent implements OnInit, OnChanges {
 
   @Input() employees: any[];
   @Output() onEmployeeSelection = new EventEmitter()
@@ -21,7 +21,14 @@ export class EmployeesListComponent implements OnInit {
 
   }
 
+  ngOnChanges(changes: SimpleChanges) {
 
+  }
+
+  reloadEmployeeList() {
+    const temp = this.employees
+    this.employees = temp
+  }
 
 
 

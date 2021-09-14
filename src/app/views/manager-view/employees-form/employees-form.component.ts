@@ -1,6 +1,8 @@
-import { Component, OnInit, Input, SimpleChanges } from '@angular/core';
+import { Component, OnInit, Input, SimpleChanges, Output } from '@angular/core';
 import { FormGroup, FormBuilder, FormControl, FormArray, Validators, EmailValidator } from '@angular/forms';
 import { UserService } from 'src/app/services/data/user.service';
+import { forEach } from '@angular/router/src/utils/collection';
+import { RestaurantService } from 'src/app/services/data/restaurant.service';
 
 @Component({
   selector: 'app-employees-form',
@@ -11,91 +13,102 @@ export class EmployeesFormComponent implements OnInit {
 
   @Input() user: any;
   @Input() managerRestaurant: any;
-
+  @Input() managerRestaurantId: any;
 
   public employees = [
-    {
-      id: "6139b8073f85bb4d08e61323",
-      firstName: "Marius",
-      lastName: "H",
-      password: "password",
-      email: "marius@gmail.com",
-      roles: [
-        {
-          "id": "613721b77f57fb321327b626",
-          "name": "client"
-        },
-        {
-          "id": "61309cbf009435126fc70798",
-          "name": "Manager"
-        }
-      ],
-      friends: []
-    }
   ];
 
   public defaultFormValues = {
-    id: 0,
     firstName: '',
     lastName: '',
-    roles: [],
+    password: '',
+    email: '',
+    restaurantId:'',
+    roles: [
+      {
+        "id": "613721c67f57fb321327b627",
+        "name": "Client"
+      },
+    ],
+    friends: [],
+    restaurants: [],
+    bookings: []
   }
 
-  public selectedEmployee: any
+  public selectedEmployee: any;
 
-  empRoles: any[];
-  savedEmployee: any;
-  form: FormGroup;
+  private empRoles: any[];
+  private savedEmployee: any;
+  public form: FormGroup;
 
-  cookChecked = false;
-  waiterChecked = false;
-  method: any
+  public cookChecked = false;
+  public waiterChecked = false;
+  private availableRoles = [
+    {
+      id: "61309cb8009435126fc70797",
+      name: "Cook"
+    },
+    {
+      id: "61309cbf009435126fc70798",
+      name: "Manager"
+    },
+    {
+      id: "6130b6b5e25faf67217a59e1",
+      name: "Cleaner"
+    },
+    {
+      id: "6130edd210df7d5b224df808",
+      name: "Friend"
+    },
+    {
+      id: "613721c67f57fb321327b627",
+      name: "Client"
+    },
+    {
+      id: "613721cc7f57fb321327b628",
+      name: "Admin"
+    },
+    {
+      id: "613721e07f57fb321327b629",
+      name: "Waiter"
+    }
+  ]
 
-  modes = {
+  private modes = {
     "edition": false,
     "deletionConfirmation": false,
-    "creation": false
+    "creation": false,
+    "selectedMode": ''
   }
+
 
 
   constructor(private formBuilder: FormBuilder,
-    private userService: UserService) { }
+    private userService: UserService, private restaurantService: RestaurantService,) { }
 
 
   ngOnInit() {
-    // TODO : récupérer restaurant du manager puis sa liste employés
-    // this.employees = this.userService. ().subscribe(
-    //   data => {
-
-    //   }
-    //   err => {
-
-    //   }
-    // )
-    this.initializeForm();
-    this.createForm();
+    // this.availableRoles = this.roleServices...
+    console.log('user: ', this.user)
+    this.employees = this.managerRestaurant.employees
+    this.managerRestaurantId = this.managerRestaurant.id
+    this.resetSelectedEmployee();
+    this.createForms();
   }
-
 
   // créé tous les champs requis, remplis firstName et lastName avec selectedEmployee mais ne coche pas les checkboxs
-  createForm() {
+  createForms() {
     this.form = this.formBuilder.group({
-      firstName: [this.selectedEmployee.firstName, Validators.required],
-      lastName: [this.selectedEmployee.lastName, Validators.required],
-      roles: new FormArray([
-        this.formBuilder.group({
-          id: ['61309cb8009435126fc70797', Validators.required],
-          name: ['Cook', Validators.required],
-        }),
-        this.formBuilder.group({
-          id: ['613721e07f57fb321327b629', Validators.required],
-          name: ['Waiter', Validators.required],
-        })
-      ]),
-    });
+      firstName: ['', Validators.required],
+      lastName: ['', Validators.required],
+      password: ['', Validators.required],
+      email: ['', Validators.required],
+      Cook: [false, Validators.required],
+      Waiter: [false, Validators.required],
+    })
   }
 
-  initializeForm() {
+  resetSelectedEmployee() {
     this.selectedEmployee = this.defaultFormValues
   }
 
@@ -104,16 +117,17 @@ export class EmployeesFormComponent implements OnInit {
     this.updateRolesCheckbox();
   }
 
-  onSubmit(){
-
+  onSubmit(event) {
+    if (this.modes.creation) {
+      this.createEmployee()
+    }
+    if (this.modes.edition) {
+      this.saveNewEmployee()
+    }
   }
 
-
-
   employeeSelection(event) {
-    // this.selectedEmployee = event;
     this.selectedEmployee = this.employees.find(employee => employee.id === event)
-    console.log('selectedEmployee', this.selectedEmployee);
     this.updateForm();
     this.modes.edition = true;
     this.modes.creation = false;
@@ -136,16 +150,55 @@ export class EmployeesFormComponent implements OnInit {
   }
 
   createEmployee() {
-    this.modes.creation = true;
-    this.modes.edition = true;
-    this.initializeForm();
-    this.updateForm();
+    const result = this.selectedEmployee
+    for (const key in this.form.value) {
 
+      // update result fields with form values
+      for (const k in result) {
+        if (key === k) {
+          result[k] = this.form.value[k]
+        }
+      }
+      // Add roles Cook or Waiter to result
+      if ((key === 'Cook' || key === 'Waiter') && this.form.value[key]) {
+        result.roles.push(this.availableRoles.find(role =>
+          role.name === key))
+      }
+    }
+    result.restaurantId = this.managerRestaurantId
+
+    this.userService.postUser(result).subscribe(
+      data => {
+        console.log("la data", data)
+        // TODO : utiliser id user pour ajouter aux employees
+        const newEmployee: any = data.body
+        this.restaurantService.addUserToRestaurant(this.managerRestaurantId, [newEmployee.id]).subscribe(
+          data => {
+            console.log(data.body)
+            alert(newEmployee.firstName + ' has been created: ' + newEmployee)
+          },
+          err => {
+            console.log('err', err)
+          }
+        )
+      },
+      err => {
+        console.log('err: ', err)
+      }
+    )
   }
 
-  saveEmployee() {
+  saveNewEmployee() {
     this.savedEmployee = this.form.value;
     console.log('savedEmployee: ', this.savedEmployee)
+
+    // erase roles 'cook' and 'waiter' from selectedEmployee.roles
+    // const newRoles = result.roles.filter(role => {
+    //   console.log('role.name: ', role.name)
+    //   role.name !== 'Cook' || role.name !== 'Waiter'
+    // })
+    // console.log('newRoles: ', newRoles)
+
     //  TODO:
     // this.userService.updateUser().subscribe(
     //   data => {
@@ -162,41 +215,57 @@ export class EmployeesFormComponent implements OnInit {
     // this.resetModes()
   }
 
+  updateEmployee() {
+    console.log('update method')
+  }
+
   cancelEdition() {
-    this.initializeForm();
+    this.resetSelectedEmployee();
+    this.updateRolesCheckbox();
     this.updateForm();
-    // this.resetModes()
+    this.resetModes();
   }
 
   employeeDeletionMode() {
+    console.log('Delete method')
     const employee = this.selectedEmployee
     this.modes.deletionConfirmation = true
   }
 
   onDeletionConfirmation(event) {
     console.log('event onDeletionConfirmation', event)
-    const confirmDeletion = event
-    console.log('confirmDeletion: ', confirmDeletion)
-    if (confirmDeletion === "Delete") {
-      console.log('deletion !')
-      // this.userService.deleteUser(this.selectedEmployee.id)
-      this.resetModes()
-    } else {
-      console.log('deletion cancelled!')
-      this.modes.deletionConfirmation = false
-    }
+    // const confirmDeletion = event
+    // console.log('confirmDeletion: ', confirmDeletion)
+    // if (confirmDeletion === "Delete") {
+    //   console.log('deletion !')
+    //   // this.userService.deleteUser(this.selectedEmployee.id)
+    //   this.resetModes()
+    // } else {
+    //   console.log('deletion cancelled!')
+    //   this.modes.deletionConfirmation = false
+    // }
     // this.resetModes()
   }
 
   resetModes() {
-    console.log('resetModes')
     for (const mode in this.modes) {
-      console.log('mode', mode)
-      console.log('this.modes[mode]', this.modes[mode])
       this.modes[mode] = false
     }
   }
 
+  ToggleEdit() {
+    this.modes.selectedMode = 'EDITION'
+    this.modes.edition = !this.modes.edition
+    this.modes.creation = false
+  }
+  ToggleCreate() {
+    this.modes.selectedMode = 'CREATION'
+    this.modes.creation = !this.modes.creation
+    this.modes.edition = false
+    this.resetSelectedEmployee();
+    this.updateRolesCheckbox();
+    this.updateForm();
+  }
 
 
 }
