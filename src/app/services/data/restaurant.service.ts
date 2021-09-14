@@ -36,4 +36,9 @@ export class RestaurantService {
     const url = this.url + 'addrecipes/' + restaurantId;
     return this.http.post(url, recipe, {observe: 'response'});
   }
+
+  removeRecipeToRestaurant(restaurantId, recipeIds: any){
+    const url = this.url + 'removerecipes/' + restaurantId;
+    return this.http.delete(url, recipeIds);
+  }
 }
