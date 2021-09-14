@@ -48,7 +48,8 @@ export class GuestViewComponent implements OnInit {
           name: ['Client', Validators.required],
         })
       ]),
-      friends: new FormArray([])
+      friends: new FormArray([]),
+      bookings: new FormArray([])
     })
   }
 
