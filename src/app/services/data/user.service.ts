@@ -35,7 +35,6 @@ private url = 'http://localhost:8080/backend-filrouge/user/'
     return this.http.post(url, credentials, {observe: 'response'})
   }
 
-  //TODO putUser & deleteUser
   updateUser(id, user){
     const url = this.url + 'update/' + id
     return this.http.put(url, user, {observe: 'response'});
@@ -46,12 +45,12 @@ private url = 'http://localhost:8080/backend-filrouge/user/'
     return this.http.delete(url, {observe: 'response'});
   }
 
-  addRoles(userId, roleIds: Set<String>){
+  addRoles(userId, roleIds){
     const url = this.url + 'addroles/' + userId
     return this.http.post(url, roleIds, {observe: 'response'});
   }
 
-  removeRoles(userId, roleIds: Set<String>){
+  removeRoles(userId, roleIds){
     const url = this.url + 'removeroles/' + userId
     return this.http.post(url, roleIds, {observe: 'response'});
   }
