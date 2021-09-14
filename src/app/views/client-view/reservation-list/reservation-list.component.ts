@@ -1,4 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { BookingService } from 'src/app/services/data/booking.service';
+import { forkJoin } from 'rxjs';
 
 @Component({
   selector: 'app-reservation-list',
@@ -7,35 +9,24 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 })
 export class ReservationListComponent implements OnInit {
 
-  @Input() client: any;
+  @Input() user: any;
   @Output() onReservationSelection = new EventEmitter();
 
-  public reservations: any = [
-    {
-      restaurant: 'Zozan',
-      clients: [
-        { name: "Georges" },
-        { name: "Alain" }
-      ]
-    },
-    {
-      restaurant: 'BFC',
-      clients: [
-        { name: 'Georges' }
-      ]
-    },
-    {
-      restaurant: 'Zozan',
-      clients: [
-        { name: 'Georges' },
-        { name: 'Elsa' }
-      ]
-    }
-  ]
+  public reservationsId: any = []
+  public reservations: any = []
 
-  constructor() { }
+  constructor(private bookingService: BookingService) { }
 
   ngOnInit() {
+    this.reservationsId = this.user.bookings;
+    const queries = this.reservationsId.map(resa => this.bookingService.getBookingById(resa))
+
+    forkJoin(queries).subscribe(
+      (data: any) => {
+        this.reservations = data.map(d => d.body)
+      }
+    )
+
   }
 
   reservationSelected(event) {

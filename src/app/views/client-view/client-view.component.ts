@@ -2,6 +2,7 @@ import { Component, OnInit, Input, OnChanges, Output, EventEmitter } from '@angu
 import { RoleService } from 'src/app/services/data/role.service';
 import { UserService } from 'src/app/services/data/user.service';
 import { RestaurantService } from 'src/app/services/data/restaurant.service';
+import { BookingService } from 'src/app/services/data/booking.service';
 
 
 @Component({
@@ -26,7 +27,7 @@ export class ClientViewComponent implements OnInit, OnChanges {
 
   public displayReservationForm = false;
 
-
+  public currentBooking: any = {};
   public restaurantReservation = {};
 
   public itemToAdd = '';
@@ -34,7 +35,8 @@ export class ClientViewComponent implements OnInit, OnChanges {
   public bill = [];
 
   constructor(
-    private restaurantService: RestaurantService
+    private restaurantService: RestaurantService,
+    private bookingService: BookingService
     ) { }
 
 
@@ -62,8 +64,16 @@ export class ClientViewComponent implements OnInit, OnChanges {
   }
 
   reservationSelected(event) {
-    this.restaurantReservation = this.restaurants.find(resto => resto.name == event)
-    console.log('réservation :', this.restaurantReservation)
+    this.bookingService.getBookingById(event).subscribe(
+      data => {
+        this.currentBooking = data.body
+        this.restaurantService.getRestaurantByTableId(this.currentBooking.table.id).subscribe(
+          data => {
+            this.restaurantReservation = data.body
+          }
+        )
+      }
+    )
   }
 
   toggleReservationForm() {
