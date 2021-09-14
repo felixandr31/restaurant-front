@@ -2,6 +2,7 @@ import { Component, OnInit, Input, OnChanges } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormArray } from '@angular/forms';
 import { BookingService } from 'src/app/services/data/booking.service';
 import { forkJoin } from 'rxjs';
+import { UserService } from 'src/app/services/data/user.service';
 
 @Component({
   selector: 'app-reservation-form',
@@ -30,7 +31,8 @@ export class ReservationFormComponent implements OnInit, OnChanges {
 
   constructor(
     private formBuilder: FormBuilder,
-    private bookingService: BookingService
+    private bookingService: BookingService,
+    private userService: UserService
   ) { }
 
   ngOnInit() {
@@ -79,7 +81,7 @@ export class ReservationFormComponent implements OnInit, OnChanges {
 
     const queries = this.tables.map(table => this.bookingService.getBookingByTable(table.id))
 
-    //ForkJoin : https://www.learnrxjs.io/learn-rxjs/operators/combination/forkjoin
+    //ForkJoin pour faire des requêtes en parallèle: https://www.learnrxjs.io/learn-rxjs/operators/combination/forkjoin
     // forkJoin(queries).subscribe(res => {
     //   console.log("forkJoin res", res)
     // })
@@ -135,8 +137,14 @@ export class ReservationFormComponent implements OnInit, OnChanges {
     }
     console.log('Registering Reservation for', booking)
     this.bookingService.postBooking(booking).subscribe(
-      data => {
+      (data: any) => {
         console.log('response', data)
+        const res = data.body
+        this.userService.addBooking(this.user.id, res.id).subscribe(
+          date => {
+            console.log('data after adding booking to user', data.body)
+          }
+        )
       }
     )
     this.reservationDate = {
