@@ -142,7 +142,7 @@ export class ReservationFormComponent implements OnInit, OnChanges {
         console.log('response', data)
         const res = data.body
         this.userService.addBooking(this.user.id, res.id).subscribe(
-          date => {
+          data => {
             console.log('data after adding booking to user', data.body)
           }
         )
