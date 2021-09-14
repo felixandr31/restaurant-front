@@ -2,6 +2,8 @@ import { Component, OnInit, Input, OnChanges } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormArray } from '@angular/forms';
 import { BookingService } from 'src/app/services/data/booking.service';
 import { forkJoin } from 'rxjs';
+import { tap, concatMap } from 'rxjs/operators'
+import { UserService } from 'src/app/services/data/user.service';
 
 @Component({
   selector: 'app-reservation-form',
@@ -30,7 +32,8 @@ export class ReservationFormComponent implements OnInit, OnChanges {
 
   constructor(
     private formBuilder: FormBuilder,
-    private bookingService: BookingService
+    private bookingService: BookingService,
+    private userService: UserService
   ) { }
 
   ngOnInit() {
@@ -77,11 +80,11 @@ export class ReservationFormComponent implements OnInit, OnChanges {
     this.tablesAtTime = []
     this.reservationDate = event;
 
-    const queries = this.tables.map(table => this.bookingService.getBookingByTable(table.id))
+    // const queries = this.tables.map(table => this.bookingService.getBookingByTable(table.id))
 
-    // ForkJoin : https://www.learnrxjs.io/learn-rxjs/operators/combination/forkjoin
+    //ForkJoin pour faire des requêtes en parallèle: https://www.learnrxjs.io/learn-rxjs/operators/combination/forkjoin
     // forkJoin(queries).subscribe(res => {
-    //   console.log(res)
+    //   console.log("forkJoin res", res)
     // })
 
     this.tables.forEach(table => {
@@ -135,10 +138,29 @@ export class ReservationFormComponent implements OnInit, OnChanges {
     }
     console.log('Registering Reservation for', booking)
     this.bookingService.postBooking(booking).subscribe(
-      data => {
+      (data: any) => {
         console.log('response', data)
+        const res = data.body
+        this.userService.addBooking(this.user.id, res.id).subscribe(
+          data => {
+            console.log('data after adding booking to user', data.body)
+          }
+        )
       }
     )
+
+    // this.bookingService.postBooking(booking).pipe(
+    //   tap((data:any) => console.log('response for booking', data.body)),
+    //   concatMap(res: {value: data.body} => {
+    //     const res = data.body
+    //     this.userService.addBooking(this.user.id, res.id)
+    //   })
+    // ).subscribe(
+    //   data => {
+    //     console.log('call to add booking to user', data)
+    //   }
+    // )
+
     this.reservationDate = {
       day: '',
       hour: ''

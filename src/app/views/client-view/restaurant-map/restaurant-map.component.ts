@@ -62,7 +62,7 @@ export class RestaurantMapComponent implements  OnChanges {
   }
 
   ngOnDestroy() {
-    this.restaurantEmissionRef.unsubscribe();
+    if (this.restaurantEmissionRef) {this.restaurantEmissionRef.unsubscribe()};
   }
 
 }

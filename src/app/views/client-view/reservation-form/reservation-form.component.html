@@ -6,7 +6,7 @@
       <label>Number of Persons</label>
       <select formControlName="numberOfClients" (change)="onChangeClients($event)">
         <option selected value="0">0</option>
-        <option *ngFor="let item of [].constructor(maxPlaces); let i = index">{{i + 1}}</option>
+        <option *ngFor="let item of [].constructor(maxPlaces > user.friends.length ? user.friends.length + 1 : maxPlaces); let i = index;">{{i + 1}}</option>
       </select>
     </div>
     <div *ngFor="let client of c.controls; let i = index">
