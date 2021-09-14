@@ -71,6 +71,7 @@ export class GuestViewComponent implements OnInit {
     )
   }
 
+
   toggleSignIn() {
     this.displaySignIn = !this.displaySignIn
   }
