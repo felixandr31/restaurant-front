@@ -2,6 +2,7 @@ import { Component, OnInit, Input, OnChanges } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormArray } from '@angular/forms';
 import { BookingService } from 'src/app/services/data/booking.service';
 import { forkJoin } from 'rxjs';
+import { tap, concatMap } from 'rxjs/operators'
 import { UserService } from 'src/app/services/data/user.service';
 
 @Component({
@@ -79,7 +80,7 @@ export class ReservationFormComponent implements OnInit, OnChanges {
     this.tablesAtTime = []
     this.reservationDate = event;
 
-    const queries = this.tables.map(table => this.bookingService.getBookingByTable(table.id))
+    // const queries = this.tables.map(table => this.bookingService.getBookingByTable(table.id))
 
     //ForkJoin pour faire des requêtes en parallèle: https://www.learnrxjs.io/learn-rxjs/operators/combination/forkjoin
     // forkJoin(queries).subscribe(res => {
@@ -147,6 +148,19 @@ export class ReservationFormComponent implements OnInit, OnChanges {
         )
       }
     )
+
+    // this.bookingService.postBooking(booking).pipe(
+    //   tap((data:any) => console.log('response for booking', data.body)),
+    //   concatMap(res: {value: data.body} => {
+    //     const res = data.body
+    //     this.userService.addBooking(this.user.id, res.id)
+    //   })
+    // ).subscribe(
+    //   data => {
+    //     console.log('call to add booking to user', data)
+    //   }
+    // )
+
     this.reservationDate = {
       day: '',
       hour: ''
