@@ -13,7 +13,6 @@ export class MarkerService {
   public restaurantEmitted$ = this.restaurantEmission.asObservable();
 
   constructor(
-    private http: HttpClient,
     private popupService: PopupService
     ) { }
 
