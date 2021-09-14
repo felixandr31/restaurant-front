@@ -17,5 +17,16 @@ export class TableService {
     return this.http.get(url, {observe:'response'});
   }
 
+  public createTable(newTable: any) {
+    const url: string = this.url + 'create'
+    return this.http.post(url, newTable, { observe: 'response' })
+
+  }
+
+ 
+
+ 
+
+
   
 }

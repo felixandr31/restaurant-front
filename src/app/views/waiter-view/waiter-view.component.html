@@ -1,21 +1,20 @@
 
 
 
-<div class="container">
-  <div class="tile">Tables List</div>
-  <div class="table"*ngFor = "let table of tables">{{table.name}}: {{table.capacity}} places</div>
+<div class="table-page">
+  <div id="container">
+    <app-tableform *ngIf="isCreatingRecipe" (refreshTablesAfterSubmit)="showTables()" [restaurantId]="fakeRestaurantId" >  
+    </app-tableform>
+  
+    
+
+    <div id="table-row">
+      <div class="title">Tables List</div>
+      <div id="table-bloc">
+        <div class="table"*ngFor = "let table of restaurantTables">{{table.name}}: {{table.capacity}} places</div>
+      </div>
+    </div>
+  </div>
+  
 </div>
 
-<form id="recipe-form" [formGroup]="dynamicForm" (ngSubmit)="onSubmit()">
-  <div class="form-group">
-    <label >new recipe name:</label>
-    <input type="text" formControlName='name' class='form-control'> 
-  </div>
-  <div class="form-group">
-    <label >new Table name:</label>
-    <input type="text" formControlName='capacity' class='form-control'> 
-  </div>
-  <div class="footer-form">
-    <button id='submit'>Create a new Table</button>
-  </div>
-</form>
