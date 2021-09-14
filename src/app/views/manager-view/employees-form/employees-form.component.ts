@@ -35,7 +35,7 @@ export class EmployeesFormComponent implements OnInit {
     bookings: []
   }
 
-  public selectedEmployee: any
+  public selectedEmployee: any;
 
   private empRoles: any[];
   private savedEmployee: any;
@@ -169,12 +169,13 @@ export class EmployeesFormComponent implements OnInit {
 
     this.userService.postUser(result).subscribe(
       data => {
-        console.log(data.body)
+        console.log("la data", data)
         // TODO : utiliser id user pour ajouter aux employees
         const newEmployee: any = data.body
-        this.restaurantService.addUserToRestaurant(this.managerRestaurantId, newEmployee.id).subscribe(
+        this.restaurantService.addUserToRestaurant(this.managerRestaurantId, [newEmployee.id]).subscribe(
           data => {
             console.log(data.body)
+            alert(newEmployee.firstName + ' has been created: ' + newEmployee)
           },
           err => {
             console.log('err', err)
