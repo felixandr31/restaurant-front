@@ -27,8 +27,8 @@ export class RestaurantService {
     return this.http.post(url, restaurant, {observe: 'response'});
   }
 
-  addUserToRestaurant(restaurantId, userId: String[]){
-    const url = this.url + 'addusers' + restaurantId
+  addUserToRestaurant(restaurantId: String, userId: String[]){
+    const url = this.url + 'addusers/' + restaurantId
     return this.http.post(url, userId, {observe: 'response'});
   }
 
@@ -40,5 +40,15 @@ export class RestaurantService {
   getStocks() {
     const urlStock = this.urlStock + 'stocks'
     return this.http.get(urlStock, {observe: 'response'});
+
+  }
+  addRecipeToRestaurant(restaurantId, recipe: String[]) {
+    const url = this.url + 'addrecipes/' + restaurantId;
+    return this.http.post(url, recipe, {observe: 'response'});
+  }
+
+  removeRecipeToRestaurant(restaurantId, recipeIds: any){
+    const url = this.url + 'removerecipes/' + restaurantId;
+    return this.http.delete(url, recipeIds);
   }
 }

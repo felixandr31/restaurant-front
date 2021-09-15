@@ -24,17 +24,6 @@ export class ClientViewComponent implements OnInit, OnChanges {
       recipes: []
     };
 
-  public client: any = {
-    name: "Georges",
-    roles: [
-      { name: "client" }
-    ],
-    friends: [
-      { name: "Alain" },
-      { name: "Elsa" }
-    ]
-  }
-
   public displayReservationForm = false;
 
 

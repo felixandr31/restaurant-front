@@ -1,0 +1,23 @@
+:host {
+  display: grid;
+  grid-template: 75px 75px 1fr / 15px 1fr 15px;
+  grid-template-areas: ". title ."
+  ". filter ."
+  ". list .";
+  height: 100%;
+  height: 100%;
+}
+
+:host > h3 {
+  grid-area: title;
+  align-self: center;
+  justify-self: center;
+}
+
+.list-container {
+  grid-area: list;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+}

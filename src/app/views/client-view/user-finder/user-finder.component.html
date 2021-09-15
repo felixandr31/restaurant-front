@@ -1,3 +1,6 @@
-<div *ngFor="let person of notFriends">
-  <app-friend-add-card [person]="person" (onFriendAddition)="friendAdded($event)"></app-friend-add-card>
+<h3>Find Friends</h3>
+<div class="list-container">
+  <div *ngFor="let person of notFriends">
+    <app-friend-add-card [person]="person" (onFriendAddition)="friendAdded($event)"></app-friend-add-card>
+  </div>
 </div>

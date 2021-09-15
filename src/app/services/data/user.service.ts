@@ -56,5 +56,10 @@ private url = 'http://localhost:8080/backend-filrouge/user/'
     return this.http.post(url, roleIds, {observe: 'response'});
   }
 
+  addBooking(id, bookingId) {
+    const url = this.url + 'bookings/' + id
+    return this.http.post(url, bookingId, {observe: 'response'})
+  }
+
   //TODO getRestaurantByClientId
 }

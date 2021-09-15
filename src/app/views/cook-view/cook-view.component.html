@@ -1,16 +1,17 @@
 
 <div id="recipes-page">
     <div id="recipe-creation-form" class="tv">
-        <app-recipeform *ngIf="isCreateRecipe" (refreshRecipesAfterSubmit)="refreshRecipes()"></app-recipeform>
+        <app-recipeform *ngIf="isCreatingRecipe" (refreshRecipesAfterSubmit)="refreshRecipes()" [restaurantId]="fakeRestaurantId"></app-recipeform>
         <!-- <app-setrecipeform *ngIf="!isCreateRecipe" [recipeToSet]="recipeToSet" (deletedRecipe)="refreshRecipes()" (toggleMaVar)=" isCreateRecipe = !isCreateRecipe"></app-setrecipeform> -->
-        <app-setrecipeform></app-setrecipeform>
+        
+        <app-setrecipeform *ngIf="!isCreatingRecipe" [recipeToSet]="recipeToSet" (deletedRecipe)="refreshRecipes()" [restaurantId]="fakeRestaurantId" (toggleCreateRecipe)=" isCreatingRecipe = !isCreatingRecipe"></app-setrecipeform>
 
     </div>
     <div id="existing-recipes" class="tv">
         <div>
             <h3>Your recipes</h3>
         </div>
-        <button *ngFor="let recipe of recipesList" class="slide_from_left" (click)="onRecipeButtonClick(recipe)">{{recipe.name}}</button>
+        <button *ngFor="let recipe of restaurantRecipes" class="slide_from_left" (click)="onRecipeButtonClick(recipe)">{{recipe.name}}</button>
     </div>
     <div style="overflow: auto;"></div>
 </div>

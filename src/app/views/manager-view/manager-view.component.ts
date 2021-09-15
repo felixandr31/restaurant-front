@@ -20,7 +20,6 @@ export class ManagerViewComponent implements OnInit {
 
   ngOnInit() {
     this.showSubView = 'homePage';
-    console.log('user: ', this.user)
 
     // TODO: quand back push => récupérer restaurant avec user. remplacer par :
     //const managerRestaurantId = ["613885d5841a951be1274a9a"]
@@ -31,7 +30,6 @@ export class ManagerViewComponent implements OnInit {
     this.restaurantService.getRestaurantById(managerRestaurantId.toString()).subscribe(
       data =>{
         this.managerRestaurant = data.body
-        console.log('managerRestaurant', this.managerRestaurant)
       },
       err => {
         console.log('Error: ', err)

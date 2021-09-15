@@ -1,0 +1,12 @@
+:host > form {
+  display: flex;
+  flex-flow: column nowrap;
+}
+
+:host > form > select {
+  width: 42%;
+}
+
+:host > form > button {
+  width: 15%
+}
