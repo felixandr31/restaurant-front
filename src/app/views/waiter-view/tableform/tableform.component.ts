@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { BookingService } from 'src/app/services/data/booking.service';
 import { RestaurantService } from 'src/app/services/data/restaurant.service';
 import { TableService } from 'src/app/services/data/table.service';
 
@@ -15,6 +16,7 @@ export class TableformComponent implements OnInit {
   public tables: any
   dynamicForm: FormGroup;
   submitted: boolean = false;
+  restaurant: any;
 
   emptyTable: any = {
     name: "",
@@ -26,11 +28,21 @@ export class TableformComponent implements OnInit {
     capacity: ['', Validators.required]
   }
 
-  constructor(private tableService: TableService, private formBuilder: FormBuilder, private restaurantService: RestaurantService) { }
+  constructor(private bookingService: BookingService, private tableService: TableService, private formBuilder: FormBuilder, private restaurantService: RestaurantService) { }
 
   ngOnInit() {
 
     this.dynamicForm = this.formBuilder.group(this.groupValidator)
+ 
+    // this.restaurantService.getRestaurantById(this.restaurantId).subscribe(
+    //   data => {
+    //     console.log("datas", data)
+
+    //   },
+    //   err => {
+    //     console.log('erreur', err)
+    //   }
+    // )
 
   }
 
@@ -68,6 +80,12 @@ export class TableformComponent implements OnInit {
     this.isDisplayTable = !this.isDisplayTable    
   }
 
+
+  showtableBookink(){
+
+    const queries = this.tables.map(table => this.bookingService.getBookingByTable(table.id))
+
+  }
 
 
 
