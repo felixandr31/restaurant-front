@@ -6,10 +6,19 @@
 	background: #4D6879; /* You can change the main color of thew form here. */
 	font-size: 14px;
 	width:100%;
-	width:55vw;
 	box-sizing: border-box;
 	transition: all .4s ease;
 }
+
+/* @media all and (max-width: 840px) {
+	#recipe-form {
+	  position: static;
+	  display: inline-block;
+	  text-align: center;
+	  /* margin270px; 
+	}
+  } */
+
 #recipe-form:hover {
 	border-radius: 0% 0% 50% 50% / 0% 0% 5% 5% ;
 }
