@@ -1,0 +1,29 @@
+:host {
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: center;
+  justify-content: flex-start;
+
+}
+
+.order-item {
+  width: 80%;
+  min-height: 40px;
+  height: auto;
+  max-height: 80px;
+  padding: .2em;
+  display: grid;
+  grid-template: 1fr / 60% 40%;
+  grid-template-areas: "name billing";
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.name {
+  grid-area: name;
+}
+
+.billing {
+  grid-area: billing;
+  justify-self: flex-end;
+}
