@@ -65,7 +65,7 @@ public isCreatingTable = true
           (data:any) => {
             this.tablesBooking= data.map(book => book.body)
             console.log("forj", this.tablesBooking)
-             this.bookingsAtTime = this.tablesBooking.filter(booking => booking.day.substring(0, 10) == this.reservationDate.day && booking.hour == this.reservationDate.hour + ':00')
+             //this.bookingsAtTime = this.tablesBooking.filter(booking => booking.day.substring(0, 10) == this.reservationDate.day && booking.hour == this.reservationDate.hour + ':00')
           }
         )
       },
