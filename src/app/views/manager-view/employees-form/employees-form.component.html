@@ -3,11 +3,12 @@
   <button (click)="ToggleCreate()">CREATION</button>
 </div>
 <div *ngIf="modes.edition || modes.creation" class="edit">
-  <app-employees-list *ngIf="modes.edition" [employees]="employees" (onEmployeeSelection)="employeeSelection($event)">
+  {{modes.selectedMode}}
+  <app-employees-list *ngIf="modes.edition" [managerRestaurant]="managerRestaurant" (onEmployeeSelection)="employeeSelection($event)">
+  <!-- <app-employees-list *ngIf="modes.edition" [employees]="employees" (onEmployeeSelection)="employeeSelection($event)"> -->
   </app-employees-list>
-  <div *ngIf="isSelectedEmployee">
-    {{modes.selectedMode}}
-    <form [formGroup]="form" (ngSubmit)="onSubmit()">
+  <div >
+    <form *ngIf="isSelectedEmployee" [formGroup]="form" (ngSubmit)="onSubmit()">
       <div>
         <label>First name: </label>
         <input name="firstName" formControlName="firstName">
@@ -37,9 +38,9 @@
       <div *ngIf="modes.edition">
         <button type="submit">Update</button>
       </div>
-      <button (click)="cancelEdition()">Cancel</button>
     </form>
-    <div *ngIf="modes.edition">
+    <button (click)="cancelEdition()">Cancel</button>
+    <div *ngIf="isSelectedEmployee && modes.edition">
       <button (click)="employeeDeletionMode()">Delete account</button>
       <div *ngIf="modes.deletionConfirmation">
         <label>Confirm ?</label>
