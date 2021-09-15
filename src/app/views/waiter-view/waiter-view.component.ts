@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import * as moment from 'moment';
 import { forkJoin } from 'rxjs';
 import { BookingService } from 'src/app/services/data/booking.service';
 import { CookService } from 'src/app/services/data/cook.service';
@@ -21,6 +22,8 @@ export class WaiterViewComponent implements OnInit {
   private bookingsAtTime = []
   @Input() restaurantId: String;
   @Input() user:any;
+  public localTime = moment().format('YYYY-MM-DD'); // store localTime
+  public  proposedDate = this.localTime + "T00:00:00.000Z";
   
 
   public reservationDate = {
@@ -52,16 +55,17 @@ public isCreatingTable = true
         this.restaurant= data.body;
         this.restaurantTables=this.restaurant.tables
         console.log("les tables", this.restaurantTables)
-        const queries = Object.keys(this.restaurantTables).map(tabKey => {
-          console.log("number?", this.restaurantTables[tabKey].id)
-          return this.bookingService.getBookingByTable(this.restaurantTables[tabKey].id) ;
-        })
+        const queries = this.restaurantTables.map(table => this.bookingService.getBookingByTable(table.id))
+        // const queries = Object.keys(this.restaurantTables).map(tabKey => {
+        //   console.log("number?", this.restaurantTables[tabKey].id)
+        //   return this.bookingService.getBookingByTable(this.restaurantTables[tabKey].id) ;
+        // })
         console.log("queries", queries)
         forkJoin(queries).subscribe(
-          data => {
+          (data:any) => {
             this.tablesBooking= data.map(book => book.body)
             console.log("forj", this.tablesBooking)
-            // this.bookingsAtTime = this.tablesBooking.filter(booking => booking.day.substring(0, 10) == this.reservationDate.day && booking.hour == this.reservationDate.hour + ':00')
+             //this.bookingsAtTime = this.tablesBooking.filter(booking => booking.day.substring(0, 10) == this.reservationDate.day && booking.hour == this.reservationDate.hour + ':00')
           }
         )
       },
@@ -71,6 +75,9 @@ public isCreatingTable = true
       }
 
     )
+
+    const  isValidDate = moment(this.proposedDate).isValid();
+    console.log(isValidDate)
   }
 
   

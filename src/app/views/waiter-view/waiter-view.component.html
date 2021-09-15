@@ -14,36 +14,37 @@
   
 </div>
 
-
+ <div>
   <p>Booking</p>
- <table >
-   <thead>
-     <tr>
-       <th >
-         table
-       </th>
-       <th >
-         Day
-       </th>
-       <th >
-         Hour
-       </th>
-     </tr>
-   </thead>
-   <tbody>
-     <tr  *ngFor="let booking of tablesBooking">
-       <td >
-         {{booking[0].table.name}}
-       </td>
-       <td >
-         {{booking[0].day}}
-       </td>
-       <td >
-        {{booking[0].hour}}
-       </td>
-     </tr>
-   </tbody>
- </table>
-
+  <table>
+    <thead>
+      <tr>
+        <th >
+          table
+        </th>
+        <th >
+          Day
+        </th>
+        <th >
+          Hour
+        </th>
+      </tr>
+    </thead>
+    <tbody *ngFor="let table of tablesBooking">
+      <tr  *ngFor="let booking of table">
+        <td >
+          {{booking.table.name}}
+        </td>
+        <td >
+          {{booking.day}}
+        </td>
+        <td >
+         {{booking.hour}}
+        </td>
+      </tr>
+    </tbody>
+  </table>
+ </div>
+ 
 
 
