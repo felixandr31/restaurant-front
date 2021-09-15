@@ -8,7 +8,7 @@ import { HttpClient } from '@angular/common/http'
 export class RestaurantService {
 
   private url = 'http://localhost:8080/backend-filrouge/restaurant/'
-
+  private urlStock = 'http://localhost:8080/backend-filrouge/stock/'
 
   constructor(private http: HttpClient) { }
 
@@ -30,5 +30,15 @@ export class RestaurantService {
   addUserToRestaurant(restaurantId, userId: String[]){
     const url = this.url + 'addusers' + restaurantId
     return this.http.post(url, userId, {observe: 'response'});
+  }
+
+  addStockToRestaurant(restaurantId, stockId: Set<String>){
+    const url = this.url + 'addstocks' + restaurantId
+    return this.http.post(url, stockId, {observe: 'response'});
+  }
+
+  getStocks() {
+    const urlStock = this.urlStock + 'stocks'
+    return this.http.get(urlStock, {observe: 'response'});
   }
 }
