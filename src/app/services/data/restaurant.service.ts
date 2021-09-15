@@ -37,6 +37,12 @@ export class RestaurantService {
     return this.http.post(url, recipe, {observe: 'response'});
   }
 
+  addTableToRestaurant(restaurantId, tableId: String[]){
+    const url = this.url + 'addtables/' + restaurantId
+    return this.http.post(url, tableId, {observe: 'response'});
+  }
+
+ 
   removeRecipeToRestaurant(restaurantId, recipeIds: any){
     const url = this.url + 'removerecipes/' + restaurantId;
     return this.http.delete(url, recipeIds);
