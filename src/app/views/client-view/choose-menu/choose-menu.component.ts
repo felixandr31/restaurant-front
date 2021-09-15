@@ -21,6 +21,7 @@ export class ChooseMenuComponent implements OnInit {
 
   itemAdded(event) {
     this.onItemAdded.emit(event);
+    console.log('item added', event)
   }
 
   itemRemoved(event) {

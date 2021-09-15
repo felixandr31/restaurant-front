@@ -22,6 +22,11 @@ export class RestaurantService {
     return this.http.get(url, {observe: 'response'});
   }
 
+  getRestaurantByTableId(id) {
+    const url = this.url + 'tables/' + id
+    return this.http.get(url, {observe: 'response'})
+  }
+
   postRestaurant(restaurant: any) {
     const url = this.url + 'create'
     return this.http.post(url, restaurant, {observe: 'response'});

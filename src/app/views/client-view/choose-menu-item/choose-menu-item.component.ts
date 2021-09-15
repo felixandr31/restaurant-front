@@ -12,7 +12,7 @@ export class ChooseMenuItemComponent implements OnInit, OnChanges {
   @Output() onItemAdd = new EventEmitter();
   @Output() onItemRemove = new EventEmitter();
 
-  public line: any = {name: 'not ordered yet', quantity: 0};
+  public line: any = {name: '', quantity: 0, sellingPrice: 0};
   public quantity = 0;
 
   constructor() { }
@@ -22,6 +22,7 @@ export class ChooseMenuItemComponent implements OnInit, OnChanges {
 
   ngOnChanges() {
     console.log('la ligne avant le update', this.line)
+    console.log('item', this.item)
     if (this.bill.length > 0 && this.bill.find(e => e.name == this.item.name)) {
       this.updateLine();
       console.log('la ligne du chef, ', this.line)
@@ -31,6 +32,7 @@ export class ChooseMenuItemComponent implements OnInit, OnChanges {
 
 
 addItem(event) {
+  console.log('item add from below', event.target.value)
   this.onItemAdd.emit(event.target.value);
 }
 
