@@ -46,7 +46,14 @@ export class CookViewComponent implements OnInit {
   }
 
   onRecipeButtonClick(recipe){
+    this.refreshRecipes();
     this.isCreatingRecipe = false
     this.recipeToSet = recipe;
+  }
+
+  toggleRecipe(){
+    this.isCreatingRecipe = !this.isCreatingRecipe
+    this.refreshRecipes();
+
   }
 }

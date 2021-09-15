@@ -2,6 +2,7 @@ import { Component, OnInit, Input, OnChanges, Output, EventEmitter } from '@angu
 import { RoleService } from 'src/app/services/data/role.service';
 import { UserService } from 'src/app/services/data/user.service';
 import { RestaurantService } from 'src/app/services/data/restaurant.service';
+import { BookingService } from 'src/app/services/data/booking.service';
 
 
 @Component({
@@ -26,16 +27,17 @@ export class ClientViewComponent implements OnInit, OnChanges {
 
   public displayReservationForm = false;
 
-
-  public restaurantReservation = {};
+  public currentBooking: any = {};
+  public restaurantReservation: any = {};
 
   public itemToAdd = '';
   public itemToRemove = '';
   public bill = [];
 
   constructor(
-    private restaurantService: RestaurantService
-    ) { }
+    private restaurantService: RestaurantService,
+    private bookingService: BookingService
+  ) { }
 
 
   ngOnInit() {
@@ -62,8 +64,16 @@ export class ClientViewComponent implements OnInit, OnChanges {
   }
 
   reservationSelected(event) {
-    this.restaurantReservation = this.restaurants.find(resto => resto.name == event)
-    console.log('réservation :', this.restaurantReservation)
+    this.bookingService.getBookingById(event).subscribe(
+      data => {
+        this.currentBooking = data.body
+        this.restaurantService.getRestaurantByTableId(this.currentBooking.table.id).subscribe(
+          data => {
+            this.restaurantReservation = data.body
+          }
+        )
+      }
+    )
   }
 
   toggleReservationForm() {
@@ -83,13 +93,14 @@ export class ClientViewComponent implements OnInit, OnChanges {
   }
 
   addToBill(item) {
-    if (this.bill.length < 1) {
-      this.bill.push({ name: item, quantity: 1 })
-    } else {
-      this.bill.find(line => line.name === item) ?
-        this.bill.filter(line => line.name === item).map(line => line.quantity += 1) :
-        this.bill.push({ name: item, quantity: 1 });
-    }
+    this.bill.find(line => line.name === item) ?
+      this.bill.filter(line => line.name === item).map(line => {
+        // Est-ce bien le lieu ?
+        line.quantity += 1
+        line.total = line.quantity * item.sellingPrice
+      console.log('la ligne avec un prix ?', line)}) :
+        // this.restaurantReservation.recipes[item]
+      this.bill.push({ name: item, quantity: 1 , total: parseInt(item.sellingPrice)});
   }
 
   removeFromBill(item) {
