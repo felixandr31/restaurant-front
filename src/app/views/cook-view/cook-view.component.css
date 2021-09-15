@@ -8,6 +8,7 @@
 
 #recipe-creation-form {
     margin-left: 20px;
+    width: 45%;
     left: 0;
 
 }
@@ -15,13 +16,36 @@
 #existing-recipes {
     background-color: white;
     position: absolute;
-    width: 280px;
+    width: 35%;
     min-height: 535px;
     height: auto;
     right: 0px;
     top: 0;
     margin-right: 40px;
+}
 
+@media all and (max-width: 840px) {
+  #recipe-creation-form {
+    position: static;
+    display: block;
+    text-align: center;
+    margin: auto;
+    width: 70%;
+      
+  }
+
+  #existing-recipes {
+    position: static;
+    display: block;
+    text-align: center;
+    margin: auto;
+    margin-top: 50px;
+    width: 55%;
+  }
+}
+
+.inline-block {
+  display: inline-block;
 }
 
 .tv {
@@ -90,9 +114,11 @@
     z-index: 1;
     overflow: hidden;
   }
+  
   button:hover {
     color: #5B9600;
   }
+
   button::after {
     content: "";
     background: #ecf0f1;
@@ -101,9 +127,11 @@
     padding: 0.85em 0.75em;
     display: block;
   }
+
   button[class^="slide"]::after {
     transition: all 0.45s;
   }
+
   button[class^="slide"]:hover::after {
     left: 0;
     right: 0;
@@ -111,36 +139,48 @@
     bottom: 0;
     transition: all 0.45s;
   }
+
   button.slide_from_left::after {
     top: 0;
     bottom: 0;
     left: -100%;
     right: 100%;
   }
+
   button.slide_from_right::after {
     top: 0;
     bottom: 0;
     left: 100%;
     right: -100%;
   }
+
+
   button.slide_from_top::after {
     left: 0;
     right: 0;
     top: -100%;
     bottom: 100%;
   }
+
+
   button.slide_from_bottom::after {
     left: 0;
     right: 0;
     top: 100%;
     bottom: -100%;
   }
+
+
   button[class^="grow"]::after {
     transition: all 0.4s ease;
   }
+
+
   button[class^="grow"]:hover::after {
     transition: all 0.4s ease-out;
   }
+
+
   button.grow_box::after {
     left: 0;
     right: 0;

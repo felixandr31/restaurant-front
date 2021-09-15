@@ -8,10 +8,12 @@
 
     </div>
     <div id="existing-recipes" class="tv">
-        <div>
-            <h3>Your recipes</h3>
+        <div class="inline-block">
+            <div>
+                <h3>Your recipes</h3>
+            </div>
+            <button *ngFor="let recipe of restaurantRecipes" class="slide_from_left" (click)="onRecipeButtonClick(recipe)">{{recipe.name}}</button>
         </div>
-        <button *ngFor="let recipe of restaurantRecipes" class="slide_from_left" (click)="onRecipeButtonClick(recipe)">{{recipe.name}}</button>
     </div>
     <div style="overflow: auto;"></div>
 </div>
