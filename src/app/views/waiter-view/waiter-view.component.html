@@ -16,7 +16,7 @@
 
 
   <p>Booking</p>
- <table >
+ <table>
    <thead>
      <tr>
        <th >
@@ -30,16 +30,16 @@
        </th>
      </tr>
    </thead>
-   <tbody>
-     <tr  *ngFor="let booking of tablesBooking">
+   <tbody *ngFor="let table of tablesBooking">
+     <tr  *ngFor="let booking of table">
        <td >
-         {{booking[0].table.name}}
+         {{booking.table.name}}
        </td>
        <td >
-         {{booking[0].day}}
+         {{booking.day}}
        </td>
        <td >
-        {{booking[0].hour}}
+        {{booking.hour}}
        </td>
      </tr>
    </tbody>
