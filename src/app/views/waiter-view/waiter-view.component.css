@@ -1,11 +1,37 @@
+:host {
+  display: grid;
+  grid-template: 1fr / 1fr 1fr;
+  grid-template-areas: "tables bookings";
+  height: 100%;
+  gap: 0 .5em;
+}
+
+.table-page {
+  grid-area: tables;
+}
+
+
+app-tableform {
+  grid-area: form;
+}
+
+
+.bookings {
+  grid-area: bookings;
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: center;
+  justify-content: flex-start;
+  overflow-y: auto;
+}
+
 #table-row{
-    margin-top: 30px;
-    margin-left: 100px;
-    width: 250px;
-    text-align: center;
-    border: solid;
-    border-width: 0.5px;
-    
+  grid-area: list;
+  margin-top: 30px;
+  margin-left: 100px;
+  width: 250px;
+  text-align: center;
+  overflow-y: auto;
 }
 
 #name{
@@ -23,7 +49,12 @@
 }
 
 #container{
-    border-width: 5px;
+    display: grid;
+    grid-template: 250px 1fr / 1fr;
+    gap: 0 .5em;
+    grid-template-areas: "form"
+    "list";
+    height: 100%;
 }
 
 

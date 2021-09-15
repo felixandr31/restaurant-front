@@ -1,15 +1,15 @@
 <div id="container">
- <button class="display-table" (click) = "isDisplay()">Create new Table </button>
+  <button class="display-table" (click) = "isDisplay()">Create new Table </button>
 
   <form *ngIf="isDisplayTable" id="table-form" [formGroup]="dynamicForm" (ngSubmit)="onSubmit()">
     <div id="content">
       <div class="form-group">
         <label>name:</label>
-        <input  formControlName='name' class='form-control' id="name"> 
+        <input  formControlName='name' class='form-control' id="name">
       </div>
       <div class="form-group">
         <label >capacity:</label>
-        <input  formControlName='capacity' class='form-control' > 
+        <input  formControlName='capacity' class='form-control' >
       </div>
       <div class="footer-form">
         <button id='submit'>Validate</button>
@@ -17,6 +17,3 @@
     </div>
   </form>
 </div>
-
- 
-
