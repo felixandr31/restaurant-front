@@ -17,7 +17,7 @@ export class RestaurantService {
     return this.http.get(url, {observe: 'response'});
   }
 
-  getRestaurantById(id) {
+  getRestaurantById(id: String) {
     const url = this.url + 'restaurantsid/' + id
     return this.http.get(url, {observe: 'response'});
   }

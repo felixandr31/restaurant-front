@@ -47,9 +47,16 @@ export class ManagerViewComponent implements OnInit {
     )
 
 
+    this.reloadRestaurant();
   }
 
-
+  reloadRestaurant() {
+    return this.restaurantService.getRestaurantById(this.user.restaurantId).subscribe(
+      data => {
+        this.managerRestaurant = Object.assign({}, data.body)
+        console.log('reload restaurant')
+      })
+  }
 
 
 }

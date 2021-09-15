@@ -15,5 +15,5 @@
   <app-stocks [stocks]="stocks"></app-stocks>
 </div>
 <div *ngIf="showSubView === 'employees'" class="employees-view">
-  <app-employees-form [user]="user" [managerRestaurant]="managerRestaurant"></app-employees-form>
+  <app-employees-form [user]="user" [managerRestaurant]="managerRestaurant" (onRestaurantModifications)="reloadRestaurant()"></app-employees-form>
 </div>
