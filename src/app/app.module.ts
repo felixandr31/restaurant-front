@@ -44,7 +44,8 @@ import { RestaurantsListComponent } from './views/admin-view/components/restaura
 import { HorizontalMenuComponent } from './views/admin-view/components/horizontal-menu/horizontal-menu.component';
 import { StocksComponent } from './views/manager-view/stocks/stocks.component';
 
-
+import { TableformComponent } from './views/waiter-view/tableform/tableform.component';
+import { BookformComponent } from './views/waiter-view/bookform/bookform.component';
 
 @NgModule({
   declarations: [
@@ -81,6 +82,11 @@ import { StocksComponent } from './views/manager-view/stocks/stocks.component';
     RestaurantsListComponent,
     HorizontalMenuComponent,
     StocksComponent,
+
+    TableformComponent,
+    
+    BookformComponent,
+
 
   ],
   imports: [

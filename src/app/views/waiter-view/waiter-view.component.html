@@ -1,3 +1,49 @@
-<p>
-  waiter-view works!
-</p>
+
+
+
+<div class="table-page">
+  <div id="container">
+    <app-tableform *ngIf="isCreatingTable" (refreshTablesAfterSubmit)="showTables()" [restaurantId]="fakeRestaurantId" ></app-tableform>
+    <div id="table-row">
+      <div class="title">Tables List</div>
+      <div id="table-bloc">
+        <div class="table"*ngFor = "let table of restaurantTables">{{table.name}}: {{table.capacity}} places</div>
+      </div>
+    </div>
+  </div>
+  
+</div>
+
+
+  <p>Booking</p>
+ <table >
+   <thead>
+     <tr>
+       <th >
+         table
+       </th>
+       <th >
+         Day
+       </th>
+       <th >
+         Hour
+       </th>
+     </tr>
+   </thead>
+   <tbody>
+     <tr  *ngFor="let booking of tablesBooking">
+       <td >
+         {{booking[0].table.name}}
+       </td>
+       <td >
+         {{booking[0].day}}
+       </td>
+       <td >
+        {{booking[0].hour}}
+       </td>
+     </tr>
+   </tbody>
+ </table>
+
+
+
