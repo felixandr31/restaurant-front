@@ -6,7 +6,7 @@
 	background: #4D6879; /* You can change the main color of thew form here. */
 	font-size: 14px;
 	width:100%;
-	width:55vw;
+	/* width:45vw; */
 	box-sizing: border-box;
 	transition: all .4s ease;
 }
