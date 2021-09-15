@@ -42,7 +42,7 @@ export class RecipeformComponent implements OnInit {
   }
 
   onSubmit() {
-    console.log("dynamec", this.dynamicForm.controls)
+    // console.log("dynamec", this.dynamicForm.controls)
     this.submitted = true;
     if(this.dynamicForm.invalid) {
       return ;
@@ -57,7 +57,7 @@ export class RecipeformComponent implements OnInit {
         const tabId: String[]  = [newRecipe.id];
         this.restaurantService.addRecipeToRestaurant(this.restaurantId, tabId).subscribe(
           data => {
-            console.log(data);
+            // console.log(data);
             this.refreshRecipesAfterSubmit.emit();
           },
           err => {
@@ -71,8 +71,8 @@ export class RecipeformComponent implements OnInit {
     )
 
     
-    // this.commandsService.createRecipe(this.dynamicForm.value.name);
-    //this.onReset()
+
+    this.onReset()
   }
 
   onReset() {
