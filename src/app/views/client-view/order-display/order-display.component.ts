@@ -9,6 +9,7 @@ import { Component, OnInit, Input, OnChanges, SimpleChanges } from '@angular/cor
 export class OrderDisplayComponent implements OnInit, OnChanges {
 
   @Input() bill: any = [];
+  @Input() user: any;
 
   public orderSent: boolean = false;
 
