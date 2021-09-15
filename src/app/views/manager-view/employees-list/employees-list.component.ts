@@ -25,10 +25,6 @@ export class EmployeesListComponent implements OnInit, OnChanges {
 
   }
 
-  reloadEmployeeList() {
-    const temp = this.employees
-    this.employees = temp
-  }
 
 
 
