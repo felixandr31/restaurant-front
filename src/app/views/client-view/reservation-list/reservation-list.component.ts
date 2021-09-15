@@ -26,7 +26,6 @@ export class ReservationListComponent implements OnInit {
         this.reservations = data.map(d => d.body)
       }
     )
-
   }
 
   reservationSelected(event) {

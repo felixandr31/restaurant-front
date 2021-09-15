@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, OnChanges } from '@angular/core';
+import { Component, OnInit, Input, OnChanges, Output, EventEmitter } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormArray } from '@angular/forms';
 import { BookingService } from 'src/app/services/data/booking.service';
 import { forkJoin } from 'rxjs';
@@ -14,6 +14,7 @@ export class ReservationFormComponent implements OnInit, OnChanges {
 
   @Input() restaurant: any;
   @Input() user: any;
+  @Output() onBookingPlaced = new EventEmitter();
 
   public clients: any = []
 
@@ -144,6 +145,7 @@ export class ReservationFormComponent implements OnInit, OnChanges {
         this.userService.addBooking(this.user.id, res.id).subscribe(
           data => {
             console.log('data after adding booking to user', data.body)
+            this.onBookingPlaced.emit()
           }
         )
       }

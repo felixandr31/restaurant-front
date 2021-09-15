@@ -4,7 +4,7 @@
   <app-restaurant-list *ngIf="!displayReservationForm; else reservationForm" class="list" [restaurants]="restaurants"
     (onRestaurantSelection)="restaurantSelected($event)"></app-restaurant-list>
   <ng-template #reservationForm>
-    <app-reservation-form class="list" [restaurant]="restaurant" [user]="user"></app-reservation-form>
+    <app-reservation-form class="list" [restaurant]="restaurant" [user]="user" (onBookingPlaced)="refreshUser($event)"></app-reservation-form>
   </ng-template>
   <app-restaurant-menu class="menu" [restaurant]="restaurant"></app-restaurant-menu>
   <app-to-table-reservation class="reservation" [restaurant]="restaurant"

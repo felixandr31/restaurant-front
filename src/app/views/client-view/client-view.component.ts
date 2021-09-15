@@ -28,7 +28,7 @@ export class ClientViewComponent implements OnInit, OnChanges {
   public displayReservationForm = false;
 
   public currentBooking: any = {};
-  public restaurantReservation = {};
+  public restaurantReservation: any = {};
 
   public itemToAdd = '';
   public itemToRemove = '';
@@ -37,7 +37,7 @@ export class ClientViewComponent implements OnInit, OnChanges {
   constructor(
     private restaurantService: RestaurantService,
     private bookingService: BookingService
-    ) { }
+  ) { }
 
 
   ngOnInit() {
@@ -93,13 +93,14 @@ export class ClientViewComponent implements OnInit, OnChanges {
   }
 
   addToBill(item) {
-    if (this.bill.length < 1) {
-      this.bill.push({ name: item, quantity: 1 })
-    } else {
-      this.bill.find(line => line.name === item) ?
-        this.bill.filter(line => line.name === item).map(line => line.quantity += 1) :
-        this.bill.push({ name: item, quantity: 1 });
-    }
+    this.bill.find(line => line.name === item) ?
+      this.bill.filter(line => line.name === item).map(line => {
+        // Est-ce bien le lieu ?
+        line.quantity += 1
+        line.total = line.quantity * item.sellingPrice
+      console.log('la ligne avec un prix ?', line)}) :
+        // this.restaurantReservation.recipes[item]
+      this.bill.push({ name: item, quantity: 1 , total: parseInt(item.sellingPrice)});
   }
 
   removeFromBill(item) {
