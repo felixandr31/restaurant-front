@@ -34,7 +34,7 @@ export class CookViewComponent implements OnInit {
       data => {
         console.log("data", data)
         this.restaurant = data.body;
-        this.restaurantRecipes = this.restaurant.recipes ;
+        this.restaurantRecipes = this.restaurant.recipes;
         console.log("les recettes", this.restaurantRecipes)
       },
       err => {
@@ -46,7 +46,7 @@ export class CookViewComponent implements OnInit {
   }
 
   onRecipeButtonClick(recipe){
-     this.isCreatingRecipe = !this.isCreatingRecipe;
-     this.recipeToSet = recipe;
+    this.isCreatingRecipe = false
+    this.recipeToSet = recipe;
   }
 }

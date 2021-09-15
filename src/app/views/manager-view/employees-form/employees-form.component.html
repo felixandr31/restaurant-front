@@ -1,10 +1,11 @@
 <div *ngIf="!modes.edition && !modes.creation" class="chooseForm">
-  <button (click)="ToggleEdit()" >EDITION</button>
+  <button *ngIf="managerRestaurant.employees.length" (click)="ToggleEdit()">EDITION</button>
   <button (click)="ToggleCreate()">CREATION</button>
 </div>
 <div *ngIf="modes.edition || modes.creation" class="edit">
-  <app-employees-list *ngIf="modes.edition" [employees]="employees" (onEmployeeSelection)="employeeSelection($event)"></app-employees-list>
-  <div>
+  <app-employees-list *ngIf="modes.edition" [employees]="employees" (onEmployeeSelection)="employeeSelection($event)">
+  </app-employees-list>
+  <div *ngIf="isSelectedEmployee">
     {{modes.selectedMode}}
     <form [formGroup]="form" (ngSubmit)="onSubmit()">
       <div>
@@ -15,7 +16,7 @@
         <label>Last name: </label>
         <input name="lastName" formControlName="lastName">
       </div>
-      <div>
+      <div *ngIf="modes.creation">
         <label>Password: </label>
         <input name="lastName" formControlName="password">
       </div>
@@ -32,18 +33,20 @@
         <input type="checkbox" id="waiter" [checked]="waiterChecked" formControlName="Waiter">
       </div>
 
-      <button type="submit"*ngIf="modes.creation">Confirm Creation</button>
+      <button type="submit" *ngIf="modes.creation">Confirm Creation</button>
       <div *ngIf="modes.edition">
         <button type="submit">Update</button>
-        <button (click)="employeeDeletionMode()">Delete account</button>
-        <div *ngIf="modes.deletionConfirmation">
-          <label>Confirm ?</label>
-          <button (click)="onDeletionConfirmation()" value="confirmDeletion">Delete</button>
-          <button (click)="onDeletionConfirmation()" value='cancelDeletion'>Cancel</button>
-        </div>
       </div>
       <button (click)="cancelEdition()">Cancel</button>
     </form>
+    <div *ngIf="modes.edition">
+      <button (click)="employeeDeletionMode()">Delete account</button>
+      <div *ngIf="modes.deletionConfirmation">
+        <label>Confirm ?</label>
+        <button (click)="onDeletionConfirmation($event)" value="confirmDeletion">Delete</button>
+        <button (click)="onDeletionConfirmation($event)" value='cancelDeletion'>Cancel</button>
+      </div>
+    </div>
   </div>
 </div>
 
