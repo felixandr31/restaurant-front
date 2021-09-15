@@ -1,10 +1,12 @@
-<div>
-  <button> List of stocks </button>
-</div>
+<h2 class="title"> List of stocks </h2>
 
-<div *ngFor="let stock of stocks ; let i = index">
-  <label >{{stock.ingredient.name }} {{stock.quantity}} {{stock.ingredient.purchasePrice}} </label>
 
- <!-- <button (click)="restaurantSelected($event)" [value]="resto.id">Select</button>-->
-
+<div class="stocks">
+  <div *ngFor="let stock of stocks ; let i = index" class="stock-card">
+    <p class="name">
+      {{stock.ingredient.name }}
+    </p>
+    <p class="quantity">qty: {{stock.quantity}} </p>
+    <p class="purchase-price">price: {{stock.ingredient.purchasePrice}} &euro;</p>
+  </div>
 </div>
