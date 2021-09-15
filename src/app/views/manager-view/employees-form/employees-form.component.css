@@ -1,0 +1,17 @@
+#content {
+  margin-top: 30px;
+  margin-left: 100px;
+  display: flex;
+  flex-flow: column nowrap;
+}
+
+.formGroup {
+  display: flex;
+  flex-flow: column nowrap;
+  margin: 5px
+}
+
+
+.logForm > form > div > button {
+  margin: .2em .5em .5em .5em;
+}
