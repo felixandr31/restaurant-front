@@ -7,8 +7,10 @@ import { Component, OnInit, Input, Output, EventEmitter, SimpleChanges, OnChange
 })
 export class EmployeesListComponent implements OnInit, OnChanges {
 
-  @Input() employees: any[];
+  // @Input() employees: any[];
+  @Input() managerRestaurant: any;
   @Output() onEmployeeSelection = new EventEmitter()
+  public employees: any[];
 
   constructor() {
   }
@@ -18,14 +20,18 @@ export class EmployeesListComponent implements OnInit, OnChanges {
   };
 
   ngOnInit() {
-
+    this.refreshEmployees(this.managerRestaurant)
   }
 
   ngOnChanges(changes: SimpleChanges) {
-
+    if(changes.managerRestaurant){
+      this.refreshEmployees(this.managerRestaurant)
+    }
   }
 
-
+refreshEmployees(managerRestaurant){
+  this.employees = managerRestaurant.employees
+}
 
 
 }

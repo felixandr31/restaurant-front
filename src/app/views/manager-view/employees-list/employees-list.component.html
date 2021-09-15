@@ -1,5 +1,5 @@
 <div class="employee-list">
-  <select (change)="employeeSelection($event)" required>
+  <select (change)="employeeSelection($event)" required class="select">
     <option selected disabled>Select Employee</option>
     <option *ngFor="let employee of employees" [value]="employee.id">{{employee.firstName}} {{employee.lastName}}</option>
   </select>

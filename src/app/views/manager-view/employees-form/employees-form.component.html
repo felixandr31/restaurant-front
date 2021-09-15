@@ -2,33 +2,34 @@
   <button *ngIf="managerRestaurant.employees.length" (click)="ToggleEdit()">EDITION</button>
   <button (click)="ToggleCreate()">CREATION</button>
 </div>
-<div *ngIf="modes.edition || modes.creation" class="edit">
-  <app-employees-list *ngIf="modes.edition" [employees]="employees" (onEmployeeSelection)="employeeSelection($event)">
+<div *ngIf="modes.edition || modes.creation" class="logForm">
+  {{modes.selectedMode}}
+  <app-employees-list *ngIf="modes.edition" [managerRestaurant]="managerRestaurant" (onEmployeeSelection)="employeeSelection($event)">
+  <!-- <app-employees-list *ngIf="modes.edition" [employees]="employees" (onEmployeeSelection)="employeeSelection($event)"> -->
   </app-employees-list>
-  <div *ngIf="isSelectedEmployee">
-    {{modes.selectedMode}}
-    <form [formGroup]="form" (ngSubmit)="onSubmit()">
-      <div>
+  <div >
+    <form *ngIf="isSelectedEmployee" [formGroup]="form" (ngSubmit)="onSubmit()">
+      <div class="formGroup">
         <label>First name: </label>
         <input name="firstName" formControlName="firstName">
       </div>
-      <div>
+      <div class="formGroup">
         <label>Last name: </label>
         <input name="lastName" formControlName="lastName">
       </div>
-      <div *ngIf="modes.creation">
+      <div *ngIf="modes.creation" class="formGroup">
         <label>Password: </label>
         <input name="lastName" formControlName="password">
       </div>
-      <div>
+      <div class="formGroup">
         <label>email: </label>
         <input name="lastName" formControlName="email">
       </div>
-      <div>
+      <div class="formGroup">
         <label for="cook">Cook</label>
         <input type="checkbox" id="cook" [checked]="cookChecked" formControlName="Cook">
       </div>
-      <div>
+      <div class="formGroup">
         <label for="waiter">Waiter </label>
         <input type="checkbox" id="waiter" [checked]="waiterChecked" formControlName="Waiter">
       </div>
@@ -37,9 +38,9 @@
       <div *ngIf="modes.edition">
         <button type="submit">Update</button>
       </div>
-      <button (click)="cancelEdition()">Cancel</button>
     </form>
-    <div *ngIf="modes.edition">
+    <button (click)="cancelEdition()">Cancel</button>
+    <div *ngIf="isSelectedEmployee && modes.edition">
       <button (click)="employeeDeletionMode()">Delete account</button>
       <div *ngIf="modes.deletionConfirmation">
         <label>Confirm ?</label>
