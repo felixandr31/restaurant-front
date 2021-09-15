@@ -17,7 +17,7 @@ export class RestaurantService {
     return this.http.get(url, {observe: 'response'});
   }
 
-  getRestaurantById(id) {
+  getRestaurantById(id: String) {
     const url = this.url + 'restaurantsid/' + id
     return this.http.get(url, {observe: 'response'});
   }
@@ -43,4 +43,8 @@ export class RestaurantService {
   }
 
  
+  removeRecipeToRestaurant(restaurantId, recipeIds: any){
+    const url = this.url + 'removerecipes/' + restaurantId;
+    return this.http.delete(url, recipeIds);
+  }
 }
