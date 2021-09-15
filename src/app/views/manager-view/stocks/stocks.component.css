@@ -1,0 +1,48 @@
+:host {
+  display: grid;
+  grid-template: 80px 1fr / 1fr;
+  grid-template-areas: "title"
+  "stocks";
+  height: calc(100vh -.5em);
+  width: 100%;
+  align-items: center;
+}
+
+.title {
+  grid-area: title;
+  text-align: center;
+}
+
+.stocks {
+  grid-area: stocks;
+  display: flex;
+  flex-flow: column wrap;
+  padding: 1em 2em;
+  height: 100%;
+  width: auto;
+}
+
+.stock-card {
+  display: grid;
+  height: 50px;
+  grid-template: 1fr / 45% 25% 30%;
+  grid-template-areas: "name quantity purchasePrice";
+  align-items: flex-start;
+  justify-content: flex-start;
+  max-width: 350px;
+  border: 1px solid black;
+  margin: .2em;
+}
+
+.name {
+  grid-area: name;
+  padding-left: .3em;
+}
+
+.quantity {
+  grid-area: quantity;
+}
+
+.purchase-price {
+  grid-area: purchasePrice;
+}
