@@ -42,9 +42,10 @@ import { MAT_DATE_LOCALE, MatNativeDateModule } from '@angular/material/core';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { RestaurantsListComponent } from './views/admin-view/components/restaurants-list/restaurants-list.component';
 import { HorizontalMenuComponent } from './views/admin-view/components/horizontal-menu/horizontal-menu.component';
-import { FormTestComponent } from './views/manager-view/employees-form/form-test/form-test.component';
+import { StocksComponent } from './views/manager-view/stocks/stocks.component';
 
-
+import { TableformComponent } from './views/waiter-view/tableform/tableform.component';
+import { BookformComponent } from './views/waiter-view/bookform/bookform.component';
 
 @NgModule({
   declarations: [
@@ -80,7 +81,12 @@ import { FormTestComponent } from './views/manager-view/employees-form/form-test
     DateSelectorComponent,
     RestaurantsListComponent,
     HorizontalMenuComponent,
-    FormTestComponent,
+    StocksComponent,
+
+    TableformComponent,
+    
+    BookformComponent,
+
 
   ],
   imports: [

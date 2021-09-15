@@ -10,8 +10,10 @@
   <p>Recipes view</p>
 </div>
 <div *ngIf="showSubView === 'stocks'" class="stocks-view">
-  <p>Stocks view</p>
+<!--<app-restaurants-list [restaurants]="restaurants" (onRestaurantSelection)="restaurantSelected($event)"></app-restaurants-list> -->
+<!-- <app-stocks [managerRestaurant]="managerRestaurant"></app-stocks>-->
+  <app-stocks [stocks]="stocks"></app-stocks>
 </div>
 <div *ngIf="showSubView === 'employees'" class="employees-view">
-  <app-employees-form [user]="user" [managerRestaurant]="managerRestaurant"></app-employees-form>
+  <app-employees-form [user]="user" [managerRestaurant]="managerRestaurant" (onRestaurantModifications)="reloadRestaurant()"></app-employees-form>
 </div>
