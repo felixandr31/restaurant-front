@@ -36,8 +36,7 @@ export class SetrecipeformComponent implements OnInit {
    }
 
   ngOnInit() {
-    console.log("la recette to set",this.recipeToSet)
-    console.log("la recette to set", this.recipeToSet)
+    // console.log("la recette to set", this.recipeToSet)
     this.dynamicForm = this.formBuilder.group(this.groupValidator);
     this.cookService.getAllIngredient().subscribe(
       data => {
@@ -56,21 +55,21 @@ export class SetrecipeformComponent implements OnInit {
         this.recipeToSet.ingredientsRecipe.map(recipe1 => {
           console.log("truc sur la recette", recipe1)
           const index = this.ingredientsToDisplay.findIndex(recipe2 => {
-            console.log("recipe1", recipe1);
-            console.log("recipe2", recipe2);
+            // console.log("recipe1", recipe1);
+            // console.log("recipe2", recipe2);
             return recipe1.ingredient.id == recipe2.ingredient.id
           })
-          console.log("je vais le modifier index ",this.ingredientsToDisplay[index] )
+          // console.log("je vais le modifier index ",this.ingredientsToDisplay[index] )
           this.ingredientsToDisplay[index].quantity = recipe1.quantity
           this.ingredientsForRecipe[this.ingredientsToDisplay[index].ingredient.name] = {"ingredient": this.ingredientsToDisplay[index].ingredient, "quantity": recipe1.quantity}
-          console.log("lindex", index)
+          // console.log("lindex", index)
 
         })
 
-        console.log("after map", this.ingredientsToDisplay)
+        // console.log("after map", this.ingredientsToDisplay)
         // this.ingredientsToDisplay = data.body.map()
         this.ingredients = data.body
-        console.log("data ingredient", data.body)
+        // console.log("data ingredient", data.body)
 
       },
       err => {
@@ -113,15 +112,15 @@ export class SetrecipeformComponent implements OnInit {
     // console.log("queries", queries)
     forkJoin(queries).subscribe(
       data => {
-        console.log('u forkJoin ?', data)
+        // console.log('u forkJoin ?', data)
         data.map( request => {
           tabIngredientRecipe.push(request.body)
         })
-        console.log("after map", tabIngredientRecipe)
+        // console.log("after map", tabIngredientRecipe)
 
         this.cookService.addIngredientRecipeToRecipe(this.recipeToSet.id, tabIngredientRecipe).subscribe(
           data => {
-            console.log("vive la france", data)
+            // console.log("vive la france", data)
             this.toggleToCreateRecipe();
           },
           err => {
@@ -154,6 +153,7 @@ export class SetrecipeformComponent implements OnInit {
     };
     this.restaurantService.removeRecipeToRestaurant(this.restaurantId, options).subscribe(
       data => {
+        this.toggleToCreateRecipe();
       }
     );
     this.deletedRecipe.emit();
