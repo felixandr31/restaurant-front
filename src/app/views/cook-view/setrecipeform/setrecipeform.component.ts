@@ -16,14 +16,12 @@ export class SetrecipeformComponent implements OnInit {
   @Input() restaurantId: string;
   @Output() deletedRecipe = new EventEmitter();
   @Output() toggleCreateRecipe = new EventEmitter();
+  // @Output() refreshRecipe = new EventEmitter();
 
   dynamicForm: FormGroup;
   ingredients: any;
   ingredientsForRecipe: any = {};
-  emptyIngredientRecipe: any = {
-    quantity: 0,
-    ingredient: {}
-  }
+  ingredientsToDisplay: any[] = [];
   groupValidator = {
     quantity: [''],
   }
@@ -38,12 +36,41 @@ export class SetrecipeformComponent implements OnInit {
    }
 
   ngOnInit() {
+    console.log("la recette to set",this.recipeToSet)
     console.log("la recette to set", this.recipeToSet)
     this.dynamicForm = this.formBuilder.group(this.groupValidator);
     this.cookService.getAllIngredient().subscribe(
       data => {
+
+        Object.keys(data.body).map(key => {
+
+          let ingredientAndQuantity: any = {};
+          // console.log("inside map1", data.body[key])
+          // console.log("inside map2", this.ingredientsToDisplay)
+          ingredientAndQuantity["ingredient"] = data.body[key];
+          ingredientAndQuantity["quantity"] = 0;
+
+          this.ingredientsToDisplay.push(ingredientAndQuantity) 
+        })
+
+        this.recipeToSet.ingredientsRecipe.map(recipe1 => {
+          console.log("truc sur la recette", recipe1)
+          const index = this.ingredientsToDisplay.findIndex(recipe2 => {
+            console.log("recipe1", recipe1);
+            console.log("recipe2", recipe2);
+            return recipe1.ingredient.id == recipe2.ingredient.id
+          })
+          console.log("je vais le modifier index ",this.ingredientsToDisplay[index] )
+          this.ingredientsToDisplay[index].quantity = recipe1.quantity
+          this.ingredientsForRecipe[this.ingredientsToDisplay[index].ingredient.name] = {"ingredient": this.ingredientsToDisplay[index].ingredient, "quantity": recipe1.quantity}
+          console.log("lindex", index)
+
+        })
+
+        console.log("after map", this.ingredientsToDisplay)
+        // this.ingredientsToDisplay = data.body.map()
         this.ingredients = data.body
-        console.log("data ingredient", data)
+        console.log("data ingredient", data.body)
 
       },
       err => {
@@ -54,6 +81,7 @@ export class SetrecipeformComponent implements OnInit {
 
   onSubmit() {
     // this.submitted = true;
+    console.log('before request', this.ingredientsForRecipe)
     if(this.dynamicForm.invalid) {
       return ;
     }
@@ -61,12 +89,9 @@ export class SetrecipeformComponent implements OnInit {
 
     this.updateIngredientRecipe();
     
-
-
-
-
     //   this.updateRecipeRelationToIngredient();
     //   this.editCreateRelation()
+    
     this.onReset();
   }
 
@@ -97,6 +122,7 @@ export class SetrecipeformComponent implements OnInit {
         this.cookService.addIngredientRecipeToRecipe(this.recipeToSet.id, tabIngredientRecipe).subscribe(
           data => {
             console.log("vive la france", data)
+            this.toggleToCreateRecipe();
           },
           err => {
             console.log("err", err)
@@ -104,46 +130,6 @@ export class SetrecipeformComponent implements OnInit {
         )
       }
     )
-    
-    // for (let keyIngredientForRecipe in this.ingredientsForRecipe){
-    //   let ingredientRecipeToSend: any = this.emptyIngredientRecipe;
-    //   console.log("ingreRecipeafter key", this.ingredientsForRecipe[keyIngredientForRecipe])
-    //   ingredientRecipeToSend  = this.emptyIngredientRecipe;
-    //   ingredientRecipeToSend["ingredient"] = this.ingredientsForRecipe[keyIngredientForRecipe].ingredient;
-    //   ingredientRecipeToSend["quantity"] = this.ingredientsForRecipe[keyIngredientForRecipe].quantity;
-    //   console.log("before send", ingredientRecipeToSend)
-
-
-      // this.cookService.createIngredientRecipe(ingredientRecipeToSend).subscribe(
-      //   data => {
-      //     console.log("try 1", this.recipeToSet.id)
-      //     console.log("try 2", data.body)
-      //     const listIngredientRecipe: any[] = [data.body];
-      //     console.log("list ingredient to send", listIngredientRecipe)
-      //     this.cookService.addIngredientRecipeToRecipe(this.recipeToSet.id, listIngredientRecipe).subscribe(
-      //       data => {
-      //         console.log("final data", data)
-      //       },
-      //       err => {
-      //         console.log('erreur', err)
-      //       }
-      //     )
-      //   }
-      // )
-    // }
-
-  }
-
-  adaptClosure(ingKey) {
-    let ingredientRecipeToSend: any = {
-      quantity: 0,
-      ingredient: {}
-    };
-    ingredientRecipeToSend["ingredient"] = this.ingredientsForRecipe[ingKey].ingredient;
-    ingredientRecipeToSend["quantity"] = this.ingredientsForRecipe[ingKey].quantity;
-    console.log("ing", ingKey)
-    console.log(ingredientRecipeToSend)
-    return this.cookService.createIngredientRecipe(ingredientRecipeToSend)
 
   }
 
@@ -171,6 +157,10 @@ export class SetrecipeformComponent implements OnInit {
       }
     );
     this.deletedRecipe.emit();
+  }
+
+  refreshData(){
+
   }
 
 }
