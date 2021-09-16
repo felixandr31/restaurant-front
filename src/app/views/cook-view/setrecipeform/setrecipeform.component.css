@@ -26,6 +26,7 @@ h1 {
 	font-size: 20px;
 	font-weight: bold;
 	text-transform: uppercase;
+	height: 75px;
 }
 
 input, button {

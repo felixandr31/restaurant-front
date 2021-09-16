@@ -20,7 +20,6 @@ export class RecipeformComponent implements OnInit {
     craftingPrice: 5,
     sellingPrice: 6,
     ingredientRecipe: {
-
     }
 
 
@@ -57,7 +56,6 @@ export class RecipeformComponent implements OnInit {
         const tabId: String[]  = [newRecipe.id];
         this.restaurantService.addRecipeToRestaurant(this.restaurantId, tabId).subscribe(
           data => {
-            // console.log(data);
             this.refreshRecipesAfterSubmit.emit();
           },
           err => {

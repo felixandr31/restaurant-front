@@ -15,11 +15,7 @@ export class CookViewComponent implements OnInit {
   public restaurant: any;
   public restaurantRecipes: any;
   public isCreatingRecipe: boolean = true;
-  //public recipeToSet: Categories.Recipe;
   public recipeToSet: any;
-
-  // constructor(private commandsService: CommandsService) {
-  // }
 
   constructor(private cookService: CookService, private restaurantService: RestaurantService) {
   }
@@ -29,24 +25,18 @@ export class CookViewComponent implements OnInit {
   }
 
   refreshRecipes() {
-    console.log("test");
     this.cookService.getRecipeByRestaurant(this.fakeRestaurantId).subscribe(
       data => {
-        console.log("data", data)
         this.restaurant = data.body;
         this.restaurantRecipes = this.restaurant.recipes;
-        console.log("les recettes", this.restaurantRecipes)
       },
       err => {
         console.log('erreur', err)
       }
     )
-
-
   }
 
   onRecipeButtonClick(recipe){
-    this.refreshRecipes();
     this.isCreatingRecipe = false
     this.recipeToSet = recipe;
   }
