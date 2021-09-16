@@ -121,7 +121,6 @@ export class SetrecipeformComponent implements OnInit {
       this.ingredientsToDisplay[index].quantity = recipe1.quantity
       this.ingredientsForRecipe[this.ingredientsToDisplay[index].ingredient.name] = { "ingredient": this.ingredientsToDisplay[index].ingredient, "quantity": recipe1.quantity }
     })
-
   }
 
 
@@ -153,5 +152,4 @@ export class SetrecipeformComponent implements OnInit {
     this.dynamicForm.reset()
     this.ingredientsForRecipe = []
   }
-
 }
