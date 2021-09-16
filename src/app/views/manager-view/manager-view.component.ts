@@ -13,7 +13,7 @@ export class ManagerViewComponent implements OnInit {
   @Input() user: any;
 
 
-  public managerRestaurant: any;
+  // public managerRestaurant: any;
   public stocks: any;
 
   constructor(private restaurantService: RestaurantService) {
@@ -22,8 +22,6 @@ export class ManagerViewComponent implements OnInit {
   ngOnInit() {
     this.showSubView = 'homePage';
     const managerRestaurantId = ["6131c91756aac85ca96e1197"]
-
-
 
     this.restaurantService.getStocks().subscribe(
       data => {
@@ -34,14 +32,14 @@ export class ManagerViewComponent implements OnInit {
         console.log('erreur', err)
       }
     )
-    this.reloadRestaurant();
+    // this.reloadRestaurant();
   }
 
-  reloadRestaurant() {
-    return this.restaurantService.getRestaurantById(this.user.restaurantId).subscribe(
-      data => {
-        this.managerRestaurant = Object.assign({}, data.body)
-        console.log('reload restaurant: ', this.managerRestaurant)
-      })
-  }
+  // reloadRestaurant() {
+  //   return this.restaurantService.getRestaurantById(this.user.restaurantId).subscribe(
+  //     data => {
+  //       this.managerRestaurant = Object.assign({}, data.body)
+  //       console.log('reload restaurant: ', this.managerRestaurant)
+  //     })
+  // }
 }
