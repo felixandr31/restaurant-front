@@ -1,6 +1,4 @@
 import { Component, OnInit, Input, OnChanges, Output, EventEmitter } from '@angular/core';
-import { RoleService } from 'src/app/services/data/role.service';
-import { UserService } from 'src/app/services/data/user.service';
 import { RestaurantService } from 'src/app/services/data/restaurant.service';
 import { BookingService } from 'src/app/services/data/booking.service';
 
@@ -56,7 +54,6 @@ export class ClientViewComponent implements OnInit, OnChanges {
   }
 
   restaurantSelected(event) {
-    console.log('restaurant selected ?', event, event.name)
     if (event.name) {
       this.restaurant = event;
     } else {
@@ -84,13 +81,11 @@ export class ClientViewComponent implements OnInit, OnChanges {
   itemAdded(event) {
     this.addToBill(event);
     this.bill = this.bill.slice(0) // {...this.bill} Object.assign({}, this.bill) JSON.parse(JSON.stingify(this.bill)) (ou voir avec lodash : cloneDeep())
-    console.log('la facture après slice', this.bill)
   }
 
   itemRemoved(event) {
     this.removeFromBill(event);
     this.bill = this.bill.slice(0)
-    console.log('la facture après slice', this.bill)
   }
 
   addToBill(item) {
