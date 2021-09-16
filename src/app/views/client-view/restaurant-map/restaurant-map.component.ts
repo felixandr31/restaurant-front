@@ -23,7 +23,7 @@ L.Marker.prototype.options.icon = iconDefault;
   templateUrl: './restaurant-map.component.html',
   styleUrls: ['./restaurant-map.component.css']
 })
-export class RestaurantMapComponent implements  OnChanges {
+export class RestaurantMapComponent implements OnChanges, AfterViewInit {
 
   private restaurantEmissionRef: Subscription = null;
 
@@ -43,26 +43,26 @@ export class RestaurantMapComponent implements  OnChanges {
   }
 
   @Input() restaurants: any;
-  @Input() restaurant: any;
   @Output() onRestaurantSelection = new EventEmitter();
 
   constructor(private markerService: MarkerService) { }
 
   ngOnChanges() {
-    console.log('on change')
     if (!this.map) {
       this.initMap();
-      this.markerService.makeRestaurantMarker(this.map, this.restaurants);
-      console.log('map init')
     }
     if (this.map) {
-      console.log('list of restaurants updated')
       this.markerService.makeRestaurantMarker(this.map, this.restaurants);
     }
+  }
+
+  ngAfterViewInit() {
+    this.restaurantEmissionRef = this.markerService.restaurantEmitted$.subscribe(event => {
+      this.onRestaurantSelection.emit(event);
+    })
   }
 
   ngOnDestroy() {
-    if (this.restaurantEmissionRef) {this.restaurantEmissionRef.unsubscribe()};
+    if (this.restaurantEmissionRef) { this.restaurantEmissionRef.unsubscribe() };
   }
-
 }

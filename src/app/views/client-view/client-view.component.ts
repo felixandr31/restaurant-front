@@ -56,6 +56,7 @@ export class ClientViewComponent implements OnInit, OnChanges {
   }
 
   restaurantSelected(event) {
+    console.log('restaurant selected ?', event, event.name)
     if (event.name) {
       this.restaurant = event;
     } else {
@@ -82,7 +83,7 @@ export class ClientViewComponent implements OnInit, OnChanges {
 
   itemAdded(event) {
     this.addToBill(event);
-    this.bill = this.bill.slice(0) // {...this.bill} JSON.parse(JSON.stingify(this.bill)) (ou voir avec lodash : cloneDeep())
+    this.bill = this.bill.slice(0) // {...this.bill} Object.assign({}, this.bill) JSON.parse(JSON.stingify(this.bill)) (ou voir avec lodash : cloneDeep())
     console.log('la facture après slice', this.bill)
   }
 
