@@ -48,8 +48,6 @@ export class DateSelectorComponent implements OnInit {
         day: dayOfVenue,
         hour: this.form.value.hour
       }
-
-      console.log('date selector event', dayTime)
       this.onDateSelection.emit(dayTime)
     }
   }

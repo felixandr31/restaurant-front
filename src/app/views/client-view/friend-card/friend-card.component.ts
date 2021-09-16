@@ -18,6 +18,5 @@ export class FriendCardComponent implements OnInit {
 
   removeFriend(event) {
     this.onFriendRemoval.emit(event.target.value);
-    console.log('amis à enlever', event.target.value)
   }
 }

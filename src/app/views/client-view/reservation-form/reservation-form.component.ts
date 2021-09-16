@@ -47,9 +47,7 @@ export class ReservationFormComponent implements OnInit, OnChanges {
   ngOnChanges() {
     this.clients.push(this.user)
     this.user.friends.forEach(friend => this.clients.push(friend))
-    console.log('le client et ses amis (change)', this.clients)
     this.tables = this.restaurant.tables
-    console.log('les tables du resto', this.tables)
   }
 
   get f() { return this.form.controls; }
@@ -96,20 +94,16 @@ export class ReservationFormComponent implements OnInit, OnChanges {
           if (this.bookingsAtTime.length) {
             const occupiedPlaces = this.bookingsAtTime.reduce((acc, booking) => {
               acc = acc + booking.clients.length
-              console.log('acc :', acc)
               return acc
             }, 0)
             const vacant = table.capacity - occupiedPlaces
             table = { ...table, vacant: vacant }
             this.tablesAtTime.push(table)
             this.maxPlaces < table.vacant ?  this.maxPlaces = table.vacant : this.maxPlaces = this.maxPlaces
-            console.log('booking object', this.bookingsAtTime)
-            console.log('maxPlaces', this.maxPlaces)
           } else {
             const vacant = table.capacity
             this.tablesAtTime.push({...table, vacant : vacant})
             this.maxPlaces < table.capacity ?  this.maxPlaces = table.capacity : this.maxPlaces = this.maxPlaces
-            console.log('maxPlaces', this.maxPlaces)
           }
         })
     })
@@ -119,13 +113,11 @@ export class ReservationFormComponent implements OnInit, OnChanges {
     const sortedTables = tables.filter(table => clients <= parseInt(table.vacant))
       .sort((a, b) => parseInt(a.vacant) - parseInt(b.vacant)
       );
-      // console.log('bestTable', sortedTables.shift())
     return sortedTables.shift()
   }
 
   placeReservation() {
     const bestTable = this.selectBestTable(this.form.value.clients.length, this.tablesAtTime);
-    console.log('best table after call to select bestTable in placeresa', bestTable)
     let clients = this.user.friends.filter(friend => {
       return this.form.value.clients.map(e => e.name).includes(friend.id)
     })
@@ -137,14 +129,11 @@ export class ReservationFormComponent implements OnInit, OnChanges {
       orders: [],
       clients: clients
     }
-    console.log('Registering Reservation for', booking)
     this.bookingService.postBooking(booking).subscribe(
       (data: any) => {
-        console.log('response', data)
         const res = data.body
         this.userService.addBooking(this.user.id, res.id).subscribe(
           data => {
-            console.log('data after adding booking to user', data.body)
             this.onBookingPlaced.emit()
           }
         )
