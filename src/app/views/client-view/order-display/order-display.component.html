@@ -1,9 +1,15 @@
+<h2>{{user.firstName}} {{user.lastName}}</h2>
 <h3>Ordered items</h3>
-<div *ngFor="let item of bill">
-  <p><b>{{item.name}}:</b> ({{item.quantity}}) = {{item.sellingPrice}} &euro;</p>
+<div *ngFor="let item of bill" class="order-item">
+  <p class="name"><b>{{item.name}}:</b></p>
+  <p class="billing">
+    ({{item.quantity}}) = {{item.sellingPrice}} &euro;
+  </p>
 </div>
 
-<button *ngIf="!orderSent; else greyButton" (click)="sendOrderToKitchen()">Send order</button>
-<ng-template #greyButton>
-  <button disabled>Order sent</button>
-</ng-template>
+<div>
+  <button *ngIf="!orderSent; else greyButton" (click)="sendOrderToKitchen()">Send order</button>
+  <ng-template #greyButton>
+    <button disabled>Order sent</button>
+  </ng-template>
+</div>
