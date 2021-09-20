@@ -20,14 +20,20 @@ export class FriendsListComponent implements OnInit {
   }
 
   ngOnChanges() {
-    const queries = this.user.friends.map(friendId => this.userService.getUserById(friendId))
-    forkJoin(queries).subscribe(res => {
-      this.friends = res.map((res: any )=> res.body)
-    })
+    if (this.user.friends.length) {
+      const queries = this.user.friends.map(friendId => this.userService.getUserById(friendId))
+      forkJoin(queries).subscribe(res => {
+        this.friends = res.map((res: any )=> res.body)
+        console.log("friends in list", this.friends)
+      })
+    }
+    else {
+      this.friends = []
+    }
   }
 
   removeFriend(event) {
-    const friendId = [event]
+    const friendId = event
     this.userService.removeFriend(this.user.id, friendId)
       .subscribe(data => {
         this.onFriendRemoval.emit(event)
