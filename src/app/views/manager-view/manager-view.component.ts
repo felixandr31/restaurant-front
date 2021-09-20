@@ -1,5 +1,4 @@
 import { Component, OnInit, Input, Output } from '@angular/core';
-import { RouterLink } from '@angular/router';
 import { RestaurantService } from 'src/app/services/data/restaurant.service';
 import { IngredientService } from 'src/app/services/data/ingredient.service';
 
@@ -13,8 +12,6 @@ export class ManagerViewComponent implements OnInit {
   @Input() showSubView: any;
   @Input() user: any;
 
-
-  public managerRestaurant: any;
   public stocks: any;
   public ingredients : any;
 
