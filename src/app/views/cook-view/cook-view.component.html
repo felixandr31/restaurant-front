@@ -12,7 +12,12 @@
             <div>
                 <h3>Your recipes</h3>
             </div>
-            <button *ngFor="let recipe of restaurantRecipes" class="slide_from_left" (click)="onRecipeButtonClick(recipe)">{{recipe.name}}</button>
+            <div [className]="isChargingRecipe ? 'item' : 'display-none'">
+                <i class="loader"></i>
+            </div>
+            <div [className]="isChargingRecipe ? 'display-none' : '' ">
+                <button *ngFor="let recipe of restaurantRecipes" class="slide_from_left" (click)="onRecipeButtonClick(recipe)">{{recipe.name}}</button>
+            </div>
         </div>
     </div>
     <div style="overflow: auto;"></div>

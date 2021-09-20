@@ -2,20 +2,18 @@ import { Component, OnInit, Input, SimpleChanges, OnChanges, Output, EventEmitte
 import { FormGroup, FormBuilder, FormControl, FormArray, Validators, EmailValidator } from '@angular/forms';
 import { UserService } from 'src/app/services/data/user.service';
 import { RestaurantService } from 'src/app/services/data/restaurant.service';
+import { RoleService } from 'src/app/services/data/role.service';
 
 @Component({
   selector: 'app-employees-form',
   templateUrl: './employees-form.component.html',
   styleUrls: ['./employees-form.component.css']
 })
-export class EmployeesFormComponent implements OnInit, OnChanges {
+export class EmployeesFormComponent implements OnInit {
 
   @Input() user: any;
-  @Input() managerRestaurant: any;
-  @Output() onRestaurantModifications = new EventEmitter()
 
-  // public employees: any[];
-
+  public managerRestaurant: any;
   public defaultFormValues = {
     firstName: '',
     lastName: '',
@@ -30,70 +28,49 @@ export class EmployeesFormComponent implements OnInit, OnChanges {
     ],
     friends: [],
     bookings: []
-  }
-
+  };
+  public isRestaurantEmployees: boolean;
   public selectedEmployee: any;
   public isSelectedEmployee = false;
-  private savedEmployee: any;
   public form: FormGroup;
-
   public cookChecked = false;
   public waiterChecked = false;
-  private availableRoles = [
-    {
-      id: "61309cb8009435126fc70797",
-      name: "Cook"
-    },
-    {
-      id: "61309cbf009435126fc70798",
-      name: "Manager"
-    },
-    {
-      id: "6130b6b5e25faf67217a59e1",
-      name: "Cleaner"
-    },
-    {
-      id: "6130edd210df7d5b224df808",
-      name: "Friend"
-    },
-    {
-      id: "613721c67f57fb321327b627",
-      name: "Client"
-    },
-    {
-      id: "613721cc7f57fb321327b628",
-      name: "Admin"
-    },
-    {
-      id: "613721e07f57fb321327b629",
-      name: "Waiter"
-    }
-  ]
-
+  private availableRoles: any;
   public modes = {
     "edition": false,
     "deletionConfirmation": false,
     "creation": false,
     "selectedMode": ''
-  }
-
-
+  };
 
   constructor(private formBuilder: FormBuilder,
-    private userService: UserService, private restaurantService: RestaurantService, ) { }
+    private userService: UserService, private restaurantService: RestaurantService, private roleService: RoleService ) { }
 
   ngOnInit() {
-    // this.availableRoles = this.roleServices...
-    this.resetSelectedEmployee();
-    this.createForms();
+    this.refreshRestaurant()
+    this.resetSelectedEmployee()
+    this.createForms()
+    this.refreshRoles()
   }
 
-  ngOnChanges() {
-    this.managerRestaurant = { ...this.managerRestaurant }
-    // this.employees = this.managerRestaurant.employees
+  refreshRestaurant() {
+    this.restaurantService.getRestaurantById(this.user.restaurantId).subscribe(
+      data => {
+        this.managerRestaurant = data.body
+        this.displayList();
+      }
+    )
   }
 
-  // créé tous les champs requis, remplis firstName et lastName avec selectedEmployee mais ne coche pas les checkboxs
+  refreshRoles() {
+    this.roleService.getRoles().subscribe(
+      data => {
+        this.availableRoles = data.body
+      }
+    )
+  }
+
+  // create required fields and fill with selectedEmployee data, checkboxs are not updated here but with updateRolesCheckbox()
   createForms() {
     this.form = this.formBuilder.group({
       firstName: ['', Validators.required],
@@ -106,6 +83,7 @@ export class EmployeesFormComponent implements OnInit, OnChanges {
   }
 
   resetSelectedEmployee() {
+    // spread operator allow to clone selectedEmployee in a new object and to avoid direct modification of employees (because of filter use)
     this.selectedEmployee = { ...this.defaultFormValues }
   }
 
@@ -124,11 +102,10 @@ export class EmployeesFormComponent implements OnInit, OnChanges {
   }
 
   employeeSelection(event) {
-    this.selectedEmployee = this.managerRestaurant.employees.find(employee => employee.id === event)
+    // spread operator allow to clone selectedEmployee in a new object and to avoid direct modification of employees (because of filter use)
+    this.selectedEmployee = { ...this.managerRestaurant.employees.find(employee => employee.id === event) }
     this.updateForm();
     this.isSelectedEmployee = true
-    this.modes.edition = true;
-    this.modes.creation = false;
   }
 
   // Update roles with selected employee values, not with form values !
@@ -147,35 +124,9 @@ export class EmployeesFormComponent implements OnInit, OnChanges {
     })
   }
 
-  createEmployee() {
-    // Write in DBB
-    this.userService.postUser(this.formToJson()).subscribe(
-      data => {
-        console.log("data: ", data)
-        const newEmployee: any = data.body
-        // Update Restaurant employee list
-        this.restaurantService.addUserToRestaurant(this.managerRestaurant.id, [newEmployee.id]).subscribe(
-          data => {
-            console.log(data.body)
-          },
-          err => {
-            console.log('err', err)
-          }
-        )
-      },
-      err => {
-        console.log('err: ', err)
-      }
-    )
-    this.reloadRestaurant()
-    this.cancelEdition();
-    alert('Employee created!')
-  }
-
   formToJson() {
-    // spread operator allow to copy selectedEmployee and to avoid direct modification of selectedEmployee (because of filter use)
-    let employee = { ...this.selectedEmployee }
-    // remove Cook and Waiter roles
+    var employee = { ...this.selectedEmployee }
+    // remove Cook and Waiter roles (to fill them after with )
     employee.roles = employee.roles.filter(role => {
       if (role.name === 'Cook' || role.name === 'Waiter') {
         return false
@@ -184,21 +135,28 @@ export class EmployeesFormComponent implements OnInit, OnChanges {
         return true
       }
     })
+
     // update employee fields with form values
     for (const key in this.form.value) {
+      // Add roles Cook or Waiter to employee
+      switch (key) {
+        case 'Waiter':
+          if (this.form.value[key]) {
+            employee.roles.push(this.availableRoles.find(role =>
+              role.name === key))
+          }
+          break;
+        case 'Cook':
+          if (this.form.value[key]) {
+            employee.roles.push(this.availableRoles.find(role =>
+              role.name === key))
+          }
+          break;
+      }
+      // Update last fields
       for (const k in employee) {
         if (key === k) {
           employee[k] = this.form.value[k]
-        }
-      }
-
-      // Add roles Cook or Waiter to employee
-      if (key === 'Cook' || key === 'Waiter') {
-        if (this.form.value[key]) {
-          employee.roles.push(this.availableRoles.find(role =>
-            role.name === key))
-        }
-        else {
         }
       }
     }
@@ -206,11 +164,40 @@ export class EmployeesFormComponent implements OnInit, OnChanges {
     return employee;
   }
 
+  createEmployee() {
+    // Write in DBB
+    this.userService.postUser(this.formToJson()).subscribe(
+      data => {
+        const newEmployee: any = data.body
+        // Update Restaurant employee list
+        this.restaurantService.addUsersToRestaurant(this.managerRestaurant.id, [newEmployee.id]).subscribe(
+          data => {
+            this.refreshRestaurant()
+          }
+        )
+      }
+    )
+    this.cancelEdition();
+    // alert('Employee created!')
+  }
+
   updateEmployee() {
     const employee = this.formToJson();
-    const rolesIdsToRemove = ["61309cb8009435126fc70797", "613721e07f57fb321327b629"]
-    // Build array of roles Cook or Waiter to add
-    console.log('employee.roles: ', employee.roles)
+    // const rolesIdsToRemove = ["61309cb8009435126fc70797", "613721e07f57fb321327b629"]
+    var rolesIdsToRemove = Object.assign([], this.availableRoles.filter(role => {
+      switch (role.name) {
+        case 'Waiter':
+          return true;
+        case 'Cook':
+          return true;
+        default:
+          return false
+      }
+    }).map(role => {
+        return role.id
+      }))
+
+    // Build array of roles Cook or Waiter to add because request need an array of role ids
     var roleIds = Object.assign([], employee.roles.filter(role => {
       switch (role.name) {
         case 'Waiter':
@@ -223,38 +210,28 @@ export class EmployeesFormComponent implements OnInit, OnChanges {
     }).map(role => {
       return role.id
     }))
-    console.log('roleIds: ', roleIds)
+
     // Update user in DB
     this.userService.updateUser(employee.id, employee).subscribe(
       data => {
-        var employee2: any = { ...data.body }
-        // Update user roles in DB
-        this.userService.removeRoles(employee2.id, rolesIdsToRemove).subscribe(
+        // Update user roles in DB: remove then add
+        this.userService.removeRoles(employee.id, rolesIdsToRemove).subscribe(
           data => {
-            var employee3: any = { ...data.body }
+            // Add roles only if needed
             if (roleIds.length > 0) {
-              this.userService.addRoles(employee3.id, roleIds).subscribe(
+              this.userService.addRoles(employee.id, roleIds).subscribe(
                 data => {
-                  console.log('finalUser: ', data.body)
+                  this.refreshRestaurant();
                 }
               )
             } else {
-              console.log('no roles to add: ', employee3)
-
-              // return
+              this.refreshRestaurant();
             }
           }
         )
       }
     )
-    // this.reloadRestaurant()
-    // this.cancelEdition()
-  }
-
-  cancelEdition() {
-    this.resetSelectedEmployee();
-    this.updateForm();
-    this.resetModes();
+    this.cancelEdition();
   }
 
   employeeDeletionMode() {
@@ -262,22 +239,32 @@ export class EmployeesFormComponent implements OnInit, OnChanges {
   }
 
   onDeletionConfirmation(event) {
-    const employee = { ...this.selectedEmployee }
+    const employee: any = { ...this.selectedEmployee }
     const confirmDeletion = event.target.value
-    console.log('confirmDeletion: ', confirmDeletion)
+    const options = {
+      body:
+        [employee.id]
+      ,
+    };
     if (confirmDeletion === "confirmDeletion") {
-      console.log('deletion !')
-      this.userService.deleteUser(employee.id).subscribe(
+      this.restaurantService.removeUsersFromRestaurant(this.managerRestaurant.id, options).subscribe(
         data => {
-          console.log(data.body)
+          this.userService.deleteUser(employee.id).subscribe(
+            data => {
+              this.refreshRestaurant()
+            }
+          )
         }
       )
     }
-    console.log('deletion done or cancelled')
     this.modes.deletionConfirmation = false
-
-    this.reloadRestaurant();
     this.cancelEdition();
+  }
+
+  cancelEdition() {
+    this.resetSelectedEmployee();
+    this.updateForm();
+    this.resetModes();
   }
 
   resetModes() {
@@ -287,22 +274,27 @@ export class EmployeesFormComponent implements OnInit, OnChanges {
   }
 
   ToggleEdit() {
-    this.isSelectedEmployee = false;
+    this.isSelectedEmployee = false
     this.modes.selectedMode = 'EDITION'
     this.modes.edition = !this.modes.edition
     this.modes.creation = false
   }
   ToggleCreate() {
+    this.isSelectedEmployee = true
     this.modes.selectedMode = 'CREATION'
     this.modes.creation = !this.modes.creation
     this.modes.edition = false
     this.resetSelectedEmployee();
-    this.isSelectedEmployee = true
     this.updateForm();
   }
 
-  reloadRestaurant() {
-    this.onRestaurantModifications.emit()
+
+  displayList() {
+    if (this.managerRestaurant.employees.length > 0) {
+      this.isRestaurantEmployees = true
+    } else {
+      this.isRestaurantEmployees = false
+    }
   }
 
 }
