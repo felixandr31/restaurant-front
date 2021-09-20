@@ -44,7 +44,7 @@ export class GuestViewComponent implements OnInit {
       password: ['', Validators.required],
       roles: new FormArray([
         this.formBuilder.group({
-          id: ['613721c67f57fb321327b627', Validators.required],
+          id: ['6148531aa6b2d07fe12c9833', Validators.required],
           name: ['Client', Validators.required],
         })
       ]),
@@ -61,10 +61,8 @@ export class GuestViewComponent implements OnInit {
 
     this.userService.realLogin(credentials).subscribe(
       data => {
-        console.log('log in data', data)
         if (data.status == OK) {
           this.user = data.body
-          console.log('user', this.user)
           this.onLogIn.emit(this.user)
         }
       }
@@ -77,22 +75,14 @@ export class GuestViewComponent implements OnInit {
   }
 
   signIn() {
-    console.log('form values: ', this.signInGroup.value)
-    // alert(this.signInGroup.status)
-
     const newUser = this.signInGroup.value
-    console.log('newUser', newUser)
 
     this.userService.postUser(newUser).subscribe(
       data => {
         const res = Object.assign({}, data.body);
         this.user = {...res}
-        console.log(this.user)
         alert("user created, please log in with your credentials")
         this.toggleSignIn()
-
-        // login not working yet
-        // this.userService.login(this.user.lastName, this.user.password)
       },
       err => {
         console.log('error', err)

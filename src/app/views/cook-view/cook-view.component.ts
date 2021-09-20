@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, ViewChild, ElementRef } from '@angular/core';
 import { CookService } from 'src/app/services/data/cook.service';
 import { RestaurantService } from 'src/app/services/data/restaurant.service';
 
@@ -15,38 +15,31 @@ export class CookViewComponent implements OnInit {
   public restaurant: any;
   public restaurantRecipes: any;
   public isCreatingRecipe: boolean = true;
-  //public recipeToSet: Categories.Recipe;
   public recipeToSet: any;
-
-  // constructor(private commandsService: CommandsService) {
-  // }
+  public isChargingRecipe: boolean = false; 
 
   constructor(private cookService: CookService, private restaurantService: RestaurantService) {
   }
 
   ngOnInit() {
-    this.refreshRecipes()
+    this.refreshRecipes();
   }
 
   refreshRecipes() {
-    console.log("test");
+    this.isChargingRecipe = true;
     this.cookService.getRecipeByRestaurant(this.fakeRestaurantId).subscribe(
       data => {
-        console.log("data", data)
         this.restaurant = data.body;
         this.restaurantRecipes = this.restaurant.recipes;
-        console.log("les recettes", this.restaurantRecipes)
+        this.isChargingRecipe = false;
       },
       err => {
         console.log('erreur', err)
       }
     )
-
-
   }
 
   onRecipeButtonClick(recipe){
-    this.refreshRecipes();
     this.isCreatingRecipe = false
     this.recipeToSet = recipe;
   }
@@ -54,6 +47,5 @@ export class CookViewComponent implements OnInit {
   toggleRecipe(){
     this.isCreatingRecipe = !this.isCreatingRecipe
     this.refreshRecipes();
-
   }
 }
