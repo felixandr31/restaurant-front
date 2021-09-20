@@ -9,15 +9,15 @@ export class StockService {
     throw new Error('Method not implemented.');
   }
   private url = 'http://localhost:8080/backend-filrouge/stock/'
-  
+
   constructor(private http: HttpClient) {}
-  
+
   getStocks() {
     const url = this.url + 'stocks'
     return this.http.get(url, {observe: 'response'});
- }
+  }
 
- createStock(stock){
+  createStock(stock){
   const url = this.url + 'create'
   return this.http.post(url, stock, {observe: 'response'});
 }
