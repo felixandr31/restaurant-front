@@ -29,7 +29,6 @@ export class EmployeesFormComponent implements OnInit, OnChanges {
       },
     ],
     friends: [],
-    restaurants: [],
     bookings: []
   }
 
