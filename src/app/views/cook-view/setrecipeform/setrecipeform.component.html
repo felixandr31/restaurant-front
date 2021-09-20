@@ -1,11 +1,7 @@
 <form id="recipe-form" [formGroup]="dynamicForm" (ngSubmit)="onSubmit()">
   <button class='reset-button left' (click)="toggleToCreateRecipe()">Create Recipe</button>
   <button class='delete-button right' (click)="deleteRecipe()">Delete Recipe</button>
-  <h1>Set my recipe: </h1>
-  <!-- <div *ngFor="let ingredient of ingredients" class="form-group">
-    <label>{{ingredient.name}}</label>
-    <input type="number" formControlName='quantity' class='form-control' (change)="onIngredientQuantityChange(ingredient, $event)" min="0" max="10"> 
-  </div> -->
+  <h1 class='large-title'>Set my recipe: {{recipeToSet.name}}</h1>
    <div *ngFor="let ingredient of ingredientsToDisplay" class="form-group">
     <label>{{ingredient.ingredient.name}}</label>
     <input type="number" formControlName='quantity' class='form-control' value={{ingredient.quantity}} (change)="onIngredientQuantityChange(ingredient.ingredient, $event)" min="0" max="10">
@@ -13,5 +9,4 @@
   <div class="footer-form">
     <button id='submit'>Set my recipe Recipe</button>
   </div>
-  
 </form>

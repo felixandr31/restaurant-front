@@ -14,7 +14,7 @@ export class EmployeesFormComponent implements OnInit, OnChanges {
   @Input() managerRestaurant: any;
   @Output() onRestaurantModifications = new EventEmitter()
 
-  public employees: any[];
+  // public employees: any[];
 
   public defaultFormValues = {
     firstName: '',
@@ -90,7 +90,8 @@ export class EmployeesFormComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges() {
-    this.employees = this.managerRestaurant.employees
+    this.managerRestaurant = { ...this.managerRestaurant }
+    // this.employees = this.managerRestaurant.employees
   }
 
   // créé tous les champs requis, remplis firstName et lastName avec selectedEmployee mais ne coche pas les checkboxs
@@ -106,7 +107,7 @@ export class EmployeesFormComponent implements OnInit, OnChanges {
   }
 
   resetSelectedEmployee() {
-    this.selectedEmployee = {...this.defaultFormValues}
+    this.selectedEmployee = { ...this.defaultFormValues }
   }
 
   updateForm() {
@@ -124,7 +125,7 @@ export class EmployeesFormComponent implements OnInit, OnChanges {
   }
 
   employeeSelection(event) {
-    this.selectedEmployee = this.employees.find(employee => employee.id === event)
+    this.selectedEmployee = this.managerRestaurant.employees.find(employee => employee.id === event)
     this.updateForm();
     this.isSelectedEmployee = true
     this.modes.edition = true;
@@ -175,7 +176,6 @@ export class EmployeesFormComponent implements OnInit, OnChanges {
   formToJson() {
     // spread operator allow to copy selectedEmployee and to avoid direct modification of selectedEmployee (because of filter use)
     let employee = { ...this.selectedEmployee }
-
     // remove Cook and Waiter roles
     employee.roles = employee.roles.filter(role => {
       if (role.name === 'Cook' || role.name === 'Waiter') {
@@ -185,7 +185,6 @@ export class EmployeesFormComponent implements OnInit, OnChanges {
         return true
       }
     })
-
     // update employee fields with form values
     for (const key in this.form.value) {
       for (const k in employee) {
@@ -212,33 +211,45 @@ export class EmployeesFormComponent implements OnInit, OnChanges {
     const employee = this.formToJson();
     const rolesIdsToRemove = ["61309cb8009435126fc70797", "613721e07f57fb321327b629"]
     // Build array of roles Cook or Waiter to add
-    var roleIds = employee.roles.filter(role => {
-      if (role.name === 'Cook' || role.name === 'Waiter') {
-        return true
-      } else {
-        return false
+    console.log('employee.roles: ', employee.roles)
+    var roleIds = Object.assign([], employee.roles.filter(role => {
+      switch (role.name) {
+        case 'Waiter':
+          return true;
+        case 'Cook':
+          return true;
+        default:
+          return false
       }
     }).map(role => {
       return role.id
-    })
+    }))
+    console.log('roleIds: ', roleIds)
     // Update user in DB
     this.userService.updateUser(employee.id, employee).subscribe(
       data => {
-        console.log('updateUser: ', data.body)
         var employee2: any = { ...data.body }
         // Update user roles in DB
         this.userService.removeRoles(employee2.id, rolesIdsToRemove).subscribe(
           data => {
-            if (roleIds.length) {
-              var employee3: any = { ...data.body }
-              this.userService.addRoles(employee3.id, roleIds).subscribe()
+            var employee3: any = { ...data.body }
+            if (roleIds.length > 0) {
+              this.userService.addRoles(employee3.id, roleIds).subscribe(
+                data => {
+                  console.log('finalUser: ', data.body)
+                }
+              )
+            } else {
+              console.log('no roles to add: ', employee3)
+
+              // return
             }
           }
         )
       }
     )
-    this.reloadRestaurant()
-    this.cancelEdition()
+    // this.reloadRestaurant()
+    // this.cancelEdition()
   }
 
   cancelEdition() {

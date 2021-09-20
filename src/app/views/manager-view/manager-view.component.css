@@ -16,9 +16,9 @@
   "menu menu reservation";
   gap: .5em .5em;
 }
-.stocks-view {
+/* .stocks-view {
 
-}
+} */
 .employees-view {
     height: 100%;
     display: flex;
