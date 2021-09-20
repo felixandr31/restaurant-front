@@ -61,7 +61,7 @@ export class AppComponent {
         const res = Object.values(data.body)
         const user = res.find(user => user.id === this.user.id)
         console.log('user refreshed', user)
-        return this.user = Object.assign(user)
+        return this.user = Object.assign({}, user)
       }
     )
   }
