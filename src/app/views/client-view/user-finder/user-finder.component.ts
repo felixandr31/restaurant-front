@@ -1,5 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter, OnChanges } from '@angular/core';
 import { UserService } from 'src/app/services/data/user.service';
+import { forkJoin } from 'rxjs';
 
 @Component({
   selector: 'app-user-finder',
@@ -27,12 +28,22 @@ export class UserFinderComponent implements OnInit, OnChanges {
   }
 
   findNotFriendedUsers(user) {
-    const friends = user.friends;
-    let list = []
     this.userService.getUsers().subscribe(
       data => {
         const res = Object.values(data.body)
-        return this.notFriends = res.filter(person => person.id != user.id && !friends.map(f => f.id).includes(person.id))
+        console.log('res1', res)
+        if (this.user.friends.length) {
+          const queries = user.friends.map(friendId => this.userService.getUserById(friendId))
+          forkJoin(queries).subscribe((data: any) => {
+            const friends = data.map(data => data.body)
+            console.log('friends', friends)
+            console.log('res & data', res, data)
+            return this.notFriends = res.filter(person => person.id != user.id && !friends.map(f => f.id).includes(person.id))
+          })
+        }
+        else {
+          return this.notFriends = res.filter(person => person.id != user.id)
+        }
       }
     )
   }
