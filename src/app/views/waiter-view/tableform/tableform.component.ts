@@ -77,7 +77,7 @@ export class TableformComponent implements OnInit {
     )
   }
   isDisplay(){
-    this.isDisplayTable = !this.isDisplayTable    
+     this.isDisplayTable = !this.isDisplayTable    
   }
 
 
