@@ -33,11 +33,11 @@
       </div>
 
       <button type="submit" *ngIf="modes.creation">Confirm Creation</button>
-      <div *ngIf="modes.edition">
+      <div *ngIf="modes.edition && !modes.deletionConfirmation">
         <button type="submit">Update</button>
       </div>
     </form>
-    <button (click)="cancelEdition()">Cancel</button>
+    <button *ngIf="!modes.deletionConfirmation" (click)="cancelEdition()">Cancel</button>
     <div *ngIf="isSelectedEmployee && modes.edition">
       <button (click)="employeeDeletionMode()">Delete account</button>
       <div *ngIf="modes.deletionConfirmation">

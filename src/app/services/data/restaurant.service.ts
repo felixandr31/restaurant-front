@@ -37,11 +37,6 @@ export class RestaurantService {
     return this.http.post(url, userId, {observe: 'response'});
   }
 
-  removeUsersFromRestaurant(restaurantId, userIds: any){
-    const url = this.url + 'removeusers/' + restaurantId
-    return this.http.delete(url, userIds);
-  }
-
   addStockToRestaurant(restaurantId, stockId: Set<String>){
     const url = this.url + 'addstocks' + restaurantId
     return this.http.post(url, stockId, {observe: 'response'});
@@ -60,6 +55,11 @@ export class RestaurantService {
   addTableToRestaurant(restaurantId, tableId: String[]){
     const url = this.url + 'addtables/' + restaurantId
     return this.http.post(url, tableId, {observe: 'response'});
+  }
+
+  removeUsersFromRestaurant(restaurantId: string, userIds: any){
+    const url = this.url + 'removeusers/' + restaurantId
+    return this.http.delete(url, userIds);
   }
 
   removeRecipeToRestaurant(restaurantId, recipeIds: any){
