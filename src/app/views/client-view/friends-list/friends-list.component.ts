@@ -1,5 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { UserService } from 'src/app/services/data/user.service';
+import { forkJoin } from 'rxjs';
 
 @Component({
   selector: 'app-friends-list',
@@ -19,14 +20,17 @@ export class FriendsListComponent implements OnInit {
   }
 
   ngOnChanges() {
-    this.friends = this.user.friends
+    const queries = this.user.friends.map(friendId => this.userService.getUserById(friendId))
+    forkJoin(queries).subscribe(res => {
+      this.friends = res.map((res: any )=> res.body)
+    })
   }
 
   removeFriend(event) {
     const friendId = [event]
     this.userService.removeFriend(this.user.id, friendId)
-    .subscribe(data => {
-      this.onFriendRemoval.emit(event)
-    })
+      .subscribe(data => {
+        this.onFriendRemoval.emit(event)
+      })
   }
 }

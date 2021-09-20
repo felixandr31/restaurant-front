@@ -15,6 +15,11 @@ private url = 'http://localhost:8080/backend-filrouge/user/'
     return this.http.get(url, {observe: 'response'});
   }
 
+  getUserById(id) {
+    const url = this.url + 'users/' + id
+    return this.http.get(url, {observe: 'response'})
+  }
+
   postUser(user: any) {
     const url = this.url + 'create'
     return this.http.post(url, user, {observe: 'response'});
