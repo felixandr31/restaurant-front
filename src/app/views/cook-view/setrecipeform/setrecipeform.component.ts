@@ -14,7 +14,7 @@ export class SetrecipeformComponent implements OnInit {
 
   @Input() recipeToSet: any;
   @Input() restaurantId: string;
-  @Output() deletedRecipe = new EventEmitter();
+  // @Output() deletedRecipe = new EventEmitter();
   @Output() toggleCreateRecipe = new EventEmitter();
 
   dynamicForm: FormGroup;
@@ -145,7 +145,7 @@ export class SetrecipeformComponent implements OnInit {
         this.toggleToCreateRecipe();
       }
     );
-    this.deletedRecipe.emit();
+
   }
 
   onReset() {
