@@ -14,25 +14,24 @@ import { error } from 'util';
   styleUrls: ['./waiter-view.component.css']
 })
 export class WaiterViewComponent implements OnInit, OnChanges {
-  fakeRestaurantId: string = "613885d5841a951be1274a9a";
 
   public restaurant: any;
   public restaurantTables: any = []
   public tablesBooking: any;
   private bookingsAtTime = []
-  @Input() restaurantId: String;
+  public restaurantId: String;
   @Input() user: any;
 
   private today = new Date()
-  
+
 
 
 
   public reservationDate = {
-    day: this.today.getFullYear()+'-'+(this.today.getMonth()+1)+'-'+this.today.getDate()
-    
+    day: this.today.getFullYear() + '-' + (this.today.getMonth() + 1) + '-' + this.today.getDate()
+
   }
-  
+
   public todaysBookings: any = []
 
   //public isCreatingRecipe: boolean = true;
@@ -41,36 +40,38 @@ export class WaiterViewComponent implements OnInit, OnChanges {
   constructor(private bookingService: BookingService, private tableService: TableService, private restaurantService: RestaurantService, private cookSevice: CookService) { }
 
 
-  ngOnInit(){
+  ngOnInit() {
   }
 
   ngOnChanges() {
     console.log('onchanges user', this.user)
     this.showTables()
+    this.restaurantId = this.user.restaurantId
+    console.log('resto ID', this.restaurantId)
     console.log('bookings and tables ?', this.todaysBookings.length && this.restaurantTables.length)
     if (!this.todaysBookings.length && this.restaurantTables.length) {
-    this.loadTodayBooking()
-    this.onDateSelected(this.reservationDate.day)
-    console.log('tables booking', this.todaysBookings)
+      this.loadTodayBooking()
+      this.onDateSelected(this.reservationDate.day)
+      console.log('tables booking', this.todaysBookings)
     }
   }
 
-  onDateSelected(event){
+  onDateSelected(event) {
     this.todaysBookings = []
     this.reservationDate = event
     this.restaurantTables.forEach(table => {
       this.bookingService.getBookingByTable(table.id).subscribe(
-        (data: any)=>{
+        (data: any) => {
           this.tablesBooking = data.body
           console.log(this.tablesBooking)
           this.tablesBooking.forEach(booking => {
             console.log("booking", booking)
-            if (booking.day.substring(0,10) == this.reservationDate.day) {
-              this.todaysBookings.push(booking)              
+            if (booking.day.substring(0, 10) == this.reservationDate.day) {
+              this.todaysBookings.push(booking)
             }
           });
         }
-      )  
+      )
     });
   }
 
@@ -88,18 +89,18 @@ export class WaiterViewComponent implements OnInit, OnChanges {
     )
   }
 
-  loadTodayBooking(){
+  loadTodayBooking() {
     this.restaurantTables.forEach(table => {
       this.bookingService.getBookingByTable(table.id).subscribe(
-        (data: any)=>{
+        (data: any) => {
           this.tablesBooking = data.body
           console.log(this.tablesBooking)
           this.tablesBooking.forEach(booking => {
             console.log("booking", booking)
-            
+
           });
         }
-      )  
+      )
     });
 
   }
