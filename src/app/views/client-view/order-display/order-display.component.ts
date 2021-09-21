@@ -16,14 +16,24 @@ export class OrderDisplayComponent implements OnInit, OnChanges {
   @Input() user: any;
 
   public orderSent: boolean = false;
+  public orderTotal: number = 0;
 
   constructor(private orderService: OrderService,
     private bookingService: BookingService) { }
 
   ngOnChanges(changes: SimpleChanges) {
+    this.computeTotal(this.bill);
   }
 
   ngOnInit() {
+  }
+
+  computeTotal(bill: any) {
+    this.orderTotal = bill.reduce((acc, val) => {
+      acc += (val.item.sellingPrice * val.quantity)
+      return acc
+    }, 0)
+    console.log(this.orderTotal)
   }
 
   sendOrderToKitchen() {
