@@ -25,4 +25,8 @@ export class BookingService {
     return this.http.get(url, {observe: 'response'})
   }
 
+  public addOrderByIds(bookingId, orderIds) {
+    const url = this.url + 'addorders/' + bookingId
+    return this.http.post(url, orderIds, {observe: 'response'})
+  }
 }

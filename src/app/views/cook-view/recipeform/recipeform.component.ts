@@ -32,9 +32,8 @@ export class RecipeformComponent implements OnInit {
     private formBuilder: FormBuilder,
     private cookService: CookService,
     private restaurantService: RestaurantService
-     ) {
-    
-   }
+    ) {
+  }
 
   ngOnInit() {
     this.dynamicForm = this.formBuilder.group(this.groupValidator)
@@ -46,7 +45,7 @@ export class RecipeformComponent implements OnInit {
     if(this.dynamicForm.invalid) {
       return ;
     }
-    let newRecipe = { ...this.emptyRecipe, 
+    let newRecipe = { ...this.emptyRecipe,
       name: this.dynamicForm.controls.name.value
     }
 
@@ -61,14 +60,12 @@ export class RecipeformComponent implements OnInit {
           err => {
             console.log('erreur', err)
           }
-        )    
+        )
       },
       err => {
         console.log('erreur', err)
       }
     )
-
-    
 
     this.onReset()
   }
@@ -77,6 +74,4 @@ export class RecipeformComponent implements OnInit {
     this.submitted = false;
     this.dynamicForm.reset()
   }
-
-
 }
