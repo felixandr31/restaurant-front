@@ -6,6 +6,9 @@
     ({{item.quantity}}) = {{item.item.sellingPrice * item.quantity}} &euro;
   </p>
 </div>
+<div>
+  <p>Total: {{orderTotal}} &euro;</p>
+</div>
 
 <div>
   <button *ngIf="!orderSent; else greyButton" (click)="sendOrderToKitchen()">Send order</button>
