@@ -46,6 +46,8 @@ import { StocksComponent } from './views/manager-view/stocks/stocks.component';
 
 import { TableformComponent } from './views/waiter-view/tableform/tableform.component';
 import { BookformComponent } from './views/waiter-view/bookform/bookform.component';
+import { SelectBookingComponent } from './views/waiter-view/select-booking/select-booking.component';
+
 
 @NgModule({
   declarations: [
@@ -82,10 +84,11 @@ import { BookformComponent } from './views/waiter-view/bookform/bookform.compone
     RestaurantsListComponent,
     HorizontalMenuComponent,
     StocksComponent,
-
     TableformComponent,
-    
     BookformComponent,
+    SelectBookingComponent,
+    
+ 
 
 
   ],

@@ -14,7 +14,10 @@
 
 </div>
 
+
+
  <div class="bookings">
+  <app-select-booking (onDateSelection)="onDateSelected($event)"></app-select-booking>
   <p>Booking</p>
   <table>
     <thead>
@@ -23,28 +26,28 @@
           table
         </th>
         <th >
-          Day
+          Date
         </th>
         <th >
           Hour
         </th>
       </tr>
     </thead>
-    <tbody *ngFor="let table of tablesBooking">
-      <tr  *ngFor="let booking of table">
+    <tbody  >
+      <tr *ngFor = "let booking of todaysBookings" >
         <td >
           {{booking.table.name}}
         </td>
         <td >
-          {{booking.day}}
+          {{booking.day.substring(0,10)}}
         </td>
         <td >
-         {{booking.hour}}
+          {{booking.hour}}
         </td>
       </tr>
     </tbody>
   </table>
- </div>
+  </div>
 
 
 
