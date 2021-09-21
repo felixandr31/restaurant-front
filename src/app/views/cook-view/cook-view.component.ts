@@ -9,25 +9,32 @@ import { RestaurantService } from 'src/app/services/data/restaurant.service';
 })
 export class CookViewComponent implements OnInit {
 
-  @Input() restaurantId: string;
+  @Input() user: any;
 
-  private fakeRestaurantId: string = "613885d5841a951be1274a9a";
+  public restaurantId: any;
   public restaurant: any;
   public restaurantRecipes: any;
   public isCreatingRecipe: boolean = true;
   public recipeToSet: any;
-  public isChargingRecipe: boolean = false; 
+  public isChargingRecipe: boolean = false;
 
   constructor(private cookService: CookService, private restaurantService: RestaurantService) {
   }
 
   ngOnInit() {
+    if (this.restaurantId) {
+      this.refreshRecipes();
+    }
+  }
+
+  ngOnChanges() {
+    this.restaurantId = this.user.restaurantId;
     this.refreshRecipes();
   }
 
   refreshRecipes() {
     this.isChargingRecipe = true;
-    this.cookService.getRecipeByRestaurant(this.fakeRestaurantId).subscribe(
+    this.cookService.getRecipeByRestaurant(this.restaurantId).subscribe(
       data => {
         this.restaurant = data.body;
         this.restaurantRecipes = this.restaurant.recipes;

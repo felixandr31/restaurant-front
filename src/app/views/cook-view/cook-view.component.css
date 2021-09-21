@@ -1,9 +1,11 @@
 #recipes-page {
     position: relative;
     background-color: #ddd;
-    margin: 0.7rem;
+    height: 100%;
     height: calc(100vh - 1.4rem);
     width: calc(100% -1.4rem);
+    overflow: auto;
+    
 }
 
 #recipe-creation-form {

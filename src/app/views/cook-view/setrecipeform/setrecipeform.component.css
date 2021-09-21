@@ -3,6 +3,7 @@
 	margin: 0px  ;
 	padding: 30px;
 	padding-top: 70px;
+	padding-bottom: 60px;
 	background: #4D6879; /* You can change the main color of thew form here. */
 	font-size: 14px;
 	width:100%;
@@ -131,7 +132,7 @@ label {
 	right: 20px;
 }
 
-.reset-button:hover {
+.reset-button:hover, .delete-button:hover {
 	color: #ccc;
 	cursor: pointer;
 	opacity: 0.8;
