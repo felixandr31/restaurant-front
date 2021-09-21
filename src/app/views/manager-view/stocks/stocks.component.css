@@ -33,17 +33,7 @@
   border: 1px solid black;
   margin: .2em;
 }
-.ingredient-card {
-  display: grid;
-  height: 50px;
-  grid-template: 1fr / 45% 25% 30%;
-  grid-template-areas: "name quantity purchasePrice";
-  align-items: flex-start;
-  justify-content: flex-start;
-  max-width: 350px;
-  border: 1px solid black;
-  margin: .2em;
-}
+
 .name {
   grid-area: name;
   padding-left: .3em;

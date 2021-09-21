@@ -10,49 +10,52 @@ import { StockService } from 'src/app/services/data/stock.service';
   styleUrls: ['./stocks.component.css']
 })
 export class StocksComponent implements OnInit {
-//@Input() managerRestaurant: any;
-@Input() stocks: any;
+
+@Input() managerRestaurant: any;
 @Input() ingredients: any;
-//private stocks:any; 
-@Output() refreshTablesAfterSubmit = new EventEmitter()
-@Input() restaurantId;
-isDisplayIngredient = false;
 
-dynamicForm: FormGroup;
-submitted: boolean = false;
-restaurant: any;
+// @Output() refreshTablesAfterSubmit = new EventEmitter()
+// @Input() restaurantId;
+ isDisplayIngredient = false;
+ public stocks: any[]
 
-emptyStock: any = {
-  name: "",
-  capacity: ""
-}
+// dynamicForm: FormGroup;
+// submitted: boolean = false;
+// restaurant: any;
 
-groupValidator = {
-  name: ['', Validators.required],
-  quatity: ['', Validators.required],
-  purchasePrice: ['', Validators.required]
+// emptyStock: any = {
+//   name: "",
+//   capacity: ""
+// }
 
-}
-  isDisplayStock: boolean;
+// groupValidator = {
+//   name: ['', Validators.required],
+//   quatity: ['', Validators.required],
+//   purchasePrice: ['', Validators.required]
 
-constructor( private formBuilder: FormBuilder, private stockService: StockService, private ingredientService: IngredientService) { }
+// }
+//   isDisplayStock: boolean;
+
+constructor(private formBuilder: FormBuilder, private stockService: StockService, private ingredientService: IngredientService) { }
 
   ngOnInit() {
    //this.stocks = this.managerRestaurant.stocks
-   this.dynamicForm = this.formBuilder.group(this.groupValidator)
-  console.log(this.stocks)
+  //  this.dynamicForm = this.formBuilder.group(this.groupValidator)
+   this.stocks = Object.assign([], this.managerRestaurant.stocks)
+   //this.stocks = {...this.managerRestaurant.stocks}// spread operator
+   console.log(this.stocks)
   }
 
   onSubmit() {
-    this.submitted = true;
-    if (this.dynamicForm.invalid) {
-      return;
-    }
-    let newStock = {
-      ...this.emptyStock,
-      name: this.dynamicForm.controls.name.value,
-      quatity: parseInt(this.dynamicForm.controls.quatityty.value),
-      purchasePrice: parseInt(this.dynamicForm.controls.purchasePrice.value),
+    // this.submitted = true;
+    // if (this.dynamicForm.invalid) {
+    //   return;
+    // }
+    // let newStock = {
+    //   ...this.emptyStock,
+    //   name: this.dynamicForm.controls.name.value,
+    //   quatity: parseInt(this.dynamicForm.controls.quatityty.value),
+    //   purchasePrice: parseInt(this.dynamicForm.controls.purchasePrice.value),
     }
 
     // this.stockService.createStock(newStock).subscribe(
@@ -74,9 +77,8 @@ constructor( private formBuilder: FormBuilder, private stockService: StockServic
 
     // )
   //}
-  // isDisplay(){
-  //   this.isDisplayIngredient = !this.isDisplayIngredient    
-  // }
+  isDisplay(){
+    this.isDisplayIngredient = !this.isDisplayIngredient    
+ }
 
-}
 }

@@ -1,0 +1,6 @@
+<div class="select">
+<select (change)="selectIngredient($event)" >
+  <option>Select ingredient</option>
+  <option *ngFor="let ingredient of ingredients">{{ingredient.name}}</option>
+</select>
+</div>

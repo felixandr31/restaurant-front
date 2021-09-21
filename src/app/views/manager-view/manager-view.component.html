@@ -12,12 +12,12 @@
 <div *ngIf="showSubView === 'stocks'" class="stocks-view">
 
 <!-- <app-stocks [managerRestaurant]="managerRestaurant"></app-stocks>-->
-  <app-stocks [ingredients]="ingredients"></app-stocks>
+  <app-stocks [managerRestaurant]="managerRestaurant"></app-stocks>
 </div>
 <div *ngIf="showSubView === 'employees'" class="employees-view">
-<<<<<<< HEAD
-  <app-employees-form [user]="user" [managerRestaurant]="managerRestaurant" ></app-employees-form>
-=======
+
+  <!-- <app-employees-form [user]="user" [managerRestaurant]="managerRestaurant" ></app-employees-form> -->
+
   <app-employees-form [user]="user"></app-employees-form>
->>>>>>> a28cbee25020fabd0c2be16f9961b078e1188c5f
+
 </div>
