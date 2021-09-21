@@ -8,6 +8,7 @@ import { RestaurantService } from 'src/app/services/data/restaurant.service';
 })
 export class AdminViewComponent implements OnInit {
 
+  @Input() user: any;
   @Input() showSubView: any;
   @Input() availableRoles: any;
 

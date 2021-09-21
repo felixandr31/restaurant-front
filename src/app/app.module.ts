@@ -91,8 +91,8 @@ import { UserFormComponent } from './views/admin-view/components/user-form/user-
     SelectBookingComponent,
     RestaurantFormComponent,
     UserFormComponent,
-    
- 
+
+
 
 
   ],

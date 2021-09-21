@@ -50,14 +50,13 @@ export class EmployeesFormComponent implements OnInit {
     this.refreshRestaurant()
     this.resetSelectedEmployee()
     this.createForms()
-    // this.refreshRoles()
   }
 
   refreshRestaurant() {
     this.restaurantService.getRestaurantById(this.user.restaurantId).subscribe(
       data => {
         this.managerRestaurant = data.body
-        this.displayList();
+        this.enableEdition();
       }
     )
   }
@@ -281,7 +280,7 @@ export class EmployeesFormComponent implements OnInit {
   }
 
 
-  displayList() {
+  enableEdition() {
     if (this.managerRestaurant.employees.length > 0) {
       this.isRestaurantEmployees = true
     } else {
