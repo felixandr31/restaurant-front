@@ -24,6 +24,6 @@
   <app-choose-menu [restaurant]="restaurantReservation" [bill]="bill" class="resa-menu"
   (onItemAdded)="itemAdded($event)"
   (onItemRemoved)="itemRemoved($event)"></app-choose-menu>
-  <app-order-display [user]="user"
+  <app-order-display [user]="user" [booking]="currentBooking"
   [bill]="bill" class="order"></app-order-display>
 </div>

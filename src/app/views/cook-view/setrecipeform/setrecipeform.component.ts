@@ -14,7 +14,7 @@ export class SetrecipeformComponent implements OnInit {
 
   @Input() recipeToSet: any;
   @Input() restaurantId: string;
-  @Output() deletedRecipe = new EventEmitter();
+  // @Output() deletedRecipe = new EventEmitter();
   @Output() toggleCreateRecipe = new EventEmitter();
 
   dynamicForm: FormGroup;
@@ -49,7 +49,6 @@ export class SetrecipeformComponent implements OnInit {
         })
 
         this.recipeToSet.ingredientsRecipe.map(recipe1 => {
-          console.log("truc sur la recette", recipe1)
           const index = this.ingredientsToDisplay.findIndex(recipe2 => {
             return recipe1.ingredient.id == recipe2.ingredient.id
           })
@@ -145,7 +144,7 @@ export class SetrecipeformComponent implements OnInit {
         this.toggleToCreateRecipe();
       }
     );
-    this.deletedRecipe.emit();
+
   }
 
   onReset() {
