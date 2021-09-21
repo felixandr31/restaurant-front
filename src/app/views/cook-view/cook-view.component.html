@@ -1,10 +1,10 @@
 
 <div id="recipes-page">
     <div id="recipe-creation-form" class="tv">
-        <app-recipeform *ngIf="isCreatingRecipe" (refreshRecipesAfterSubmit)="refreshRecipes()" [restaurantId]="fakeRestaurantId"></app-recipeform>
+        <app-recipeform *ngIf="isCreatingRecipe" (refreshRecipesAfterSubmit)="refreshRecipes()" [restaurantId]="restaurantId"></app-recipeform>
         <!-- <app-setrecipeform *ngIf="!isCreateRecipe" [recipeToSet]="recipeToSet" (deletedRecipe)="refreshRecipes()" (toggleMaVar)=" isCreateRecipe = !isCreateRecipe"></app-setrecipeform> -->
-        
-        <app-setrecipeform *ngIf="!isCreatingRecipe" [recipeToSet]="recipeToSet" [restaurantId]="fakeRestaurantId" (toggleCreateRecipe)="toggleRecipe()"></app-setrecipeform>
+
+        <app-setrecipeform *ngIf="!isCreatingRecipe" [recipeToSet]="recipeToSet" (deletedRecipe)="refreshRecipes()" [restaurantId]="restaurantId" (toggleCreateRecipe)="toggleRecipe()"></app-setrecipeform>
 
     </div>
     <div id="existing-recipes" class="tv">
