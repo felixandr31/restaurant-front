@@ -49,7 +49,6 @@ export class SetrecipeformComponent implements OnInit {
         })
 
         this.recipeToSet.ingredientsRecipe.map(recipe1 => {
-          console.log("truc sur la recette", recipe1)
           const index = this.ingredientsToDisplay.findIndex(recipe2 => {
             return recipe1.ingredient.id == recipe2.ingredient.id
           })

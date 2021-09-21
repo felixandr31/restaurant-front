@@ -40,8 +40,7 @@ export class RecipeformComponent implements OnInit {
   }
 
   onSubmit() {
-    // console.log("dynamec", this.dynamicForm.controls)
-    this.submitted = true;
+    // this.submitted = true;
     if(this.dynamicForm.invalid) {
       return ;
     }
@@ -71,7 +70,7 @@ export class RecipeformComponent implements OnInit {
   }
 
   onReset() {
-    this.submitted = false;
+    // this.submitted = false;
     this.dynamicForm.reset()
   }
 }
