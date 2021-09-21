@@ -45,4 +45,9 @@ export class CookService {
     const url: string = this.url + 'update/' + recipeId 
     return this.http.put(url, newRecipe, { observe: 'response' })
   }
+
+  public createIngredient(ingredient: any) {
+    const url: string = this.url + 'ingredient/create'
+    return this.http.put(url, ingredient, { observe: 'response' })
+  }
 }

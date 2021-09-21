@@ -32,6 +32,8 @@ export class ClientViewComponent implements OnInit, OnChanges {
   public itemToRemove = '';
   public bill = [];
 
+  private currentMenu = [];
+
   constructor(
     private restaurantService: RestaurantService,
     private bookingService: BookingService
@@ -68,6 +70,7 @@ export class ClientViewComponent implements OnInit, OnChanges {
         this.restaurantService.getRestaurantByTableId(this.currentBooking.table.id).subscribe(
           data => {
             this.restaurantReservation = data.body
+            this.currentMenu = this.restaurantReservation.recipes;
           }
         )
       }
@@ -89,23 +92,25 @@ export class ClientViewComponent implements OnInit, OnChanges {
   }
 
   addToBill(item) {
-    this.bill.find(line => line.name === item) ?
-      this.bill.filter(line => line.name === item).map(line => {
+    const recipe = this.currentMenu.find(line => line.name === item)
+    this.bill.find(line => line.item.name === item) ?
+      this.bill.filter(line => line.item.name === item).map(line => {
         // Est-ce bien le lieu ?
         line.quantity += 1
-        line.total = line.quantity * item.sellingPrice
-      console.log('la ligne avec un prix ?', line)}) :
-        // this.restaurantReservation.recipes[item]
-      this.bill.push({ name: item, quantity: 1 , total: parseInt(item.sellingPrice)});
+        console.log('la ligne avec un prix ?', line)
+      }) :
+      // this.restaurantReservation.recipes[item]
+      this.bill.push({ item: {...recipe}, quantity: 1 })
+    console.log('la facture', this.bill);
   }
 
   removeFromBill(item) {
     if (this.bill.length < 1
-      || !this.bill.find(it => it.name === item)
-      || this.bill.find(it => it.name === item && it.quantity < 1)) {
+      || !this.bill.find(it => it.item.name === item)
+      || this.bill.find(it => it.item.name === item && it.quantity < 1)) {
       return;
     } else {
-      this.bill.filter(line => line.name === item).map(line => line.quantity -= 1)
+      this.bill.filter(line => line.item.name === item).map(line => line.quantity -= 1)
     }
   }
 

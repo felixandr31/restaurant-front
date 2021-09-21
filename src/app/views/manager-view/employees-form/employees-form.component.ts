@@ -27,7 +27,6 @@ export class EmployeesFormComponent implements OnInit {
       },
     ],
     friends: [],
-    restaurants: [],
     bookings: []
   };
   public isRestaurantEmployees: boolean;
