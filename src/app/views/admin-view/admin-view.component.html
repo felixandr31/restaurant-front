@@ -1,12 +1,12 @@
 <div *ngIf="showSubView === 'restaurants'" class="restaurant-view">
-  <app-restaurants-list [restaurants]="restaurants" (onRestaurantSelection)="restaurantSelected($event)"></app-restaurants-list>
+  <app-restaurants-list [restaurants]="restaurants" (onRestaurantSelection)="selectRestaurant($event)"></app-restaurants-list>
 
   <div *ngIf="selectedRestaurant">
     <app-horizontal-menu (onItemSelection)="selectMenuItem($event)"></app-horizontal-menu>
 
-
     <div *ngIf="menuItem === 'restaurantEdition'">
       <p>Edition restaurant sélectionné (CRUD + budget...)</p>
+      <app-restaurant-form [restaurant]="selectedRestaurant"></app-restaurant-form>
     </div>
     <div *ngIf="menuItem === 'graphics'">
       <p>graph historique C.A. restaurant sélectionné</p>
@@ -19,6 +19,11 @@
     </div>
   </div>
 
+</div>
+
+<div *ngIf="showSubView === 'users'" class="users-view">
+  <p>Users view</p>
+  <app-user-form [availableRoles]="availableRoles"></app-user-form>
 </div>
 
 <div *ngIf="showSubView === 'simulations'" class="simulations-view">

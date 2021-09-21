@@ -12,6 +12,7 @@ import { RoleService } from 'src/app/services/data/role.service';
 export class EmployeesFormComponent implements OnInit {
 
   @Input() user: any;
+  @Input() availableRoles: any;
 
   public managerRestaurant: any;
   public defaultFormValues = {
@@ -35,7 +36,6 @@ export class EmployeesFormComponent implements OnInit {
   public form: FormGroup;
   public cookChecked = false;
   public waiterChecked = false;
-  private availableRoles: any;
   public modes = {
     "edition": false,
     "deletionConfirmation": false,
@@ -50,7 +50,7 @@ export class EmployeesFormComponent implements OnInit {
     this.refreshRestaurant()
     this.resetSelectedEmployee()
     this.createForms()
-    this.refreshRoles()
+    // this.refreshRoles()
   }
 
   refreshRestaurant() {
@@ -58,14 +58,6 @@ export class EmployeesFormComponent implements OnInit {
       data => {
         this.managerRestaurant = data.body
         this.displayList();
-      }
-    )
-  }
-
-  refreshRoles() {
-    this.roleService.getRoles().subscribe(
-      data => {
-        this.availableRoles = data.body
       }
     )
   }

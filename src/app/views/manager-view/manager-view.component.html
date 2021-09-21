@@ -15,5 +15,5 @@
   <app-stocks [ingredients]="ingredients"></app-stocks>
 </div>
 <div *ngIf="showSubView === 'employees'" class="employees-view">
-  <app-employees-form [user]="user"></app-employees-form>
+  <app-employees-form [user]="user" [availableRoles]="availableRoles"></app-employees-form>
 </div>

@@ -47,6 +47,8 @@ import { StocksComponent } from './views/manager-view/stocks/stocks.component';
 import { TableformComponent } from './views/waiter-view/tableform/tableform.component';
 import { BookformComponent } from './views/waiter-view/bookform/bookform.component';
 import { SelectBookingComponent } from './views/waiter-view/select-booking/select-booking.component';
+import { RestaurantFormComponent } from './views/admin-view/components/restaurant-form/restaurant-form.component';
+import { UserFormComponent } from './views/admin-view/components/user-form/user-form.component';
 
 
 @NgModule({
@@ -87,6 +89,8 @@ import { SelectBookingComponent } from './views/waiter-view/select-booking/selec
     TableformComponent,
     BookformComponent,
     SelectBookingComponent,
+    RestaurantFormComponent,
+    UserFormComponent,
     
  
 

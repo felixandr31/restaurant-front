@@ -1,0 +1,6 @@
+<div class="role-list">
+  <select (change)="roleSelection($event)" required class="select">
+    <option selected disabled>Select role</option>
+    <option *ngFor="let role of availableRoles" [value]="role.id">{{role.name}}</option>
+  </select>
+</div>

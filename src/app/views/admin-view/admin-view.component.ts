@@ -9,6 +9,8 @@ import { RestaurantService } from 'src/app/services/data/restaurant.service';
 export class AdminViewComponent implements OnInit {
 
   @Input() showSubView: any;
+  @Input() availableRoles: any;
+
   public restaurants: any;
   public selectedRestaurant: any;
   public menuItem = 'restaurantEdition';
@@ -16,21 +18,18 @@ export class AdminViewComponent implements OnInit {
   constructor(private restaurantService: RestaurantService) { }
 
   ngOnInit() {
-    this.restaurantService.getRestaurants().subscribe(
-      data => {
-        this.restaurants = data.body;
-        console.log(this.restaurants)
-      },
-      err => {
-        console.log('erreur', err)
-      }
-    )
+    this.refreshRestaurants()
   }
 
-  restaurantSelected(event){
-    console.log(event)
-    this.selectedRestaurant = this.restaurants.find(restaurant => restaurant.id === event)
-    console.log(this.selectedRestaurant)
+  refreshRestaurants(){
+    this.restaurantService.getRestaurants().subscribe(
+      data => {
+        this.restaurants = Object.assign([], data.body)
+  })
+}
+
+  selectRestaurant(event){
+    this.selectedRestaurant = {...this.restaurants.find(restaurant => restaurant.id === event)}
   }
 
   selectMenuItem(event){
