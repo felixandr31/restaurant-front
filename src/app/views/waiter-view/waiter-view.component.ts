@@ -29,7 +29,7 @@ export class WaiterViewComponent implements OnInit, OnChanges {
 
 
   public reservationDate = {
-    day: this.today.getFullYear()+'-'+(this.today.getMonth()+1)+'-'+this.today.getDate()
+    day: this.today.toISOString().replace( /^(?<year>\d+)-(?<month>\d+)-(?<day>\d+)T.*$/,'$<year>-$<month>-$<day>')
     
   }
   
@@ -44,13 +44,13 @@ export class WaiterViewComponent implements OnInit, OnChanges {
   ngOnInit(){
   }
 
-  ngOnChanges() {
+  async ngOnChanges() {
     console.log('onchanges user', this.user)
     this.showTables()
+    console.log(this.reservationDate.day)
     console.log('bookings and tables ?', this.todaysBookings.length && this.restaurantTables.length)
     if (!this.todaysBookings.length && this.restaurantTables.length) {
-    this.loadTodayBooking()
-    this.onDateSelected(this.reservationDate.day)
+    await this.onDateSelected(this.reservationDate.day)
     console.log('tables booking', this.todaysBookings)
     }
   }
@@ -62,7 +62,7 @@ export class WaiterViewComponent implements OnInit, OnChanges {
       this.bookingService.getBookingByTable(table.id).subscribe(
         (data: any)=>{
           this.tablesBooking = data.body
-          console.log(this.tablesBooking)
+          console.log("tableBookings", this.tablesBooking)
           this.tablesBooking.forEach(booking => {
             console.log("booking", booking)
             if (booking.day.substring(0,10) == this.reservationDate.day) {
@@ -74,7 +74,7 @@ export class WaiterViewComponent implements OnInit, OnChanges {
     });
   }
 
-  showTables() {
+  async showTables() {
     this.restaurantService.getRestaurantById(this.user.restaurantId).subscribe(
       data => {
         console.log(data.body)
@@ -88,21 +88,9 @@ export class WaiterViewComponent implements OnInit, OnChanges {
     )
   }
 
-  loadTodayBooking(){
-    this.restaurantTables.forEach(table => {
-      this.bookingService.getBookingByTable(table.id).subscribe(
-        (data: any)=>{
-          this.tablesBooking = data.body
-          console.log(this.tablesBooking)
-          this.tablesBooking.forEach(booking => {
-            console.log("booking", booking)
-            
-          });
-        }
-      )  
-    });
-
-  }
+  
 }
+
+
 
 
