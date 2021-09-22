@@ -9,7 +9,7 @@
       <p>Edition restaurant sélectionné (CRUD + budget...)</p>
     </div>
     <div *ngIf="menuItem === 'graphics'">
-      <p>graph historique C.A. restaurant sélectionné</p>
+      <app-sales-graph [restaurant]="selectedRestaurant"></app-sales-graph>
     </div>
     <div *ngIf="menuItem === 'popularity'">
       <p>Popularité & détail des votes</p>
