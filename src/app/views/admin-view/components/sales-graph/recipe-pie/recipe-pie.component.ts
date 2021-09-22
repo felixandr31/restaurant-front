@@ -1,6 +1,4 @@
 import { Component, OnInit, Input, OnChanges, SimpleChanges } from '@angular/core';
-import { NgxChartsModule } from '@swimlane/ngx-charts';
-import { element } from 'protractor';
 
 @Component({
   selector: 'app-recipe-pie',
@@ -36,13 +34,12 @@ export class RecipePieComponent implements OnInit, OnChanges {
 
   ngOnChanges(changes: SimpleChanges) {
       this.recipesSales.map(element => {
-        this.data.push(element)
+        this.data.push({name: element.name, value: element.sellingPrice * element.quantity})
         console.log('sales in change chart', this.recipesSales)
     })
-
-
-
+    this.data = [...this.data]
     console.log('data', this.data)
+
   }
 
   onSelect(data): void {
