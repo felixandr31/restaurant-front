@@ -1,7 +1,8 @@
-import { Component, OnInit, EventEmitter, Output } from '@angular/core';
+import { Component, OnInit, EventEmitter, Output, OnChanges } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormArray } from '@angular/forms';
 import { UserService } from 'src/app/services/data/user.service';
 import {OK} from 'src/app/app.component';
+import { RoleService } from 'src/app/services/data/role.service';
 
 @Component({
   selector: 'app-guest-view',
@@ -9,7 +10,7 @@ import {OK} from 'src/app/app.component';
   styleUrls: ['./guest-view.component.css']
 })
 
-export class GuestViewComponent implements OnInit {
+export class GuestViewComponent implements OnInit, OnChanges {
 
   @Output() onLogIn = new EventEmitter();
 
@@ -28,7 +29,12 @@ export class GuestViewComponent implements OnInit {
   public displaySignIn = false
 
   constructor(private formBuilder: FormBuilder,
-    private userService: UserService) { }
+    private userService: UserService,
+    private roleService: RoleService) { }
+
+  ngOnChanges() {
+
+  }
 
   ngOnInit() {
 
@@ -37,20 +43,30 @@ export class GuestViewComponent implements OnInit {
       password: ['', Validators.required],
     })
 
-    this.signInGroup = this.formBuilder.group({
-      lastName: ['', Validators.required],
-      firstName: ['', Validators.required],
-      email: ['', Validators.required],
-      password: ['', Validators.required],
-      roles: new FormArray([
-        this.formBuilder.group({
-          id: ['613721c67f57fb321327b627', Validators.required],
-          name: ['Client', Validators.required],
+    this.roleService.getRoles().subscribe(
+      data => {
+        console.log('role data', data.body)
+        const res: any = data.body
+        const clientRole = res.find(e => e.name == 'Client')
+        console.log('client ?', clientRole)
+
+        this.signInGroup = this.formBuilder.group({
+          lastName: ['', Validators.required],
+          firstName: ['', Validators.required],
+          email: ['', Validators.required],
+          password: ['', Validators.required],
+          roles: new FormArray([
+            this.formBuilder.group({
+              id: [clientRole.id, Validators.required],
+              name: [clientRole.name, Validators.required],
+            })
+          ]),
+          friends: new FormArray([]),
+          bookings: new FormArray([])
         })
-      ]),
-      friends: new FormArray([]),
-      bookings: new FormArray([])
-    })
+      }
+    )
+
   }
 
   logIn() {
