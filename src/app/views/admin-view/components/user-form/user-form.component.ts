@@ -1,6 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, FormArray, FormControl } from '@angular/forms';
 import { UserService } from 'src/app/services/data/user.service';
+import { RoleService } from 'src/app/services/data/role.service';
 
 @Component({
   selector: 'app-user-form',
@@ -75,17 +76,34 @@ export class UserFormComponent implements OnInit {
       lastName: ['', Validators.required],
       password: ['', Validators.required],
       email: ['', Validators.required],
-      Admin: [false, Validators.required],
-      Manager: [false, Validators.required],
-      Cook: [false, Validators.required],
-      Waiter: [false, Validators.required],
-      Cleaner: [false, Validators.required],
+      Admin: [this.userRolesChecked.Admin, Validators.required],
+      Manager: [this.userRolesChecked.Manager, Validators.required],
+      Cook: [this.userRolesChecked.Cook, Validators.required],
+      Waiter: [this.userRolesChecked.Waiter, Validators.required],
+      Cleaner: [this.userRolesChecked.Cleaner, Validators.required],
     })
   }
 
+  // createForms() {
+  //   this.userForm = this.formBuilder.group({
+  //     firstName: ['', Validators.required],
+  //     lastName: ['', Validators.required],
+  //     password: ['', Validators.required],
+  //     email: ['', Validators.required],
+  //     roles: new FormArray([])
+  //   })
+  //   const rolesArray = this.userForm.get('roles') as FormArray
+  //   for (const role in this.userRolesChecked) {
+  //     rolesArray.push(
+  //       new FormControl(role)
+  //     )
+  //   }
+  // }
+
   updateForm() {
-    this.userForm.patchValue(this.selectedUser)
     this.updateRolesCheckbox();
+    this.userForm.patchValue(this.selectedUser)
+    this.userForm.patchValue(this.userRolesChecked)
   }
 
   onSubmit(event) {
@@ -169,7 +187,7 @@ export class UserFormComponent implements OnInit {
   }
 
   updateUser() {
-    const user = this.formToJson();
+    var user = {...this.formToJson()};
     let rolesIdsToRemove: string[];
     let rolesIds: string[];
 
@@ -179,9 +197,9 @@ export class UserFormComponent implements OnInit {
     })
 
     // Build array of roles ids to add because request need an array of role ids
-    rolesIds = user.roles.map(role => {
+    rolesIds = [...user.roles.map(role => {
       return role.id;
-    })
+    })]
 
     // Update user in DB
     this.userService.updateUser(user.id, user).subscribe(
