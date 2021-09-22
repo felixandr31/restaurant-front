@@ -99,8 +99,14 @@ export class UserFormComponent implements OnInit {
 
   userSelection(event) {
     // spread operator allow to clone selectedEmployee in a new object and to avoid direct modification of employees (because of filter use)
-    this.selectedUser = { ...this.users.find(user => user.id === event.target.value) }
-    this.updateForm();
+
+    this.userService.getUserById(event.target.value).subscribe(
+      data => {
+        this.selectedUser = {...data.body}
+        this.updateForm();
+      }
+      )
+    // this.selectedUser = { ...this.users.find(user => user.id === event.target.value) }
     this.isSelectedUser = true
   }
 
@@ -146,74 +152,58 @@ export class UserFormComponent implements OnInit {
   }
 
   createUser() {
-    // // Write in DBB
-    // this.userService.postUser(this.formToJson()).subscribe(
-    //   data => {
-    //     const newEmployee: any = data.body
-    //     // Update Restaurant employee list
-    //     this.restaurantService.addUsersToRestaurant(this.managerRestaurant.id, [newEmployee.id]).subscribe(
-    //       data => {
-    //         this.refreshRestaurant()
-    //       }
-    //     )
-    //   }
-    // )
+    // Write in DBB
+    this.userService.postUser(this.formToJson()).subscribe(
+      data => {
+        // const newEmployee: any = data.body
+        // // Update Restaurant employee list
+        // this.restaurantService.addUsersToRestaurant(this.managerRestaurant.id, [newEmployee.id]).subscribe(
+        //   data => {
+        //     this.refreshRestaurant()
+        //   }
+        // )
+      }
+    )
     // this.cancelEdition();
-    // // alert('Employee created!')
+    // alert('Employee created!')
   }
 
   updateUser() {
     const user = this.formToJson();
+    let rolesIdsToRemove: string[];
+    let rolesIds: string[];
 
-    // // const rolesIdsToRemove = ["61309cb8009435126fc70797", "613721e07f57fb321327b629"]
-    // var rolesIdsToRemove = Object.assign([], this.availableRoles.filter(role => {
-    //   switch (role.name) {
-    //     case 'Waiter':
-    //       return true;
-    //     case 'Cook':
-    //       return true;
-    //     default:
-    //       return false
-    //   }
-    // }).map(role => {
-    //     return role.id
-    //   }))
+    // Build array of roleIds for delete request
+    rolesIdsToRemove = this.availableRoles.map(role => {
+      return role.id;
+    })
 
-    // // Build array of roles Cook or Waiter to add because request need an array of role ids
-    // var roleIds = Object.assign([], employee.roles.filter(role => {
-    //   switch (role.name) {
-    //     case 'Waiter':
-    //       return true;
-    //     case 'Cook':
-    //       return true;
-    //     default:
-    //       return false
-    //   }
-    // }).map(role => {
-    //   return role.id
-    // }))
+    // Build array of roles ids to add because request need an array of role ids
+    rolesIds = user.roles.map(role => {
+      return role.id;
+    })
 
-    // // Update user in DB
-    // this.userService.updateUser(employee.id, employee).subscribe(
-    //   data => {
-    //     // Update user roles in DB: remove then add
-    //     this.userService.removeRoles(employee.id, rolesIdsToRemove).subscribe(
-    //       data => {
-    //         // Add roles only if needed
-    //         if (roleIds.length > 0) {
-    //           this.userService.addRoles(employee.id, roleIds).subscribe(
-    //             data => {
-    //               this.refreshRestaurant();
-    //             }
-    //           )
-    //         } else {
-    //           this.refreshRestaurant();
-    //         }
-    //       }
-    //     )
-    //   }
-    // )
-    // this.cancelEdition();
+    // Update user in DB
+    this.userService.updateUser(user.id, user).subscribe(
+      data => {
+        // Update user roles in DB: remove then add
+        this.userService.removeRoles(user.id, rolesIdsToRemove).subscribe(
+          data => {
+            // Add roles only if needed
+            if (rolesIds.length > 0) {
+              this.userService.addRoles(user.id, rolesIds).subscribe(
+                data => {
+                  this.refreshUsers();
+                }
+              )
+            } else {
+              this.refreshUsers();
+            }
+          }
+        )
+      }
+    )
+    this.cancelEdition();
   }
 
   userDeletionMode() {

@@ -201,7 +201,7 @@ export class EmployeesFormComponent implements OnInit {
     }).map(role => {
       return role.id
     }))
-
+    console.log(employee)
     // Update user in DB
     this.userService.updateUser(employee.id, employee).subscribe(
       data => {
