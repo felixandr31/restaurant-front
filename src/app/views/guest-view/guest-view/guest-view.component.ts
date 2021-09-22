@@ -45,10 +45,8 @@ export class GuestViewComponent implements OnInit, OnChanges {
 
     this.roleService.getRoles().subscribe(
       data => {
-        console.log('role data', data.body)
         const res: any = data.body
         const clientRole = res.find(e => e.name == 'Client')
-        console.log('client ?', clientRole)
 
         this.signInGroup = this.formBuilder.group({
           lastName: ['', Validators.required],
