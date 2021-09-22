@@ -42,7 +42,6 @@ export class OrderDisplayComponent implements OnInit, OnChanges {
   }
 
   sendOrderToKitchen() {
-    console.log('lulz, tu as vraiment très très faim !')
     console.log('la facture', this.bill)
     // TODO : enregistrer la commande en BDD
     const queries = this.bill.map(line => this.orderService.postOrder(line))
@@ -50,7 +49,6 @@ export class OrderDisplayComponent implements OnInit, OnChanges {
       data => {
         this.orderSent = !this.orderSent;
         const orderIds = data.map((data: any) => data.body.id)
-        console.log('post order data', data)
         this.bookingService.addOrderByIds(this.booking.id, orderIds).subscribe(
           data => {
             console.log("orders added to booking ?", data)

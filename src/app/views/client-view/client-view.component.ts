@@ -97,11 +97,8 @@ export class ClientViewComponent implements OnInit, OnChanges {
     const recipe = this.currentMenu.find(line => line.name === item)
     this.bill.find(line => line.item.name === item) ?
       this.bill.filter(line => line.item.name === item).map(line => {
-        // Est-ce bien le lieu ?
         line.quantity += 1
-        console.log('la ligne avec un prix ?', line)
       }) :
-      // this.restaurantReservation.recipes[item]
       this.bill.push({ item: {...recipe}, quantity: 1 })
     console.log('la facture', this.bill);
   }
@@ -125,15 +122,4 @@ export class ClientViewComponent implements OnInit, OnChanges {
     this.currentBooking = event;
     this.bill = [];
   }
-
-  // refreshUser() {
-  //   this.userService.getUsers().subscribe(
-  //     data => {
-  //       const res = Object.values(data.body)
-  //       const user = res.find(user => user.id === this.user.id)
-  //       console.log('user refreshed', user)
-  //       return this.user = Object.assign({}, user)
-  //     }
-  //   )
-  // }
 }
