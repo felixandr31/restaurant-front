@@ -24,7 +24,6 @@ export class FriendsListComponent implements OnInit {
       const queries = this.user.friends.map(friendId => this.userService.getUserById(friendId))
       forkJoin(queries).subscribe(res => {
         this.friends = res.map((res: any )=> res.body)
-        console.log("friends in list", this.friends)
       })
     }
     else {
