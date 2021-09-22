@@ -1,17 +1,30 @@
 <h2>{{user.firstName}} {{user.lastName}}</h2>
-<h3>Ordered items</h3>
-<div *ngFor="let item of bill" class="order-item">
-  <p class="name"><b>{{item.item.name}}:</b></p>
-  <p class="billing">
-    ({{item.quantity}}) = {{item.item.sellingPrice * item.quantity}} &euro;
-  </p>
+<div *ngIf="!booking.ordered; else bookingSummary">
+  <h3>Ordered items</h3>
+  <div *ngFor="let item of bill" class="order-item">
+    <p class="name"><b>{{item.item.name}}:</b></p>
+    <p class="billing">
+      ({{item.quantity}}) = {{item.item.sellingPrice * item.quantity}} &euro;
+    </p>
+  </div>
+  <div>
+    <p>Total: {{orderTotal}} &euro;</p>
+  </div>
 </div>
-<div>
-  <p>Total: {{orderTotal}} &euro;</p>
-</div>
+<ng-template #bookingSummary>
+  <div *ngFor="let item of booking.orders" class="order-item">
+    <p class="name"><b>{{item.item.name}}:</b></p>
+    <p class="billing">
+      ({{item.quantity}}) = {{item.item.sellingPrice * item.quantity}} &euro;
+    </p>
+  </div>
+  <div>
+    <p>Total: {{orderTotal}} &euro;</p>
+  </div>
+</ng-template>
 
 <div>
-  <button *ngIf="!orderSent; else greyButton" (click)="sendOrderToKitchen()">Send order</button>
+  <button *ngIf="!booking.ordered; else greyButton" (click)="sendOrderToKitchen()">Send order</button>
   <ng-template #greyButton>
     <button disabled>Order sent</button>
   </ng-template>

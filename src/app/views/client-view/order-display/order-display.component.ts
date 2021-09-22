@@ -22,7 +22,11 @@ export class OrderDisplayComponent implements OnInit, OnChanges {
     private bookingService: BookingService) { }
 
   ngOnChanges(changes: SimpleChanges) {
-    this.computeTotal(this.bill);
+    if (!this.booking.ordered) {
+      this.computeTotal(this.bill);
+    } else {
+      this.computeTotal(this.booking.orders)
+    }
   }
 
   ngOnInit() {

@@ -67,6 +67,7 @@ export class ClientViewComponent implements OnInit, OnChanges {
     this.bookingService.getBookingById(event).subscribe(
       data => {
         this.currentBooking = data.body
+        console.log('resa', this.currentBooking)
         this.restaurantService.getRestaurantByTableId(this.currentBooking.table.id).subscribe(
           data => {
             this.restaurantReservation = data.body
