@@ -46,7 +46,15 @@ export class ReservationFormComponent implements OnInit, OnChanges {
 
   ngOnChanges() {
     this.clients.push(this.user)
-    this.user.friends.forEach(friend => this.clients.push(friend))
+    const queries = this.user.friends.map(friend => this.userService.getUserById(friend))
+    forkJoin(queries).subscribe(
+      data => {
+        const res: any = data
+        res.forEach(friendResponse =>
+          this.clients.push(friendResponse.body))
+          console.log(this.clients)
+      }
+    )
     this.tables = this.restaurant.tables
   }
 
