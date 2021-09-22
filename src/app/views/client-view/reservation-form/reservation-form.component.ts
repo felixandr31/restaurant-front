@@ -45,16 +45,18 @@ export class ReservationFormComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges() {
-    this.clients.push(this.user)
-    const queries = this.user.friends.map(friend => this.userService.getUserById(friend))
-    forkJoin(queries).subscribe(
-      data => {
-        const res: any = data
-        res.forEach(friendResponse =>
-          this.clients.push(friendResponse.body))
-          console.log(this.clients)
-      }
-    )
+    if (!this.clients.length) {
+      this.clients.push(this.user)
+      const queries = this.user.friends.map(friend => this.userService.getUserById(friend))
+      forkJoin(queries).subscribe(
+        data => {
+          const res: any = data
+          res.forEach(friendResponse =>
+            this.clients.push(friendResponse.body))
+            console.log(this.clients)
+        }
+      )
+    }
     this.tables = this.restaurant.tables
   }
 
@@ -87,13 +89,6 @@ export class ReservationFormComponent implements OnInit, OnChanges {
     this.tablesAtTime = []
     this.reservationDate = event;
 
-    // const queries = this.tables.map(table => this.bookingService.getBookingByTable(table.id))
-
-    //ForkJoin pour faire des requêtes en parallèle: https://www.learnrxjs.io/learn-rxjs/operators/combination/forkjoin
-    // forkJoin(queries).subscribe(res => {
-    //   console.log("forkJoin res", res)
-    // })
-
     this.tables.forEach(table => {
       this.bookingService.getBookingByTable(table.id).subscribe(
         data => {
@@ -125,8 +120,9 @@ export class ReservationFormComponent implements OnInit, OnChanges {
   }
 
   placeReservation() {
+    console.log('les clients au début de la résa', this.clients)
     const bestTable = this.selectBestTable(this.form.value.clients.length, this.tablesAtTime);
-    let clients = this.user.friends.filter(friend => {
+    let clients = this.clients.filter(friend => {
       return this.form.value.clients.map(e => e.name).includes(friend.id)
     })
     clients.push(this.user)
