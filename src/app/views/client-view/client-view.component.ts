@@ -72,6 +72,7 @@ export class ClientViewComponent implements OnInit, OnChanges {
           data => {
             this.restaurantReservation = data.body
             this.currentMenu = this.restaurantReservation.recipes;
+            this.bill = []
           }
         )
       }
@@ -96,11 +97,8 @@ export class ClientViewComponent implements OnInit, OnChanges {
     const recipe = this.currentMenu.find(line => line.name === item)
     this.bill.find(line => line.item.name === item) ?
       this.bill.filter(line => line.item.name === item).map(line => {
-        // Est-ce bien le lieu ?
         line.quantity += 1
-        console.log('la ligne avec un prix ?', line)
       }) :
-      // this.restaurantReservation.recipes[item]
       this.bill.push({ item: {...recipe}, quantity: 1 })
     console.log('la facture', this.bill);
   }
@@ -117,5 +115,11 @@ export class ClientViewComponent implements OnInit, OnChanges {
 
   refreshUser(event) {
     this.onUserRefresh.emit(event);
+  }
+
+  refreshBooking(event) {
+    console.log(event)
+    this.currentBooking = event;
+    this.bill = [];
   }
 }

@@ -25,5 +25,5 @@
   (onItemAdded)="itemAdded($event)"
   (onItemRemoved)="itemRemoved($event)"></app-choose-menu>
   <app-order-display [user]="user" [booking]="currentBooking"
-  [bill]="bill" class="order"></app-order-display>
+  [bill]="bill" class="order" (onOrder)="refreshBooking($event)"></app-order-display>
 </div>
