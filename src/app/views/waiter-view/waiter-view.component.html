@@ -3,7 +3,7 @@
 
 <div class="table-page">
   <div id="container">
-    <app-tableform *ngIf="isCreatingTable" (refreshTablesAfterSubmit)="showTables()" [restaurantId]="fakeRestaurantId" ></app-tableform>
+    <app-tableform *ngIf="isCreatingTable" (refreshTablesAfterSubmit)="showTables()" [restaurantId]="restaurantId" ></app-tableform>
     <div id="table-row">
       <div class="title">Tables List</div>
       <div id="table-bloc">
@@ -16,7 +16,7 @@
 
 
 
- <div class="bookings">
+  <div class="bookings">
   <app-select-booking (onDateSelection)="onDateSelected($event)"></app-select-booking>
   <p>Booking</p>
   <table>
@@ -44,7 +44,7 @@
         <td >
           {{booking.hour}}
         </td>
-        
+
 
       </tr>
     </tbody>

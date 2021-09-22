@@ -22,11 +22,4 @@ export class TableService {
     return this.http.post(url, newTable, { observe: 'response' })
 
   }
-
- 
-
- 
-
-
-  
 }

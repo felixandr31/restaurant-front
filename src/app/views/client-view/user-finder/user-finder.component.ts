@@ -48,6 +48,11 @@ export class UserFinderComponent implements OnInit, OnChanges {
     this.userService.addFriend(this.user.id, friendId).subscribe(
       data => {
         this.onFriendAddition.emit(event)
+        this.userService.addFriend(friendId, this.user.id).subscribe(
+          data => {
+            console.log("user added to friend friends ?", data)
+          }
+        )
       }
     )
   }
