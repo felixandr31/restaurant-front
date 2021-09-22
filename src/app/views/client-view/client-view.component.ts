@@ -72,6 +72,7 @@ export class ClientViewComponent implements OnInit, OnChanges {
           data => {
             this.restaurantReservation = data.body
             this.currentMenu = this.restaurantReservation.recipes;
+            this.bill = []
           }
         )
       }
@@ -118,4 +119,21 @@ export class ClientViewComponent implements OnInit, OnChanges {
   refreshUser(event) {
     this.onUserRefresh.emit(event);
   }
+
+  refreshBooking(event) {
+    console.log(event)
+    this.currentBooking = event;
+    this.bill = [];
+  }
+
+  // refreshUser() {
+  //   this.userService.getUsers().subscribe(
+  //     data => {
+  //       const res = Object.values(data.body)
+  //       const user = res.find(user => user.id === this.user.id)
+  //       console.log('user refreshed', user)
+  //       return this.user = Object.assign({}, user)
+  //     }
+  //   )
+  // }
 }

@@ -13,7 +13,7 @@ export class ChooseMenuItemComponent implements OnInit, OnChanges {
   @Output() onItemRemove = new EventEmitter();
 
   public line: any = {name: '', quantity: 0, sellingPrice: 0};
-  public quantity = 0;
+  public quantity = 0
 
   constructor() { }
 
@@ -21,12 +21,14 @@ export class ChooseMenuItemComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges() {
+    console.log('la facture dans choose item', this.bill)
     console.log('la ligne avant le update', this.line)
     console.log('item', this.item)
-    if (this.bill.length > 0 && this.bill.find(e => e.name == this.item.name)) {
+    if (this.bill.length > 0 && this.bill.find(e => e.item.name == this.item.name)) {
       this.updateLine();
       console.log('la ligne du chef, ', this.line)
       this.quantity = this.line.quantity
+      console.log('la quantité', this.quantity)
     }
   }
 
@@ -42,8 +44,7 @@ removeItem(event) {
 
   updateLine() {
 
-    const lineUpdated = this.bill.find(e => e.name === this.item.name)
+    const lineUpdated = this.bill.find(e => e.item.name === this.item.name)
     return this.line = lineUpdated
   }
-
 }

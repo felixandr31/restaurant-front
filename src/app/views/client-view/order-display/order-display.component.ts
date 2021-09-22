@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, OnInit, Input, OnChanges, SimpleChanges, EventEmitter, Output } from '@angular/core';
 import { OrderService } from 'src/app/services/data/order.service';
 import { forkJoin } from 'rxjs';
 import { BookingService } from 'src/app/services/data/booking.service';
@@ -14,6 +14,7 @@ export class OrderDisplayComponent implements OnInit, OnChanges {
   @Input() booking: any;
   @Input() bill: any = [];
   @Input() user: any;
+  @Output() onOrder = new EventEmitter();
 
   public orderSent: boolean = false;
   public orderTotal: number = 0;
@@ -53,10 +54,10 @@ export class OrderDisplayComponent implements OnInit, OnChanges {
         this.bookingService.addOrderByIds(this.booking.id, orderIds).subscribe(
           data => {
             console.log("orders added to booking ?", data)
+            this.onOrder.emit(data.body)
           }
         )
       }
     )
   }
 }
-
