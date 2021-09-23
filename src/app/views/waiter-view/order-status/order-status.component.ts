@@ -1,4 +1,6 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, SimpleChanges } from '@angular/core';
+import { BookingService } from 'src/app/services/data/booking.service';
+
 
 @Component({
   selector: 'app-order-status',
@@ -6,12 +8,30 @@ import { Component, Input, OnInit } from '@angular/core';
   styleUrls: ['./order-status.component.css']
 })
 export class OrderStatusComponent implements OnInit {
-@Input() restaurant: any
-  constructor() { }
+@Input() booking: any
+
+
+  constructor(private bookingService: BookingService) { }
 
 
   ngOnInit() {
-    console.log(this.restaurant)
+    
+    
+  }
+
+  ngOnChanges(changes: SimpleChanges){
+    if(!this.booking.ordered ){
+      setTimeout(()=>{
+        this.booking.ordered=true
+      }
+
+      )
+    }
+
+  }
+
+  orderPlaced(){
+    this.booking.ordered = true
     
   }
 
