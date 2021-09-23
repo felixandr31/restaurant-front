@@ -24,15 +24,21 @@ export class WaiterViewComponent implements OnInit, OnChanges {
   @Input() user: any;
 
   private today = new Date()
-  
 
 
+
+
+
+  // public reservationDate = {
+  //   day: this.today.toISOString().replace( /^(?<year>\d+)-(?<month>\d+)-(?<day>\d+)T.*$/,'$<year>-$<month>-$<day>')
+
+  // }
 
   public reservationDate = {
-    day: this.today.toISOString().replace( /^(?<year>\d+)-(?<month>\d+)-(?<day>\d+)T.*$/,'$<year>-$<month>-$<day>')
-    
+    day: ""
+
   }
-  
+
   public todaysBookings: any = []
 
   //public isCreatingRecipe: boolean = true;
@@ -41,36 +47,43 @@ export class WaiterViewComponent implements OnInit, OnChanges {
   constructor(private bookingService: BookingService, private tableService: TableService, private restaurantService: RestaurantService, private cookSevice: CookService) { }
 
 
-  ngOnInit(){
+  ngOnInit() {
+    this.restaurantService.getRestaurantById(this.user.restaurantId).subscribe(
+      data => {
+        console.log(data.body)
+        this.restaurant = data.body;
+      })
+     
   }
 
-  async ngOnChanges() {
+  ngOnChanges() {
     console.log('onchanges user', this.user)
     this.showTables()
-    console.log(this.reservationDate.day)
+
     console.log('bookings and tables ?', this.todaysBookings.length && this.restaurantTables.length)
-    if (!this.todaysBookings.length && this.restaurantTables.length) {
-    await this.onDateSelected(this.reservationDate.day)
-    console.log('tables booking', this.todaysBookings)
-    }
+
+
+
+
   }
 
-  onDateSelected(event){
+  onDateSelected(event) {
     this.todaysBookings = []
     this.reservationDate = event
     this.restaurantTables.forEach(table => {
       this.bookingService.getBookingByTable(table.id).subscribe(
-        (data: any)=>{
+        (data: any) => {
           this.tablesBooking = data.body
           console.log("tableBookings", this.tablesBooking)
           this.tablesBooking.forEach(booking => {
             console.log("booking", booking)
-            if (booking.day.substring(0,10) == this.reservationDate.day) {
-              this.todaysBookings.push(booking)              
+            if (booking.day.substring(0, 10) == this.reservationDate.day) {
+              this.todaysBookings.push(booking)
             }
+
           });
         }
-      )  
+      )
     });
   }
 
@@ -89,6 +102,13 @@ export class WaiterViewComponent implements OnInit, OnChanges {
   }
 
   
+
+
+
+
+
+
+
 }
 
 

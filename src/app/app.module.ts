@@ -48,6 +48,8 @@ import { TableformComponent } from './views/waiter-view/tableform/tableform.comp
 import { BookformComponent } from './views/waiter-view/bookform/bookform.component';
 import { SelectBookingComponent } from './views/waiter-view/select-booking/select-booking.component';
 import { RecipesComponent } from './views/manager-view/recipes/recipes.component';
+import { OrderStatusComponent } from './views/waiter-view/order-status/order-status.component';
+
 
 
 @NgModule({
@@ -89,6 +91,8 @@ import { RecipesComponent } from './views/manager-view/recipes/recipes.component
     BookformComponent,
     SelectBookingComponent,
     RecipesComponent,
+    OrderStatusComponent,
+   
     
  
 
