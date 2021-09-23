@@ -63,3 +63,7 @@
   grid-area: bill;
 }
 
+.pay {
+  grid-area: pay;
+}
+

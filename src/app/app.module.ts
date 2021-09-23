@@ -50,6 +50,8 @@ import { BookformComponent } from './views/waiter-view/bookform/bookform.compone
 import { SelectBookingComponent } from './views/waiter-view/select-booking/select-booking.component';
 import { SalesGraphComponent } from './views/admin-view/components/sales-graph/sales-graph.component';
 import { RecipePieComponent } from './views/admin-view/components/sales-graph/recipe-pie/recipe-pie.component';
+import { PayingTabComponent } from './views/client-view/paying-tab/paying-tab.component';
+import { CommentTabComponent } from './views/client-view/comment-tab/comment-tab.component';
 
 
 @NgModule({
@@ -92,6 +94,8 @@ import { RecipePieComponent } from './views/admin-view/components/sales-graph/re
     SelectBookingComponent,
     SalesGraphComponent,
     RecipePieComponent,
+    PayingTabComponent,
+    CommentTabComponent,
   ],
   imports: [
     BrowserModule,
