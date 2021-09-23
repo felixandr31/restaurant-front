@@ -7,6 +7,7 @@ import { HttpClient } from '@angular/common/http';
 export class CookService {
 
   private url = 'http://localhost:8080/backend-filrouge/'
+  static get: any;
 
   constructor(private http: HttpClient) { }
 

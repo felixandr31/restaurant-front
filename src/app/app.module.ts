@@ -54,12 +54,15 @@ import { SalesGraphComponent } from './views/admin-view/components/sales-graph/s
 import { RecipePieComponent } from './views/admin-view/components/sales-graph/recipe-pie/recipe-pie.component';
 import { PayingTabComponent } from './views/client-view/paying-tab/paying-tab.component';
 import { CommentTabComponent } from './views/client-view/comment-tab/comment-tab.component';
+import { OrderStatusComponent } from './views/waiter-view/order-status/order-status.component';
+
 
 
 
 @NgModule({
   declarations: [
     AppComponent,
+    OrderStatusComponent,
     SideNavigationMenuComponent,
     ClientViewComponent,
     RestaurantListComponent,
