@@ -44,14 +44,17 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { RestaurantsListComponent } from './views/admin-view/components/restaurants-list/restaurants-list.component';
 import { HorizontalMenuComponent } from './views/admin-view/components/horizontal-menu/horizontal-menu.component';
 import { StocksComponent } from './views/manager-view/stocks/stocks.component';
-
 import { TableformComponent } from './views/waiter-view/tableform/tableform.component';
 import { BookformComponent } from './views/waiter-view/bookform/bookform.component';
+
+import { IngredientListComponent } from './views/manager-view/ingredient-list/ingredient-list.component';
+
 import { SelectBookingComponent } from './views/waiter-view/select-booking/select-booking.component';
 import { SalesGraphComponent } from './views/admin-view/components/sales-graph/sales-graph.component';
 import { RecipePieComponent } from './views/admin-view/components/sales-graph/recipe-pie/recipe-pie.component';
 import { PayingTabComponent } from './views/client-view/paying-tab/paying-tab.component';
 import { CommentTabComponent } from './views/client-view/comment-tab/comment-tab.component';
+
 
 
 @NgModule({
@@ -91,6 +94,8 @@ import { CommentTabComponent } from './views/client-view/comment-tab/comment-tab
     StocksComponent,
     TableformComponent,
     BookformComponent,
+    
+    IngredientListComponent,
     SelectBookingComponent,
     SalesGraphComponent,
     RecipePieComponent,
