@@ -17,7 +17,7 @@ export class RecipePieComponent implements OnInit, OnChanges {
   gradient: boolean = true;
   showLegend: boolean = true;
   showLabels: boolean = true;
-  isDoughnut: boolean = false;
+  isDoughnut: boolean = true;
   legendPosition: string = 'below';
 
   colorScheme = {

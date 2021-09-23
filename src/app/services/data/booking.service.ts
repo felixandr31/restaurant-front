@@ -31,4 +31,8 @@ export class BookingService {
     return this.http.post(url, orderIds, {observe: 'response'})
   }
 
+  public updateBookingStatus(bookingId, booking) {
+    const url = this.url + 'updateStatus/' + bookingId
+    return this.http.post(url, booking, {observe: 'response'})
+  }
 }

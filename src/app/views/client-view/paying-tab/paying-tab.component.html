@@ -1,0 +1,7 @@
+<p *ngIf="!booking.served; else canPay"> Thanks for your order. You'll be served soon</p>
+
+<ng-template #canPay>
+  <p>We hope you enjoyed your meal.</p>
+  <button (click)="payOrder()">Click me to pay your order</button>
+</ng-template>
+
