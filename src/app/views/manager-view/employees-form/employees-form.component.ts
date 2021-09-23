@@ -34,8 +34,15 @@ export class EmployeesFormComponent implements OnInit {
   public selectedEmployee: any;
   public isSelectedEmployee = false;
   public form: FormGroup;
-  public cookChecked = false;
-  public waiterChecked = false;
+
+  public userRolesChecked = {
+    "Cook": false,
+    "Waiter": false,
+    "Admin": false,
+    "Manager": false,
+    "Cleaner": false,
+  }
+
   public modes = {
     "edition": false,
     "deletionConfirmation": false,
@@ -44,7 +51,7 @@ export class EmployeesFormComponent implements OnInit {
   };
 
   constructor(private formBuilder: FormBuilder,
-    private userService: UserService, private restaurantService: RestaurantService, private roleService: RoleService ) { }
+    private userService: UserService, private restaurantService: RestaurantService, private roleService: RoleService) { }
 
   ngOnInit() {
     this.refreshRestaurant()
@@ -68,8 +75,8 @@ export class EmployeesFormComponent implements OnInit {
       lastName: ['', Validators.required],
       password: ['', Validators.required],
       email: ['', Validators.required],
-      Cook: [false, Validators.required],
-      Waiter: [false, Validators.required],
+      Cook: [this.userRolesChecked.Cook, Validators.required],
+      Waiter: [this.userRolesChecked.Waiter, Validators.required],
     })
   }
 
@@ -79,8 +86,9 @@ export class EmployeesFormComponent implements OnInit {
   }
 
   updateForm() {
-    this.form.patchValue(this.selectedEmployee)
     this.updateRolesCheckbox();
+    this.form.patchValue(this.selectedEmployee)
+    this.form.patchValue(this.userRolesChecked)
   }
 
   onSubmit(event) {
@@ -101,18 +109,29 @@ export class EmployeesFormComponent implements OnInit {
 
   // Update roles with selected employee values, not with form values !
   updateRolesCheckbox() {
-    this.cookChecked = false;
-    this.waiterChecked = false;
+    // this.cookChecked = false;
+    // this.waiterChecked = false;
+    // this.selectedEmployee.roles.forEach(role => {
+    //   switch (role.name) {
+    //     case 'Waiter':
+    //       this.waiterChecked = true;
+    //       break;
+    //     case 'Cook':
+    //       this.cookChecked = true;
+    //       break;
+    // }
+    // })
+    this.resetRolesCheckboxs()
     this.selectedEmployee.roles.forEach(role => {
-      switch (role.name) {
-        case 'Waiter':
-          this.waiterChecked = true;
-          break;
-        case 'Cook':
-          this.cookChecked = true;
-          break;
-      }
+      this.userRolesChecked[role.name] = true
+      // TODO: if manager||cook||waiter this.userIsManager.was = true
     })
+  }
+
+  resetRolesCheckboxs() {
+    for (const role in this.userRolesChecked) {
+      this.userRolesChecked[role] = false
+    }
   }
 
   formToJson() {
@@ -129,20 +148,33 @@ export class EmployeesFormComponent implements OnInit {
 
     // update employee fields with form values
     for (const key in this.form.value) {
-      // Add roles Cook or Waiter to employee
-      switch (key) {
-        case 'Waiter':
-          if (this.form.value[key]) {
-            employee.roles.push(this.availableRoles.find(role =>
-              role.name === key))
-          }
-          break;
-        case 'Cook':
-          if (this.form.value[key]) {
-            employee.roles.push(this.availableRoles.find(role =>
-              role.name === key))
-          }
-          break;
+
+      // // Add roles Cook or Waiter to employee
+
+      // switch (key) {
+      //   case 'Waiter':
+      //     if (this.form.value[key]) {
+      //       employee.roles.push(this.availableRoles.find(role =>
+      //         role.name === key))
+      //     }
+      //     break;
+      //   case 'Cook':
+      //     if (this.form.value[key]) {
+      //       employee.roles.push(this.availableRoles.find(role =>
+      //         role.name === key))
+      //     }
+      //     break;
+      // }
+
+
+      // Add roles to user
+      // Take only roles from userForm keys, check if role is available
+      if (this.availableRoles.find(role => role.name === key)) {
+        // If role checked pushed in roles
+        if (this.form.value[key]) {
+          employee.roles.push(this.availableRoles.find(role => role.name === key))
+          // TODO: this.userIsEmployee.is = true
+        }
       }
       // Update last fields
       for (const k in employee) {
@@ -151,57 +183,75 @@ export class EmployeesFormComponent implements OnInit {
         }
       }
     }
+    // TODO: replace with restaurantAssignemnt() (in )
     employee.restaurantId = this.managerRestaurant.id
+
     return employee;
   }
 
   createEmployee() {
+    // TODO: reset userIsEmployee
     // Write in DBB
     this.userService.postUser(this.formToJson()).subscribe(
       data => {
-        const newEmployee: any = data.body
-        // Update Restaurant employee list
-        this.restaurantService.addUsersToRestaurant(this.managerRestaurant.id, [newEmployee.id]).subscribe(
-          data => {
-            this.refreshRestaurant()
-          }
-        )
+        // const newEmployee: any = data.body
+        // // Update Restaurant employee list
+        // this.restaurantService.addUsersToRestaurant(this.managerRestaurant.id, [newEmployee.id]).subscribe(
+        //   data => {
+        //     this.refreshRestaurant()
+        //   }
+        // )
       }
     )
+    // TODO: restaurantAssignment()
     this.cancelEdition();
     // alert('Employee created!')
   }
 
   updateEmployee() {
-    const employee = this.formToJson();
-    // const rolesIdsToRemove = ["61309cb8009435126fc70797", "613721e07f57fb321327b629"]
-    var rolesIdsToRemove = Object.assign([], this.availableRoles.filter(role => {
-      switch (role.name) {
-        case 'Waiter':
-          return true;
-        case 'Cook':
-          return true;
-        default:
-          return false
-      }
-    }).map(role => {
-        return role.id
-      }))
+    var employee = this.formToJson();
 
-    // Build array of roles Cook or Waiter to add because request need an array of role ids
-    var roleIds = Object.assign([], employee.roles.filter(role => {
-      switch (role.name) {
-        case 'Waiter':
-          return true;
-        case 'Cook':
-          return true;
-        default:
-          return false
-      }
-    }).map(role => {
-      return role.id
-    }))
-    console.log(employee)
+    let rolesIdsToRemove: string[];
+    let rolesIds: string[];
+
+    // Build array of roleIds for delete request
+    rolesIdsToRemove = this.availableRoles.map(role => {
+      return role.id;
+    })
+
+    // Build array of roles ids to add because request need an array of role ids
+    rolesIds = [...employee.roles.map(role => {
+      return role.id;
+    })]
+
+    // var rolesIdsToRemove = Object.assign([], this.availableRoles.filter(role => {
+    //   switch (role.name) {
+    //     case 'Waiter':
+    //       return true;
+    //     case 'Cook':
+    //       return true;
+    //     default:
+    //       return false
+    //   }
+    // }).map(role => {
+    //     return role.id
+    //   }))
+
+    // // Build array of roles Cook or Waiter to add because request need an array of role ids
+    // var roleIds = Object.assign([], employee.roles.filter(role => {
+    //   switch (role.name) {
+    //     case 'Waiter':
+    //       return true;
+    //     case 'Cook':
+    //       return true;
+    //     default:
+    //       return false
+    //   }
+    // }).map(role => {
+    //   return role.id
+    // }))
+
+
     // Update user in DB
     this.userService.updateUser(employee.id, employee).subscribe(
       data => {
@@ -209,8 +259,8 @@ export class EmployeesFormComponent implements OnInit {
         this.userService.removeRoles(employee.id, rolesIdsToRemove).subscribe(
           data => {
             // Add roles only if needed
-            if (roleIds.length > 0) {
-              this.userService.addRoles(employee.id, roleIds).subscribe(
+            if (rolesIds.length > 0) {
+              this.userService.addRoles(employee.id, rolesIds).subscribe(
                 data => {
                   this.refreshRestaurant();
                 }
@@ -222,6 +272,7 @@ export class EmployeesFormComponent implements OnInit {
         )
       }
     )
+    // TODO: restaurantAssignment() (if )
     this.cancelEdition();
   }
 
@@ -252,6 +303,31 @@ export class EmployeesFormComponent implements OnInit {
     this.cancelEdition();
   }
 
+  // onDeletionConfirmation(event) {
+  //   const employee: any = { ...this.selectedEmployee }
+  //   const confirmDeletion = event.target.value
+  //   // const options = {
+  //   //   body:
+  //   //     [employee.id]
+  //   //   ,
+  //   // };
+  //   if (confirmDeletion === "confirmDeletion") {
+  //     // this.restaurantService.removeUsersFromRestaurant(this.managerRestaurant.id, options).subscribe(
+  //     //   data => {
+  //     //   }
+  //     // )
+
+  //     // TODO: restaurantAssignment() => employeeIsEmployee (was + isnot)
+  //     // this.userService.deleteUser(employee.id).subscribe(
+  //     //   data => {
+  //     //     this.refreshRestaurant()
+  //     //   }
+  //     // )
+  //   }
+  //   this.modes.deletionConfirmation = false
+  //   this.cancelEdition();
+  // }
+
   cancelEdition() {
     this.resetSelectedEmployee();
     this.updateForm();
@@ -279,7 +355,6 @@ export class EmployeesFormComponent implements OnInit {
     this.updateForm();
   }
 
-
   enableEdition() {
     if (this.managerRestaurant.employees.length > 0) {
       this.isRestaurantEmployees = true
@@ -287,5 +362,12 @@ export class EmployeesFormComponent implements OnInit {
       this.isRestaurantEmployees = false
     }
   }
+
+  // TODO: restaurantAssignment(){
+  //   if (wasnot + is) => trigger addUsersToRestaurant (bool isRestaurantAssingment)
+  //   if (was + isnot) => trigger removeUserFromRestaurant (bool isRestaurantAssigment)
+  // }
+
+  // TODO: reset userIsEmployee(){ false }
 
 }

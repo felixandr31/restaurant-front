@@ -25,11 +25,11 @@
       </div>
       <div class="formGroup">
         <label for="cook">Cook</label>
-        <input type="checkbox" id="cook" [checked]="cookChecked" formControlName="Cook">
+        <input type="checkbox" id="cook" [checked]="userRolesChecked.Cook" formControlName="Cook">
       </div>
       <div class="formGroup">
         <label for="waiter">Waiter </label>
-        <input type="checkbox" id="waiter" [checked]="waiterChecked" formControlName="Waiter">
+        <input type="checkbox" id="waiter" [checked]="userRolesChecked.Waiter" formControlName="Waiter">
       </div>
 
       <button type="submit" *ngIf="modes.creation">Confirm Creation</button>

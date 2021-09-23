@@ -23,7 +23,7 @@
 
 <div *ngIf="showSubView === 'users'" class="users-view">
   <p>Edit Users</p>
-  <app-user-form [availableRoles]="availableRoles"></app-user-form>
+  <app-user-form [availableRoles]="availableRoles" [Restaurants]="restaurants" [notManagedRestaurant]="notManagedRestaurant"></app-user-form>
 </div>
 
 <div *ngIf="showSubView === 'simulations'" class="simulations-view">

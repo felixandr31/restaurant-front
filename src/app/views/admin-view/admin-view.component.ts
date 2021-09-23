@@ -15,6 +15,7 @@ export class AdminViewComponent implements OnInit {
   public restaurants: any;
   public selectedRestaurant: any;
   public menuItem = 'restaurantEdition';
+  public notManagedRestaurant: any;
 
   constructor(private restaurantService: RestaurantService) { }
 
@@ -26,6 +27,8 @@ export class AdminViewComponent implements OnInit {
     this.restaurantService.getRestaurants().subscribe(
       data => {
         this.restaurants = Object.assign([], data.body)
+        // TODO filter restaurants
+        // this.notManagedRestaurant =
   })
 }
 
