@@ -2,6 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
+import { NgxChartsModule } from '@swimlane/ngx-charts'
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import { HttpClientModule } from '@angular/common/http';
 import { MarkerService } from './services/map/marker.service';
@@ -47,7 +48,10 @@ import { StocksComponent } from './views/manager-view/stocks/stocks.component';
 import { TableformComponent } from './views/waiter-view/tableform/tableform.component';
 import { BookformComponent } from './views/waiter-view/bookform/bookform.component';
 import { SelectBookingComponent } from './views/waiter-view/select-booking/select-booking.component';
-import { RecipesComponent } from './views/manager-view/recipes/recipes.component';
+import { SalesGraphComponent } from './views/admin-view/components/sales-graph/sales-graph.component';
+import { RecipePieComponent } from './views/admin-view/components/sales-graph/recipe-pie/recipe-pie.component';
+import { PayingTabComponent } from './views/client-view/paying-tab/paying-tab.component';
+import { CommentTabComponent } from './views/client-view/comment-tab/comment-tab.component';
 import { OrderStatusComponent } from './views/waiter-view/order-status/order-status.component';
 
 
@@ -55,6 +59,7 @@ import { OrderStatusComponent } from './views/waiter-view/order-status/order-sta
 @NgModule({
   declarations: [
     AppComponent,
+    OrderStatusComponent,
     SideNavigationMenuComponent,
     ClientViewComponent,
     RestaurantListComponent,
@@ -90,13 +95,10 @@ import { OrderStatusComponent } from './views/waiter-view/order-status/order-sta
     TableformComponent,
     BookformComponent,
     SelectBookingComponent,
-    RecipesComponent,
-    OrderStatusComponent,
-   
-    
- 
-
-
+    SalesGraphComponent,
+    RecipePieComponent,
+    PayingTabComponent,
+    CommentTabComponent,
   ],
   imports: [
     BrowserModule,
@@ -108,6 +110,7 @@ import { OrderStatusComponent } from './views/waiter-view/order-status/order-sta
     MatDatepickerModule,
     MatNativeDateModule,
     MatFormFieldModule,
+    NgxChartsModule
   ],
   providers: [
     MarkerService,

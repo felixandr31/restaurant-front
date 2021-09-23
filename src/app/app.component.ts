@@ -26,7 +26,6 @@ export class AppComponent {
   public showView = "";
   public showSubView = 'eat';
   public logged = false;
-  // public showSubView = 'eat';
 
   selectedView(event) {
     this.showView = event;

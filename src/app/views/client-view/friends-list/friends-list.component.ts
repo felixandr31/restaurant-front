@@ -24,7 +24,6 @@ export class FriendsListComponent implements OnInit {
       const queries = this.user.friends.map(friendId => this.userService.getUserById(friendId))
       forkJoin(queries).subscribe(res => {
         this.friends = res.map((res: any )=> res.body)
-        console.log("friends in list", this.friends)
       })
     }
     else {
@@ -37,6 +36,11 @@ export class FriendsListComponent implements OnInit {
     this.userService.removeFriend(this.user.id, friendId)
       .subscribe(data => {
         this.onFriendRemoval.emit(event)
+        this.userService.removeFriend(friendId, this.user.id).subscribe(
+          data => {
+            console.log('user removed from friend friends', data)
+          }
+        )
       })
   }
 }

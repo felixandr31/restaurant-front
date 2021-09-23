@@ -14,13 +14,12 @@ import { error } from 'util';
   styleUrls: ['./waiter-view.component.css']
 })
 export class WaiterViewComponent implements OnInit, OnChanges {
-  fakeRestaurantId: string = "613885d5841a951be1274a9a";
 
   public restaurant: any;
   public restaurantTables: any = []
   public tablesBooking: any;
   private bookingsAtTime = []
-  @Input() restaurantId: String;
+  public restaurantId: String;
   @Input() user: any;
 
   private today = new Date()
@@ -59,12 +58,13 @@ export class WaiterViewComponent implements OnInit, OnChanges {
   ngOnChanges() {
     console.log('onchanges user', this.user)
     this.showTables()
-
+    this.restaurantId = this.user.restaurantId
+    console.log('resto ID', this.restaurantId)
     console.log('bookings and tables ?', this.todaysBookings.length && this.restaurantTables.length)
-
-
-
-
+    if (!this.todaysBookings.length && this.restaurantTables.length) {
+      this.onDateSelected(this.reservationDate.day)
+      console.log('tables booking', this.todaysBookings)
+    }
   }
 
   onDateSelected(event) {
