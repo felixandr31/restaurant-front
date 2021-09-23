@@ -21,4 +21,9 @@ export class StockService {
   const url = this.url + 'create'
   return this.http.post(url, stock, {observe: 'response'});
 }
+
+ updateStock(id, stock){
+  const url = this.url + 'update/' + id
+  return this.http.put(url, stock, {observe: 'response'});
+}
 }
