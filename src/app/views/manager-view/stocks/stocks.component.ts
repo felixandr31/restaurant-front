@@ -1,5 +1,6 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { stringify } from 'querystring';
 import { IngredientService } from 'src/app/services/data/ingredient.service';
 import { RestaurantService } from 'src/app/services/data/restaurant.service';
 import { StockService } from 'src/app/services/data/stock.service';
@@ -9,76 +10,140 @@ import { StockService } from 'src/app/services/data/stock.service';
   templateUrl: './stocks.component.html',
   styleUrls: ['./stocks.component.css']
 })
-export class StocksComponent implements OnInit {
+export class StocksComponent implements OnInit, OnChanges {
+  // @Output() refreshIngredientSubmited = new EventEmitter()
+  @Output() refreshStockSubmited = new EventEmitter()
+  @Input() managerRestaurant: any;
+  @Input() ingredients: any;
 
-@Input() managerRestaurant: any;
-@Input() ingredients: any;
 
-// @Output() refreshTablesAfterSubmit = new EventEmitter()
-// @Input() restaurantId;
- isDisplayIngredient = false;
- public stocks: any[]
 
-// dynamicForm: FormGroup;
-// submitted: boolean = false;
-// restaurant: any;
+  isDisplayIngredient = false;
+  isDisplayStock = false;
+  public stocks: any[];
+  addingIngredient: any;
 
-// emptyStock: any = {
-//   name: "",
-//   capacity: ""
-// }
+  dynamicForm: FormGroup;
+  stockDynamicForm: FormGroup;
+  submitted: boolean = false;
 
-// groupValidator = {
-//   name: ['', Validators.required],
-//   quatity: ['', Validators.required],
-//   purchasePrice: ['', Validators.required]
 
-// }
-//   isDisplayStock: boolean;
-
-constructor(private formBuilder: FormBuilder, private stockService: StockService, private ingredientService: IngredientService) { }
-
-  ngOnInit() {
-   //this.stocks = this.managerRestaurant.stocks
-  //  this.dynamicForm = this.formBuilder.group(this.groupValidator)
-   this.stocks = Object.assign([], this.managerRestaurant.stocks)
-   //this.stocks = {...this.managerRestaurant.stocks}// spread operator
-   console.log(this.stocks)
+  emptyIngredient: any = {
+    name: "",
+    purchasePrice: ""
   }
 
+  groupValidator = {
+    name: ['', Validators.required],
+    purchasePrice: ['', Validators.required]
+  }
+  stockGroupValidator = {
+    ingredient: ['', Validators.required],
+    id: ['', Validators.required],
+    quantity: ['', Validators.required]
+  }
+
+
+  constructor(private formBuilder: FormBuilder, private restaurantService: RestaurantService, private stockService: StockService, private ingredientService: IngredientService) { }
+ 
+  ngOnChanges(changes: SimpleChanges): void {
+    this.refreshStock()
+  }
+
+  ngOnInit() {
+    this.dynamicForm = this.formBuilder.group(this.groupValidator);
+    this.stockDynamicForm = this.formBuilder.group(this.stockGroupValidator);
+
+    //  this.stocks = Object.assign([], this.managerRestaurant.stocks) //this.stocks = {...this.managerRestaurant.stocks}// spread operator
+    console.log(this.stocks)
+  }
+
+
   onSubmit() {
-    // this.submitted = true;
+    let currentStock: any;
+    this.submitted = true;
+    let isStockExisting: boolean = false;
     // if (this.dynamicForm.invalid) {
     //   return;
     // }
-    // let newStock = {
-    //   ...this.emptyStock,
+    // let newIngredient = {
+    //   ...this.emptyIngredient,
     //   name: this.dynamicForm.controls.name.value,
-    //   quatity: parseInt(this.dynamicForm.controls.quatityty.value),
-    //   purchasePrice: parseInt(this.dynamicForm.controls.purchasePrice.value),
-    }
+    //   purchasePrice: parseFloat(this.dynamicForm.controls.purchasePrice.value),
+    // }
 
-    // this.stockService.createStock(newStock).subscribe(
+    // this.ingredientService.createIngredient(newIngredient).subscribe(
     //   data => {
-    //     newStock = data.body;
-    //     const tabId: String[] = [newStock.id];
-    //     this.stockService.addStockToRestaurant(this.restaurantId, tabId).subscribe(
-    //       data => {
-    //         console.log(data);
-    //         this.refreshTablesAfterSubmit.emit();
-    //         this.dynamicForm.reset
-    //         this.isDisplayIngredient= false
-    //       },
-    //       err => {
-    //         console.log('erreur', err)
-    //       }
-    //     )
+    //     this.refreshIngredientSubmited.emit()
+    //     this.isDisplayIngredient=false
     //   }
 
     // )
-  //}
-  isDisplay(){
-    this.isDisplayIngredient = !this.isDisplayIngredient    
- }
+    let newStock = {
+      ingredient: this.addingIngredient,
+      quantity: parseFloat(this.stockDynamicForm.controls.quantity.value),
+    }
 
+      for(let stock of this.managerRestaurant.stocks){
+        if (newStock.ingredient.id === stock.ingredient.id){
+          isStockExisting=true
+          currentStock = stock;
+        }
+      }
+
+
+    console.log(this.stockDynamicForm.controls.id.value)
+
+    if(!isStockExisting){
+    this.stockService.createStock(newStock).subscribe(
+      data => {
+        this.restaurantService.addStockToRestaurant(this.managerRestaurant.id, [data.body["id"]]).subscribe(
+          data => {
+            this.refreshStockSubmited.emit()
+            this.isDisplayStock = false
+          }
+        )
+        // this.refreshStockSubmited.emit()
+        // console.log(data)
+      }
+
+    )}
+  else{
+    currentStock = {
+    ...currentStock,
+    quantity: parseInt(currentStock.quantity) + parseInt(this.stockDynamicForm.controls.quantity.value)
+  }
+    this.stockService.updateStock(currentStock.id, currentStock).subscribe(
+      data=>{
+
+        this.refreshStockSubmited.emit()
+        this.isDisplayStock = false
+        // this.restaurantService.addStockToRestaurant(this.managerRestaurant.id, [newStock.ingredient.id]).subscribe(
+        //   data => {
+        //     this.refreshStockSubmited.emit()
+        //     this.isDisplayStock = false
+        //   }
+        // )
+      }
+    )
+  }
+  }
+  isDisplay() {
+    this.isDisplayIngredient = !this.isDisplayIngredient
+  }
+  addStock(ingredient) {
+    this.addingIngredient = ingredient
+    this.stockDynamicForm.patchValue({
+      id: this.addingIngredient.id,
+      name: this.addingIngredient.name
+    })
+
+    this.isDisplayStock = true
+
+
+
+  }
+  refreshStock() {
+    this.stocks = Object.assign([], this.managerRestaurant.stocks)
+  }
 }

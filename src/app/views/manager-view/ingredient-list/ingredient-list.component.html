@@ -1,6 +1,6 @@
 <div class="select">
 <select (change)="selectIngredient($event)" >
-  <option>Select ingredient</option>
-  <option *ngFor="let ingredient of ingredients">{{ingredient.name}}</option>
+  <option selected disabled>Select ingredient</option>
+  <option *ngFor="let ingredient of ingredients" value="ingredient.id">{{ingredient.name}}</option>
 </select>
 </div>

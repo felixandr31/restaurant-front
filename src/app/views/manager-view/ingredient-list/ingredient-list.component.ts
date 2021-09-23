@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'app-ingredient-list',
@@ -6,10 +6,14 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./ingredient-list.component.css']
 })
 export class IngredientListComponent implements OnInit {
-public ingredients: any
+
+@Output() onselectIngredient = new EventEmitter()
+  public ingredients: any
   constructor() { }
 
   ngOnInit() {
   }
-
+  selectIngredient(event){
+ this.onselectIngredient.emit(event.target.value)
+  }
 }

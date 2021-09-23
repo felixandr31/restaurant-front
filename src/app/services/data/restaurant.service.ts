@@ -36,8 +36,8 @@ export class RestaurantService {
     return this.http.post(url, userId, {observe: 'response'});
   }
 
-  addStockToRestaurant(restaurantId, stockId: Set<String>){
-    const url = this.url + 'addstocks' + restaurantId
+  addStockToRestaurant(restaurantId, stockId: String[]){
+    const url = this.url + 'addstocks/' + restaurantId
     return this.http.post(url, stockId, {observe: 'response'});
   }
 
