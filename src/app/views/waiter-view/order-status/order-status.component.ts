@@ -9,30 +9,32 @@ import { BookingService } from 'src/app/services/data/booking.service';
 })
 export class OrderStatusComponent implements OnInit {
 @Input() booking: any
+@Input() user: any
+
 
 
   constructor(private bookingService: BookingService) { }
 
 
   ngOnInit() {
-    
-    
+    console.log(this.booking)
+
   }
 
-  ngOnChanges(changes: SimpleChanges){
-    if(!this.booking.ordered ){
-      setTimeout(()=>{
-        this.booking.ordered=true
+  ngOnChanges(){
+  
+    
+
+  }
+
+  orderPlaced() {
+    this.booking.served = true;
+    this.bookingService.updateBookingStatus(this.booking.id, this.booking).subscribe(
+      data =>  {
+        console.log(data)
+        alert(this.user.firstName + ', thanks for your order')
       }
-
-      )
-    }
-
-  }
-
-  orderPlaced(){
-    this.booking.ordered = true
-    
+    )
   }
 
 }
