@@ -16,6 +16,7 @@ export class AdminViewComponent implements OnInit {
   public selectedRestaurant: any;
   public menuItem = 'restaurantEdition';
   public notManagedRestaurant: any;
+  public maxRestaurantManagers = 1
 
   constructor(private restaurantService: RestaurantService) { }
 
@@ -23,20 +24,47 @@ export class AdminViewComponent implements OnInit {
     this.refreshRestaurants()
   }
 
-  refreshRestaurants(){
+  refreshRestaurants() {
     this.restaurantService.getRestaurants().subscribe(
       data => {
         this.restaurants = Object.assign([], data.body)
-        // TODO filter restaurants
-        // this.notManagedRestaurant =
-  })
-}
-
-  selectRestaurant(event){
-    this.selectedRestaurant = {...this.restaurants.find(restaurant => restaurant.id === event)}
+        this.notManagedRestaurant = this.restaurantHasManager()
+      })
   }
 
-  selectMenuItem(event){
+  selectRestaurant(event) {
+    this.selectedRestaurant = { ...this.restaurants.find(restaurant => restaurant.id === event) }
+  }
+
+  selectMenuItem(event) {
     this.menuItem = event
   }
+  // TODO filter restaurants
+  restaurantHasManager() {
+    var filteredRestaurants = []
+
+    this.restaurants.forEach(restaurant => {
+      var count = 0
+      var restaurantManagers = []
+
+      // Get restaurant managers
+      restaurant.employees.forEach(employee => {
+        if (employee.roles.find(role => role.name === "Manager")) {
+          restaurantManagers.push(employee)
+          count ++
+        }
+      });
+      console.log(restaurantManagers)
+
+      // check if restaurant can have more managers
+      if (count < this.maxRestaurantManagers) {
+        filteredRestaurants.push(restaurant)
+      }
+
+    });
+    return filteredRestaurants
+  }
+
+
+
 }

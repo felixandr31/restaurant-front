@@ -3,8 +3,7 @@ import { FormGroup, FormBuilder, Validators, FormArray, FormControl } from '@ang
 import { UserService } from 'src/app/services/data/user.service';
 import { RoleService } from 'src/app/services/data/role.service';
 import { RestaurantService } from 'src/app/services/data/restaurant.service';
-import { EmployeesFormComponent } from 'src/app/views/manager-view/employees-form/employees-form.component';
-import { Key } from 'protractor';
+
 
 @Component({
   selector: 'app-user-form',
@@ -64,6 +63,7 @@ export class UserFormComponent implements OnInit {
   }
   public isRestaurantAssignment = false
   public availableRestaurants: any
+  public selectedRestaurant: any
 
   constructor(private formBuilder: FormBuilder, private userService: UserService, private restaurantService: RestaurantService) { }
 
@@ -152,17 +152,7 @@ export class UserFormComponent implements OnInit {
     this.resetUserIsEmployee()
     var user = { ...this.formToJson() };
     // Write in DBB
-    this.userService.postUser(user).subscribe(
-      data => {
-        // const newEmployee: any = data.body
-        // // Update Restaurant employee list
-        // this.restaurantService.addUsersToRestaurant(this.managerRestaurant.id, [newEmployee.id]).subscribe(
-        //   data => {
-        //     this.refreshRestaurant()
-        //   }
-        // )
-      }
-    )
+    this.userService.postUser(user).subscribe()
     this.restaurantAssignment(user)
     this.cancelEdition();
     // alert('Employee created!')
@@ -324,7 +314,7 @@ export class UserFormComponent implements OnInit {
     // new employee
     if (!this.userIsEmployee.was && this.userIsEmployee.is) {
       console.log('new employee')
-      this.toggleChooseRestaurant(user)
+      this.toggleChooseRestaurant(user) //Should return restaurant(selectedRestaurant)
       // add restaurant id to user (return user updated)
       // this.restaurantService.addUsersToRestaurant(restoId, [user.id]).subscribe(
         //   data => {
@@ -335,35 +325,42 @@ export class UserFormComponent implements OnInit {
     // remove employee
     if (this.userIsEmployee.was && !this.userIsEmployee.is) {
       console.log('remove employee')
+
       // const options = {
       //   body:
       //     [employee.id]
       //   ,
       // };
-      // this.restaurantService.removeUsersFromRestaurant(this.managerRestaurant.id, options).subscribe(
+      // this.restaurantService.removeUsersFromRestaurant(user.restaurantId, options).subscribe(
       //   data => {
       //   }
       // )
     }
-    // not good if already manager then add other role
+    // Employee become manager
     if (!this.userIsManager.was && this.userIsManager.is){
-      console.log('new manager')
+      console.log('Employee become manager')
       this.toggleChooseRestaurant(user)
     }
-  }
+    // Manager become employee
+    if (this.userIsEmployee.was && !this.userIsManager.is){
+      console.log('Manager become employee')
 
+    }
+  }
 
   resetUserIsEmployee() {
     for (var item in this.userIsEmployee) {
       this.userIsEmployee[item] = false
     }
-    this.userIsManager = false
+    this.userIsManager.is = false
   }
 
   toggleChooseRestaurant(user) {
+    this.isRestaurantAssignment = true
     if (user.roles.find(role => role.name === "Manager")) {
       console.log('display notManagedResto')
       // this.availableRestaurant = notManagedResto
+
     }
     else {
       console.log('display anyResto')
@@ -371,13 +368,8 @@ export class UserFormComponent implements OnInit {
     }
   }
 
-  // TODO: toggleChooseRestaurant(user) {
-  // if user.role = manager
-  // this.availableRestaurant = notManagedResto
-
-
-  // else (cook/cleaner / admin...) =>
-  // this.availableRestaurant = any resto
-  // }
+  onRestaurantSelection(event){
+    this.selectedRestaurant= event.target.value
+  }
 
 }

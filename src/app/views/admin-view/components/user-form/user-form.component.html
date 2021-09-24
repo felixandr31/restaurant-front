@@ -70,4 +70,11 @@
     </div>
   </div>
 
+  <div *ngIf="isRestaurantAssignment">
+    <div *ngFor="let restaurant of availableRestaurants">
+      {{restaurant.name}
+      <button (click)="onRestaurantSelection($event)" [value]="restaurant.id">select</button>
+    </div>
+  </div>
+
 </div>
