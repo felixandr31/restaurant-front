@@ -124,7 +124,7 @@ export class EmployeesFormComponent implements OnInit {
     this.resetRolesCheckboxs()
     this.selectedEmployee.roles.forEach(role => {
       this.userRolesChecked[role.name] = true
-      // TODO: if manager||cook||waiter this.userIsManager.was = true
+      // TODO: if manager||cook||waiter this.userIsEmployee.was = true
     })
   }
 

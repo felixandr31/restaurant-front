@@ -8,7 +8,7 @@ import { RestaurantService } from 'src/app/services/data/restaurant.service';
 })
 export class AdminViewComponent implements OnInit {
 
-  @Input() user: any;
+  @Input() loggedUser: any;
   @Input() showSubView: any;
   @Input() availableRoles: any;
 
@@ -16,6 +16,7 @@ export class AdminViewComponent implements OnInit {
   public selectedRestaurant: any;
   public menuItem = 'restaurantEdition';
   public notManagedRestaurant: any;
+  // the following variable could be written in restaurant entity to allow customized limit per restaurant
   public maxRestaurantManagers = 1
 
   constructor(private restaurantService: RestaurantService) { }
@@ -28,7 +29,7 @@ export class AdminViewComponent implements OnInit {
     this.restaurantService.getRestaurants().subscribe(
       data => {
         this.restaurants = Object.assign([], data.body)
-        this.notManagedRestaurant = this.restaurantHasManager()
+        this.notManagedRestaurant = [...this.restaurantHasManager()]
       })
   }
 
@@ -39,10 +40,10 @@ export class AdminViewComponent implements OnInit {
   selectMenuItem(event) {
     this.menuItem = event
   }
-  // TODO filter restaurants
+
+  // Recover restaurants with number of manager < maxRestaurantManagers
   restaurantHasManager() {
     var filteredRestaurants = []
-
     this.restaurants.forEach(restaurant => {
       var count = 0
       var restaurantManagers = []
@@ -60,7 +61,6 @@ export class AdminViewComponent implements OnInit {
       if (count < this.maxRestaurantManagers) {
         filteredRestaurants.push(restaurant)
       }
-
     });
     return filteredRestaurants
   }
