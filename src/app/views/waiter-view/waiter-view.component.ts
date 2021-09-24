@@ -1,4 +1,4 @@
-import { Component, Input, OnChanges, OnInit } from '@angular/core';
+import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 
 
 
@@ -15,11 +15,13 @@ import { error } from 'util';
 })
 export class WaiterViewComponent implements OnInit, OnChanges {
 
+
   public restaurant: any;
   public restaurantTables: any = []
   public tablesBooking: any;
   private bookingsAtTime = []
   public restaurantId: String;
+  public currentDate: Date;
   @Input() user: any;
 
   private today = new Date()
@@ -35,7 +37,6 @@ export class WaiterViewComponent implements OnInit, OnChanges {
 
   public reservationDate = {
     day: ""
-
   }
 
   public todaysBookings: any = []
@@ -47,11 +48,6 @@ export class WaiterViewComponent implements OnInit, OnChanges {
 
 
   ngOnInit() {
-    this.restaurantService.getRestaurantById(this.user.restaurantId).subscribe(
-      data => {
-        console.log(data.body)
-        this.restaurant = data.body;
-      })
      
   }
 
@@ -87,7 +83,7 @@ export class WaiterViewComponent implements OnInit, OnChanges {
     });
   }
 
-  async showTables() {
+   showTables() {
     this.restaurantService.getRestaurantById(this.user.restaurantId).subscribe(
       data => {
         console.log(data.body)

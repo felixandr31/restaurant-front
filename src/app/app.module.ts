@@ -55,6 +55,7 @@ import { RecipePieComponent } from './views/admin-view/components/sales-graph/re
 import { PayingTabComponent } from './views/client-view/paying-tab/paying-tab.component';
 import { CommentTabComponent } from './views/client-view/comment-tab/comment-tab.component';
 import { OrderStatusComponent } from './views/waiter-view/order-status/order-status.component';
+import { RecipesComponent } from './views/manager-view/recipes/recipes.component';
 
 
 
@@ -97,6 +98,7 @@ import { OrderStatusComponent } from './views/waiter-view/order-status/order-sta
     StocksComponent,
     TableformComponent,
     BookformComponent,
+    RecipesComponent,
     
     IngredientListComponent,
     SelectBookingComponent,

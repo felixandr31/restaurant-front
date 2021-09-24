@@ -44,11 +44,8 @@
         <td >
           {{booking.hour}}
         </td>
-        <td class="ordered-style" [ngStyle]="{'background-color':booking.Ordered=== 'true' ? 'green' : 'red'}">
-          <span *ngIf="booking.Ordered==true">ordered</span>
-         <app-order-status ></app-order-status>
-          <span *ngIf="booking.served===false">Not Ordered</span>
-          <button></button>
+        <td class="ordered-style" [ngStyle]="{'background-color':booking.served=== 'true' ? 'green' : 'red'}">
+          <app-order-status [user] = "user" [booking] = "booking"></app-order-status>  
         </td>
 
       </tr>
