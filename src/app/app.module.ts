@@ -46,7 +46,6 @@ import { HorizontalMenuComponent } from './views/admin-view/components/horizonta
 import { StocksComponent } from './views/manager-view/stocks/stocks.component';
 import { TableformComponent } from './views/waiter-view/tableform/tableform.component';
 import { BookformComponent } from './views/waiter-view/bookform/bookform.component';
-
 import { IngredientListComponent } from './views/manager-view/ingredient-list/ingredient-list.component';
 
 import { SelectBookingComponent } from './views/waiter-view/select-booking/select-booking.component';
@@ -99,7 +98,10 @@ import { RecipesComponent } from './views/manager-view/recipes/recipes.component
     TableformComponent,
     BookformComponent,
     RecipesComponent,
+<<<<<<< HEAD
     
+=======
+>>>>>>> a3c4031efdd813ff86b4fbd05d981a71716b7d65
     IngredientListComponent,
     SelectBookingComponent,
     SalesGraphComponent,
