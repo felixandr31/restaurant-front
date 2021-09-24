@@ -98,10 +98,7 @@ import { RecipesComponent } from './views/manager-view/recipes/recipes.component
     TableformComponent,
     BookformComponent,
     RecipesComponent,
-<<<<<<< HEAD
     
-=======
->>>>>>> a3c4031efdd813ff86b4fbd05d981a71716b7d65
     IngredientListComponent,
     SelectBookingComponent,
     SalesGraphComponent,
