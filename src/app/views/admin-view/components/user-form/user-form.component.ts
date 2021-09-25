@@ -12,6 +12,7 @@ import { RestaurantService } from 'src/app/services/data/restaurant.service';
 })
 export class UserFormComponent implements OnInit {
 
+
   @Input() loggedUser: any;
   @Input() availableRoles: any;
   @Input() allRestaurants: any;
@@ -76,17 +77,15 @@ export class UserFormComponent implements OnInit {
     this.refreshUsers()
     this.resetSelectedUser()
     this.createForms()
-    console.log(this.loggedUser)
   }
 
   // TODO: assign filteredUser to allUsers (when list of allusers displayed allusers not affected yet...)
   refreshUsers() {
     this.userService.getUsers().subscribe(
       data => {
-        // Remove loggedUser from allUser to prevent self modifications
-        let filteredUsers = Object.assign([], data.body).filter((user) => user.id !== this.loggedUser.id)
-        this.allUsers = {...filteredUsers}
-
+        // this.allUsers = data.body
+        this.allUsers = Object.assign([], data.body).filter((user) => user.id !== this.loggedUser.id)
+        this.enableEdition();
       }
     )
   }
