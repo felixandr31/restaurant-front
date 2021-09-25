@@ -12,7 +12,6 @@ import { RestaurantService } from 'src/app/services/data/restaurant.service';
 })
 export class UserFormComponent implements OnInit {
 
-
   @Input() loggedUser: any;
   @Input() availableRoles: any;
   @Input() allRestaurants: any;
@@ -59,10 +58,12 @@ export class UserFormComponent implements OnInit {
     "creation": false,
     "selectedMode": '',
   }
+  // Manager is also employee!
   public userIsEmployee = {
     "was": false,
     "is": false,
   }
+  // Employee is not necessary manager
   public userIsManager = {
     "was": false,
     "is": false,
@@ -70,6 +71,8 @@ export class UserFormComponent implements OnInit {
   public isRestaurantAssignment = false
   public availableRestaurants: any
   public selectedRestaurantId: any
+  public updatedUser: any
+  public userRestaurant: any
 
   constructor(private formBuilder: FormBuilder, private userService: UserService, private restaurantService: RestaurantService) { }
 
@@ -79,11 +82,11 @@ export class UserFormComponent implements OnInit {
     this.createForms()
   }
 
-  // TODO: assign filteredUser to allUsers (when list of allusers displayed allusers not affected yet...)
+
   refreshUsers() {
     this.userService.getUsers().subscribe(
       data => {
-        // this.allUsers = data.body
+        // Remove logged User from Users list to avoid self modifications
         this.allUsers = Object.assign([], data.body).filter((user) => user.id !== this.loggedUser.id)
         this.enableEdition();
       }
@@ -132,6 +135,9 @@ export class UserFormComponent implements OnInit {
       data => {
         this.selectedUser = { ...data.body }
         this.updateForm();
+        // if(this.selectedUser.restaurantId.length > 0) {
+        //   this.userRestaurant = this.allRestaurants.find(restaurant => restaurant.id === this.selectedUser.restaurantId)
+        // }
       }
     )
     this.isSelectedUser = true
@@ -238,6 +244,7 @@ export class UserFormComponent implements OnInit {
         }
       }
     }
+    this.updatedUser = user
     return user;
   }
 
@@ -291,6 +298,7 @@ export class UserFormComponent implements OnInit {
     this.modes.edition = !this.modes.edition
     this.modes.creation = false
   }
+
   ToggleCreate() {
     this.isSelectedUser = true
     this.modes.selectedMode = 'CREATION'
@@ -318,38 +326,28 @@ export class UserFormComponent implements OnInit {
       } else {
         this.toggleChooseRestaurant(this.allRestaurants)
       }
-
-      console.log(this.selectedRestaurantId)
-      //   // add user to restaurant.employees
-      //   this.restaurantService.addUsersToRestaurant(this.selectedRestaurantId, [user.id]).subscribe(
-      //     data => {
-      //       this.onRestaurantUpdate.emit()
-      //     }
-      //   )
-      //   // Maj user.restoId :
-      //   this.userService.updateUser(user.id, user).subscribe()
     }
-
     // Employee updated
     if (this.userIsEmployee.was) {
-      // remove employee but still Client = remove restaurant
+      // remove employee but still Client: remove restaurant
       if (!this.userIsEmployee.is) {
         console.log('remove employee')
-        console.log(user.restaurantId)
-        // const options = {
-        //   body:
-        //     [user.id]
-        //   ,
-        // };
-        // this.restaurantService.removeUsersFromRestaurant(user.restaurantId, options).subscribe(
-        //   data => {
-        //   }
-        // )
-
-        // Maj user.restoId :
-        // user.restaurantId = ""
-        // this.userService.updateUser(user.id, user).subscribe()
-
+        const options = {
+          body:
+            [user.id]
+          ,
+        };
+        this.restaurantService.removeUsersFromRestaurant(user.restaurantId, options).subscribe(
+          data => {
+            // Maj user.restaurantId
+            user.restaurantId = ""
+            this.userService.updateUser(user.id, user).subscribe(
+              data => {
+                this.refreshUsers()
+              }
+            )
+          }
+        )
       }
     }
 
@@ -364,12 +362,31 @@ export class UserFormComponent implements OnInit {
 
   toggleChooseRestaurant(restaurantList) {
     this.isRestaurantAssignment = true
+    // TODO: if restaurantList empty assignement = false
     this.availableRestaurants = restaurantList
   }
 
   onRestaurantSelection(event) {
     this.selectedRestaurantId = event.target.value
+    this.addUserToRestaurant(this.updatedUser)
     this.isRestaurantAssignment = false
+  }
+
+  // add user to restaurant.employees
+  addUserToRestaurant(user) {
+    this.restaurantService.addUsersToRestaurant(this.selectedRestaurantId, [user.id]).subscribe(
+      data => {
+        this.onRestaurantUpdate.emit()
+        // Maj user.restoId
+        user.restaurantId = this.selectedRestaurantId
+        this.userService.updateUser(user.id, user).subscribe(
+          data => {
+            this.refreshUsers()
+          }
+        )
+
+      }
+    )
   }
 
 }

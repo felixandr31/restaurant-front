@@ -8,11 +8,10 @@
   <!-- List of existing users -->
   <div *ngIf="modes.edition" class="employee-list">
     <select (change)="userSelection($event)" required class="select">
-      <option selected disabled>Select Employee</option>
+      <option selected disabled>Select User</option>
       <option *ngFor="let user of allUsers" [value]="user.id">{{user.firstName}} {{user.lastName}}</option>
     </select>
   </div>
-
 
   <form *ngIf="isSelectedUser" [formGroup]="userForm" (ngSubmit)="onSubmit()">
     <div class="formGroup">
@@ -32,6 +31,10 @@
       <input name="lastName" formControlName="email">
     </div>
     <!-- form Roles -->
+    <!-- <div *ngIf="userRestaurant.length > 0">
+      <h5>Current Restaurant:</h5>
+      <div *ngFor="let restaurant of userRestaurant">{{restaurant.name}}</div>
+    </div> -->
     <div class="formGroup">
       <label for="admin">Admin </label>
       <input type="checkbox" id="admin" [checked]="userRolesChecked.Admin" formControlName="Admin">
