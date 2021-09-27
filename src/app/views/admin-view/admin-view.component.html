@@ -21,6 +21,10 @@
 
 </div>
 
-<div *ngIf="showSubView === 'simulations'" class="simulations-view">
+<div *ngIf="showSubView === 'simulati ons'" class="simulations-view">
   <p>Simulations view</p>
+</div>
+
+<div *ngIf="showSubView === 'ingredients'" class="ingredients-view">
+  <app-ingredients-form [ingredients]="ingredients" (refreshIngredientSubmited)="refreshIngredientSubmited" ></app-ingredients-form>
 </div>

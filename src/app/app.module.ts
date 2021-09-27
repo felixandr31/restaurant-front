@@ -49,6 +49,7 @@ import { BookformComponent } from './views/waiter-view/bookform/bookform.compone
 import { IngredientListComponent } from './views/manager-view/ingredient-list/ingredient-list.component';
 
 import { SelectBookingComponent } from './views/waiter-view/select-booking/select-booking.component';
+import { IngredientsFormComponent } from './views/admin-view/components/ingredients-form/ingredients-form.component';
 
 
 
@@ -92,6 +93,7 @@ import { SelectBookingComponent } from './views/waiter-view/select-booking/selec
     
     IngredientListComponent,
     SelectBookingComponent,
+    IngredientsFormComponent,
     
  
 
