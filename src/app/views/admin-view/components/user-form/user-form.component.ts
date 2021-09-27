@@ -220,9 +220,8 @@ export class UserFormComponent implements OnInit {
                   this.refreshAllUsers();
                 }
               )
-            } else {
-              this.refreshAllUsers();
             }
+            this.refreshAllUsers();
           }
         )
       }
@@ -283,7 +282,11 @@ export class UserFormComponent implements OnInit {
       }
       // remove user from restaurant before removing user if he has restaurantId
       if (user.restaurantId.length > 0) { // User is employee
-        this.restaurantService.removeUsersFromRestaurant(user.restaurantId, options).subscribe()
+        this.restaurantService.removeUsersFromRestaurant(user.restaurantId, options).subscribe(
+          data => {
+            this.onRestaurantUpdate.emit()
+          }
+        )
       }
       // Delete user
       this.userService.deleteUser(user.id).subscribe(
@@ -362,7 +365,6 @@ export class UserFormComponent implements OnInit {
           data => {
             this.onRestaurantUpdate.emit()
             // Maj user.restaurantId
-
             this.userService.updateUser(user.id, user).subscribe(
               data => {
                 this.refreshAllUsers()
@@ -371,6 +373,8 @@ export class UserFormComponent implements OnInit {
           }
         )
       }
+      // Roles updated but still employee
+      this.onRestaurantUpdate.emit()
     }
 
   }

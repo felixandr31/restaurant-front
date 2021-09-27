@@ -10,9 +10,12 @@
         <h5>Employees : </h5>
         <!-- TODO display label manager if manager -->
         <div *ngFor="let employee of selectedRestaurant.employees">
-          {{employee.lastName}} {{employee.firstName}} <span> manager </span>
-          <button>Fire this asshole</button>
-          <!-- <div *ngIf="employee.id === managerId">
+          {{employee.lastName}} {{employee.firstName}}
+
+          <span *ngIf="employee.manager"> manager </span>
+
+          <button>Fire </button>
+          <!-- <div *ngIf="employee.id === restaurantManagers.id">
             manager
           </div> -->
         </div>

@@ -19,7 +19,8 @@ export class AdminViewComponent implements OnInit, OnChanges {
   public notManagedRestaurant: any;
   // the following variable could be written in restaurant entity to allow customized limit per restaurant
   public maxRestaurantManagers = 1
-  public restaurantManagers = []
+  public restaurantManagersId = []
+  public availableEmployees: any
 
   constructor(private restaurantService: RestaurantService) { }
 
@@ -60,8 +61,9 @@ export class AdminViewComponent implements OnInit, OnChanges {
         // Get restaurant managers
         restaurant.employees.forEach(employee => {
           if (employee.roles.find(role => role.name === "Manager")) {
-            this.restaurantManagers.push(employee)
+            this.restaurantManagersId.push(employee.id)
             count++
+            employee.manager= true
           }
         });
         // check if restaurant can have more managers
@@ -74,6 +76,7 @@ export class AdminViewComponent implements OnInit, OnChanges {
         filteredRestaurants.push(restaurant)
       }
     });
+    this.restaurantManagersId = {... this.restaurantManagersId }
     return filteredRestaurants
   }
 
