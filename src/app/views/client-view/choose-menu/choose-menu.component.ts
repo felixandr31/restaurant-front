@@ -13,6 +13,7 @@ export class ChooseMenuComponent implements OnInit {
   @Output() onItemRemoved = new EventEmitter();
 
   public order = [];
+  public stocks = this.restaurant.stocks
 
   constructor() { }
 

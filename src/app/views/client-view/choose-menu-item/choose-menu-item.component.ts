@@ -18,6 +18,7 @@ export class ChooseMenuItemComponent implements OnInit, OnChanges {
   constructor() { }
 
   ngOnInit() {
+    console.log('item', this.item)
   }
 
   ngOnChanges() {
