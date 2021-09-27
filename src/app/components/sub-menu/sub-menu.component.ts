@@ -27,6 +27,7 @@ export class SubMenuComponent implements OnInit {
   public menuAdmin: any = [
     { name: 'restaurants', content: 'Restaurants' },
     { name: 'simulations', content: 'Simulations' },
+    { name: 'ingredients', content: 'Ingredients' },
   ]
   constructor() { }
 

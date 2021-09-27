@@ -20,29 +20,6 @@
   </div>
 </div>
 
-
-<div id="container">
-  <button class="display-ingredient" (click) = "isDisplay()">Add new Ingredient </button>
-
-  <form *ngIf="isDisplayIngredient" id="ingredient-form" [formGroup]="dynamicForm" (ngSubmit)="onSubmit()">
-    <div id="content">
-      <div class="form-group">
-        <label>ingredient:</label>
-        <input  formControlName='name' class='form-control' id="name">
-      </div>
-      <div class="form-group">
-        <label >purchasePrice:</label>
-        <input  formControlName='purchasePrice' class='form-control' >
-      </div>
-   
-      <div class="footer-form">
-        <button id='submit'>Validate</button>
-      </div>
-    </div>
-  </form>
-</div>
-
-
 <form *ngIf="isDisplayStock" id="stock-form" [formGroup]="stockDynamicForm" (ngSubmit)="onSubmit()">
   <div id="content">
     <div class="form-group">
