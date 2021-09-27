@@ -71,22 +71,23 @@ export class UserFormComponent implements OnInit {
   public isRestaurantAssignment = false
   public availableRestaurants: any
   public selectedRestaurantId: any
-  public updatedUser: any
-  public userRestaurant: any
+  public newEmployee: any
+  public userRestaurant: any = {}
 
   constructor(private formBuilder: FormBuilder, private userService: UserService, private restaurantService: RestaurantService) { }
 
   ngOnInit() {
-    this.refreshUsers()
+    this.refreshAllUsers()
     this.resetSelectedUser()
     this.createForms()
   }
 
 
-  refreshUsers() {
+  refreshAllUsers() {
     this.userService.getUsers().subscribe(
       data => {
         // Remove logged User from Users list to avoid self modifications
+        // for employee form : get only cook and waiter
         this.allUsers = Object.assign([], data.body).filter((user) => user.id !== this.loggedUser.id)
         this.enableEdition();
       }
@@ -135,9 +136,9 @@ export class UserFormComponent implements OnInit {
       data => {
         this.selectedUser = { ...data.body }
         this.updateForm();
-        // if(this.selectedUser.restaurantId.length > 0) {
-        //   this.userRestaurant = this.allRestaurants.find(restaurant => restaurant.id === this.selectedUser.restaurantId)
-        // }
+        if(this.selectedUser.restaurantId.length > 0) {
+          this.userRestaurant = this.allRestaurants.find(restaurant => restaurant.id === this.selectedUser.restaurantId)
+        }
       }
     )
     this.isSelectedUser = true
@@ -153,7 +154,7 @@ export class UserFormComponent implements OnInit {
       if (role.name !== 'Client') {
         this.userIsEmployee.was = true
       }
-      if (role.name !== 'Manager') {
+      if (role.name === 'Manager') {
         this.userIsManager.was = true
       }
     })
@@ -167,21 +168,23 @@ export class UserFormComponent implements OnInit {
 
   createUser() {
     this.resetUserIsEmployee()
+    // user has not id yet !
     var user = { ...this.formToJson() };
     // Write in DBB
     this.userService.postUser(user).subscribe(
       data => {
         // user now has id and can be added to restaurant
-        user = data.body
-        this.restaurantAssignment(user)
+        this.refreshAllUsers()
+        // restaurant assignment need a user with Id (created by DB: data.body has one, but not user)
+        this.restaurantAssignment(data.body)
       }
     )
-    this.refreshUsers()
     this.cancelEdition();
     // alert('Employee created!')
   }
 
   updateUser() {
+    // Here user has an id because it was previously selected from DB. restaurant assignment work with
     var user = { ...this.formToJson() };
     let rolesIdsToRemove: string[];
     let rolesIds: string[];
@@ -205,11 +208,11 @@ export class UserFormComponent implements OnInit {
             if (rolesIds.length > 0) {
               this.userService.addRoles(user.id, rolesIds).subscribe(
                 data => {
-                  this.refreshUsers();
+                  this.refreshAllUsers();
                 }
               )
             } else {
-              this.refreshUsers();
+              this.refreshAllUsers();
             }
           }
         )
@@ -249,7 +252,6 @@ export class UserFormComponent implements OnInit {
         }
       }
     }
-    this.updatedUser = user
     return user;
   }
 
@@ -270,14 +272,14 @@ export class UserFormComponent implements OnInit {
       if (user.restaurantId === null) {
         user.restaurantId = ""
       }
-      // remove user from restaurant before remooving user if he has restaurantId
+      // remove user from restaurant before removing user if he has restaurantId
       if (user.restaurantId.length > 0) { // User is employee
         this.restaurantService.removeUsersFromRestaurant(user.restaurantId, options).subscribe()
       }
       // Delete user
       this.userService.deleteUser(user.id).subscribe(
         data => {
-          this.refreshUsers()
+          this.refreshAllUsers()
         }
       )
     }
@@ -321,14 +323,16 @@ export class UserFormComponent implements OnInit {
     }
   }
 
-  restaurantAssignment(user) {
+  restaurantAssignment(user) { // method need user with id for addUserToRestaurant! (User creation vs user update)
+    // if restaurant assignment triggered: user = new employee. Used for addUserToRestaurant
+    this.newEmployee = user
     // new employee = add restaurant
     if (!this.userIsEmployee.was && this.userIsEmployee.is) {
-      console.log('new employee')
       if (this.userIsManager.is) {
         console.log('new manager')
         this.toggleChooseRestaurant(this.notManagedRestaurant)
       } else {
+        console.log('new employee')
         this.toggleChooseRestaurant(this.allRestaurants)
       }
     }
@@ -342,13 +346,15 @@ export class UserFormComponent implements OnInit {
             [user.id]
           ,
         };
+
         this.restaurantService.removeUsersFromRestaurant(user.restaurantId, options).subscribe(
           data => {
+            this.onRestaurantUpdate.emit()
             // Maj user.restaurantId
             user.restaurantId = ""
             this.userService.updateUser(user.id, user).subscribe(
               data => {
-                this.refreshUsers()
+                this.refreshAllUsers()
               }
             )
           }
@@ -362,7 +368,9 @@ export class UserFormComponent implements OnInit {
     for (var item in this.userIsEmployee) {
       this.userIsEmployee[item] = false
     }
-    this.userIsManager.is = false
+    for (var item in this.userIsManager) {
+      this.userIsManager[item] = false
+    }
   }
 
   toggleChooseRestaurant(restaurantList) {
@@ -374,23 +382,23 @@ export class UserFormComponent implements OnInit {
 
   onRestaurantSelection(event) {
     this.selectedRestaurantId = event.target.value
-    this.addUserToRestaurant(this.updatedUser)
+    this.newEmployee.restaurantId = this.selectedRestaurantId
+    this.addUserToRestaurant(this.newEmployee)
     this.isRestaurantAssignment = false
   }
 
   // add user to restaurant.employees
   addUserToRestaurant(user) {
-    // Maj user.restoId
-    user.restaurantId = this.selectedRestaurantId
+    // Maj user.restaurantId
     this.userService.updateUser(user.id, user).subscribe(
       data => {
-        this.refreshUsers()
-      }
-    )
-    // Add user to restaurant.employees
-    this.restaurantService.addUsersToRestaurant(this.selectedRestaurantId, [user.id]).subscribe(
-      data => {
-        this.onRestaurantUpdate.emit()
+        this.refreshAllUsers()
+        // Add user to restaurant.employees
+        this.restaurantService.addUsersToRestaurant(this.selectedRestaurantId, [user.id]).subscribe(
+          data => {
+            this.onRestaurantUpdate.emit()
+          }
+        )
       }
     )
   }

@@ -31,17 +31,17 @@
       <input name="lastName" formControlName="email">
     </div>
     <!-- form Roles -->
-    <!-- <div *ngIf="userRestaurant.length > 0">
+    <div *ngIf="userRestaurant.length">
       <h5>Current Restaurant:</h5>
       <div>
         {{userRestaurant.name}}
       </div>
-    </div> -->
+    </div>
     <div class="formGroup">
       <label for="admin">Admin </label>
       <input type="checkbox" id="admin" [checked]="userRolesChecked.Admin" formControlName="Admin">
     </div>
-    <div class="formGroup">
+    <div *ngIf="userIsManager.was" class="formGroup">
       <label for="manager">Manager </label>
       <input type="checkbox" id="manager" [checked]="userRolesChecked.Manager" formControlName="Manager">
     </div>
@@ -74,8 +74,6 @@
       <button (click)="onDeletionConfirmation($event)" value='cancelDeletion'>Cancel</button>
     </div>
   </div>
-
-
 </div>
 
 <div *ngIf="isRestaurantAssignment">

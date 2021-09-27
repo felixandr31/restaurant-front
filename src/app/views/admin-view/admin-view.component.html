@@ -1,15 +1,20 @@
 <div *ngIf="showSubView === 'restaurants'" class="restaurant-view">
-  <app-restaurants-list [restaurants]="restaurants" (onRestaurantSelection)="selectRestaurant($event)"></app-restaurants-list>
+  <app-restaurants-list [restaurants]="allRestaurants" (onRestaurantSelection)="selectRestaurant($event)"></app-restaurants-list>
 
   <div *ngIf="selectedRestaurant">
     <app-horizontal-menu (onItemSelection)="selectMenuItem($event)"></app-horizontal-menu>
 
     <div *ngIf="menuItem === 'restaurantEdition'">
-      <p>Edition restaurant sélectionné (CRUD + budget...)</p>
-      <div class="employeeList">
-        <h5>Employees of this restaurant: </h5>
+      <h3>{{selectedRestaurant.name}}</h3>
+      <div *ngIf="selectedRestaurant.employees.length" class="employeeList">
+        <h5>Employees : </h5>
+        <!-- TODO display label manager if manager -->
         <div *ngFor="let employee of selectedRestaurant.employees">
-          {{employee.lastName}} {{employee.firstName}}
+          {{employee.lastName}} {{employee.firstName}} <span> manager </span>
+          <button>Fire this asshole</button>
+          <!-- <div *ngIf="employee.id === managerId">
+            manager
+          </div> -->
         </div>
       </div>
       <app-restaurant-form [restaurant]="selectedRestaurant"></app-restaurant-form>
@@ -29,7 +34,9 @@
 
 <div *ngIf="showSubView === 'users'" class="users-view">
   <p>Edit Users</p>
-  <app-user-form [availableRoles]="availableRoles" [allRestaurants]="restaurants" [notManagedRestaurant]="notManagedRestaurant" [loggedUser]="loggedUser" (onRestaurantUpdate)="refreshRestaurants()"></app-user-form>
+  <app-user-form [availableRoles]="availableRoles" [allRestaurants]="allRestaurants"
+    [notManagedRestaurant]="notManagedRestaurant" [loggedUser]="loggedUser" (onRestaurantUpdate)="refreshRestaurants()">
+  </app-user-form>
 </div>
 
 <div *ngIf="showSubView === 'simulations'" class="simulations-view">
