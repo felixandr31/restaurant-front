@@ -73,6 +73,7 @@ export class UserFormComponent implements OnInit {
   public selectedRestaurantId: any
   public newEmployee: any
   public userRestaurant: any = {}
+  public userCanBeManager: boolean
 
   constructor(private formBuilder: FormBuilder, private userService: UserService, private restaurantService: RestaurantService) { }
 
@@ -131,13 +132,21 @@ export class UserFormComponent implements OnInit {
   userSelection(event) {
     this.resetUserIsEmployee()
     // spread operator allow to clone selectedEmployee in a new object and to avoid direct modification of employees (because of filter use)
-    // Better pick user by id than from users because data are missing in users to update user after
+    // Better pick user by id than from users because some missing data in users prevent user updating
     this.userService.getUserById(event.target.value).subscribe(
       data => {
         this.selectedUser = { ...data.body }
         this.updateForm();
-        if(this.selectedUser.restaurantId.length > 0) {
+        // Get user restaurant
+        if (this.selectedUser.restaurantId.length > 0) {
           this.userRestaurant = this.allRestaurants.find(restaurant => restaurant.id === this.selectedUser.restaurantId)
+          // if userRestaurant can have more managers
+          if (this.notManagedRestaurant.find(restaurant => restaurant.id === this.userRestaurant.id)) {
+            this.userCanBeManager = true
+          }
+          else {
+            this.userCanBeManager = false
+          }
         }
       }
     )
@@ -313,6 +322,7 @@ export class UserFormComponent implements OnInit {
     this.modes.edition = false
     this.resetSelectedUser();
     this.updateForm();
+    this.userCanBeManager = true
   }
 
   enableEdition() {
@@ -341,6 +351,7 @@ export class UserFormComponent implements OnInit {
       // remove employee but still Client: remove restaurant
       if (!this.userIsEmployee.is) {
         console.log('remove employee')
+        user.restaurantId = ""
         const options = {
           body:
             [user.id]
@@ -351,7 +362,7 @@ export class UserFormComponent implements OnInit {
           data => {
             this.onRestaurantUpdate.emit()
             // Maj user.restaurantId
-            user.restaurantId = ""
+
             this.userService.updateUser(user.id, user).subscribe(
               data => {
                 this.refreshAllUsers()

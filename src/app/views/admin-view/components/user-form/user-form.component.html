@@ -41,7 +41,7 @@
       <label for="admin">Admin </label>
       <input type="checkbox" id="admin" [checked]="userRolesChecked.Admin" formControlName="Admin">
     </div>
-    <div *ngIf="userIsManager.was" class="formGroup">
+    <div *ngIf=" userCanBeManager || userIsManager.was" class="formGroup">
       <label for="manager">Manager </label>
       <input type="checkbox" id="manager" [checked]="userRolesChecked.Manager" formControlName="Manager">
     </div>
