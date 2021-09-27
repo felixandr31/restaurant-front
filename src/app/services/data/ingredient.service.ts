@@ -18,4 +18,8 @@ export class IngredientService {
     const url = this.url + 'ingredients'
     return this.http.get(url, {observe: 'response'});
  }
+ updateIngredient(id, ingredient){
+   const url = this.url + 'update/' + id
+   return this.http.put(url, ingredient, {observe: 'response'});
+ }
 }

@@ -43,7 +43,6 @@ export class ManagerViewComponent implements OnInit {
     this.ingredientService.getIngredient().subscribe(
       data => {
         this.ingredients = data.body;
-        console.log(this.ingredients)
       },
       err => {
         console.log('erreur', err)

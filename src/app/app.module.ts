@@ -49,6 +49,7 @@ import { BookformComponent } from './views/waiter-view/bookform/bookform.compone
 import { IngredientListComponent } from './views/manager-view/ingredient-list/ingredient-list.component';
 
 import { SelectBookingComponent } from './views/waiter-view/select-booking/select-booking.component';
+import { IngredientsFormComponent } from './views/admin-view/components/ingredients-form/ingredients-form.component';
 import { SalesGraphComponent } from './views/admin-view/components/sales-graph/sales-graph.component';
 import { RecipePieComponent } from './views/admin-view/components/sales-graph/recipe-pie/recipe-pie.component';
 import { PayingTabComponent } from './views/client-view/paying-tab/paying-tab.component';
@@ -101,6 +102,7 @@ import { RecipesComponent } from './views/manager-view/recipes/recipes.component
     
     IngredientListComponent,
     SelectBookingComponent,
+    IngredientsFormComponent,
     SalesGraphComponent,
     RecipePieComponent,
     PayingTabComponent,

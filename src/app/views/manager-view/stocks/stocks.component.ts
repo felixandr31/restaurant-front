@@ -63,22 +63,7 @@ export class StocksComponent implements OnInit, OnChanges {
     let currentStock: any;
     this.submitted = true;
     let isStockExisting: boolean = false;
-    // if (this.dynamicForm.invalid) {
-    //   return;
-    // }
-    // let newIngredient = {
-    //   ...this.emptyIngredient,
-    //   name: this.dynamicForm.controls.name.value,
-    //   purchasePrice: parseFloat(this.dynamicForm.controls.purchasePrice.value),
-    // }
-
-    // this.ingredientService.createIngredient(newIngredient).subscribe(
-    //   data => {
-    //     this.refreshIngredientSubmited.emit()
-    //     this.isDisplayIngredient=false
-    //   }
-
-    // )
+  
     let newStock = {
       ingredient: this.addingIngredient,
       quantity: parseFloat(this.stockDynamicForm.controls.quantity.value),
