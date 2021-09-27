@@ -169,9 +169,14 @@ export class UserFormComponent implements OnInit {
     this.resetUserIsEmployee()
     var user = { ...this.formToJson() };
     // Write in DBB
-    this.userService.postUser(user).subscribe()
+    this.userService.postUser(user).subscribe(
+      data => {
+        // user now has id and can be added to restaurant
+        user = data.body
+        this.restaurantAssignment(user)
+      }
+    )
     this.refreshUsers()
-    this.restaurantAssignment(user)
     this.cancelEdition();
     // alert('Employee created!')
   }
@@ -361,9 +366,10 @@ export class UserFormComponent implements OnInit {
   }
 
   toggleChooseRestaurant(restaurantList) {
-    this.isRestaurantAssignment = true
-    // TODO: if restaurantList empty assignement = false
-    this.availableRestaurants = restaurantList
+    if (restaurantList.length > 0) {
+      this.isRestaurantAssignment = true
+      this.availableRestaurants = restaurantList
+    }
   }
 
   onRestaurantSelection(event) {
@@ -374,17 +380,17 @@ export class UserFormComponent implements OnInit {
 
   // add user to restaurant.employees
   addUserToRestaurant(user) {
+    // Maj user.restoId
+    user.restaurantId = this.selectedRestaurantId
+    this.userService.updateUser(user.id, user).subscribe(
+      data => {
+        this.refreshUsers()
+      }
+    )
+    // Add user to restaurant.employees
     this.restaurantService.addUsersToRestaurant(this.selectedRestaurantId, [user.id]).subscribe(
       data => {
         this.onRestaurantUpdate.emit()
-        // Maj user.restoId
-        user.restaurantId = this.selectedRestaurantId
-        this.userService.updateUser(user.id, user).subscribe(
-          data => {
-            this.refreshUsers()
-          }
-        )
-
       }
     )
   }

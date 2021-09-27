@@ -6,6 +6,12 @@
 
     <div *ngIf="menuItem === 'restaurantEdition'">
       <p>Edition restaurant sélectionné (CRUD + budget...)</p>
+      <div class="employeeList">
+        <h5>Employees of this restaurant: </h5>
+        <div *ngFor="let employee of selectedRestaurant.employees">
+          {{employee.lastName}} {{employee.firstName}}
+        </div>
+      </div>
       <app-restaurant-form [restaurant]="selectedRestaurant"></app-restaurant-form>
     </div>
     <div *ngIf="menuItem === 'graphics'">
