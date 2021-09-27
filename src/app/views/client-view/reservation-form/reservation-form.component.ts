@@ -2,7 +2,6 @@ import { Component, OnInit, Input, OnChanges, Output, EventEmitter } from '@angu
 import { FormGroup, FormBuilder, Validators, FormArray } from '@angular/forms';
 import { BookingService } from 'src/app/services/data/booking.service';
 import { forkJoin } from 'rxjs';
-import { tap, concatMap } from 'rxjs/operators'
 import { UserService } from 'src/app/services/data/user.service';
 
 @Component({
@@ -45,8 +44,18 @@ export class ReservationFormComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges() {
-    this.clients.push(this.user)
-    this.user.friends.forEach(friend => this.clients.push(friend))
+    if (!this.clients.length) {
+      this.clients.push(this.user)
+      const queries = this.user.friends.map(friend => this.userService.getUserById(friend))
+      forkJoin(queries).subscribe(
+        data => {
+          const res: any = data
+          res.forEach(friendResponse =>
+            this.clients.push(friendResponse.body))
+            console.log(this.clients)
+        }
+      )
+    }
     this.tables = this.restaurant.tables
   }
 
@@ -78,13 +87,6 @@ export class ReservationFormComponent implements OnInit, OnChanges {
     this.bookingsAtTime = []
     this.tablesAtTime = []
     this.reservationDate = event;
-
-    // const queries = this.tables.map(table => this.bookingService.getBookingByTable(table.id))
-
-    //ForkJoin pour faire des requêtes en parallèle: https://www.learnrxjs.io/learn-rxjs/operators/combination/forkjoin
-    // forkJoin(queries).subscribe(res => {
-    //   console.log("forkJoin res", res)
-    // })
 
     this.tables.forEach(table => {
       this.bookingService.getBookingByTable(table.id).subscribe(
@@ -118,7 +120,7 @@ export class ReservationFormComponent implements OnInit, OnChanges {
 
   placeReservation() {
     const bestTable = this.selectBestTable(this.form.value.clients.length, this.tablesAtTime);
-    let clients = this.user.friends.filter(friend => {
+    let clients = this.clients.filter(friend => {
       return this.form.value.clients.map(e => e.name).includes(friend.id)
     })
     clients.push(this.user)
@@ -139,19 +141,6 @@ export class ReservationFormComponent implements OnInit, OnChanges {
         )
       }
     )
-
-    // this.bookingService.postBooking(booking).pipe(
-    //   tap((data:any) => console.log('response for booking', data.body)),
-    //   concatMap(res: {value: data.body} => {
-    //     const res = data.body
-    //     this.userService.addBooking(this.user.id, res.id)
-    //   })
-    // ).subscribe(
-    //   data => {
-    //     console.log('call to add booking to user', data)
-    //   }
-    // )
-
     this.reservationDate = {
       day: '',
       hour: ''
