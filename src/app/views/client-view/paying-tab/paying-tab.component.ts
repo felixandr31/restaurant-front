@@ -34,7 +34,9 @@ export class PayingTabComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.subscription.unsubscribe()
+    if (this.subscription != null) {
+      this.subscription.unsubscribe()
+    }
   }
 
   payOrder() {

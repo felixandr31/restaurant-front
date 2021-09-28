@@ -1,7 +1,9 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { NgModule, LOCALE_ID } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-
+import { registerLocaleData } from '@angular/common';
+import localeFr from '@angular/common/locales/fr';
+registerLocaleData(localeFr);
 import { NgxChartsModule } from '@swimlane/ngx-charts'
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import { HttpClientModule } from '@angular/common/http';
@@ -125,7 +127,11 @@ import { RecipesComponent } from './views/manager-view/recipes/recipes.component
   providers: [
     MarkerService,
     PopupService,
-    [{provide: MAT_DATE_LOCALE, useValue: 'fr-FR'}]
+    [{provide: MAT_DATE_LOCALE, useValue: 'fr-FR'}],
+    [{
+      provide: LOCALE_ID,
+      useValue: 'fr-FR'
+    }]
   ],
   bootstrap: [AppComponent]
 })

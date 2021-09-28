@@ -1,4 +1,4 @@
 <div>
-  <h4>{{person.firstName}} {{person.lastName}}</h4>
+  <h4>{{person.firstName}} {{person.lastName | uppercase}}</h4>
   <button (click)="friendAdded($event)" [value]="person.id">Add Friend</button>
   </div>
