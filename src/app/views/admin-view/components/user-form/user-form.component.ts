@@ -83,6 +83,13 @@ export class UserFormComponent implements OnInit {
     this.createForms()
   }
 
+  // ngOnChanges(changes: SimpleChanges): void {
+  //   if(this.notManagedRestaurant.length = 0){
+  //     this.userCanBeManager = false
+  //   }else {
+  //     this.userCanBeManager = true
+  //   }
+  // }
 
   refreshAllUsers() {
     this.userService.getUsers().subscribe(
@@ -137,16 +144,24 @@ export class UserFormComponent implements OnInit {
       data => {
         this.selectedUser = { ...data.body }
         this.updateForm();
-        // Get user restaurant
-        if (this.selectedUser.restaurantId.length > 0) {
-          this.userRestaurant = this.allRestaurants.find(restaurant => restaurant.id === this.selectedUser.restaurantId)
-          // if userRestaurant can have more managers
-          if (this.notManagedRestaurant.find(restaurant => restaurant.id === this.userRestaurant.id)) {
-            this.userCanBeManager = true
+        // Already checked if restaurants are availables for manager
+        if (this.userCanBeManager) {
+          // If user already has a restaurant
+          if (this.selectedUser.restaurantId.length > 0) {
+            // Get user restaurant
+            this.userRestaurant = this.allRestaurants.find(restaurant => restaurant.id === this.selectedUser.restaurantId)
+            // if userRestaurant can have more managers
+            // if (this.notManagedRestaurant.includes(this.userRestaurant.id)){
+            //   console.log(true)
+            // }
+            if (this.notManagedRestaurant.find(restaurant => restaurant.id === this.userRestaurant.id)) {
+              this.userCanBeManager = true
+            }
+            else {
+              this.userCanBeManager = false
+            }
           }
-          else {
-            this.userCanBeManager = false
-          }
+
         }
       }
     )
@@ -316,6 +331,7 @@ export class UserFormComponent implements OnInit {
     this.modes.selectedMode = 'EDITION'
     this.modes.edition = !this.modes.edition
     this.modes.creation = false
+    this.canUserBeManager()
   }
 
   ToggleCreate() {
@@ -326,8 +342,16 @@ export class UserFormComponent implements OnInit {
     this.resetSelectedUser();
     this.updateForm();
     this.userCanBeManager = true
+    this.canUserBeManager()
   }
 
+  canUserBeManager() {
+    if (this.notManagedRestaurant.length = 0) {
+      this.userCanBeManager = false
+    } else {
+      this.userCanBeManager = true
+    }
+  }
   enableEdition() {
     if (this.allUsers.length > 0) {
       this.isUsers = true
@@ -354,7 +378,6 @@ export class UserFormComponent implements OnInit {
       // remove employee but still Client: remove restaurant
       if (!this.userIsEmployee.is) {
         console.log('remove employee')
-        user.restaurantId = ""
         const options = {
           body:
             [user.id]
@@ -365,6 +388,7 @@ export class UserFormComponent implements OnInit {
           data => {
             this.onRestaurantUpdate.emit()
             // Maj user.restaurantId
+            user.restaurantId = ""
             this.userService.updateUser(user.id, user).subscribe(
               data => {
                 this.refreshAllUsers()
@@ -391,7 +415,7 @@ export class UserFormComponent implements OnInit {
   toggleChooseRestaurant(restaurantList) {
     if (restaurantList.length > 0) {
       this.isRestaurantAssignment = true
-      this.availableRestaurants = restaurantList
+      this.availableRestaurants = [...restaurantList]
     }
   }
 

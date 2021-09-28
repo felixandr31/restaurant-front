@@ -9,15 +9,10 @@
       <div *ngIf="selectedRestaurant.employees.length" class="employeeList">
         <h5>Employees : </h5>
         <!-- TODO display label manager if manager -->
-        <div *ngFor="let employee of selectedRestaurant.employees">
+        <div *ngFor="let employee of selectedRestaurant.employees" >
           {{employee.lastName}} {{employee.firstName}}
-
           <span *ngIf="employee.manager"> manager </span>
-
-          <button>Fire </button>
-          <!-- <div *ngIf="employee.id === restaurantManagers.id">
-            manager
-          </div> -->
+          <button (click)="resetUserRolesToClient($event)" [value]="employee.id">Fire </button>
         </div>
       </div>
       <app-restaurant-form [restaurant]="selectedRestaurant"></app-restaurant-form>
