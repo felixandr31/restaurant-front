@@ -65,6 +65,7 @@ app-tableform {
 table {
   border-collapse:collapse;
   width:90%;
+  overflow-y: scroll;
   }
  th, td {
   border:1px solid black;
@@ -72,6 +73,10 @@ table {
   }
  td {
   text-align:center;
+  }
+
+  .ordered-style{
+    width: 5%;
   }
 
 

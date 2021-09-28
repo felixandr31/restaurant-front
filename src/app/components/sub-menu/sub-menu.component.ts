@@ -28,6 +28,7 @@ export class SubMenuComponent implements OnInit {
     { name: 'restaurants', content: 'Restaurants' },
     { name: 'users', content: 'Users' },
     { name: 'simulations', content: 'Simulations' },
+    { name: 'ingredients', content: 'Ingredients' },
   ]
   constructor() { }
 

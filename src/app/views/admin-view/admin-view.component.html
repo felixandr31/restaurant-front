@@ -18,7 +18,7 @@
       <app-restaurant-form [restaurant]="selectedRestaurant"></app-restaurant-form>
     </div>
     <div *ngIf="menuItem === 'graphics'">
-      <p>graph historique C.A. restaurant sélectionné</p>
+      <app-sales-graph [restaurant]="selectedRestaurant"></app-sales-graph>
     </div>
     <div *ngIf="menuItem === 'popularity'">
       <p>Popularité & détail des votes</p>
@@ -39,4 +39,8 @@
 
 <div *ngIf="showSubView === 'simulations'" class="simulations-view">
   <p>Simulations view</p>
+</div>
+
+<div *ngIf="showSubView === 'ingredients'" class="ingredients-view">
+  <app-ingredients-form [ingredients]="ingredients" (refreshIngredientSubmited)="refreshIngredientSubmited" ></app-ingredients-form>
 </div>

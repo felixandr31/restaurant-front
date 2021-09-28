@@ -12,8 +12,6 @@ export class UserFinderComponent implements OnInit, OnChanges {
   @Input() user;
   @Output() onFriendAddition = new EventEmitter();
 
-  // TO DO initiate users
-
   private users: any = []
 
   public notFriends: any = []
@@ -31,13 +29,10 @@ export class UserFinderComponent implements OnInit, OnChanges {
     this.userService.getUsers().subscribe(
       data => {
         const res = Object.values(data.body)
-        console.log('res1', res)
         if (this.user.friends.length) {
           const queries = user.friends.map(friendId => this.userService.getUserById(friendId))
           forkJoin(queries).subscribe((data: any) => {
             const friends = data.map(data => data.body)
-            console.log('friends', friends)
-            console.log('res & data', res, data)
             return this.notFriends = res.filter(person => person.id != user.id && !friends.map(f => f.id).includes(person.id))
           })
         }
@@ -53,6 +48,11 @@ export class UserFinderComponent implements OnInit, OnChanges {
     this.userService.addFriend(this.user.id, friendId).subscribe(
       data => {
         this.onFriendAddition.emit(event)
+        this.userService.addFriend(friendId, this.user.id).subscribe(
+          data => {
+            console.log("user added to friend friends ?", data)
+          }
+        )
       }
     )
   }
