@@ -1,0 +1,85 @@
+<div *ngIf="!modes.edition && !modes.creation" class="chooseForm">
+  <button (click)="ToggleCreate()">CREATE</button>
+  <button *ngIf="isUsers" (click)="ToggleEdit()">EDIT</button>
+</div>
+
+<div *ngIf="modes.edition || modes.creation" class="logForm">
+  {{modes.selectedMode}}
+  <!-- List of existing users -->
+  <div *ngIf="modes.edition" class="employee-list">
+    <select (change)="userSelection($event)" required class="select">
+      <option selected disabled>Select User</option>
+      <option *ngFor="let user of allUsers" [value]="user.id">{{user.firstName}} {{user.lastName}}</option>
+    </select>
+  </div>
+
+  <form *ngIf="isSelectedUser" [formGroup]="userForm" (ngSubmit)="onSubmit()">
+    <div class="formGroup">
+      <label>First name: </label>
+      <input name="firstName" formControlName="firstName">
+    </div>
+    <div class="formGroup">
+      <label>Last name: </label>
+      <input name="lastName" formControlName="lastName">
+    </div>
+    <div *ngIf="modes.creation" class="formGroup">
+      <label>Password: </label>
+      <input name="lastName" formControlName="password">
+    </div>
+    <div class="formGroup">
+      <label>email: </label>
+      <input name="lastName" formControlName="email">
+    </div>
+    <!-- form Roles -->
+    <div *ngIf="userRestaurant.length">
+      <h5>Current Restaurant:</h5>
+      <div>
+        {{userRestaurant.name}}
+      </div>
+    </div>
+    <div class="formGroup">
+      <label for="admin">Admin </label>
+      <input type="checkbox" id="admin" [checked]="userRolesChecked.Admin" formControlName="Admin">
+    </div>
+    <div *ngIf=" userCanBeManager || userIsManager.was" class="formGroup">
+      <label for="manager">Manager </label>
+      <input type="checkbox" id="manager" [checked]="userRolesChecked.Manager" formControlName="Manager">
+    </div>
+    <div class="formGroup">
+      <label for="cook">Cook</label>
+      <input type="checkbox" id="cook" [checked]="userRolesChecked.Cook" formControlName="Cook">
+    </div>
+    <div class="formGroup">
+      <label for="waiter">Waiter </label>
+      <input type="checkbox" id="waiter" [checked]="userRolesChecked.Waiter" formControlName="Waiter">
+    </div>
+    <div class="formGroup">
+      <label for="cleaner">Cleaner </label>
+      <input type="checkbox" id="cleaner" [checked]="userRolesChecked.Cleaner" formControlName="Cleaner">
+    </div>
+    <!-- Buttons -->
+    <button type="submit" *ngIf="modes.creation">Confirm Creation</button>
+    <div *ngIf="modes.edition && !modes.deletionConfirmation">
+      <button type="submit">Update</button>
+    </div>
+  </form>
+
+  <!-- Buttons -->
+  <button *ngIf="!modes.deletionConfirmation" (click)="cancelEdition()">Cancel</button>
+  <div *ngIf="isSelectedUser && modes.edition">
+    <button (click)="userDeletionMode()">Delete account</button>
+    <div *ngIf="modes.deletionConfirmation">
+      <label>Confirm ?</label>
+      <button (click)="onDeletionConfirmation($event)" value="confirmDeletion">Delete</button>
+      <button (click)="onDeletionConfirmation($event)" value='cancelDeletion'>Cancel</button>
+    </div>
+  </div>
+</div>
+
+<div *ngIf="isRestaurantAssignment">
+  Choose restaurant to assign
+  <div *ngFor="let restaurant of availableRestaurants">
+    {{restaurant.name}}
+    <button (click)="onRestaurantSelection($event)" [value]="restaurant.id">select</button>
+  </div>
+</div>

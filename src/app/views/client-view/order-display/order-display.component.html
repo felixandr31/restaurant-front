@@ -1,25 +1,25 @@
-<h2>{{user.firstName}} {{user.lastName}}</h2>
+<h2>{{user.firstName}} {{user.lastName | uppercase}}</h2>
 <div *ngIf="!booking.ordered; else bookingSummary">
   <h3>Ordered items</h3>
   <div *ngFor="let item of bill" class="order-item">
     <p class="name"><b>{{item.item.name}}:</b></p>
     <p class="billing">
-      ({{item.quantity}}) = {{item.item.sellingPrice * item.quantity}} &euro;
+      ({{item.quantity}}) = {{item.item.sellingPrice * item.quantity | currency: 'EUR':true}}
     </p>
   </div>
   <div>
-    <p>Total: {{orderTotal}} &euro;</p>
+    <p>Total: {{orderTotal | currency: 'EUR':true}}</p>
   </div>
 </div>
 <ng-template #bookingSummary>
   <div *ngFor="let item of booking.orders" class="order-item">
     <p class="name"><b>{{item.item.name}}:</b></p>
     <p class="billing">
-      ({{item.quantity}}) = {{item.item.sellingPrice * item.quantity}} &euro;
+      ({{item.quantity}}) = {{item.item.sellingPrice * item.quantity | currency: 'EUR':true}};
     </p>
   </div>
   <div>
-    <p>Total: {{orderTotal}} &euro;</p>
+    <p>Total: {{orderTotal | currency: 'EUR':true}}</p>
   </div>
 </ng-template>
 
