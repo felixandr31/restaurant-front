@@ -57,6 +57,7 @@ import { PayingTabComponent } from './views/client-view/paying-tab/paying-tab.co
 import { CommentTabComponent } from './views/client-view/comment-tab/comment-tab.component';
 import { OrderStatusComponent } from './views/waiter-view/order-status/order-status.component';
 import { RecipesComponent } from './views/manager-view/recipes/recipes.component';
+import { UsersFormComponent } from './views/admin-view/components/users-form/users-form.component';
 
 
 
@@ -109,6 +110,7 @@ import { RecipesComponent } from './views/manager-view/recipes/recipes.component
     RecipePieComponent,
     PayingTabComponent,
     CommentTabComponent,
+    UsersFormComponent,
   ],
   imports: [
     BrowserModule,

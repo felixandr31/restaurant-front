@@ -1,4 +1,14 @@
-<div *ngIf="!modes.edition && !modes.creation" class="chooseForm">
+        <h5>Employees : </h5>
+        <div *ngFor="let employee of " >
+          {{employee.lastName}} {{employee.firstName}}
+          <span *ngIf="employee.manager"> manager </span>
+          <button (click)="fireEmployee($event)" [value]="employee.id">Fire </button>
+          <button (click)="switchToEditUser()"></button>
+        </div>
+
+
+
+<!-- <div *ngIf="!modes.edition && !modes.creation" class="chooseForm">
   <button (click)="ToggleCreate()">CREATION</button>
   <button *ngIf="isRestaurantEmployees" (click)="ToggleEdit()">EDITION</button>
 </div>
@@ -47,4 +57,4 @@
       </div>
     </div>
   </div>
-</div>
+</div> -->

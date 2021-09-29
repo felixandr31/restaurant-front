@@ -9,32 +9,43 @@ import { IngredientService } from 'src/app/services/data/ingredient.service';
 })
 export class ManagerViewComponent implements OnInit {
 
+  @Input() loggedUser: any;
   @Input() showSubView: any;
   @Input() user: any;
   @Input() availableRoles: any;
 
+  public currentView = 'Manager'
   public stocks: any;
   public ingredients : any;
-  public managerRestaurant: any;
+  public managerRestaurants: any;
+  public selectedRestaurant: any;
 
   constructor(private restaurantService: RestaurantService, private ingredientService: IngredientService) {
   }
 
   ngOnInit() {
     this.showSubView = 'homePage';
-
     // this.stocks = Object.assign({}, this.managerRestaurant.stocks)
     this.refreshIngredients()
     this.refreshRestaurant()
-
   }
 
   refreshRestaurant() {
+    // TOdo if loggerUser.role != admin : filter by loggedUser.restaurantId
+  // TODO for all resto of user.restaurantId
+  // query = loggedUser.restaurantId
+  // forkjoin (query)
+
     this.restaurantService.getRestaurantById(this.user.restaurantId).subscribe(
       data => {
-        this.managerRestaurant = {...data.body}
+        this.managerRestaurants = Object.assign([], data.body)
+
       }
     )
+  }
+
+  selectRestaurant(event) {
+    this.selectedRestaurant = this.managerRestaurants.find(restaurant => restaurant.id === event)
   }
 
   refreshIngredients() {
