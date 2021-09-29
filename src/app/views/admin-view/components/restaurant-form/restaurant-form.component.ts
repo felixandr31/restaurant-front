@@ -20,7 +20,8 @@ export class RestaurantFormComponent implements OnInit, OnChanges {
     },
     stars: '0',
     coordinates: {
-      latitude: Float64Array
+      latitude: Number,
+      longitude: Number,
     },
     employees: [],
     purchases: [],
@@ -29,23 +30,69 @@ export class RestaurantFormComponent implements OnInit, OnChanges {
     tables: [],
     budget: Number,
   };
-  public form: FormGroup;
+  public restaurantForm: FormGroup;
+  public address: FormGroup;
+  public editionMode = false;
 
-  constructor(private formBuilder: FormBuilder,) { }
+  constructor(private formBuilder: FormBuilder, ) { }
 
   ngOnInit() {
+    if (this.restaurant === 'triggerCreate') {
+      this.initRestaurantCreation()
+    }
 
   }
 
-  ngOnChanges(){
-    console.log('restaurant: ', this.restaurant)
+  ngOnChanges() {
   }
 
   createForms() {
-    this.form = this.formBuilder.group({
+    this.restaurantForm = this.formBuilder.group({
       name: ['', Validators.required],
-
+      budget: [Number, Validators.required],
+      address: new FormGroup({
+        // streetName : ['', Validators.required],
+        // city : ['', Validators.required],
+        // zipCode : ['', Validators.required],
+        // country : ['', Validators.required],
+      }),
+      coordinates: new FormGroup({
+        // latitude : ['', Validators.required],
+        // longitude : ['', Validators.required],
+      })
     })
   }
+
+  toggleRestaurantEdition() {
+    this.editionMode = true
+    this.createForms()
+    this.restaurantForm.patchValue(this.restaurant)
+  }
+
+  onSubmit() {
+    if (this.editionMode) {
+      this.updateRestaurant()
+    } else {
+      this.createRestaurant()
+    }
+  }
+
+  initRestaurantCreation() {
+    console.log('initRestaurantCreation')
+    // create restaurant form
+    // patch with empty values
+  }
+
+  updateRestaurant() {
+
+    this.editionMode = false
+  }
+
+  createRestaurant() {
+
+  }
+
+
+
 
 }

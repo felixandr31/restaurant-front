@@ -1,3 +1,16 @@
 <div>
-  <p>form here</p>
+  <label>Budget: </label>{{restaurant.budget}}
+  <button (click)="toggleRestaurantEdition()">Edit Restaurant</button>
 </div>
+
+<form *ngIf="editionMode" [formGroup]="restaurantForm" (ngSubmit)="onSubmit()">
+  <div class="formGroup">
+    <label>Restaurant name </label>
+    <input name="firstName" formControlName="name">
+  </div>
+  <div class="formGroup">
+    <label>Budget </label>
+    <input type="number" name="budget" formControlName="budget">
+  </div>
+  <button type="submit">Save modifications</button>
+</form>

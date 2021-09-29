@@ -363,6 +363,7 @@ export class UserFormComponent implements OnInit {
   restaurantAssignment(user) { // method need user with id for addUserToRestaurant! (User creation vs user update)
     // if restaurant assignment triggered: user = new employee. Used for addUserToRestaurant
     this.newEmployee = user
+
     // new employee = add restaurant
     if (!this.userIsEmployee.was && this.userIsEmployee.is) {
       if (this.userIsManager.is) {
@@ -373,6 +374,7 @@ export class UserFormComponent implements OnInit {
         this.toggleChooseRestaurant(this.allRestaurants)
       }
     }
+
     // Employee updated
     if (this.userIsEmployee.was) {
       // remove employee but still Client: remove restaurant
