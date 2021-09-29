@@ -11,6 +11,7 @@
   grid-template-areas: "title button-menu"
   "stars stars"
   "address address";
+  border-bottom: 1px solid black;
 }
 
 .restaurant-card-grid > h3 {
@@ -28,4 +29,9 @@
 
 .restaurant-card-grid > button {
   grid-area: button-menu;
+}
+
+button {
+  margin: 0;
+  margin-top: 10px;
 }

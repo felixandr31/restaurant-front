@@ -34,6 +34,12 @@ export class EmployeesFormComponent implements OnInit {
   public selectedEmployee: any;
   public isSelectedEmployee = false;
   public form: FormGroup;
+<<<<<<< HEAD
+  public cookChecked = false;
+  public waiterChecked = false;
+  public isChargingReastaurant: boolean = true;
+  private availableRoles: any;
+=======
 
   public userRolesChecked = {
     "Cook": false,
@@ -43,6 +49,7 @@ export class EmployeesFormComponent implements OnInit {
     "Cleaner": false,
   }
 
+>>>>>>> 442012a5f4d42df2cf988c28d2d90131cfa3c530
   public modes = {
     "edition": false,
     "deletionConfirmation": false,
@@ -63,7 +70,20 @@ export class EmployeesFormComponent implements OnInit {
     this.restaurantService.getRestaurantById(this.user.restaurantId).subscribe(
       data => {
         this.managerRestaurant = data.body
+<<<<<<< HEAD
+        this.isChargingReastaurant = false;
+        this.displayList();
+      }
+    )
+  }
+
+  refreshRoles() {
+    this.roleService.getRoles().subscribe(
+      data => {
+        this.availableRoles = data.body
+=======
         this.enableEdition();
+>>>>>>> 442012a5f4d42df2cf988c28d2d90131cfa3c530
       }
     )
   }

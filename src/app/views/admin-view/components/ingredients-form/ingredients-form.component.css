@@ -5,12 +5,13 @@
     grid-column-gap: 10px;
     grid-template-areas: "title title"
         "ingredients display-ingredient";
-     height     : calc(100vh - .5em); 
-    width      : 100%;
+    height: calc(100vh - .5em); 
+    width: 100%;
     align-items: center;
 }
 
 #container {
+    width: 80%;
     margin-right: auto;
     margin-left: auto;
 }
@@ -24,18 +25,12 @@ label {
     width: 120px;
 }
 
-.title {
-    grid-area : title;
-    text-align: center;
-}
-
 .ingredients {
     grid-area  : ingredients;
     display    : flex;
     flex-flow  : column nowrap;
-    padding    : 1em 2em;
     height     : 100%;
-    width      : auto;
+    width      : 100%;
     align-items: center;
     overflow-y : auto;
     -items     : center;
@@ -49,24 +44,28 @@ label {
     grid-template-areas: "name price";
     align-items: flex-start;
     justify-content: flex-start;
-    width: 60%;
+    width: 80%;
     max-width: 350px;
-    border: 1px solid black;
+    border-bottom: 1px solid black;
     margin: .2em;
     padding-left: 0.2em;
+  }
+
+  .ingredients-list:last-child {
+      border-bottom: none;
   }
 
   button {
     font-size: 1.2em;
     padding: 0.5em 1em;
-    color: aliceblue;
+
     transition: box-shadow 0.3s, background-color 0.3s; 
     margin-bottom: 20px;
     cursor: pointer;
-    
 }
 
   .display-ingredient {
+    color: aliceblue;
     box-shadow: rgba(5, 73, 151, 0.972) 0px 0px 0px 1.5px;
     background-color: rgba(5, 73, 151, 0.7); 
   }
@@ -85,4 +84,3 @@ label {
     border: 1px solid black;
     color: aliceblue;
 }
-
