@@ -3,6 +3,9 @@
     (onSubViewSelection)="updateSubView($event)" (onLogOut)="changeLogStatus($event)" class="menu">
   </app-side-navigation-menu>
 
+  <div *ngIf="showView === 'Default'">
+    <h1>O'restO</h1>
+  </div>
   <app-admin-view *ngIf="showView === 'Admin'" [showSubView]="showSubView" class="view"></app-admin-view>
   <app-manager-view *ngIf="showView === 'Manager'" [showSubView]="showSubView" [user]="user" class="view"></app-manager-view>
   <app-cook-view *ngIf="showView === 'Cook'" class="view" [user]="user"></app-cook-view>

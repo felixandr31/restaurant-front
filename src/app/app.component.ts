@@ -23,7 +23,7 @@ export class AppComponent {
   constructor(private userService: UserService) {
   }
 
-  public showView = "";
+  public showView = "Default";
   public showSubView = 'eat';
   public logged = false;
 

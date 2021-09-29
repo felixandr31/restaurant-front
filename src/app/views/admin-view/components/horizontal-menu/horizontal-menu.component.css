@@ -2,3 +2,7 @@
   display: flex;
   justify-content: space-evenly;
 }
+
+button {
+  background-color: rgba(var(--orange-button-color), 1);
+}

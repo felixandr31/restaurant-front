@@ -35,6 +35,7 @@ export class EmployeesFormComponent implements OnInit {
   public form: FormGroup;
   public cookChecked = false;
   public waiterChecked = false;
+  public isChargingReastaurant: boolean = true;
   private availableRoles: any;
   public modes = {
     "edition": false,
@@ -57,6 +58,7 @@ export class EmployeesFormComponent implements OnInit {
     this.restaurantService.getRestaurantById(this.user.restaurantId).subscribe(
       data => {
         this.managerRestaurant = data.body
+        this.isChargingReastaurant = false;
         this.displayList();
       }
     )

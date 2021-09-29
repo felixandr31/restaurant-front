@@ -2,7 +2,7 @@
   height: 100%;
   width: 100%;
   display: grid;
-  grid-template: 200px 75px 75px 1fr /1fr 1fr 1fr;
+  grid-template: 200px 0px 0px 1fr /1fr 1fr 1fr;
   grid-template-areas: ". title ."
   ". log ."
   ". switch ."
@@ -10,28 +10,50 @@
   flex-flow: column nowrap;
   justify-content: center;
   align-items: center;
+  transition: all 0.1s
 }
 
-.button-sign-in {
-  grid-area: switch;
-  width: 100%;
-  display: grid;
-  grid-template: 1fr / 75% 1fr;
+@media all and (max-width: 700px) {
+  .logForm {
+    display: block;
+    padding-right: 15%;
+    padding-left: 15%;
+    width: 70%;
+  }
 }
 
-.button-sign-in > button {
-  height: 50%;
-  justify-self: center;
-  align-self: center;
+button.absolute-left {
+  position: absolute;
+  left: 0px;
 }
 
-.button-sign-in > h5 {
-  justify-self: center;
-  align-self: center;
+button.absolute-right {
+  position: absolute;
+  right: 0px;
+
 }
 
 .logForm > h1 {
-  grid-area: title;
+  width: 80%;
+  margin-right: auto;
+  margin-left: auto;
+  font-size: 50px;
+  background-color: black;
+  color :rgba(239, 154, 154, 1);
+  animation: opacityLoop 2.5s infinite;
+  text-align: center;
+  border-radius: 80% 40%;
+}
+@keyframes opacityLoop {
+  0% {
+    color: rgba(239, 154, 154, 1);
+  }
+  50% {
+    color: rgba(239, 154, 154, 0.8);
+  }
+  100% {
+    color: rgba(239, 154, 154, 1);
+  }
 }
 
 .logForm > h2 {
@@ -48,18 +70,20 @@
   align-items: flex-start;
 }
 
-.logForm > form > input {
-  width: calc(100% - 1.4em);
-  padding: .3em .6em;
-  margin: .2em 0 .5em 0;
+.logForm > form > label {
+  margin: .2em .5em .0em 1.2em;
+  color: rgba(0, 153, 229, 1);
+  font-weight: 500;
 }
 
-.logForm > form > label {
-  margin: .2em .5em .5em .5em;
-}
 
 .logForm > form > button {
   margin: .2em .5em .5em .5em;
 }
 
 
+.relative {
+  position: relative;
+  width: 100%;
+  margin-top: 15px;
+}
