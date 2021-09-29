@@ -1,6 +1,12 @@
 <div *ngIf="!modes.edition && !modes.creation" class="chooseForm">
-  <button (click)="ToggleCreate()">CREATION</button>
-  <button *ngIf="isRestaurantEmployees" (click)="ToggleEdit()">EDITION</button>
+  <div *ngIf="isChargingReastaurant">
+    <i class="loader"></i>
+</div>
+  <div *ngIf="!isChargingReastaurant">
+    <button *ngIf="isRestaurantEmployees" (click)="ToggleEdit()">EDITION</button>
+    <button (click)="ToggleCreate()">CREATION</button>
+  </div>
+
 </div>
 <div *ngIf="modes.edition || modes.creation" class="logForm">
   {{modes.selectedMode}}

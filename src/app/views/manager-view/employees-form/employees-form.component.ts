@@ -34,6 +34,7 @@ export class EmployeesFormComponent implements OnInit {
   public selectedEmployee: any;
   public isSelectedEmployee = false;
   public form: FormGroup;
+  public isChargingReastaurant: boolean = true;
 
   public userRolesChecked = {
     "Cook": false,
@@ -64,6 +65,7 @@ export class EmployeesFormComponent implements OnInit {
       data => {
         this.managerRestaurant = data.body
         this.enableEdition();
+        this.isChargingReastaurant = false;
       }
     )
   }
@@ -220,9 +222,9 @@ export class EmployeesFormComponent implements OnInit {
     })
 
     // Build array of roles ids to add because request need an array of role ids
-    rolesIds = [...employee.roles.map(role => {
+    rolesIds = employee.roles.map(role => {
       return role.id;
-    })]
+    })
 
     // var rolesIdsToRemove = Object.assign([], this.availableRoles.filter(role => {
     //   switch (role.name) {

@@ -1,9 +1,9 @@
-<h2 class="title"> List of stocks </h2>
+<h2 class="custom-title"> List of recipes </h2>
 
 
 <div class="ingredients">
   <div *ngFor="let recipe of restaurantRecipes ; let i = index" class="ingredient-card" >
     <p class="name">{{recipe.name}}</p>
-    <p class="purchasePrice">price: {{recipe.sellingPrice}}</p>
+    <p class="purchasePrice">price: {{recipe.sellingPrice | currency:'EUR'}}</p>
   </div>
 </div>

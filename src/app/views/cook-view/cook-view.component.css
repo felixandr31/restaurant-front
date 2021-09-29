@@ -1,12 +1,13 @@
 #recipes-page {
     position: relative;
-    background-color: #ddd;
+    background-color: #fcf6f6;
     height: 100%;
     height: calc(100vh - 1.4rem);
     width: calc(100% -1.4rem);
     overflow: auto;
-    
+    transform: none;
 }
+
 
 #recipe-creation-form {
     margin-left: 20px;
@@ -119,6 +120,7 @@
 
   button:hover {
     color: #5B9600;
+    transform: none;
   }
 
   button::after {
