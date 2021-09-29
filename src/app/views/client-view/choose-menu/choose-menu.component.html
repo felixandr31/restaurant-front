@@ -2,5 +2,5 @@
 <h3>Menu</h3>
 
 <div *ngFor="let item of restaurant.recipes" class="div-item">
-  <app-choose-menu-item [bill]="bill" [item]="item" (onItemAdd)="itemAdded($event)" (onItemRemove)="itemRemoved($event)"></app-choose-menu-item>
+  <app-choose-menu-item [cachedStocks]="cachedStocks" [bill]="bill" [item]="item" (onItemAdd)="itemAdded($event)" (onItemRemove)="itemRemoved($event)"></app-choose-menu-item>
 </div>

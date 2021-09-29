@@ -2,9 +2,12 @@
   <h5 class="name">
     {{item.name}}
   </h5>
-  <button (click)="addItem($event)" [value]="item.name" class="add button-sizing">Add 1</button>
+  <button *ngIf='availableItem; else ntm' (click)="addItem($event)" [value]="item.name" class="add button-sizing">Add 1</button>
+  <ng-template #ntm>
+    <p>No more stock</p>
+  </ng-template>
   <button *ngIf='line.quantity > 0; else greyButton' (click)="removeItem($event)" [value]=item.name class="remove button-sizing">Remove 1</button>
   <ng-template #greyButton>
-    <button disabled class="remove button-sizing">Remove 1</button>
+    <p>Must add to remove</p>
   </ng-template>
 </div>
