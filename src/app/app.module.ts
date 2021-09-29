@@ -1,7 +1,9 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { NgModule, LOCALE_ID } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-
+import { registerLocaleData } from '@angular/common';
+import localeFr from '@angular/common/locales/fr';
+registerLocaleData(localeFr);
 import { NgxChartsModule } from '@swimlane/ngx-charts'
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import { HttpClientModule } from '@angular/common/http';
@@ -47,8 +49,9 @@ import { StocksComponent } from './views/manager-view/stocks/stocks.component';
 import { TableformComponent } from './views/waiter-view/tableform/tableform.component';
 import { BookformComponent } from './views/waiter-view/bookform/bookform.component';
 import { IngredientListComponent } from './views/manager-view/ingredient-list/ingredient-list.component';
-
 import { SelectBookingComponent } from './views/waiter-view/select-booking/select-booking.component';
+import { RestaurantFormComponent } from './views/admin-view/components/restaurant-form/restaurant-form.component';
+import { UserFormComponent } from './views/admin-view/components/user-form/user-form.component';
 import { IngredientsFormComponent } from './views/admin-view/components/ingredients-form/ingredients-form.component';
 import { SalesGraphComponent } from './views/admin-view/components/sales-graph/sales-graph.component';
 import { RecipePieComponent } from './views/admin-view/components/sales-graph/recipe-pie/recipe-pie.component';
@@ -56,7 +59,6 @@ import { PayingTabComponent } from './views/client-view/paying-tab/paying-tab.co
 import { CommentTabComponent } from './views/client-view/comment-tab/comment-tab.component';
 import { OrderStatusComponent } from './views/waiter-view/order-status/order-status.component';
 import { RecipesComponent } from './views/manager-view/recipes/recipes.component';
-
 
 
 
@@ -98,8 +100,10 @@ import { RecipesComponent } from './views/manager-view/recipes/recipes.component
     StocksComponent,
     TableformComponent,
     BookformComponent,
+    SelectBookingComponent,
+    RestaurantFormComponent,
+    UserFormComponent,
     RecipesComponent,
-    
     IngredientListComponent,
     SelectBookingComponent,
     IngredientsFormComponent,
@@ -123,7 +127,11 @@ import { RecipesComponent } from './views/manager-view/recipes/recipes.component
   providers: [
     MarkerService,
     PopupService,
-    [{provide: MAT_DATE_LOCALE, useValue: 'fr-FR'}]
+    [{provide: MAT_DATE_LOCALE, useValue: 'fr-FR'}],
+    [{
+      provide: LOCALE_ID,
+      useValue: 'fr-FR'
+    }]
   ],
   bootstrap: [AppComponent]
 })

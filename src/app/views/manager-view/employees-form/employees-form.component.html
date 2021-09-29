@@ -1,4 +1,5 @@
 <div *ngIf="!modes.edition && !modes.creation" class="chooseForm">
+<<<<<<< HEAD
   <div *ngIf="isChargingReastaurant">
     <i class="loader"></i>
 </div>
@@ -7,6 +8,10 @@
     <button (click)="ToggleCreate()">CREATION</button>
   </div>
 
+=======
+  <button (click)="ToggleCreate()">CREATION</button>
+  <button *ngIf="isRestaurantEmployees" (click)="ToggleEdit()">EDITION</button>
+>>>>>>> 442012a5f4d42df2cf988c28d2d90131cfa3c530
 </div>
 <div *ngIf="modes.edition || modes.creation" class="logForm">
   {{modes.selectedMode}}
@@ -31,11 +36,11 @@
       </div>
       <div class="formGroup">
         <label for="cook">Cook</label>
-        <input type="checkbox" id="cook" [checked]="cookChecked" formControlName="Cook">
+        <input type="checkbox" id="cook" [checked]="userRolesChecked.Cook" formControlName="Cook">
       </div>
       <div class="formGroup">
         <label for="waiter">Waiter </label>
-        <input type="checkbox" id="waiter" [checked]="waiterChecked" formControlName="Waiter">
+        <input type="checkbox" id="waiter" [checked]="userRolesChecked.Waiter" formControlName="Waiter">
       </div>
 
       <button type="submit" *ngIf="modes.creation">Confirm Creation</button>
@@ -54,35 +59,3 @@
     </div>
   </div>
 </div>
-
-<!-- <div *ngIf="!modes.edition && modes.creation" class="create">
-  CREATION
-  <form [formGroup]="form" (ngSubmit)="onSubmit()">
-    <div>
-      <label>First name: </label>
-      <input name="firstName" formControlName="firstName">
-    </div>
-    <div>
-      <label>Last name: </label>
-      <input name="lastName" formControlName="lastName">
-    </div>
-    <div>
-      <label>Password: </label>
-      <input name="lastName" formControlName="password">
-    </div>
-    <div>
-      <label>email: </label>
-      <input name="lastName" formControlName="email">
-    </div>
-    <div>
-      <label for="cook">Cook</label>
-      <input type="checkbox" id="cook" [checked]="cookChecked" formControlName="cook">
-    </div>
-    <div>
-      <label for="waiter">Waiter </label>
-      <input type="checkbox" id="waiter" [checked]="waiterChecked" formControlName="waiter">
-    </div>
-    <button type="submit">Confirm Creation</button>
-    <button (click)="cancelEdition()">Cancel</button>
-  </form>
-</div> -->
