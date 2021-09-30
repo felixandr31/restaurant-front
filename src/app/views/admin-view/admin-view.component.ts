@@ -37,7 +37,7 @@ export class AdminViewComponent implements OnInit  {
     this.restaurantService.getRestaurants().subscribe(
       data => {
         this.allRestaurants = Object.assign([], data.body)
-        this.notManagedRestaurant = [...this.restaurantHasManager(Object.assign([], data.body))]
+        this.notManagedRestaurant = [this.restaurantHasManager(Object.assign([], data.body))]
         console.log(this.notManagedRestaurant)
       })
 
