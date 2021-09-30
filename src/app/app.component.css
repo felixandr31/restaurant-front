@@ -22,3 +22,29 @@
   width: 100%;
   height: calc(100vh - .5em);
 }
+
+h1 {
+  width: 40%;
+  margin-right: auto;
+  margin-left: auto;
+  margin-top: 50px;
+  font-size: 50px;
+  background-color: black;
+  color: rgba(255,255,255,1);
+  animation: opacityLoop 2.5s infinite;
+  text-align: center;
+  border-radius: 80% 40%;
+}
+@keyframes opacityLoop {
+  0% {
+    /* color: rgba(255,255,255,1); */
+    color: rgba(255, 0, 0, 0.8);
+  }
+  50% {
+    color: rgb(255, 0, 0, 1);
+  }
+  100% {
+    /* color: rgba(255,255,255,1); */
+    color: rgba(255, 0, 0, 0.8);
+  }
+}

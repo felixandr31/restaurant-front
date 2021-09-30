@@ -16,8 +16,7 @@ export class RestaurantsListComponent implements OnInit {
 
   }
 
-  restaurantSelected(event) {
-    console.log(event)
+  restaurantSelection(event) {
     this.onRestaurantSelection.emit(event.target.value);
   }
 

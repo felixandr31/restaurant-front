@@ -9,9 +9,12 @@
   -webkit-user-select: none;
   -moz-user-select: none;
   user-select: none;
-  height: 100%;
-  background-color: #f1f1f1;
-  width: 132px
+  height: 100vh;
+  background-color: #fafafa;
+  width: 132px;
+  border-right: 1px solid #cecece;
+  box-shadow: 0.5px 3px 5px 1px #858585;
+  z-index: 1;
 }
 
 button {
@@ -24,7 +27,13 @@ button {
   outline: none;
   font-size: 18px;
   margin: 1em 0.8em;
-  color: #566473;
+  /* color: #566473; */
+  color: #696969;
+  box-shadow: none;
+}
+
+button:hover {
+  transform: none;
 }
 
 button::after, button::before {

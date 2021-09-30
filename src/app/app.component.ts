@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { UserService } from './services/data/user.service';
+import { RoleService } from './services/data/role.service';
 
 export const OK = 202;
 
@@ -19,11 +20,13 @@ export class AppComponent {
     roles: [],
     friends: []
   }
+  public availableRoles: any;
 
-  constructor(private userService: UserService) {
+  constructor(private userService: UserService, private roleService: RoleService) {
+
   }
 
-  public showView = "";
+  public showView = "Default";
   public showSubView = 'eat';
   public logged = false;
 
@@ -50,6 +53,7 @@ export class AppComponent {
       this.user = event
       this.user = {...this.user}
       console.log('user logged', this.user)
+      this.refreshRoles()
     }
     this.logged = !this.logged;
   }
@@ -61,6 +65,14 @@ export class AppComponent {
         const user = res.find(user => user.id === this.user.id)
         console.log('user refreshed', user)
         return this.user = Object.assign({}, user)
+      }
+    )
+  }
+
+  refreshRoles() {
+    this.roleService.getRoles().subscribe(
+      data => {
+        this.availableRoles = Object.assign([], data.body)
       }
     )
   }

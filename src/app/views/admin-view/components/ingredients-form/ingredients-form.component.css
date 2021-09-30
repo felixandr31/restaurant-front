@@ -8,10 +8,11 @@
         "ingredients editIngredients";
     height     : calc(100vh - .5em);
     width      : 100%;
-    align-items: center;
+    align-items: center;    
 }
 
 #container {
+    width: 80%;
     margin-right: auto;
     margin-left : auto;
 }
@@ -25,18 +26,12 @@ label {
     width  : 120px;
 }
 
-.title {
-    grid-area : title;
-    text-align: center;
-}
-
 .ingredients {
     grid-area  : ingredients;
     display    : flex;
     flex-flow  : column nowrap;
-    padding    : 1em 2em;
     height     : 100%;
-    width      : auto;
+    width      : 100%;
     align-items: center;
     overflow-y : auto;
     -items     : center;
@@ -50,9 +45,9 @@ label {
     grid-template-areas: "name price editIngredient";
     align-items        : flex-start;
     justify-content    : flex-start;
-    width              : 60%;
+    width: 80%;
     max-width          : 350px;
-    border             : 1px solid black;
+    border-bottom: 1px solid black;
     margin             : .2em;
     padding-left       : 0.2em;
 }
@@ -67,6 +62,12 @@ button {
 
 }
 
+  .ingredients-list:last-child {
+      border-bottom: none;
+  }
+
+
+
 .editIngredient {
     box-shadow      : rgba(5, 73, 151, 0.972) 0px 0px 0px 1.5px;
     background-color: rgba(5, 73, 151, 0.7);
@@ -77,9 +78,10 @@ button {
 }
 
 .display-ingredient {
-    box-shadow      : rgba(5, 73, 151, 0.972) 0px 0px 0px 1.5px;
-    background-color: rgba(5, 73, 151, 0.7);
-}
+    color: aliceblue;
+    box-shadow: rgba(5, 73, 151, 0.972) 0px 0px 0px 1.5px;
+    background-color: rgba(5, 73, 151, 0.7); 
+  }
 
 .display-ingredient:hover {
     background-color: rgba(62, 141, 231, 0.8);

@@ -1,0 +1,8 @@
+button {
+    background-color: rgba(var(--orange-button-color), 1);
+}
+
+label {
+    margin: 10px ;
+    color: #6d6d6d;
+}

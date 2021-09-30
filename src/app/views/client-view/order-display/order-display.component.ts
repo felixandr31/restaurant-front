@@ -2,6 +2,7 @@ import { Component, OnInit, Input, OnChanges, SimpleChanges, EventEmitter, Outpu
 import { OrderService } from 'src/app/services/data/order.service';
 import { forkJoin } from 'rxjs';
 import { BookingService } from 'src/app/services/data/booking.service';
+import { StockService } from 'src/app/services/data/stock.service';
 
 
 @Component({
@@ -14,13 +15,15 @@ export class OrderDisplayComponent implements OnInit, OnChanges {
   @Input() booking: any;
   @Input() bill: any = [];
   @Input() user: any;
+  @Input() cachedStocks;
   @Output() onOrder = new EventEmitter();
 
   public orderSent: boolean = false;
   public orderTotal: number = 0;
 
   constructor(private orderService: OrderService,
-    private bookingService: BookingService) { }
+    private bookingService: BookingService,
+    private stockService: StockService) { }
 
   ngOnChanges(changes: SimpleChanges) {
     if (!this.booking.ordered) {
@@ -55,6 +58,12 @@ export class OrderDisplayComponent implements OnInit, OnChanges {
             this.onOrder.emit(data.body)
           }
         )
+      }
+    )
+    const stockQueries = this.cachedStocks.map(box => this.stockService.updateStock(box.id, box))
+    forkJoin(stockQueries).subscribe(
+      data => {
+        console.log("stock modified ?", data)
       }
     )
   }
