@@ -1,8 +1,9 @@
 <div *ngIf="showSubView === 'restaurants'" class="restaurant-view">
   <app-restaurants-list [restaurants]="allRestaurants" (onRestaurantSelection)="selectRestaurant($event)"></app-restaurants-list>
-  <button (click)="triggerRestaurantCreation()">New Restaurant</button>
+  <button (click)="toggleRestaurantCreation()">New Restaurant</button>
   <div *ngIf="creationMode">
-    <app-restaurant-form [restaurant]="triggerCreate"></app-restaurant-form>
+    <button (click)="cancelRestaurantCreation()">Cancel</button>
+    <app-restaurant-form [triggerCreation]="creationMode"></app-restaurant-form>
   </div>
 
   <div *ngIf="isRestaurantSelected">

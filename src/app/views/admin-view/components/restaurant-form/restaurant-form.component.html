@@ -1,16 +1,45 @@
-<div>
-  <label>Budget: </label>{{restaurant.budget}}
+<div *ngIf="!creationMode">
+  <label>Budget</label>{{restaurant.budget}}
   <button (click)="toggleRestaurantEdition()">Edit Restaurant</button>
 </div>
 
-<form *ngIf="editionMode" [formGroup]="restaurantForm" (ngSubmit)="onSubmit()">
+<form *ngIf="displayForm" [formGroup]="restaurantForm" (ngSubmit)="onSubmit()">
   <div class="formGroup">
-    <label>Restaurant name </label>
+    <label>Restaurant name</label>
     <input name="firstName" formControlName="name">
   </div>
   <div class="formGroup">
-    <label>Budget </label>
-    <input type="number" name="budget" formControlName="budget">
+    <label>Budget</label>
+    <input type="number" name="budget" formControlName="budget" [min] = "0">
   </div>
-  <button type="submit">Save modifications</button>
+  <form *ngIf="creationMode" [formGroup]="addressForm">
+    <h6>Address</h6>
+    <div class="formGroup">
+      <label>Street name</label>
+      <input name="streetName" formControlName="streetName">
+    </div>
+    <div class="formGroup">
+      <label>City</label>
+      <input name="city" formControlName="city">
+    </div>
+    <div class="formGroup">
+      <label>ZipCode</label>
+      <input name="zipCode" formControlName="zipCode">
+    </div>
+    <div class="formGroup">
+      <label>Country</label>
+      <input name="country" formControlName="country">
+    </div>
+    <h6>Coordinates</h6>
+    <div class="formGroup">
+      <label>Latitude</label>
+      <input type="number" name="latitude" formControlName="latitude">
+    </div>
+    <div class="formGroup">
+      <label>Longitude</label>
+      <input type="number" name="longitude" formControlName="longitude">
+    </div>
+  </form>
+  <button type="submit">Save</button>
+  <button *ngIf="!creationMode" (click)="cancelForm()">Cancel</button>
 </form>

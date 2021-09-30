@@ -36,14 +36,14 @@ export class AdminViewComponent implements OnInit  {
       })
   }
 
-  triggerRestaurantCreation(){
+  toggleRestaurantCreation(){
     this.isRestaurantSelected = false
     this.selectedRestaurant = {}
-    this.creationMode = !this.creationMode
-    // switch to Edit with empty restaurant?
+    this.creationMode = true
   }
 
   selectRestaurant(event) {
+    this.creationMode = false
     this.isRestaurantSelected = true
     this.selectedRestaurant = this.allRestaurants.find(restaurant => restaurant.id === event)
   }
@@ -52,6 +52,10 @@ export class AdminViewComponent implements OnInit  {
     this.menuItem = event
   }
 
+  cancelRestaurantCreation() {
+    this.isRestaurantSelected = false
+    this.creationMode = false
+  }
 
 
 
