@@ -3,13 +3,34 @@
   <div *ngFor="let employee of restaurant.employees">
     {{employee.lastName}} {{employee.firstName}}
     <span *ngIf="employee.manager"> manager </span>
-    <button (click)="fireEmployee($event)" [value]="employee.id">Fire </button>
+    <button (click)="fireEmployee($event)" [value]="employee.id">Fire</button>
   </div>
 </div>
 <ng-template #noEmployee>
   <h5>This restaurant has not employees yet</h5>
 </ng-template>
-<div>
-  <button (click)="displayAddEmployee()">Add employee</button>
+
+  <button (click)="toggleAddEmployee()">Add employee</button>
+
+<div *ngIf="displayAvailableEmployeeList">
+  Available Employees
+  <div>
+    list
+  </div>
+
+  <form [formGroup]="searchEmployeeForm" >
+    Find employee
+    <div class="formGroup">
+      <label>First Name</label>
+      <input name="firstName" formControlName="firstName">
+    </div>
+    <div class="formGroup">
+      <label>Last Name</label>
+      <input name="lastName" formControlName="lastName" [min] = "0">
+    </div>
+    <button (click)="searchEmployee()">Search</button>
+  </form>
+
+<button (click)="switchToCreateUser()">Create employee</button>
 
 </div>

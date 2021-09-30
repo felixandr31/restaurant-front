@@ -14,10 +14,14 @@ export class EmployeesFormComponent implements OnInit, OnChanges {
 
   @Input() restaurant: any;
 
+  public displayAvailableEmployeeList = false
+  public searchEmployeeForm: FormGroup;
+  public availableEmployees: any;
 
   constructor() { }
 
   ngOnInit() {
+
   }
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -46,7 +50,12 @@ export class EmployeesFormComponent implements OnInit, OnChanges {
     // output modify showsubview + toggle Edit mod + selected user = user
   }
 
+  switchToCreateUser() {
+
+  }
+
   toggleAddEmployee(){
+    this.displayAvailableEmployeeList = true
     // display list of users with role != client and restaurantId!= selected restaurant
     // or list of
     // button addEmployee
@@ -54,6 +63,14 @@ export class EmployeesFormComponent implements OnInit, OnChanges {
   }
 
   addEmployee() {
+
+  }
+
+  refreshUsers() {
+
+  }
+
+  searchEmployee() {
 
   }
 
