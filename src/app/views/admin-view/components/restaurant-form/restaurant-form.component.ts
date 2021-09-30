@@ -1,5 +1,6 @@
-import { Component, OnInit, Input, OnChanges } from '@angular/core';
+import { Component, OnInit, Input, OnChanges, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { RestaurantService } from 'src/app/services/data/restaurant.service';
 
 @Component({
   selector: 'app-restaurant-form',
@@ -10,27 +11,8 @@ export class RestaurantFormComponent implements OnInit, OnChanges {
 
   @Input() restaurant: any;
   @Input() triggerCreation: any;
+  @Output() onRestaurantUpdate: any;
 
-  // public restaurantTemplate = {
-  //   name: '',
-  //   address: {
-  //     streetName: '',
-  //     city: '',
-  //     zipCode: '',
-  //     country: '',
-  //   },
-  //   stars: '0',
-  //   coordinates: {
-  //     latitude: Number,
-  //     longitude: Number,
-  //   },
-  //   employees: [],
-  //   purchases: [],
-  //   recipes: [],
-  //   stocks: [],
-  //   tables: [],
-  //   budget: Number,
-  // };
   public defaultRestaurantFormValues = {
     name: '',
     streetName: '',
@@ -53,7 +35,7 @@ export class RestaurantFormComponent implements OnInit, OnChanges {
   public creationMode = false
   public displayForm = false
 
-  constructor(private formBuilder: FormBuilder, ) { }
+  constructor(private formBuilder: FormBuilder, private restaurantService: RestaurantService ) { }
 
   ngOnInit() {
   }
@@ -107,8 +89,14 @@ export class RestaurantFormComponent implements OnInit, OnChanges {
   }
 
   updateRestaurant() {
-    console.log('update')
-    console.log(this.restaurantForm.value)
+    let restaurantToUpdate = {...this.restaurant}
+
+    for(const key in this.restaurantForm.value) {
+      restaurantToUpdate[key] = this.restaurantForm.value[key]
+    }
+    console.log(restaurantToUpdate)
+    // this.restaurantService.
+    // this.onRestaurantUpdate.emit()
     // this.editionMode = false
     // this.displayForm = false
   }

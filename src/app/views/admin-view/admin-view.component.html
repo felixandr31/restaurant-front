@@ -1,9 +1,9 @@
 <div *ngIf="showSubView === 'restaurants'" class="restaurant-view">
   <app-restaurants-list [restaurants]="allRestaurants" (onRestaurantSelection)="selectRestaurant($event)"></app-restaurants-list>
-  <button (click)="toggleRestaurantCreation()">New Restaurant</button>
+  <button *ngIf="!creationMode" (click)="toggleRestaurantCreation()">New Restaurant</button>
   <div *ngIf="creationMode">
     <button (click)="cancelRestaurantCreation()">Cancel</button>
-    <app-restaurant-form [triggerCreation]="creationMode"></app-restaurant-form>
+    <app-restaurant-form [triggerCreation]="creationMode" (onRestaurantUpdate)="refreshRestaurants()"></app-restaurant-form>
   </div>
 
   <div *ngIf="isRestaurantSelected">
@@ -11,7 +11,7 @@
 
     <div *ngIf="menuItem === 'restaurantEdition'">
       <h3>{{selectedRestaurant.name}}</h3>
-      <app-restaurant-form [restaurant]="selectedRestaurant"></app-restaurant-form>
+      <app-restaurant-form [restaurant]="selectedRestaurant" (onRestaurantUpdate)="refreshRestaurants()"></app-restaurant-form>
       <app-employees-form [restaurant]="selectedRestaurant"></app-employees-form>
     </div>
     <div *ngIf="menuItem === 'graphics'">
