@@ -65,4 +65,9 @@ export class RestaurantService {
     const url = this.url + 'removerecipes/' + restaurantId;
     return this.http.delete(url, recipeIds);
   }
+
+  removeRestaurant(restaurantId){
+    const url = this.url + 'delete/' + restaurantId;
+    return this.http.delete(url);
+  }
 }
