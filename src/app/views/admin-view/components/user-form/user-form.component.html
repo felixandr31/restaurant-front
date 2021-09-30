@@ -4,7 +4,7 @@
 </div>
 
 <div *ngIf="modes.edition || modes.creation" class="logForm">
-  {{modes.selectedMode}}
+  <!-- {{modes.selectedMode}} -->
   <!-- List of existing users -->
   <div *ngIf="modes.edition" class="employee-list">
     <select (change)="userSelection($event)" required class="select">
@@ -37,27 +37,26 @@
         {{userRestaurant.name}}
       </div>
     </div>
-    <div class="formGroup">
-      <label for="admin">Admin </label>
+    <div class="formGroup checkbox">
       <input type="checkbox" id="admin" [checked]="userRolesChecked.Admin" formControlName="Admin">
+      <label for="admin">Admin </label>
     </div>
-    <div *ngIf=" userCanBeManager || userIsManager.was" class="formGroup">
-      <label for="manager">Manager </label>
+    <div *ngIf=" userCanBeManager || userIsManager.was" class="formGroup checkbox">
       <input type="checkbox" id="manager" [checked]="userRolesChecked.Manager" formControlName="Manager">
+      <label for="manager">Manager </label>
     </div>
-    <div class="formGroup">
-      <label for="cook">Cook</label>
+    <div class="formGroup checkbox">
       <input type="checkbox" id="cook" [checked]="userRolesChecked.Cook" formControlName="Cook">
+      <label for="cook">Cook</label>
     </div>
-    <div class="formGroup">
-      <label for="waiter">Waiter </label>
+    <div class="formGroup checkbox">
       <input type="checkbox" id="waiter" [checked]="userRolesChecked.Waiter" formControlName="Waiter">
+      <label for="waiter">Waiter </label>
     </div>
-    <div class="formGroup">
-      <label for="cleaner">Cleaner </label>
+    <div class="formGroup checkbox">
       <input type="checkbox" id="cleaner" [checked]="userRolesChecked.Cleaner" formControlName="Cleaner">
+      <label for="cleaner">Cleaner </label>
     </div>
-    <!-- Buttons -->
     <button type="submit" *ngIf="modes.creation">Confirm Creation</button>
     <div *ngIf="modes.edition && !modes.deletionConfirmation">
       <button type="submit">Update</button>
@@ -65,7 +64,10 @@
   </form>
 
   <!-- Buttons -->
-  <button *ngIf="!modes.deletionConfirmation" (click)="cancelEdition()">Cancel</button>
+  <div *ngIf="!modes.deletionConfirmation" class="center">
+    <button  (click)="cancelEdition()">Cancel</button>
+  </div>
+  
   <div *ngIf="isSelectedUser && modes.edition">
     <button (click)="userDeletionMode()">Delete account</button>
     <div *ngIf="modes.deletionConfirmation">

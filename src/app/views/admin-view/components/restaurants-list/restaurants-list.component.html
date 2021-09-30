@@ -1,4 +1,4 @@
 <div *ngFor="let restaurant of restaurants">
-  <label >{{restaurant.name}}</label>
+  <label class="bold">{{restaurant.name}}</label>
   <button (click)="restaurantSelection($event)" [value]="restaurant.id">Select</button>
 </div>

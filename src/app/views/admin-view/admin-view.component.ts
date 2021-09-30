@@ -22,6 +22,7 @@ export class AdminViewComponent implements OnInit  {
   public maxRestaurantManagers = 1;
   public restaurantManagersId = [];
   public availableEmployees: any;
+  public isLoading: boolean = true;
 
   constructor(private restaurantService: RestaurantService, private userService: UserService) { }
 
@@ -37,7 +38,8 @@ export class AdminViewComponent implements OnInit  {
     this.restaurantService.getRestaurants().subscribe(
       data => {
         this.allRestaurants = Object.assign([], data.body)
-        this.notManagedRestaurant = [...this.restaurantHasManager(Object.assign([], data.body))]
+        this.notManagedRestaurant = [this.restaurantHasManager(Object.assign([], data.body))]
+        this.isLoading = false;
         console.log(this.notManagedRestaurant)
       })
 

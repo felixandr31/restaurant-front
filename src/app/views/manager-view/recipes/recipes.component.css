@@ -48,12 +48,15 @@
     grid-area: name;
     padding-left: .3em;
   }
-  
-  .quantity {
-    grid-area: quantity;
-  }
-  
+
   .purchase-price {
     grid-area: purchasePrice;
   }
   
+  label {
+    color: rgba(var(--manager-blue-label), 1)
+  }
+
+  .custom-title::after {
+    width: 10%;
+  }

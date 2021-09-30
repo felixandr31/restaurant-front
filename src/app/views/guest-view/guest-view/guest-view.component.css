@@ -45,7 +45,7 @@ button.absolute-right {
   border-radius: 80% 40%;
 }
 @keyframes opacityLoop {
-  0% {
+  /* 0% {
     color: rgba(239, 154, 154, 1);
   }
   50% {
@@ -53,6 +53,15 @@ button.absolute-right {
   }
   100% {
     color: rgba(239, 154, 154, 1);
+  } */
+  0% {
+    color: white;
+  }
+  50% {
+    color: red;
+  }
+  100% {
+    color: white;
   }
 }
 
@@ -72,7 +81,7 @@ button.absolute-right {
 
 .logForm > form > label {
   margin: .2em .5em .0em 1.2em;
-  color: rgba(0, 153, 229, 1);
+  /* color: rgba(0, 153, 229, 1); */
   font-weight: 500;
 }
 
@@ -81,9 +90,12 @@ button.absolute-right {
   margin: .2em .5em .5em .5em;
 }
 
-
 .relative {
   position: relative;
   width: 100%;
   margin-top: 15px;
+}
+
+button {
+  background-color: rgba(var(--vivid-blue), 1);
 }

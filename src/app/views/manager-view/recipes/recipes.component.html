@@ -1,9 +1,10 @@
-<h2 class="custom-title"> List of recipes </h2>
-
-
+<h2 class="custom-title">Recipes</h2>
 <div class="ingredients">
-  <div *ngFor="let recipe of restaurantRecipes ; let i = index" class="ingredient-card" >
-    <p class="name">{{recipe.name}}</p>
-    <p class="purchasePrice">price: {{recipe.sellingPrice | currency:'EUR'}}</p>
+  <div *ngIf="isLoading ; else ingCard">
+    <i class="loader"></i>
+  </div>
+  <div  #ingCard *ngFor="let recipe of restaurantRecipes ; let i = index" class="ingredient-card" >
+    <p class="name bold">{{recipe.name}}</p>
+    <p class="purchasePrice">{{recipe.sellingPrice | currency:'EUR'}}</p>
   </div>
 </div>

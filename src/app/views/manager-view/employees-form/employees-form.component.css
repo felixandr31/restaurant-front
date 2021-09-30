@@ -1,24 +1,29 @@
 #content {
   margin-top: 30px;
   margin-left: 100px;
-  display: flex;
-  flex-flow: column nowrap;
 }
 
 .formGroup {
-  display: flex;
-  flex-flow: column nowrap;
+
   margin: 5px
 }
 
-
-.logForm > form > div > button {
-  margin: .2em .5em .5em .5em;
+.inline-block {
+  display: inline-block;
+  width: 100%;
+}
+button {
+  margin: 10px;
+  background-color: rgba(var(--vivid-blue), 1);
 }
 
-button {
-  margin: 0 10px 0 10px;
-  background-color: rgba(239, 154, 154, 1);
+.checkbox {
+  width: 20%;
+  vertical-align: middle;
+}
+
+label {
+  color: rgba(var(--manager-blue-label), 1)
 }
 
 /**

@@ -1,22 +1,22 @@
-<h2 class="custom-title titleStock"> List of stocks </h2>
-<h2 class="custom-title titleIngredient"> List of ingredients </h2>
+<h2 class="custom-title titleStock">Stocks</h2>
+<h2 class="custom-title titleIngredient">Ingredients</h2>
   
 
 <div class="stocks">
   <div *ngFor="let stock of stocks ; let i = index" class="stock-card">
-    <p class="name" >
+    <p class="name bold" >
       {{stock.ingredient.name }}
     </p>
-    <p class="quantity">qty: {{stock.quantity}} </p>
-    <p class="purchase-price">price: {{stock.ingredient.purchasePrice}} &euro;</p>
+    <p class="quantity">available: {{stock.quantity}}</p>
+    <p class="purchase-price">value: {{stock.ingredient.purchasePrice * stock.quantity}} &euro;</p>
   </div>
 </div>
 
 <div class="ingredients">
   <div *ngFor="let ingredient of ingredients ; let i = index" class="ingredient-card" >
-    <p class="name">{{ingredient.name}}</p>
-    <p class="purchasePrice">price: {{ingredient.purchasePrice}}</p>
-    <button (click)="addStock(ingredient)" class="buy">Add To Stock</button>
+    <p class="name bold">{{ingredient.name}}</p>
+    <p class="purchasePrice">{{ingredient.purchasePrice}} €</p>
+    <button (click)="addStock(ingredient)" class="buy">Buy</button>
   </div>
 </div>
 

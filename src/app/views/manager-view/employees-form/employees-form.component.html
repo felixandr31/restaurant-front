@@ -9,7 +9,7 @@
 
 </div>
 <div *ngIf="modes.edition || modes.creation" class="logForm">
-  {{modes.selectedMode}}
+  <!-- <h3>{{modes.selectedMode}}</h3> -->
   <app-employees-list *ngIf="modes.edition" [managerRestaurant]="managerRestaurant" (onEmployeeSelection)="employeeSelection($event)"></app-employees-list>
   <div >
     <form *ngIf="isSelectedEmployee" [formGroup]="form" (ngSubmit)="onSubmit()">
@@ -29,13 +29,13 @@
         <label>email: </label>
         <input name="lastName" formControlName="email">
       </div>
-      <div class="formGroup">
+      <div class=" inline-block">
+        <input type="checkbox" id="cook" class="checkbox" [checked]="userRolesChecked.Cook" formControlName="Cook">
         <label for="cook">Cook</label>
-        <input type="checkbox" id="cook" [checked]="userRolesChecked.Cook" formControlName="Cook">
       </div>
-      <div class="formGroup">
+      <div class="">
+        <input type="checkbox" id="waiter" class="checkbox" [checked]="userRolesChecked.Waiter" formControlName="Waiter">
         <label for="waiter">Waiter </label>
-        <input type="checkbox" id="waiter" [checked]="userRolesChecked.Waiter" formControlName="Waiter">
       </div>
 
       <button type="submit" *ngIf="modes.creation">Confirm Creation</button>
