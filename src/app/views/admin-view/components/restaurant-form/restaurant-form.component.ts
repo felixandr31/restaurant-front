@@ -13,6 +13,15 @@ export class RestaurantFormComponent implements OnInit, OnChanges {
   @Input() triggerCreation: any;
   @Output() onRestaurantUpdate = new EventEmitter();
 
+  public restaurantTemplate = {
+    stars: '0',
+    employees: [],
+    purchases: [],
+    recipes: [],
+    stocks: [],
+    tables: [],
+  }
+
   public defaultRestaurantFormValues = {
     name: '',
     streetName: '',
@@ -101,7 +110,7 @@ export class RestaurantFormComponent implements OnInit, OnChanges {
 
   onSubmit() {
     if (this.editionMode) {
-      this.updateRestaurant()
+      this.updateSelectedRestaurant()
     }
     if (this.relocateMode) {
       this.relocateRestaurant()
@@ -111,41 +120,45 @@ export class RestaurantFormComponent implements OnInit, OnChanges {
     }
   }
 
-  updateRestaurant() {
+  updateSelectedRestaurant() {
     let restaurantToUpdate = { ...this.restaurant }
     for (const key in this.restaurantForm.value) {
       restaurantToUpdate[key] = this.restaurantForm.value[key]
     }
-    console.log(restaurantToUpdate)
-    this.restaurantService.updateRestaurant(restaurantToUpdate.id, restaurantToUpdate).subscribe(
-      data => {
-        console.log(data.body)
-        this.onRestaurantUpdate.emit()
-      }
-    )
+    this.updateRestaurant(restaurantToUpdate)
     this.resetModes()
   }
 
   relocateRestaurant() {
     let restaurantToRelocate = { ...this.restaurant }
-    restaurantToRelocate.address = {...this.addressForm.value}
-    restaurantToRelocate.coordinates = {...this.coordinatesForm.value}
-    console.log(restaurantToRelocate)
-    this.restaurantService.updateRestaurant(restaurantToRelocate.id, restaurantToRelocate).subscribe(
+    restaurantToRelocate.address = { ...this.addressForm.value }
+    restaurantToRelocate.coordinates = { ...this.coordinatesForm.value }
+    this.updateRestaurant(restaurantToRelocate)
+    this.resetModes()
+  }
+
+  updateRestaurant(restaurant) {
+    this.restaurantService.updateRestaurant(restaurant.id, restaurant).subscribe(
       data => {
-        console.log(data.body)
+        this.onRestaurantUpdate.emit()
+      }
+    )
+  }
+
+
+  createRestaurant() {
+    let newRestaurant: any = {...this.restaurantTemplate}
+    for (const key in this.restaurantForm.value) {
+      newRestaurant[key] = this.restaurantForm.value[key]
+    }
+    newRestaurant.address = { ...this.addressForm.value }
+    newRestaurant.coordinates = { ...this.coordinatesForm.value }
+    this.restaurantService.postRestaurant(newRestaurant).subscribe(
+      data => {
         this.onRestaurantUpdate.emit()
       }
     )
     this.resetModes()
-  }
-
-  createRestaurant() {
-    console.log('creation')
-    console.log(this.restaurantForm.value)
-    console.log(this.addressForm.value)
-    console.log(this.coordinatesForm.value)
-    // this.displayForm = false
   }
 
   resetModes() {
