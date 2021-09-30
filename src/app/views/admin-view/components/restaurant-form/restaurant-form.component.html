@@ -1,51 +1,64 @@
 <div *ngIf="!creationMode">
   <label>Budget</label>{{restaurant.budget}}
   <button (click)="toggleRestaurantEdition()">Edit Restaurant</button>
+  <button (click)="toggleRestaurantRelocate()">Relocate Restaurant</button>
 </div>
 
-<form *ngIf="displayForm" [formGroup]="restaurantForm" (ngSubmit)="onSubmit()">
-  <div class="formGroup">
-    <label>Restaurant name</label>
-    <input name="firstName" formControlName="name">
-  </div>
-  <div class="formGroup">
-    <label>Budget</label>
-    <input type="number" name="budget" formControlName="budget" [min] = "0">
-  </div>
-  <form *ngIf="creationMode" [formGroup]="addressForm">
-    <h6>Address</h6>
+<div *ngIf="displayForm">
+  <form *ngIf="creationMode || editionMode" [formGroup]="restaurantForm" (ngSubmit)="onSubmit()">
+    <h5>Restaurant</h5>
     <div class="formGroup">
-      <label>Street name</label>
-      <input name="streetName" formControlName="streetName">
+      <label>Name</label>
+      <input name="firstName" formControlName="name">
     </div>
     <div class="formGroup">
-      <label>City</label>
-      <input name="city" formControlName="city">
-    </div>
-    <div class="formGroup">
-      <label>ZipCode</label>
-      <input name="zipCode" formControlName="zipCode">
-    </div>
-    <div class="formGroup">
-      <label>Country</label>
-      <input name="country" formControlName="country">
-    </div>
-    <h6>Coordinates</h6>
-    <div class="formGroup">
-      <label>Latitude</label>
-      <input type="number" name="latitude" formControlName="latitude">
-    </div>
-    <div class="formGroup">
-      <label>Longitude</label>
-      <input type="number" name="longitude" formControlName="longitude">
+      <label>Budget</label>
+      <input type="number" name="budget" formControlName="budget" [min] = "0">
     </div>
   </form>
-  <button type="submit">Save</button>
-  <button *ngIf="!creationMode" (click)="cancelForm()">Cancel</button>
-  <button (click)="restaurantDeletionMode()">Delete</button>
-    <div *ngIf="deletionConfirmation">
-      <label>Confirm ?</label>
-      <button (click)="onDeletionConfirmation($event)" value="confirmDeletion">Delete</button>
-      <button (click)="onDeletionConfirmation($event)" value="cancelDeletion">Cancel</button>
-    </div>
-</form>
+
+  <div *ngIf="creationMode || relocateMode">
+    <form [formGroup]="addressForm">
+      <h6>Address</h6>
+      <div class="formGroup">
+        <label>Street name</label>
+        <input name="streetName" formControlName="streetName">
+      </div>
+      <div class="formGroup">
+        <label>City</label>
+        <input name="city" formControlName="city">
+      </div>
+      <div class="formGroup">
+        <label>ZipCode</label>
+        <input name="zipCode" formControlName="zipCode">
+      </div>
+      <div class="formGroup">
+        <label>Country</label>
+        <input name="country" formControlName="country">
+      </div>
+    </form>
+    <form [formGroup]="coordinatesForm">
+      <h6>Coordinates</h6>
+      <div class="formGroup">
+        <label>Latitude</label>
+        <input type="number" name="latitude" formControlName="latitude">
+      </div>
+      <div class="formGroup">
+        <label>Longitude</label>
+        <input type="number" name="longitude" formControlName="longitude">
+      </div>
+    </form>
+  </div>
+
+    <button (click)="onSubmit()">Save</button>
+    <button *ngIf="!creationMode" (click)="cancelForm()">Cancel</button>
+    <button *ngIf="editionMode" (click)="restaurantDeletionMode()">Delete</button>
+      <div *ngIf="deletionConfirmation">
+        <label>Confirm ?</label>
+        <button (click)="onDeletionConfirmation($event)" value="confirmDeletion">Delete</button>
+        <button (click)="onDeletionConfirmation($event)" value="cancelDeletion">Cancel</button>
+      </div>
+
+</div>
+
+

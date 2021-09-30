@@ -31,12 +31,14 @@ export class RestaurantFormComponent implements OnInit, OnChanges {
   };
   public restaurantForm: FormGroup;
   public addressForm: FormGroup;
+  public coordinatesForm: FormGroup;
   public editionMode = false;
   public creationMode = false;
+  public relocateMode = false;
   public displayForm = false;
   deletionConfirmation = false;
 
-  constructor(private formBuilder: FormBuilder, private restaurantService: RestaurantService ) { }
+  constructor(private formBuilder: FormBuilder, private restaurantService: RestaurantService) { }
 
   ngOnInit() {
   }
@@ -61,37 +63,57 @@ export class RestaurantFormComponent implements OnInit, OnChanges {
       city: ['', Validators.required],
       zipCode: ['', Validators.required],
       country: ['', Validators.required],
+    })
+    this.coordinatesForm = this.formBuilder.group({
       latitude: ['', Validators.required],
       longitude: ['', Validators.required],
     })
   }
 
   toggleRestaurantEdition() {
+    this.resetModes()
     this.displayForm = true
     this.editionMode = true
     this.restaurantForm.patchValue(this.restaurant)
   }
 
+  toggleRestaurantRelocate() {
+    this.resetModes()
+    this.displayForm = true
+    this.relocateMode = true
+    this.addressForm.patchValue(this.restaurant.address)
+    this.coordinatesForm.patchValue(this.restaurant.coordinates)
+  }
+
+  initRestaurantCreation() {
+    this.resetModes()
+    this.displayForm = true
+    this.creationMode = true
+    this.resetSelectedRestaurant()
+    this.restaurantForm.patchValue(this.restaurant)
+    this.addressForm.patchValue(this.restaurant)
+    this.coordinatesForm.patchValue(this.restaurant)
+  }
+
+  resetSelectedRestaurant() {
+    this.restaurant = { ...this.defaultRestaurantFormValues }
+  }
+
   onSubmit() {
     if (this.editionMode) {
       this.updateRestaurant()
-    } else {
+    }
+    if (this.relocateMode) {
+      this.relocateRestaurant()
+    }
+    if (this.creationMode) {
       this.createRestaurant()
     }
   }
 
-  initRestaurantCreation() {
-    this.creationMode = true
-    this.displayForm = true
-    this.editionMode = false
-    this.resetSelectedRestaurant()
-    this.restaurantForm.patchValue(this.restaurant)
-    this.addressForm.patchValue(this.restaurant)
-  }
-
   updateRestaurant() {
-    let restaurantToUpdate = {...this.restaurant}
-    for(const key in this.restaurantForm.value) {
+    let restaurantToUpdate = { ...this.restaurant }
+    for (const key in this.restaurantForm.value) {
       restaurantToUpdate[key] = this.restaurantForm.value[key]
     }
     console.log(restaurantToUpdate)
@@ -101,25 +123,36 @@ export class RestaurantFormComponent implements OnInit, OnChanges {
         this.onRestaurantUpdate.emit()
       }
     )
-    this.editionMode = false
-    this.displayForm = false
+    this.resetModes()
+  }
+
+  relocateRestaurant() {
+    let restaurantToRelocate = { ...this.restaurant }
+    restaurantToRelocate.address = {...this.addressForm.value}
+    restaurantToRelocate.coordinates = {...this.coordinatesForm.value}
+    console.log(restaurantToRelocate)
+    this.restaurantService.updateRestaurant(restaurantToRelocate.id, restaurantToRelocate).subscribe(
+      data => {
+        console.log(data.body)
+        this.onRestaurantUpdate.emit()
+      }
+    )
+    this.resetModes()
   }
 
   createRestaurant() {
     console.log('creation')
     console.log(this.restaurantForm.value)
     console.log(this.addressForm.value)
+    console.log(this.coordinatesForm.value)
     // this.displayForm = false
-  }
-
-  resetSelectedRestaurant() {
-    this.restaurant = { ...this.defaultRestaurantFormValues }
   }
 
   resetModes() {
     this.displayForm = false
     this.editionMode = false
     this.creationMode = false
+    this.relocateMode = false
   }
 
   cancelForm() {
@@ -138,7 +171,7 @@ export class RestaurantFormComponent implements OnInit, OnChanges {
       ,
     };
     if (event.target.value === "confirmDeletion") {
-    // for each restaurant.employees => update restaurantId(slice(findindex))
+      // for each restaurant.employees => update restaurantId(slice(findindex))
 
       this.restaurantService.removeRestaurant(restaurantToDelete.id).subscribe(
         data => {
@@ -149,4 +182,7 @@ export class RestaurantFormComponent implements OnInit, OnChanges {
     this.deletionConfirmation = false
     this.cancelForm();
   }
+
+
+
 }
