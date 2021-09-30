@@ -10,20 +10,20 @@ export class StockService {
   }
   private url = 'http://localhost:8080/backend-filrouge/stock/'
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
   getStocks() {
     const url = this.url + 'stocks'
-    return this.http.get(url, {observe: 'response'});
+    return this.http.get(url, { observe: 'response' });
   }
 
-  createStock(stock){
-  const url = this.url + 'create'
-  return this.http.post(url, stock, {observe: 'response'});
-}
+  createStock(stock) {
+    const url = this.url + 'create'
+    return this.http.post(url, stock, { observe: 'response' });
+  }
 
- updateStock(id, stock){
-  const url = this.url + 'update/' + id
-  return this.http.put(url, stock, {observe: 'response'});
-}
+  updateStock(id, stock) {
+    const url = this.url + 'update/' + id
+    return this.http.put(url, stock, { observe: 'response' });
+  }
 }
