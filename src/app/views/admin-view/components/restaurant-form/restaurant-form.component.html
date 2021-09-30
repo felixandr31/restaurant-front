@@ -42,4 +42,10 @@
   </form>
   <button type="submit">Save</button>
   <button *ngIf="!creationMode" (click)="cancelForm()">Cancel</button>
+  <button (click)="restaurantDeletionMode()">Delete</button>
+    <div *ngIf="deletionConfirmation">
+      <label>Confirm ?</label>
+      <button (click)="onDeletionConfirmation($event)" value="confirmDeletion">Delete</button>
+      <button (click)="onDeletionConfirmation($event)" value="cancelDeletion">Cancel</button>
+    </div>
 </form>

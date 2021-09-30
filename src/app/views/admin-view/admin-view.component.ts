@@ -30,9 +30,11 @@ export class AdminViewComponent implements OnInit  {
   }
 
   refreshRestaurants() {
+    let restaurantId = this.selectedRestaurant.id
     this.restaurantService.getRestaurants().subscribe(
       data => {
         this.allRestaurants = Object.assign([], data.body)
+        this.selectedRestaurant = this.allRestaurants.find(restaurant => restaurant.id === restaurantId)
       })
   }
 
@@ -56,7 +58,6 @@ export class AdminViewComponent implements OnInit  {
     this.isRestaurantSelected = false
     this.creationMode = false
   }
-
 
 
 }

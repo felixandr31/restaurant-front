@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, OnChanges, Output } from '@angular/core';
+import { Component, OnInit, Input, OnChanges, Output, EventEmitter } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { RestaurantService } from 'src/app/services/data/restaurant.service';
 
@@ -11,7 +11,7 @@ export class RestaurantFormComponent implements OnInit, OnChanges {
 
   @Input() restaurant: any;
   @Input() triggerCreation: any;
-  @Output() onRestaurantUpdate: any;
+  @Output() onRestaurantUpdate = new EventEmitter();
 
   public defaultRestaurantFormValues = {
     name: '',
@@ -32,8 +32,9 @@ export class RestaurantFormComponent implements OnInit, OnChanges {
   public restaurantForm: FormGroup;
   public addressForm: FormGroup;
   public editionMode = false;
-  public creationMode = false
-  public displayForm = false
+  public creationMode = false;
+  public displayForm = false;
+  deletionConfirmation = false;
 
   constructor(private formBuilder: FormBuilder, private restaurantService: RestaurantService ) { }
 
@@ -90,15 +91,18 @@ export class RestaurantFormComponent implements OnInit, OnChanges {
 
   updateRestaurant() {
     let restaurantToUpdate = {...this.restaurant}
-
     for(const key in this.restaurantForm.value) {
       restaurantToUpdate[key] = this.restaurantForm.value[key]
     }
     console.log(restaurantToUpdate)
-    // this.restaurantService.
-    // this.onRestaurantUpdate.emit()
-    // this.editionMode = false
-    // this.displayForm = false
+    this.restaurantService.updateRestaurant(restaurantToUpdate.id, restaurantToUpdate).subscribe(
+      data => {
+        console.log(data.body)
+        this.onRestaurantUpdate.emit()
+      }
+    )
+    this.editionMode = false
+    this.displayForm = false
   }
 
   createRestaurant() {
@@ -122,4 +126,27 @@ export class RestaurantFormComponent implements OnInit, OnChanges {
     this.resetModes()
   }
 
+  restaurantDeletionMode() {
+    this.deletionConfirmation = true
+  }
+
+  onDeletionConfirmation(event) {
+    const restaurantToDelete: any = { ...this.restaurant }
+    const options = {
+      body:
+        [restaurantToDelete.id]
+      ,
+    };
+    if (event.target.value === "confirmDeletion") {
+    // for each restaurant.employees => update restaurantId(slice(findindex))
+
+      this.restaurantService.removeRestaurant(restaurantToDelete.id).subscribe(
+        data => {
+          this.onRestaurantUpdate.emit()
+        }
+      )
+    }
+    this.deletionConfirmation = false
+    this.cancelForm();
+  }
 }
