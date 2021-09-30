@@ -26,7 +26,7 @@ export class AppComponent {
 
   }
 
-  public showView = "";
+  public showView = "Default";
   public showSubView = 'eat';
   public logged = false;
 

@@ -7,7 +7,6 @@
   <p>Transactions view</p>
 </div>
 <div *ngIf="showSubView === 'recipes'" class="recipes-view">
-  <p>Recipes view</p>
   <app-recipes [user]="user"></app-recipes>
 </div>
 <div *ngIf="showSubView === 'stocks'" class="stocks-view">

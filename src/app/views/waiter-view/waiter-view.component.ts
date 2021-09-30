@@ -1,7 +1,4 @@
 import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
-
-
-
 import { BookingService } from 'src/app/services/data/booking.service';
 import { CookService } from 'src/app/services/data/cook.service';
 import { RestaurantService } from 'src/app/services/data/restaurant.service';
@@ -15,7 +12,6 @@ import { error } from 'util';
 })
 export class WaiterViewComponent implements OnInit, OnChanges {
 
-
   public restaurant: any;
   public restaurantTables: any = []
   public tablesBooking: any;
@@ -26,29 +22,17 @@ export class WaiterViewComponent implements OnInit, OnChanges {
 
   private today = new Date()
 
-
-
-
-
-  // public reservationDate = {
-  //   day: this.today.toISOString().replace( /^(?<year>\d+)-(?<month>\d+)-(?<day>\d+)T.*$/,'$<year>-$<month>-$<day>')
-
-  // }
-
   public reservationDate = {
     day: ""
   }
 
   public todaysBookings: any = []
 
-  //public isCreatingRecipe: boolean = true;
   public isCreatingTable = true
 
   constructor(private bookingService: BookingService, private tableService: TableService, private restaurantService: RestaurantService, private cookSevice: CookService) { }
 
-
   ngOnInit() {
-     
   }
 
   ngOnChanges() {
@@ -76,14 +60,13 @@ export class WaiterViewComponent implements OnInit, OnChanges {
             if (booking.day.substring(0, 10) == this.reservationDate.day) {
               this.todaysBookings.push(booking)
             }
-
           });
         }
       )
     });
   }
 
-   showTables() {
+    showTables() {
     this.restaurantService.getRestaurantById(this.user.restaurantId).subscribe(
       data => {
         console.log(data.body)
@@ -96,17 +79,4 @@ export class WaiterViewComponent implements OnInit, OnChanges {
       }
     )
   }
-
-  
-
-
-
-
-
-
-
 }
-
-
-
-

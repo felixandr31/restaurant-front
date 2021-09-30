@@ -18,8 +18,6 @@ export class SalesGraphComponent implements OnInit, OnChanges {
   constructor(private bookingService: BookingService) { }
 
   ngOnInit() {
-    // console.log('restaurant', this.restaurant)
-    // this.getRecipesSales();
   }
 
   ngOnChanges() {
@@ -40,15 +38,6 @@ export class SalesGraphComponent implements OnInit, OnChanges {
         filtered.forEach(bookings => {
           bookings.body.map(booking => {
             booking.orders.map(order => {
-              // this.recipesSales[order.item.name] ?
-              // this.recipesSales[order.item.name].quantity += order.quantity :
-              // this.recipesSales[order.item.name] = {
-              //   name: order.item.name,
-              //   itemId: order.item.id,
-              //   craftingPrice: order.item.craftingPrice,
-              //   sellingPrice: order.item.sellingPrice,
-              //   quantity: order.quantity
-              // }
               temp1[order.item.name] ?
               temp1[order.item.name].quantity += order.quantity :
               temp1[order.item.name] = {
@@ -64,14 +53,8 @@ export class SalesGraphComponent implements OnInit, OnChanges {
         Object.keys(temp1).map(key => {
           temp2.push(temp1[key]);
         })
-        // this.recipesSales = Object.assign([], ...this.recipesSales)
         this.recipesSales = temp2;
-
-        // this.recipesSales = [...this.recipesSales, ...temp]
-        console.log('recipe sales', {...this.recipesSales})
-        console.log('size', this.recipesSales.length)
       }
     )
   }
-
 }
