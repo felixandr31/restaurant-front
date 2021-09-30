@@ -1,19 +1,20 @@
 :host {
-    display            : grid;
-    grid-template-columns     : 1fr 1fr ;
-    grid-template-rows: 80px 1fr;
-    grid-column-gap: 10px;
-    grid-template-areas: "title title"
-        "ingredients display-ingredient";
-    height: calc(100vh - .5em); 
-    width: 100%;
-    align-items: center;
+    display              : grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows   : 80px 1fr;
+    grid-column-gap      : 10px;
+    grid-template-areas  : "title title"
+        "ingredients display-ingredient"
+        "ingredients editIngredients";
+    height     : calc(100vh - .5em);
+    width      : 100%;
+    align-items: center;    
 }
 
 #container {
     width: 80%;
     margin-right: auto;
-    margin-left: auto;
+    margin-left : auto;
 }
 
 .form-group {
@@ -22,7 +23,7 @@
 
 label {
     display: inline-block;
-    width: 120px;
+    width  : 120px;
 }
 
 .ingredients {
@@ -38,49 +39,61 @@ label {
 
 
 .ingredients-list {
-    display: grid;
-    height: 50px;
-    grid-template: 1fr / 50% 45%;
-    grid-template-areas: "name price";
-    align-items: flex-start;
-    justify-content: flex-start;
+    display            : grid;
+    height             : 50px;
+    grid-template      : 1fr / 45% 25% 30%;
+    grid-template-areas: "name price editIngredient";
+    align-items        : flex-start;
+    justify-content    : flex-start;
     width: 80%;
-    max-width: 350px;
+    max-width          : 350px;
     border-bottom: 1px solid black;
-    margin: .2em;
-    padding-left: 0.2em;
-  }
+    margin             : .2em;
+    padding-left       : 0.2em;
+}
+
+button {
+    font-size    : 1.2em;
+    padding      : 0.5em 1em;
+    color        : aliceblue;
+    transition   : box-shadow 0.3s, background-color 0.3s;
+    margin-bottom: 20px;
+    cursor       : pointer;
+
+}
 
   .ingredients-list:last-child {
       border-bottom: none;
   }
 
-  button {
-    font-size: 1.2em;
-    padding: 0.5em 1em;
 
-    transition: box-shadow 0.3s, background-color 0.3s; 
-    margin-bottom: 20px;
-    cursor: pointer;
+
+.editIngredient {
+    box-shadow      : rgba(5, 73, 151, 0.972) 0px 0px 0px 1.5px;
+    background-color: rgba(5, 73, 151, 0.7);
 }
 
-  .display-ingredient {
+.editIngredient:hover {
+    background-color: rgba(62, 141, 231, 0.8);
+}
+
+.display-ingredient {
     color: aliceblue;
     box-shadow: rgba(5, 73, 151, 0.972) 0px 0px 0px 1.5px;
     background-color: rgba(5, 73, 151, 0.7); 
   }
 
-  .display-ingredient:hover {
+.display-ingredient:hover {
     background-color: rgba(62, 141, 231, 0.8);
 }
 
 
-#submit{
-    background-color: rgba(5, 73, 151, 0.7); 
-
+.submit {
+    background-color: rgba(5, 73, 151, 0.7);
 }
-.alert{
+
+.alert {
     background-color: rgb(212, 18, 18, 0.4);
-    border: 1px solid black;
-    color: aliceblue;
+    border          : 1px solid black;
+    color           : aliceblue;
 }
