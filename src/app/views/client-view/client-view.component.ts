@@ -33,6 +33,7 @@ export class ClientViewComponent implements OnInit, OnChanges {
   public bill = [];
 
   private currentMenu = [];
+  public cachedStocks;
 
   constructor(
     private restaurantService: RestaurantService,
@@ -71,6 +72,7 @@ export class ClientViewComponent implements OnInit, OnChanges {
         this.restaurantService.getRestaurantByTableId(this.currentBooking.table.id).subscribe(
           data => {
             this.restaurantReservation = data.body
+            this.cachedStocks = this.restaurantReservation.stocks
             this.currentMenu = this.restaurantReservation.recipes;
             this.bill = []
           }
@@ -85,11 +87,15 @@ export class ClientViewComponent implements OnInit, OnChanges {
 
   itemAdded(event) {
     this.addToBill(event);
+    this.removeFromStock(event);
+    console.log('stock status', this.cachedStocks)
     this.bill = this.bill.slice(0) // {...this.bill} Object.assign({}, this.bill) JSON.parse(JSON.stingify(this.bill)) (ou voir avec lodash : cloneDeep())
   }
 
   itemRemoved(event) {
     this.removeFromBill(event);
+    this.addToStock(event);
+    console.log('stock status', this.cachedStocks)
     this.bill = this.bill.slice(0)
   }
 
@@ -103,6 +109,18 @@ export class ClientViewComponent implements OnInit, OnChanges {
     console.log('la facture', this.bill);
   }
 
+  removeFromStock(recipeName) {
+    const currentRecipe = this.restaurantReservation.recipes.find(recipe => recipe.name === recipeName)
+    currentRecipe.ingredientsRecipe.forEach(ingR => {
+      this.cachedStocks.forEach(stock => {
+        if (stock.ingredient.id === ingR.ingredient.id) {
+          stock.quantity -= ingR.quantity
+        }
+      })
+    })
+    this.cachedStocks = this.cachedStocks.slice(0)
+  }
+
   removeFromBill(item) {
     if (this.bill.length < 1
       || !this.bill.find(it => it.item.name === item)
@@ -111,6 +129,18 @@ export class ClientViewComponent implements OnInit, OnChanges {
     } else {
       this.bill.filter(line => line.item.name === item).map(line => line.quantity -= 1)
     }
+  }
+
+  addToStock(recipeName) {
+    const currentRecipe = this.restaurantReservation.recipes.find(recipe => recipe.name === recipeName)
+    currentRecipe.ingredientsRecipe.forEach(ingR => {
+      this.cachedStocks.forEach(stock => {
+        if (stock.ingredient.id === ingR.ingredient.id) {
+          stock.quantity += ingR.quantity
+        }
+      })
+    })
+    this.cachedStocks = this.cachedStocks.slice(0)
   }
 
   refreshUser(event) {

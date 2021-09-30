@@ -53,10 +53,10 @@ removeItem(event) {
   availabilityCheck(stock) {
     this.availableItem = true;
     this.item.ingredientsRecipe.forEach(ingR => {
-      stock.forEach(lul => {
-        if (lul.ingredient.id === ingR.ingredient.id) {
-          if(lul.quantity < ingR.quantity) {
-            console.log('missing ingredient', lul.ingredient, lul.quantity)
+      stock.forEach(box => {
+        if (box.ingredient.id === ingR.ingredient.id) {
+          if(box.quantity < ingR.quantity) {
+            console.log('missing ingredient', box.ingredient, box.quantity)
             return this.availableItem = false
           }
         }

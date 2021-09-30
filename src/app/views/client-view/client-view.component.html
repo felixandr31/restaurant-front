@@ -21,10 +21,10 @@
 <div *ngIf="showSubView === 'eat'" class="reservation-view">
   <app-reservation-list [user]="user"
   (onReservationSelection)="reservationSelected($event)" class="resa-select"></app-reservation-list>
-  <app-choose-menu [restaurant]="restaurantReservation" [bill]="bill" class="resa-menu"
+  <app-choose-menu [restaurant]="restaurantReservation" [bill]="bill" [cachedStocks]="cachedStocks" class="resa-menu"
   (onItemAdded)="itemAdded($event)"
   (onItemRemoved)="itemRemoved($event)"></app-choose-menu>
-  <app-order-display [user]="user" [booking]="currentBooking"
+  <app-order-display [user]="user" [booking]="currentBooking" [cachedStocks]="cachedStocks"
   [bill]="bill" class="order" (onOrder)="refreshBooking($event)"></app-order-display>
   <app-paying-tab *ngIf="!currentBooking.payed" [user]="user" [booking]="currentBooking" class="pay"></app-paying-tab>
   <app-comment-tab *ngIf="currentBooking.payed" [user]="user" [booking]="currentBooking" class="pay"></app-comment-tab>
