@@ -9,14 +9,33 @@ import { RoleService } from 'src/app/services/data/role.service';
   templateUrl: './employees-form.component.html',
   styleUrls: ['./employees-form.component.css']
 })
-export class EmployeesFormComponent implements OnInit {
+export class EmployeesFormComponent implements OnInit, OnChanges {
+
 
   @Input() restaurant: any;
+
 
   constructor() { }
 
   ngOnInit() {
+  }
 
+  ngOnChanges(changes: SimpleChanges): void {
+    if (this.restaurant.employees.length > 0) {
+      console.log('restaurant has employees')
+
+      this.restaurant.employees.forEach(employee => {
+        if(employee.roles.includes(role => role.name === 'Manager')) {
+          console.log('employee is manager')
+        }
+        else {
+          console.log('employee is NOT manager')
+        }
+      });
+    }
+    else {
+      console.log('restaurant has NOT employees')
+    }
   }
 
   fireEmployee(event) {

@@ -1,7 +1,15 @@
-        <h5>Employees : </h5>
-        <div *ngFor="let employee of " >
-          {{employee.lastName}} {{employee.firstName}}
-          <span *ngIf="employee.manager"> manager </span>
-          <button (click)="fireEmployee($event)" [value]="employee.id">Fire </button>
-          <button (click)="switchToEditUser()"></button>
-        </div>
+<div *ngIf="restaurant.employees.length > 0; else noEmployee">
+  <h5>Employees : </h5>
+  <div *ngFor="let employee of restaurant.employees">
+    {{employee.lastName}} {{employee.firstName}}
+    <span *ngIf="employee.manager"> manager </span>
+    <button (click)="fireEmployee($event)" [value]="employee.id">Fire </button>
+  </div>
+</div>
+<ng-template #noEmployee>
+  <h5>This restaurant has not employees yet</h5>
+</ng-template>
+<div>
+  <button (click)="displayAddEmployee()">Add employee</button>
+
+</div>

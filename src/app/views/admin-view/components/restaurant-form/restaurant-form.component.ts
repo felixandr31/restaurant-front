@@ -1,6 +1,8 @@
 import { Component, OnInit, Input, OnChanges, Output, EventEmitter } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { RestaurantService } from 'src/app/services/data/restaurant.service';
+import { UserService } from 'src/app/services/data/user.service';
+
 
 @Component({
   selector: 'app-restaurant-form',
@@ -47,7 +49,7 @@ export class RestaurantFormComponent implements OnInit, OnChanges {
   public displayForm = false;
   deletionConfirmation = false;
 
-  constructor(private formBuilder: FormBuilder, private restaurantService: RestaurantService) { }
+  constructor(private formBuilder: FormBuilder, private restaurantService: RestaurantService, private userService: UserService) { }
 
   ngOnInit() {
   }
@@ -147,7 +149,7 @@ export class RestaurantFormComponent implements OnInit, OnChanges {
 
 
   createRestaurant() {
-    let newRestaurant: any = {...this.restaurantTemplate}
+    let newRestaurant: any = { ...this.restaurantTemplate }
     for (const key in this.restaurantForm.value) {
       newRestaurant[key] = this.restaurantForm.value[key]
     }
@@ -184,8 +186,13 @@ export class RestaurantFormComponent implements OnInit, OnChanges {
       ,
     };
     if (event.target.value === "confirmDeletion") {
-      // for each restaurant.employees => update restaurantId(slice(findindex))
-
+      // update employees
+      // if (this.restaurant.employees.length > 0) {
+      //   this.restaurant.employees.forEach(employee => {
+      //     employee.restaurantId.slice(employee.restaurantId.indexOf(this.restaurant.id))
+      //     this.userService.updateUser(employee.id, employee).subscribe()
+      //   });
+      // }
       this.restaurantService.removeRestaurant(restaurantToDelete.id).subscribe(
         data => {
           this.onRestaurantUpdate.emit()
