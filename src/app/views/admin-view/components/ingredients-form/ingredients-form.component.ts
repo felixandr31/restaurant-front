@@ -14,8 +14,8 @@ export class IngredientsFormComponent implements OnInit, OnChanges {
   
   dynamicForm: FormGroup;
   editDynamicForm:FormGroup
-  isDisplayIngredient = false;
-  displayIngredient = false
+  isCreating: boolean = false;
+  isEditing: boolean = false
 
   emptyIngredient: any = {
     name: "",
@@ -64,7 +64,7 @@ export class IngredientsFormComponent implements OnInit, OnChanges {
     this.ingredientService.createIngredient(newIngredient).subscribe(
       data => {
         this.refreshIngredientSubmited.emit()
-        this.isDisplayIngredient = false
+        this.isCreating = false
         this.refreshIngredients()
       }
 
@@ -90,7 +90,7 @@ export class IngredientsFormComponent implements OnInit, OnChanges {
     this.ingredientService.updateIngredient(currentIngredient.id,currentIngredient).subscribe(
       data => {
        
-        this.displayIngredient = false
+        this.isEditing = false
         this.refreshIngredients()
       }
      )
@@ -107,12 +107,14 @@ export class IngredientsFormComponent implements OnInit, OnChanges {
       }
     )
   }
-  isDisplay() {
-    this.isDisplayIngredient = !this.isDisplayIngredient
+  createIngredient() {
+    this.isCreating = true;
+    this.isEditing = false;
   }
 
   editIngredient(ingredient){
-    this.displayIngredient=true;
+    this.isEditing = true;
+    this.isCreating = false;
     this.editingIngredient = ingredient,
     this.editDynamicForm.patchValue({
       id:this.editingIngredient.id,

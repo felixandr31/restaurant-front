@@ -52,45 +52,9 @@ label {
     padding-left       : 0.2em;
 }
 
-button {
-    font-size    : 1.2em;
-    padding      : 0.5em 1em;
-    color        : aliceblue;
-    transition   : box-shadow 0.3s, background-color 0.3s;
-    margin-bottom: 20px;
-    cursor       : pointer;
-
-}
-
   .ingredients-list:last-child {
       border-bottom: none;
   }
-
-
-
-.editIngredient {
-    box-shadow      : rgba(5, 73, 151, 0.972) 0px 0px 0px 1.5px;
-    background-color: rgba(5, 73, 151, 0.7);
-}
-
-.editIngredient:hover {
-    background-color: rgba(62, 141, 231, 0.8);
-}
-
-.display-ingredient {
-    color: aliceblue;
-    box-shadow: rgba(5, 73, 151, 0.972) 0px 0px 0px 1.5px;
-    background-color: rgba(5, 73, 151, 0.7); 
-  }
-
-.display-ingredient:hover {
-    background-color: rgba(62, 141, 231, 0.8);
-}
-
-
-.submit {
-    background-color: rgba(5, 73, 151, 0.7);
-}
 
 .alert {
     background-color: rgb(212, 18, 18, 0.4);
