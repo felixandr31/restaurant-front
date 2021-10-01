@@ -5,7 +5,7 @@
 </div>
 
 <div *ngIf="displayForm">
-  <form *ngIf="creationMode || editionMode" [formGroup]="restaurantForm" (ngSubmit)="onSubmit()">
+  <form *ngIf="creationMode || editionMode" [formGroup]="restaurantForm">
     <h5>Restaurant</h5>
     <div class="formGroup">
       <label>Name</label>
