@@ -9,8 +9,8 @@
 
 
 <div id="container">
-  <button class="display-ingredient" (click) = "isDisplay()">Add new Ingredient </button>
-  <form *ngIf="isDisplayIngredient" id="ingredient-form" [formGroup]="dynamicForm" (ngSubmit)="onCreate()">
+  <button class="display-ingredient" (click) = "createIngredient()">Add new Ingredient </button>
+  <form *ngIf="isCreating" id="ingredient-form" [formGroup]="dynamicForm" (ngSubmit)="onCreate()">
     <div id="content">
       <div class="form-group">
         <label>ingredient:</label>
@@ -33,7 +33,7 @@
 
 <div class="editIngredients" id="container">
   
-  <form *ngIf="displayIngredient" [formGroup]="editDynamicForm" (ngSubmit)="onEdit()">
+  <form *ngIf="isEditing" [formGroup]="editDynamicForm" (ngSubmit)="onEdit()">
     <div id="content">
       <div class="form-group">
         <label>ingredient:</label>

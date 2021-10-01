@@ -1,10 +1,10 @@
 <div *ngIf="showSubView === 'homePage'" class='margin-left'>
-  <h3>Manager view</h3>
+  <h3 class="custom-title">Manager view</h3>
   <div>graphics of restaurant C.A. data</div>
   <div>Stocks alerts</div>
 </div>
 <div *ngIf="showSubView === 'transactions'" class="transactions-view" class='margin-left'>
-  <h3>Transactions view</h3>
+  <h3 class="custom-title">Transactions view</h3>
 </div>
 <div *ngIf="showSubView === 'recipes'" class="recipes-view">
   <app-recipes [user]="user"></app-recipes>
