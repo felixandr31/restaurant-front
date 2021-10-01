@@ -35,3 +35,14 @@ button {
   margin: 0;
   margin-top: 10px;
 }
+
+@media all and (max-width: 680px) {
+  .restaurant-card-grid {
+    margin: 1em;
+    grid-template: 40px 40px 40px / 65% 35%;
+    grid-template-areas:
+        "title button-menu"
+        "stars stars"
+        "address address";
+  }
+}

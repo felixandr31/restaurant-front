@@ -67,3 +67,8 @@
   grid-area: pay;
 }
 
+@media all and (max-width: 680px) {
+  .find-view {
+    display: block;
+  }
+}

@@ -2,11 +2,10 @@
   display: grid;
   grid-template: 70px 1fr /1fr 1fr;
   grid-template-areas: "titleIngredient titleStock"
-  "ingredients stocks";
+  "ingredients stocks" "stock-form .";
   height: calc(100vh - 3em);
   width: 100%;
   align-items: center;
- 
 }
 
 .titleStock {
@@ -19,13 +18,35 @@
   text-align: center;
 }
 
+ .stock-form{
+  grid-area: stock-form;
+  display: flex;
+  flex-flow: column nowrap;
+  height: 50%;
+  width: auto;
+  align-items: center;
+ }
+ .form-group {
+  margin-bottom: 10px;
+}
+
+label {
+  display: inline-block;
+  width  : 120px;
+}
+
+.title {
+  grid-area : title;
+  text-align: center;
+}
+
 .stocks {
   grid-area: stocks;
   display: flex;
   flex-flow: column nowrap;
-  padding: 1em 2em;
   height: 100%;
-  width: auto;
+  width: 100%;
+  justify-content: flex-start;
   align-items: center;
   overflow-y: auto;
 }
@@ -99,7 +120,7 @@ label {
   margin: auto;
   width: 80%;
   height: 180px;
-  padding-top: 20px;
+  padding-top: 5px;
 }
 
 #content label {

@@ -5,3 +5,9 @@
   flex-flow: column wrap;
   overflow-x: auto;
 }
+
+@media all and (max-width: 680px) {
+  :host {
+    height: auto;
+  }
+}

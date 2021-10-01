@@ -49,8 +49,10 @@
     padding-left: .3em;
   }
 
-  .purchase-price {
-    grid-area: purchasePrice;
+  .purchasePrice {
+    /* grid-area: purchasePrice; */
+    display: inline-block;
+    text-align: end;
   }
   
   label {

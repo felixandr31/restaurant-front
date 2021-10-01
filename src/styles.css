@@ -8,6 +8,8 @@
   --default-background-color: 245, 245, 245;
   --default-font-color: 93, 93, 93;
   --dark-grey-font: 50, 50, 50;
+
+  --mobile-view: 680px;
 }
 
 html, body {
@@ -83,7 +85,7 @@ input:focus {
 
 label {
   margin: .2em .5em .0em 1.2em;
-  color: rgba(--var(--grey-label), 1);
+  color: rgba(var(--grey-label), 1);
   font-weight: 500;
   transition:  0.3s;
 }
@@ -96,6 +98,10 @@ label {
 
 h1, h2, h3, h4, h5 {
   color: #3b3b3b;
+}
+
+.relative {
+  position: relative;
 }
 
 

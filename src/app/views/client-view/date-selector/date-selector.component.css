@@ -7,8 +7,10 @@
   width: 42%;
 }
 
-:host > form > button {
-  width: 15%
+button {
+  width: 83px;
+  /* padding: 0.2em 0.6em; */
+  margin-left: 0;
 }
 
 input {
@@ -20,4 +22,41 @@ input {
   height: 20px;
   font-size: 1em;
   padding: 0.8em 1.5em;
+}
+
+label {
+  margin-left:  0;
+ 
+}
+
+.mat-label {
+  font-weight: 500;
+  color: #484848;
+}
+
+option {
+  padding: 1em;
+}
+
+select {
+  padding: 0.8em 1.5em;
+}
+
+mat-datepicker-toggle {
+  margin-left: 10px;
+}
+
+@media all and (max-width: 720px) {
+  mat-datepicker-toggle {
+    display: block;
+    margin-left: 0;
+    margin-right: auto;
+  }
+}
+
+@media all and (max-width: 680px) {
+  :host {
+    display: block;
+    margin-left: 20px ;
+  }
 }

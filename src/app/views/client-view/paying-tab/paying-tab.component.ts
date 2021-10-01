@@ -1,6 +1,7 @@
 import { Component, OnInit, Input, SimpleChange, OnDestroy } from '@angular/core';
 import { BookingService } from 'src/app/services/data/booking.service';
 import { interval, Subscription } from 'rxjs';
+import { RestaurantService } from 'src/app/services/data/restaurant.service';
 
 @Component({
   selector: 'app-paying-tab',
@@ -11,12 +12,14 @@ export class PayingTabComponent implements OnInit, OnDestroy {
 
   @Input() user: any;
   @Input() booking: any;
+  @Input() restaurant: any;
 
   subscription: Subscription = null
   private source = interval(10000)
 
 
-  constructor(private bookingService: BookingService) {
+  constructor(private bookingService: BookingService,
+    private restaurantService: RestaurantService) {
   }
 
   ngOnInit() {
@@ -31,6 +34,7 @@ export class PayingTabComponent implements OnInit, OnDestroy {
         val => {this.refreshBooking()}
       )
     }
+    console.log('restaurant', this.restaurant)
   }
 
   ngOnDestroy() {
@@ -43,7 +47,15 @@ export class PayingTabComponent implements OnInit, OnDestroy {
     this.booking.payed = true;
     this.bookingService.updateBookingStatus(this.booking.id, this.booking).subscribe(
       data => {
-        console.log(data)
+        console.log('payed booking', data)
+        console.log('budget before', this.restaurant.budget)
+        this.restaurant.budget += this.computeTotal(this.booking)
+        console.log('budget after', this.restaurant.budget)
+        this.restaurantService.updateRestaurant(this.restaurant.id, this.restaurant).subscribe(
+          data => {
+            console.log('restaurant budget updated', data)
+          }
+        )
         alert('Dear ' + this.user.firstName + ', thanks for your visit at our place, we hope you had a good time')
       }
     )
@@ -56,5 +68,13 @@ export class PayingTabComponent implements OnInit, OnDestroy {
         console.log(this.booking)
       }
     )
+  }
+
+  computeTotal(booking: any) {
+    const total = booking.orders.reduce((acc, val) => {
+      acc += val.quantity * val.item.sellingPrice
+      return acc
+    },0)
+    return total
   }
 }

@@ -5,32 +5,29 @@
 form {
     width: 35%;
     margin: auto;
-    text-align: center;
+    /* text-align: center; */
 }
 
 form button {
     width: auto;
     margin-right: auto;
     margin-left: auto;
-}
-
-input[type=checkbox] {
-    width: 40%;
-    position: absolute;
-    right: 20%;
-}
-
-.checkbox label {
-    position: absolute;
-    left: 20%;
-}
-
-.checkbox {
-    position: relative;
-    height: 25px;
-    width: 100%;
+    margin-top: 20px;
 }
 
 .center {
     text-align: center;
+}
+
+
+.checkbox {
+    display: inline-block;
+    height: 25px;
+    width: 100%;
+    text-align: left;
+}
+
+input[type=checkbox] {
+    width: 8%;
+    display: inline-block;
 }

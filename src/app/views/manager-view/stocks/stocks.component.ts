@@ -1,6 +1,5 @@
 import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { stringify } from 'querystring';
 import { IngredientService } from 'src/app/services/data/ingredient.service';
 import { RestaurantService } from 'src/app/services/data/restaurant.service';
 import { StockService } from 'src/app/services/data/stock.service';
@@ -18,12 +17,12 @@ export class StocksComponent implements OnInit, OnChanges {
 
 
 
-  isDisplayIngredient = false;
+  // isDisplayIngredient = false;
   isDisplayStock = false;
   public stocks: any[];
   addingIngredient: any;
 
-  dynamicForm: FormGroup;
+  // dynamicForm: FormGroup;
   stockDynamicForm: FormGroup;
   submitted: boolean = false;
 
@@ -51,7 +50,6 @@ export class StocksComponent implements OnInit, OnChanges {
   }
 
   ngOnInit() {
-    this.dynamicForm = this.formBuilder.group(this.groupValidator);
     this.stockDynamicForm = this.formBuilder.group(this.stockGroupValidator);
 
     //  this.stocks = Object.assign([], this.managerRestaurant.stocks) //this.stocks = {...this.managerRestaurant.stocks}// spread operator
@@ -84,12 +82,10 @@ export class StocksComponent implements OnInit, OnChanges {
       data => {
         this.restaurantService.addStockToRestaurant(this.managerRestaurant.id, [data.body["id"]]).subscribe(
           data => {
-            this.refreshStockSubmited.emit()
+           this.refreshStockSubmited.emit()
             this.isDisplayStock = false
           }
         )
-        // this.refreshStockSubmited.emit()
-        // console.log(data)
       }
 
     )}
@@ -101,21 +97,18 @@ export class StocksComponent implements OnInit, OnChanges {
     this.stockService.updateStock(currentStock.id, currentStock).subscribe(
       data=>{
 
-        this.refreshStockSubmited.emit()
+       this.refreshStockSubmited.emit()
         this.isDisplayStock = false
-        // this.restaurantService.addStockToRestaurant(this.managerRestaurant.id, [newStock.ingredient.id]).subscribe(
-        //   data => {
-        //     this.refreshStockSubmited.emit()
-        //     this.isDisplayStock = false
-        //   }
-        // )
+       
       }
     )
   }
+  
+
   }
-  isDisplay() {
-    this.isDisplayIngredient = !this.isDisplayIngredient
-  }
+  //  isDisplay() {
+  //   this.isDisplayIngredient = !this.isDisplayIngredient
+  // }
   addStock(ingredient) {
     this.addingIngredient = ingredient
     this.stockDynamicForm.patchValue({

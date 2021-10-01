@@ -57,7 +57,9 @@
       <input type="checkbox" id="cleaner" [checked]="userRolesChecked.Cleaner" formControlName="Cleaner">
       <label for="cleaner">Cleaner </label>
     </div>
-    <button type="submit" *ngIf="modes.creation">Confirm Creation</button>
+    <div class="center">
+      <button type="submit" *ngIf="modes.creation">Confirm Creation</button>
+    </div>
     <div *ngIf="modes.edition && !modes.deletionConfirmation">
       <button type="submit">Update</button>
     </div>

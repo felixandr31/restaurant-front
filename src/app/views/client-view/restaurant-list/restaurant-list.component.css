@@ -2,3 +2,14 @@
   margin: .5em;
   overflow-y: auto;
 }
+
+@media all and (max-width: var(--mobile-view)) {
+  :host {
+    display: block;
+  }
+}
+@media all and (max-width: 680px) {
+  :host {
+    padding: 1em;
+  }
+}
