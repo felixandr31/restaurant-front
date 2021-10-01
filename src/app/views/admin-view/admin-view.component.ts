@@ -27,12 +27,14 @@ export class AdminViewComponent implements OnInit  {
   public isLoading: boolean = true;
   public creationMode = false;
   public triggerCreate = 'triggerCreate'
+  public availableUsers: any[];
 
 
   constructor(private restaurantService: RestaurantService, private userService: UserService) { }
 
   ngOnInit() {
     this.refreshRestaurants()
+    this.refreshAllUsers()
   }
 
   refreshRestaurants() {
@@ -43,6 +45,15 @@ export class AdminViewComponent implements OnInit  {
         this.isLoading = false;
         this.selectedRestaurant = this.allRestaurants.find(restaurant => restaurant.id === restaurantId)
       })
+  }
+
+  refreshAllUsers() {
+    this.userService.getUsers().subscribe(
+      data => {
+        // Remove logged User from Users list to avoid self modifications
+        this.availableUsers = Object.assign([], data.body).filter((user) => user.id !== this.loggedUser.id)
+      }
+    )
   }
 
   toggleRestaurantCreation(){

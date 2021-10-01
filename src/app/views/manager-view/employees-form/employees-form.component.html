@@ -1,44 +1,37 @@
-<div *ngIf="restaurant.employees.length > 0; else noEmployee">
+<div *ngIf="restaurantHasEmployees; else noEmployees">
   <h5>Employees : </h5>
   <div *ngFor="let employee of restaurant.employees">
     {{employee.lastName}} {{employee.firstName}}
-    <span *ngIf="employee.manager"> manager </span>
-    <button (click)="fireEmployee($event)" [value]="employee.id">Fire </button>
+    <span *ngIf="employee.manager">Is Manager</span>
+    <button (click)="fireEmployee($event)" [value]="employee.id">Fire</button>
   </div>
 </div>
-<div *ngIf="modes.edition || modes.creation" class="logForm">
-  <!-- <h3>{{modes.selectedMode}}</h3> -->
-  <app-employees-list *ngIf="modes.edition" [managerRestaurant]="managerRestaurant" (onEmployeeSelection)="employeeSelection($event)"></app-employees-list>
-  <div >
-    <form *ngIf="isSelectedEmployee" [formGroup]="form" (ngSubmit)="onSubmit()">
-      <div class="formGroup">
-        <label>First name: </label>
-        <input name="firstName" formControlName="firstName">
-      </div>
-      <div class="formGroup">
-        <label>Last name: </label>
-        <input name="lastName" formControlName="lastName">
-      </div>
-      <div *ngIf="modes.creation" class="formGroup">
-        <label>Password: </label>
-        <input name="lastName" formControlName="password">
-      </div>
-      <div class="formGroup">
-        <label>email: </label>
-        <input name="lastName" formControlName="email">
-      </div>
-      <div class=" inline-block">
-        <input type="checkbox" id="cook" class="checkbox" [checked]="userRolesChecked.Cook" formControlName="Cook">
-        <label for="cook">Cook</label>
-      </div>
-      <div class="">
-        <input type="checkbox" id="waiter" class="checkbox" [checked]="userRolesChecked.Waiter" formControlName="Waiter">
-        <label for="waiter">Waiter </label>
-      </div>
-<ng-template #noEmployee>
+<ng-template #noEmployees>
   <h5>This restaurant has not employees yet</h5>
 </ng-template>
-<div>
-  <button (click)="displayAddEmployee()">Add employee</button>
+
+<button (click)="toggleAddEmployee()">Add employee</button>
+<div *ngIf="displayAvailableEmployeeList">
+  <h5>Available Employees</h5>
+  <div *ngFor="let employee of addableEmployees">
+    {{employee.lastName}} {{employee.firstName}}
+    <span *ngIf="employee.manager">Is Manager</span>
+    <button (click)="addEmployee($event)" [value]="employee.id">Add</button>
+  </div>
+
+  <!-- <form [formGroup]="searchEmployeeForm">
+    Find employee
+    <div class="formGroup">
+      <label>First Name</label>
+      <input name="firstName" formControlName="firstName">
+    </div>
+    <div class="formGroup">
+      <label>Last Name</label>
+      <input name="lastName" formControlName="lastName" [min]="0">
+    </div>
+    <button (click)="searchEmployee()">Search</button>
+  </form>
+
+  <button (click)="switchToCreateUser()">Create employee</button> -->
 
 </div>

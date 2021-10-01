@@ -1,7 +1,8 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { UserService } from 'src/app/services/data/user.service';
 import { RestaurantService } from 'src/app/services/data/restaurant.service';
+
 
 @Component({
   selector: 'app-users-form',
@@ -13,14 +14,15 @@ export class UsersFormComponent implements OnInit {
   @Input() loggedUser: any;
   @Input() availableRoles: any;
   @Input() currentView: any;
+  @Input() availableUsers: any;
+  @Output() onUsersUpdate = new EventEmitter();
 
   public userForm: FormGroup;
-  public allUsers: any;
+  // public allUsers: any;
   public usersExist = false;
   public selectedUser: any;
   public isSelectedUser = false;
   public loggedUserIsAdmin = false;
-  public isLoading: boolean = true;
 
   public defaultUserFormValues = {
     firstName: '',
@@ -60,20 +62,9 @@ export class UsersFormComponent implements OnInit {
   constructor(private formBuilder: FormBuilder, private userService: UserService, private restaurantService: RestaurantService) { }
 
   ngOnInit() {
-    this.refreshAllUsers()
+    this.enableEdition()
     this.resetSelectedUser()
     this.createForms()
-  }
-
-  refreshAllUsers() {
-    this.userService.getUsers().subscribe(
-      data => {
-        // Remove logged User from Users list to avoid self modifications
-        this.allUsers = Object.assign([], data.body).filter((user) => user.id !== this.loggedUser.id)
-        this.enableEdition();
-        this.isLoading = false;
-      }
-    )
   }
 
   resetSelectedUser() {
@@ -95,7 +86,7 @@ export class UsersFormComponent implements OnInit {
   }
 
   enableEdition() {
-    if (this.allUsers.length > 0) {
+    if (this.availableUsers.length > 0) {
       this.usersExist = true
     } else {
       this.usersExist = false
@@ -152,7 +143,9 @@ export class UsersFormComponent implements OnInit {
     var user = { ...this.formToJson() };
     this.userService.postUser(user).subscribe(
       data => {
-        this.refreshAllUsers()
+        // this.refreshAllUsers()
+        this.onUsersUpdate.emit()
+        this.enableEdition();
       }
     )
     this.cancelEdition();
@@ -227,11 +220,15 @@ export class UsersFormComponent implements OnInit {
         if (rolesIds.length > 0) {
           this.userService.addRoles(user.id, rolesIds).subscribe(
             data => {
-              this.refreshAllUsers();
+              // this.refreshAllUsers()
+              this.onUsersUpdate.emit()
+              this.enableEdition();
             }
           )
         }
-        this.refreshAllUsers();
+        // this.refreshAllUsers()
+        this.onUsersUpdate.emit()
+        this.enableEdition();
       }
     )
   }
@@ -260,7 +257,9 @@ export class UsersFormComponent implements OnInit {
       // Delete user
       this.userService.deleteUser(user.id).subscribe(
         data => {
-          this.refreshAllUsers()
+          // this.refreshAllUsers()
+          this.onUsersUpdate.emit()
+          this.enableEdition();
         }
       )
     }

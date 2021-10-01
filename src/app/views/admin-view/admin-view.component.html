@@ -18,7 +18,7 @@
     <div *ngIf="menuItem === 'restaurantEdition'">
       <h3>{{selectedRestaurant.name}}</h3>
       <app-restaurant-form [restaurant]="selectedRestaurant" (onRestaurantUpdate)="refreshRestaurants()"></app-restaurant-form>
-      <app-employees-form [restaurant]="selectedRestaurant"></app-employees-form>
+      <app-employees-form [availableUsers]="availableUsers" [restaurant]="selectedRestaurant" (onRestaurantUpdate)="refreshRestaurants()" (onUserUpdate)="refreshAllUsers()"></app-employees-form>
     </div>
     <div *ngIf="menuItem === 'graphics'">
       <app-sales-graph [restaurant]="selectedRestaurant"></app-sales-graph>
@@ -34,7 +34,7 @@
 
 <div *ngIf="showSubView === 'users'" class="users-view">
   <h2 class="custom-title">Users</h2>
-  <app-users-form [availableRoles]="availableRoles" [currentView]="currentView" [loggedUser]="loggedUser"></app-users-form>
+  <app-users-form [availableRoles]="availableRoles" [availableUsers]="availableUsers" [currentView]="currentView" [loggedUser]="loggedUser" (onUsersUpdate)="refreshAllUsers()"></app-users-form>
 </div>
 
 <div *ngIf="showSubView === 'simulations'" class="simulations-view">

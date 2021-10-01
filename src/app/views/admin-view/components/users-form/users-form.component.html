@@ -1,8 +1,4 @@
-
-<div *ngIf="isLoading">
-  <i class="loader"></i>
-</div>
-<div #restauList *ngIf="!modes.edition && !modes.creation &&!isLoading" class="chooseForm">
+<div #restauList *ngIf="!modes.edition && !modes.creation" class="chooseForm">
   <button (click)="ToggleCreate()" class="big-button">CREATE</button>
   <button *ngIf="usersExist" (click)="ToggleEdit()" class="big-button">EDIT</button>
 </div>
@@ -10,7 +6,7 @@
 <div *ngIf="modes.edition || modes.creation" class="logForm">
   <!-- List of existing users -->
   <div *ngIf="modes.edition" class="employee-list">
-    <div *ngFor="let user of allUsers">
+    <div *ngFor="let user of availableUsers">
       <label>{{user.firstName}} {{user.lastName}}</label>
       <button (click)="userSelection($event)" [value]="user.id">Select</button>
     </div>
