@@ -8,8 +8,7 @@
   --default-background-color: 245, 245, 245;
   --default-font-color: 93, 93, 93;
   --dark-grey-font: 50, 50, 50;
-
-  --mobile-view: 680px;
+  --grey-border: 71, 71, 71;
 }
 
 html, body {
