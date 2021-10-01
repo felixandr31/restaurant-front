@@ -1,5 +1,11 @@
 <div *ngIf="showSubView === 'restaurants'" class="restaurant-view">
-  <app-restaurants-list [restaurants]="allRestaurants" (onRestaurantSelection)="selectRestaurant($event)"></app-restaurants-list>
+  <h2 class="custom-title">Restaurants</h2>
+  <div *ngIf="isLoading; else restauList">
+    <i class="loader"></i>
+  </div>
+  <ng-template #restauList> 
+    <app-restaurants-list  [restaurants]="allRestaurants" (onRestaurantSelection)="selectRestaurant($event)"></app-restaurants-list>
+  </ng-template>
   <button *ngIf="!creationMode" (click)="toggleRestaurantCreation()">New Restaurant</button>
   <div *ngIf="creationMode">
     <button (click)="cancelRestaurantCreation()">Cancel</button>
@@ -27,12 +33,12 @@
 </div>
 
 <div *ngIf="showSubView === 'users'" class="users-view">
-  <p>Edit Users</p>
+  <h2 class="custom-title">Users</h2>
   <app-users-form [availableRoles]="availableRoles" [availableUsers]="availableUsers" [currentView]="currentView" [loggedUser]="loggedUser" (onUsersUpdate)="refreshAllUsers()"></app-users-form>
 </div>
 
 <div *ngIf="showSubView === 'simulations'" class="simulations-view">
-  <p>Simulations view</p>
+  <h2 class="custom-title">Simulations</h2>
 </div>
 
 <div *ngIf="showSubView === 'ingredients'" class="ingredients-view">

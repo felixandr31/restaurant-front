@@ -1,7 +1,7 @@
-<h2 class="custom-title">Lists of ingredients</h2>
+<h2 class="custom-title">Ingredients</h2>
 <div class="ingredients">
   <div *ngFor="let ingredient of ingredients ; let i = index" class="ingredients-list">
-    <p class="name">{{ingredient.name}}</p>
+    <p class="name bold">{{ingredient.name}}</p>
     <p class="purchasePrice">price: {{ingredient.purchasePrice}}</p>
     <button (click)="editIngredient(ingredient)" class="editIngredient">Edit</button>
   </div>

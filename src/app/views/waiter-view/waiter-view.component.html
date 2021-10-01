@@ -4,21 +4,25 @@
 <div class="table-page">
   <div id="container">
     <app-tableform *ngIf="isCreatingTable" (refreshTablesAfterSubmit)="showTables()" [restaurantId]="restaurantId" ></app-tableform>
-    <div id="table-row">
-      <div class="title">Tables List</div>
-      <div id="table-bloc">
-        <div class="table"*ngFor = "let table of restaurantTables">{{table.name}}: {{table.capacity}} places</div>
+    <div id="table">
+      <h3>Tables:</h3>
+      <div *ngIf="isLoading ; else tableBloc">
+        <i class="loader"></i>
       </div>
+      <ng-template #tableBloc>
+        <div  id="table-bloc" >
+          <div class="table-row"*ngFor = "let table of restaurantTables"><span class="bold">{{table.name}}</span>: {{table.capacity}} places</div>
+        </div>
+      </ng-template>
     </div>
   </div>
-
 </div>
 
 
 
   <div class="bookings">
   <app-select-booking (onDateSelection)="onDateSelected($event)"></app-select-booking>
-  <p>Booking</p>
+  <h4>Bookings:</h4>
   <table>
     <thead>
       <tr>

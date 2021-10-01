@@ -1,0 +1,33 @@
+.chooseForm {
+    margin-left: 10px ;
+}
+
+form {
+    width: 35%;
+    margin: auto;
+    /* text-align: center; */
+}
+
+form button {
+    width: auto;
+    margin-right: auto;
+    margin-left: auto;
+    margin-top: 20px;
+}
+
+.center {
+    text-align: center;
+}
+
+
+.checkbox {
+    display: inline-block;
+    height: 25px;
+    width: 100%;
+    text-align: left;
+}
+
+input[type=checkbox] {
+    width: 8%;
+    display: inline-block;
+}

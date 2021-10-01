@@ -19,6 +19,12 @@ export class AdminViewComponent implements OnInit  {
   public selectedRestaurant: any= {};
   public isRestaurantSelected = false;
   public menuItem = 'restaurantEdition';
+  public notManagedRestaurant: any;
+  // the following variable could be written in restaurant entity to allow customized limit per restaurant
+  public maxRestaurantManagers = 1;
+  public restaurantManagersId = [];
+  public availableEmployees: any;
+  public isLoading: boolean = true;
   public creationMode = false;
   public triggerCreate = 'triggerCreate'
   public availableUsers: any[];
@@ -36,6 +42,7 @@ export class AdminViewComponent implements OnInit  {
     this.restaurantService.getRestaurants().subscribe(
       data => {
         this.allRestaurants = Object.assign([], data.body)
+        this.isLoading = false;
         this.selectedRestaurant = this.allRestaurants.find(restaurant => restaurant.id === restaurantId)
       })
   }

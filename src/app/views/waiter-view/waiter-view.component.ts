@@ -18,6 +18,7 @@ export class WaiterViewComponent implements OnInit, OnChanges {
   private bookingsAtTime = []
   public restaurantId: String;
   public currentDate: Date;
+  public isLoading: boolean = true;
   @Input() user: any;
 
   private today = new Date()
@@ -73,6 +74,7 @@ export class WaiterViewComponent implements OnInit, OnChanges {
         this.restaurant = data.body;
         this.restaurantTables = this.restaurant.tables
         console.log("les tables", this.restaurantTables)
+        this.isLoading = false;
       },
       err => {
         console.log(error, err)

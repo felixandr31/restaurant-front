@@ -1,0 +1,5 @@
+@media all and (max-width: 680px) {
+    h2 {
+     margin-left: 10px;
+    }
+  }

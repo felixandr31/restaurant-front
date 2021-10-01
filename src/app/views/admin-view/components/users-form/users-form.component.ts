@@ -62,21 +62,10 @@ export class UsersFormComponent implements OnInit {
   constructor(private formBuilder: FormBuilder, private userService: UserService, private restaurantService: RestaurantService) { }
 
   ngOnInit() {
-    // this.refreshAllUsers()
     this.enableEdition()
     this.resetSelectedUser()
     this.createForms()
   }
-
-  // refreshAllUsers() {
-  //   this.userService.getUsers().subscribe(
-  //     data => {
-  //       // Remove logged User from Users list to avoid self modifications
-  //       this.allUsers = Object.assign([], data.body).filter((user) => user.id !== this.loggedUser.id)
-  //       this.enableEdition();
-  //     }
-  //   )
-  // }
 
   resetSelectedUser() {
     this.selectedUser = { ...this.defaultUserFormValues }
@@ -220,7 +209,7 @@ export class UsersFormComponent implements OnInit {
       return role.id;
     })
     // Build array of roles ids to add because request need an array of role ids
-    rolesIds = [...user.roles.map(role => {
+    rolesIds = [user.roles.map(role => {
       return role.id;
     })]
 

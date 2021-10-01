@@ -1,13 +1,13 @@
 #content {
-    margin-top: 30px;
-    margin-left: 100px;
-    display: flex;
-    flex-flow: column nowrap;
+width: 80%;
+display: inline-block;
+text-align: center;
 }
 
-.display-table{
-    margin-left: 100px;
-    margin-top: 30px;
+#container {
+  width: 100%;
+  display: inline-block;
+  text-align: center;
 }
 
 .form-group {
@@ -20,3 +20,9 @@
   max-width: 80%;
   margin: .5em 0 1em 0;
 }
+
+label {
+  margin: 0;
+}
+
+

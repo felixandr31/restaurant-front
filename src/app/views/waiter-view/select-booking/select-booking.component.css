@@ -1,3 +1,17 @@
-form{
-    margin-bottom: 120px;
+:host {
+    width: 90%;
+}
+
+@media all and (max-width: 780px) {
+    :host {
+      display: block;
+    }
+  }
+
+input {
+    width: 60%;
+}
+
+mat-datepicker-toggle {
+    margin-left: 10px;
 }

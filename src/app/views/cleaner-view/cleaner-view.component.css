@@ -1,0 +1,11 @@
+.broom {
+    height: 80vh;
+    margin: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.broom img {
+    pointer-events: none;
+}

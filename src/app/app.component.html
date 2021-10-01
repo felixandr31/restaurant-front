@@ -10,8 +10,8 @@
   <app-manager-view *ngIf="showView === 'Manager'" [showSubView]="showSubView" [loggedUser]="user" [user]="user" [availableRoles]="availableRoles" class="view"></app-manager-view>
   <app-cook-view *ngIf="showView === 'Cook'" class="view" [user]="user"></app-cook-view>
   <app-waiter-view *ngIf="showView === 'Waiter'" [user]="user" class="view"></app-waiter-view>
-  <app-client-view *ngIf="showView === 'Client'" [showSubView]="showSubView" [user]="user" (onUserRefresh)="refreshUser()" class="view">
-  </app-client-view>
+  <app-client-view *ngIf="showView === 'Client'" [showSubView]="showSubView" [user]="user" (onUserRefresh)="refreshUser()" class="view"></app-client-view>
+  <app-cleaner-view *ngIf="showView === 'Cleaner'"></app-cleaner-view>
 </div>
 
 <ng-template #notLogged>

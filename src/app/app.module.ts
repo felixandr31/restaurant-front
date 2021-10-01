@@ -59,8 +59,8 @@ import { PayingTabComponent } from './views/client-view/paying-tab/paying-tab.co
 import { CommentTabComponent } from './views/client-view/comment-tab/comment-tab.component';
 import { OrderStatusComponent } from './views/waiter-view/order-status/order-status.component';
 import { RecipesComponent } from './views/manager-view/recipes/recipes.component';
+import { CleanerViewComponent } from './views/cleaner-view/cleaner-view.component';
 import { UsersFormComponent } from './views/admin-view/components/users-form/users-form.component';
-import { HostListener } from '@angular/core';
 
 
 @NgModule({
@@ -112,6 +112,7 @@ import { HostListener } from '@angular/core';
     RecipePieComponent,
     PayingTabComponent,
     CommentTabComponent,
+    CleanerViewComponent,
     UsersFormComponent,
   ],
   imports: [

@@ -21,3 +21,14 @@
 .menu-item-grid > span {
   grid-area: description;
 }
+
+.buble-price {
+  --buble-size: 38px;
+  background-color: darkblue;
+  border-radius: 50%;
+  color: white;
+  height: var(--buble-size);
+  width: var(--buble-size);
+  text-align: center;
+  line-height: var(--buble-size);
+}

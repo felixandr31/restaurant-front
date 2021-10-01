@@ -1,10 +1,9 @@
-<div *ngIf="!modes.edition && !modes.creation" class="chooseForm">
-  <button (click)="ToggleCreate()">CREATE</button>
-  <button *ngIf="usersExist" (click)="ToggleEdit()">EDIT</button>
+<div #restauList *ngIf="!modes.edition && !modes.creation" class="chooseForm">
+  <button (click)="ToggleCreate()" class="big-button">CREATE</button>
+  <button *ngIf="usersExist" (click)="ToggleEdit()" class="big-button">EDIT</button>
 </div>
 
 <div *ngIf="modes.edition || modes.creation" class="logForm">
-  {{modes.selectedMode}}
   <!-- List of existing users -->
   <div *ngIf="modes.edition" class="employee-list">
     <div *ngFor="let user of availableUsers">
@@ -53,14 +52,18 @@
       </div>
     </div>
     <!-- Buttons -->
-    <button type="submit" *ngIf="modes.creation">Confirm Creation</button>
-    <div *ngIf="modes.edition && !modes.deletionConfirmation">
+    <div class="center">
+      <button type="submit" *ngIf="modes.creation">Confirm</button>
+    </div>
+    <div *ngIf="modes.edition && !modes.deletionConfirmation" class="center">
       <button type="submit">Update</button>
     </div>
   </form>
 
   <!-- Buttons -->
-  <button *ngIf="!modes.deletionConfirmation" (click)="cancelEdition()">Cancel</button>
+  <div *ngIf="!modes.deletionConfirmation" class="center">
+    <button *ngIf="!modes.deletionConfirmation" (click)="cancelEdition()">Cancel</button>
+  </div>
   <div *ngIf="isSelectedUser && modes.edition">
     <button (click)="userDeletionMode()">Delete account</button>
     <div *ngIf="modes.deletionConfirmation">

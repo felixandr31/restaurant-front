@@ -15,6 +15,7 @@ export class RecipesComponent implements OnInit {
   public restaurant: any
   restaurantRecipeList: [];
   restaurantRecipes: any;
+  public isLoading: boolean = true; 
 
   constructor(private restaurantService: RestaurantService) { }
 
@@ -39,9 +40,7 @@ export class RecipesComponent implements OnInit {
         console.log("restaurant?", this.restaurant)
         this.restaurantRecipes = this.restaurant.recipes
         console.log("recipes", this.restaurantRecipes)
-        
-
-
+        this.isLoading = false;
       }
     )
   }

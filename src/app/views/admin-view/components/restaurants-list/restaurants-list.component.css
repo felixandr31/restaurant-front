@@ -1,8 +1,8 @@
 button {
-    background-color: rgba(var(--orange-button-color), 1);
+    background-color: rgba(var(--vivid-blue), 1);
 }
 
 label {
-    margin: 10px ;
-    color: #6d6d6d;
+    display: inline-block;
+    width: 17%;
 }
