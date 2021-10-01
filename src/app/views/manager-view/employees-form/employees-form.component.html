@@ -1,12 +1,10 @@
-<div *ngIf="!modes.edition && !modes.creation" class="chooseForm">
-  <div *ngIf="isChargingReastaurant">
-    <i class="loader"></i>
-</div>
-  <div *ngIf="!isChargingReastaurant">
-    <button *ngIf="isRestaurantEmployees" (click)="ToggleEdit()">EDITION</button>
-    <button (click)="ToggleCreate()">CREATION</button>
+<div *ngIf="restaurant.employees.length > 0; else noEmployee">
+  <h5>Employees : </h5>
+  <div *ngFor="let employee of restaurant.employees">
+    {{employee.lastName}} {{employee.firstName}}
+    <span *ngIf="employee.manager"> manager </span>
+    <button (click)="fireEmployee($event)" [value]="employee.id">Fire </button>
   </div>
-
 </div>
 <div *ngIf="modes.edition || modes.creation" class="logForm">
   <!-- <h3>{{modes.selectedMode}}</h3> -->
@@ -37,20 +35,10 @@
         <input type="checkbox" id="waiter" class="checkbox" [checked]="userRolesChecked.Waiter" formControlName="Waiter">
         <label for="waiter">Waiter </label>
       </div>
+<ng-template #noEmployee>
+  <h5>This restaurant has not employees yet</h5>
+</ng-template>
+<div>
+  <button (click)="displayAddEmployee()">Add employee</button>
 
-      <button type="submit" *ngIf="modes.creation">Confirm Creation</button>
-      <div *ngIf="modes.edition && !modes.deletionConfirmation">
-        <button type="submit">Update</button>
-      </div>
-    </form>
-    <button *ngIf="!modes.deletionConfirmation" (click)="cancelEdition()">Cancel</button>
-    <div *ngIf="isSelectedEmployee && modes.edition">
-      <button (click)="employeeDeletionMode()">Delete account</button>
-      <div *ngIf="modes.deletionConfirmation">
-        <label>Confirm ?</label>
-        <button (click)="onDeletionConfirmation($event)" value="confirmDeletion">Delete</button>
-        <button (click)="onDeletionConfirmation($event)" value='cancelDeletion'>Cancel</button>
-      </div>
-    </div>
-  </div>
 </div>

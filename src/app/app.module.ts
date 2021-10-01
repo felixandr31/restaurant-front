@@ -60,7 +60,7 @@ import { CommentTabComponent } from './views/client-view/comment-tab/comment-tab
 import { OrderStatusComponent } from './views/waiter-view/order-status/order-status.component';
 import { RecipesComponent } from './views/manager-view/recipes/recipes.component';
 import { CleanerViewComponent } from './views/cleaner-view/cleaner-view.component';
-
+import { UsersFormComponent } from './views/admin-view/components/users-form/users-form.component';
 
 
 @NgModule({
@@ -113,6 +113,7 @@ import { CleanerViewComponent } from './views/cleaner-view/cleaner-view.componen
     PayingTabComponent,
     CommentTabComponent,
     CleanerViewComponent,
+    UsersFormComponent,
   ],
   imports: [
     BrowserModule,

@@ -6,22 +6,19 @@
   <ng-template #restauList> 
     <app-restaurants-list  [restaurants]="allRestaurants" (onRestaurantSelection)="selectRestaurant($event)"></app-restaurants-list>
   </ng-template>
+  <button *ngIf="!creationMode" (click)="toggleRestaurantCreation()">New Restaurant</button>
+  <div *ngIf="creationMode">
+    <button (click)="cancelRestaurantCreation()">Cancel</button>
+    <app-restaurant-form [triggerCreation]="creationMode" (onRestaurantUpdate)="refreshRestaurants()"></app-restaurant-form>
+  </div>
 
-  <div *ngIf="selectedRestaurant">
+  <div *ngIf="isRestaurantSelected">
     <app-horizontal-menu (onItemSelection)="selectMenuItem($event)"></app-horizontal-menu>
 
     <div *ngIf="menuItem === 'restaurantEdition'">
       <h3>{{selectedRestaurant.name}}</h3>
-      <div *ngIf="selectedRestaurant.employees.length" class="employeeList">
-        <h5>Employees : </h5>
-        <!-- TODO display label manager if manager -->
-        <div *ngFor="let employee of selectedRestaurant.employees" >
-          {{employee.lastName}} {{employee.firstName}}
-          <span *ngIf="employee.manager"> manager </span>
-          <button (click)="resetUserRolesToClient($event)" [value]="employee.id">Fire </button>
-        </div>
-      </div>
-      <app-restaurant-form [restaurant]="selectedRestaurant"></app-restaurant-form>
+      <app-restaurant-form [restaurant]="selectedRestaurant" (onRestaurantUpdate)="refreshRestaurants()"></app-restaurant-form>
+      <app-employees-form [restaurant]="selectedRestaurant"></app-employees-form>
     </div>
     <div *ngIf="menuItem === 'graphics'">
       <app-sales-graph [restaurant]="selectedRestaurant"></app-sales-graph>
@@ -33,14 +30,11 @@
       <p>recettes : gain/perte</p>
     </div>
   </div>
-
 </div>
 
 <div *ngIf="showSubView === 'users'" class="users-view">
   <h2 class="custom-title">Users</h2>
-  <app-user-form [availableRoles]="availableRoles" [allRestaurants]="allRestaurants"
-    [notManagedRestaurant]="notManagedRestaurant" [loggedUser]="loggedUser" (onRestaurantUpdate)="refreshRestaurants()">
-  </app-user-form>
+  <app-users-form [availableRoles]="availableRoles" [currentView]="currentView" [loggedUser]="loggedUser"></app-users-form>
 </div>
 
 <div *ngIf="showSubView === 'simulations'" class="simulations-view">
