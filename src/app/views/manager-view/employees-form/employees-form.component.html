@@ -1,24 +1,25 @@
-<div *ngIf="restaurant.employees.length > 0; else noEmployee">
+<div *ngIf="restaurantHasEmployees; else noEmployees">
   <h5>Employees : </h5>
   <div *ngFor="let employee of restaurant.employees">
     {{employee.lastName}} {{employee.firstName}}
-    <span *ngIf="employee.manager"> manager </span>
+    <span *ngIf="employee.manager">Is Manager</span>
     <button (click)="fireEmployee($event)" [value]="employee.id">Fire</button>
   </div>
 </div>
-<ng-template #noEmployee>
+<ng-template #noEmployees>
   <h5>This restaurant has not employees yet</h5>
 </ng-template>
 
-  <button (click)="toggleAddEmployee()">Add employee</button>
-
+<button (click)="toggleAddEmployee()">Add employee</button>
 <div *ngIf="displayAvailableEmployeeList">
-  Available Employees
-  <div>
-    list
+  <h5>Available Employees</h5>
+  <div *ngFor="let employee of addableEmployees">
+    {{employee.lastName}} {{employee.firstName}}
+    <span *ngIf="employee.manager">Is Manager</span>
+    <button (click)="addEmployee($event)" [value]="employee.id">Add</button>
   </div>
 
-  <form [formGroup]="searchEmployeeForm" >
+  <!-- <form [formGroup]="searchEmployeeForm">
     Find employee
     <div class="formGroup">
       <label>First Name</label>
@@ -26,11 +27,11 @@
     </div>
     <div class="formGroup">
       <label>Last Name</label>
-      <input name="lastName" formControlName="lastName" [min] = "0">
+      <input name="lastName" formControlName="lastName" [min]="0">
     </div>
     <button (click)="searchEmployee()">Search</button>
   </form>
 
-<button (click)="switchToCreateUser()">Create employee</button>
+  <button (click)="switchToCreateUser()">Create employee</button> -->
 
 </div>

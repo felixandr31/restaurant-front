@@ -7,7 +7,7 @@
   {{modes.selectedMode}}
   <!-- List of existing users -->
   <div *ngIf="modes.edition" class="employee-list">
-    <div *ngFor="let user of allUsers">
+    <div *ngFor="let user of availableUsers">
       <label>{{user.firstName}} {{user.lastName}}</label>
       <button (click)="userSelection($event)" [value]="user.id">Select</button>
     </div>
